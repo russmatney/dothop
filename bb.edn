@@ -1,0 +1,6 @@
+{:paths []
+ :deps  {}
+ :tasks
+ {generate-steam-box-art
+  {:description ""
+   :task        (println "doing the thing")}}}
