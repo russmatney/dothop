@@ -16,5 +16,4 @@
 
   generate-steam-box-art
   {:description ""
-   :task        (println "doing the thing")}
-  }}
+   :task        (tasks/generate-steam-box-art)}}}

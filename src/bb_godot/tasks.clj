@@ -216,3 +216,48 @@
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
 (defn zip []
   (shell-and-log (str "zip " build-dir  ".zip " build-dir "/*")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; steam box art
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(def box-art-defs
+  {:header-capsule   {:x 460 :y 215}
+   :small-capsule    {:x 231 :y 87}
+   :main-capsule     {:x 616 :y 353}
+   :vertical-capsule {:x 374 :y 448}
+   :page-background  {:x 1438 :y 810}
+   :library-capsule  {:x 600 :y 900}
+   :library-hero     {:x 3840 :y 1240}
+   :library-logo     {:x 1280 :y 720}
+   :client-icon      {:x 16 :y 16}
+   :community-icon   {:x 184 :y 184}})
+
+(defn create-aseprite-file [{:keys [x y label]}]
+  (let [dir "assets/brand/box-art/"]
+    (-> (p/$ mkdir -p ~dir) p/check)
+    (let [path (str dir label ".aseprite")]
+      (if (fs/exists? path "aseprite")
+        (println "Skipping existing path " path)
+        (do
+          (notify "Creating aseprite file" (str path) {:notify/id (str path)})
+          (let [result
+                (->
+                  ^{:out :string}
+                  (p/$ ~(aseprite-bin-path)
+                       -b ~(str path)
+                       )
+                  p/check :out)]
+            (when false #_verbose? (println result)))))))
+  )
+
+(defn generate-box-art-source-files []
+  (println "hi")
+
+  (->> box-art-defs
+       (map (fn [[label opts]] (assoc opts :label label)))
+       (take 2)
+       (map create-aseprite-file))
+  )
+
+(defn export-box-art [])
