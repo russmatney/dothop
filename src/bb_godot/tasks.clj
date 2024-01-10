@@ -224,41 +224,54 @@
 (def boxart-base-logo-path "assets/boxart/base_logo.aseprite")
 
 (def boxart-defs
-  {:header-capsule   {:x 460 :y 215}
-   :small-capsule    {:x 231 :y 87}
-   :main-capsule     {:x 616 :y 353}
-   :vertical-capsule {:x 374 :y 448}
-   :page-background  {:x 1438 :y 810}
-   :library-capsule  {:x 600 :y 900}
-   :library-hero     {:x 3840 :y 1240}
-   :library-logo     {:x 1280 :y 720}
-   :client-icon      {:x 16 :y 16}
-   :community-icon   {:x 184 :y 184}})
+  {:header-capsule   {:width 460 :height 215}
+   :small-capsule    {:width 231 :height 87}
+   :main-capsule     {:width 616 :height 353}
+   :vertical-capsule {:width 374 :height 448}
+   :page-background  {:width 1438 :height 810}
+   :library-capsule  {:width 600 :height 900}
+   :library-hero     {:width 3840 :height 1240}
+   :library-logo     {:width 1280 :height 720}
+   :client-icon      {:width 16 :height 16}
+   :community-icon   {:width 184 :height 184}})
 
 (defn create-resized-file
-  [{:keys [base-path overwrite]}
-   {:keys [x y label] :as opts}]
+  [{:keys [base-path overwrite verbose?]}
+   {:keys [width height label] :as opts}]
   (let [dir "assets/boxart/"]
     (-> (p/$ mkdir -p ~dir) p/check)
-    (let [path (str dir label ".aseprite")]
-      (if (fs/exists? path "aseprite")
-        (println "Skipping existing path " path)
+    (let [new-path (str dir (name label) ".aseprite")
+          exists?  (fs/exists? new-path)]
+      (when (and exists? overwrite)
+        (fs/delete new-path))
+      (if (and (not overwrite) exists?)
+        (println "Skipping existing new-path " new-path)
         (do
-          (notify (str "Creating aseprite file: " (str path))
-                  (assoc opts :notify/id (str path)))
+          (println (str "Creating aseprite file: " (str new-path))
+                   (assoc opts :notify/id (str new-path)))
+
+          (fs/copy base-path new-path)
+
           (let [result
                 (->
                   ^{:out :string}
                   (p/$ ~(aseprite-bin-path)
-                       -b ~(str path)
+                       -b
+                       ~(str new-path)
+                       --script-param ~(str "width=" width)
+                       --script-param ~(str "height=" height)
+                       --script "scripts/resize_canvas.lua"
                        )
                   p/check :out)]
-            (when false #_verbose? (println result))))))))
+            (when verbose? (println result))))))))
 
 (comment
+  (name :main-capsule)
   (create-resized-file
-    {:base-path boxart-base-logo-path :overwrite true}
-    {:x 616 :y 353 :label :main-capsule})
+    {:base-path boxart-base-logo-path
+     :overwrite true
+     :verbose?  true}
+    {:width 616 :height 353 :label :main-capsule})
   )
 
 (defn generate-boxart-files []
@@ -269,6 +282,7 @@
        (take 2)
        (map (partial create-resized-file
                      {:base-path boxart-base-logo-path
+                      :verbose?  true
                       :overwrite true})))
   )
 

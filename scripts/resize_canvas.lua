@@ -2,12 +2,12 @@
 -- change_sprite_size --------------------------------------------------------------
 
 function change_sprite_size(w, h)
-  print("resizing! ", w, h)
-
   local s = app.sprite
   print("current sprite", s, s.width, s.height)
 
   s:resize(w, h)
+
+  print("resized sprite", s, s.width, s.height)
   s:saveAs(s.filename)
 end
 
