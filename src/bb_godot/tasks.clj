@@ -221,7 +221,9 @@
 ;; steam box art
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def box-art-defs
+(def boxart-base-logo-path "assets/boxart/base_logo.aseprite")
+
+(def boxart-defs
   {:header-capsule   {:x 460 :y 215}
    :small-capsule    {:x 231 :y 87}
    :main-capsule     {:x 616 :y 353}
@@ -233,14 +235,17 @@
    :client-icon      {:x 16 :y 16}
    :community-icon   {:x 184 :y 184}})
 
-(defn create-aseprite-file [{:keys [x y label]}]
-  (let [dir "assets/brand/box-art/"]
+(defn create-resized-file
+  [{:keys [base-path overwrite]}
+   {:keys [x y label] :as opts}]
+  (let [dir "assets/boxart/"]
     (-> (p/$ mkdir -p ~dir) p/check)
     (let [path (str dir label ".aseprite")]
       (if (fs/exists? path "aseprite")
         (println "Skipping existing path " path)
         (do
-          (notify "Creating aseprite file" (str path) {:notify/id (str path)})
+          (notify (str "Creating aseprite file: " (str path))
+                  (assoc opts :notify/id (str path)))
           (let [result
                 (->
                   ^{:out :string}
@@ -248,16 +253,23 @@
                        -b ~(str path)
                        )
                   p/check :out)]
-            (when false #_verbose? (println result)))))))
+            (when false #_verbose? (println result))))))))
+
+(comment
+  (create-resized-file
+    {:base-path boxart-base-logo-path :overwrite true}
+    {:x 616 :y 353 :label :main-capsule})
   )
 
-(defn generate-box-art-source-files []
+(defn generate-boxart-files []
   (println "hi")
 
-  (->> box-art-defs
+  (->> boxart-defs
        (map (fn [[label opts]] (assoc opts :label label)))
        (take 2)
-       (map create-aseprite-file))
+       (map (partial create-resized-file
+                     {:base-path boxart-base-logo-path
+                      :overwrite true})))
   )
 
-(defn export-box-art [])
+(defn export-boxart [])
