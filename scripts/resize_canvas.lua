@@ -1,19 +1,38 @@
 
+-- useful reference: Kacper's extension: https://thkaspar.itch.io/center-image
+function center_sprite()
+  local s = app.sprite
+  for _, cel in ipairs(app.range.cels) do
+    local x = cel.bounds.x
+    local y = cel.bounds.y
+
+    x = math.floor(s.width / 2) - math.floor(cel.bounds.width / 2)
+    y = math.floor(s.height / 2) - math.floor(cel.bounds.height / 2)
+
+    cel.position = Point(x, y)
+  end
+end
+
 -- change_sprite_size --------------------------------------------------------------
 
 function change_sprite_size(w, h)
   local s = app.sprite
   print("current sprite", s, s.width, s.height, s.pixelRatio)
 
-  local longer = w
+  local longer
 
   if (w < h) then
     longer = h
+  else
+    longer = w
   end
+  print("resizing", w, h, "longer: ", longer)
 
   -- resize to larger dimension
   app.command.SpriteSize({ui=false, width=longer, height=longer, lockRatio=true})
-  print("resized sprite", s.width, s.height)
+  print("resized sprite to longer: ", longer, s.width, s.height)
+
+  center_sprite()
 
   -- crop shorter dimension
   local new_x = 0
@@ -42,8 +61,8 @@ end
 
 app.transaction(
   "main", function()
-    local width = app.params["width"]
-    local height = app.params["height"]
+    local width = tonumber(app.params["width"])
+    local height = tonumber(app.params["height"])
 
     change_sprite_size(width, height)
 end)

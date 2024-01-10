@@ -222,22 +222,23 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (def boxart-base-logo-path "assets/boxart/base_logo.aseprite")
+(def boxart-base-logo-path-wide "assets/boxart/wide_base_logo.aseprite")
 
 (def boxart-defs
-  {:header-capsule   {:width 460 :height 215}
-   :small-capsule    {:width 231 :height 87}
+  {:header-capsule   {:width 460 :height 215 :wide true}
+   :small-capsule    {:width 231 :height 87 :wide true}
    :main-capsule     {:width 616 :height 353}
    :vertical-capsule {:width 374 :height 448}
    :page-background  {:width 1438 :height 810}
    :library-capsule  {:width 600 :height 900}
-   :library-hero     {:width 3840 :height 1240}
+   :library-hero     {:width 3840 :height 1240 :wide true}
    :library-logo     {:width 1280 :height 720}
-   :client-icon      {:width 16 :height 16}
+   :client-icon      {:width 16 :height 16 :skip true}
    :community-icon   {:width 184 :height 184}})
 
 (defn create-resized-file
-  [{:keys [base-path overwrite verbose?]}
-   {:keys [width height label] :as opts}]
+  [{:keys [base-path base-path-wide overwrite verbose?]}
+   {:keys [width height label wide] :as opts}]
   (let [dir "assets/boxart/"]
     (-> (p/$ mkdir -p ~dir) p/check)
     (let [new-path (str dir (name label) ".aseprite")
@@ -250,7 +251,9 @@
           (println (str "Creating aseprite file: " (str new-path))
                    (assoc opts :notify/id (str new-path)))
 
-          (fs/copy base-path new-path)
+          (if wide
+            (fs/copy base-path-wide new-path)
+            (fs/copy base-path new-path))
 
           (let [result
                 (->
@@ -268,22 +271,25 @@
 (comment
   (name :main-capsule)
   (create-resized-file
-    {:base-path boxart-base-logo-path
-     :overwrite true
-     :verbose?  true}
+    {:base-path      boxart-base-logo-path
+     :base-path-wide boxart-base-logo-path-wide
+     :overwrite      true
+     :verbose?       true}
     {:width 616 :height 353 :label :main-capsule})
   )
+
 
 (defn generate-boxart-files []
   (println "hi")
 
   (->> boxart-defs
+       (remove #(-> % :skip))
        (map (fn [[label opts]] (assoc opts :label label)))
-       (take 2)
        (map (partial create-resized-file
-                     {:base-path boxart-base-logo-path
-                      :verbose?  true
-                      :overwrite true})))
+                     {:base-path      boxart-base-logo-path
+                      :base-path-wide boxart-base-logo-path-wide
+                      :verbose?       true
+                      :overwrite      true})))
   )
 
 (defn export-boxart [])
