@@ -4,8 +4,7 @@ extends NaviButtonList
 var themes = []
 
 func _ready():
-	# var ent = Pandora.get_entity(DhTheme.DEBUG)
-	var ent
+	var ent = Pandora.get_entity(PuzzleThemeIDs.DEBUG)
 	if ent:
 		themes = Pandora.get_all_entities(Pandora.get_category(ent._category_id))
 

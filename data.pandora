@@ -3,18 +3,227 @@
 		"_categories": [
 			{
 				"_category_id": "",
-				"_icon_color": "ffffff00",
+				"_generate_ids": true,
+				"_icon_color": "e3f756ff",
 				"_id": "1",
+				"_ids_generation_class": "PuzzleSetIDs",
 				"_index": 0,
-				"_name": "New Category"
+				"_name": "PuzzleSet",
+				"_script_path": "res://src/DotHopPuzzleSet.gd"
+			},
+			{
+				"_category_id": "",
+				"_generate_ids": true,
+				"_icon_color": "be72f2ff",
+				"_id": "3",
+				"_ids_generation_class": "PuzzleThemeIDs",
+				"_index": 0,
+				"_name": "PuzzleTheme",
+				"_script_path": "res://src/themes/DotHopTheme.gd"
 			}
 		],
-		"_entities": [],
-		"_properties": []
+		"_entities": [
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "12",
+				"_index": 0,
+				"_name": "Debug",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Debug"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					}
+				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "13",
+				"_index": 0,
+				"_name": "Dots",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Dots"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/dots/DotsPuzzle.tscn"
+					}
+				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "14",
+				"_index": 0,
+				"_name": "Space",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Space"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/space/SpacePuzzle.tscn"
+					}
+				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "15",
+				"_index": 0,
+				"_name": "Fall",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Fall"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/fall/FallPuzzle.tscn"
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "16",
+				"_index": 0,
+				"_name": "One",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "One"
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "13",
+							"_type": 0
+						}
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "17",
+				"_index": 0,
+				"_name": "Two",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Two"
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop-two.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "14",
+							"_type": 0
+						}
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "18",
+				"_index": 0,
+				"_name": "Three",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Three"
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop-three.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "15",
+							"_type": 0
+						}
+					}
+				}
+			}
+		],
+		"_properties": [
+			{
+				"_category_id": "3",
+				"_default_value": "",
+				"_id": "4",
+				"_name": "display_name",
+				"_type": "string"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": "res://src/puzzle/DotHopPuzzle.tscn",
+				"_id": "6",
+				"_name": "puzzle_scene",
+				"_type": "resource"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": "",
+				"_id": "7",
+				"_name": "display_name",
+				"_type": "string"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": "",
+				"_id": "9",
+				"_name": "puzzle_script_path",
+				"_type": "string"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": null,
+				"_id": "10",
+				"_name": "theme",
+				"_type": "reference"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": false,
+				"_id": "11",
+				"_name": "is_unlocked",
+				"_type": "bool"
+			}
+		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 1
+			"default": 18
 		}
 	}
 }
