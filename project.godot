@@ -16,6 +16,14 @@ boot_splash/bg_color=Color(0.227451, 0.207843, 0.196078, 1)
 boot_splash/image="res://assets/boxart/page-background.png"
 config/icon="res://dothop-icon.png"
 
+[autoload]
+
+Pandora="*res://addons/pandora/api.gd"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/pandora/plugin.cfg")
+
 [rendering]
 
 renderer/rendering_method="gl_compatibility"
