@@ -11,11 +11,13 @@ var puzzle_node
 var puzzle_scene
 @export var puzzle_num = 0
 
+var hud
+
 ## ready #####################################################################
 
 func _ready():
-	# if puzzle_set == null:
-	# 	puzzle_set = Pandora.get_entity(DhPuzzleSet.ONE)
+	if puzzle_set == null:
+		puzzle_set = Pandora.get_entity(PuzzleSetIDs.ONE)
 
 	if puzzle_set != null:
 		game_def_path = puzzle_set.get_puzzle_script_path()
@@ -28,6 +30,8 @@ func _ready():
 	game_def = Puzz.parse_game_def(game_def_path)
 	load_theme()
 	rebuild_puzzle()
+
+	hud = get_node_or_null("HUD")
 
 ## rebuild puzzle #####################################################################
 
@@ -53,10 +57,33 @@ func rebuild_puzzle():
 	puzzle_node.win.connect(on_puzzle_win)
 	puzzle_node.ready.connect(on_puzzle_ready)
 
+	puzzle_node.player_moved.connect(update_hud)
+	puzzle_node.move_attempted.connect(update_hud)
+	puzzle_node.rebuilt_nodes.connect(update_hud)
+	puzzle_node.move_blocked.connect(update_hud)
+
 	add_child.call_deferred(puzzle_node)
 
 func on_puzzle_ready():
-	pass
+	update_hud()
+
+func update_hud():
+	if hud and puzzle_node:
+		# TODO trace and consider/model the data sources here
+		# TODO unit test for getting this data at various times during gameplay
+		var ld = puzzle_node.level_def
+		var message
+		if ld != null and "message" in ld and ld.message != "":
+			message = ld.message
+		var data = {
+			dots_total=puzzle_node.dot_count(),
+			dots_remaining=puzzle_node.dot_count(true),
+			}
+		if message != null:
+			data["level_message"] = message
+		data["level_number"] = puzzle_num + 1
+		data["level_number_total"] = len(game_def.levels)
+		hud.update_state(data)
 
 ## load theme #####################################################################
 

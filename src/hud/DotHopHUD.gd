@@ -10,16 +10,6 @@ extends CanvasLayer
 @onready var undo_label = $%Undo
 @onready var reset_label = $%Reset
 
-## ready ########################################################
-
-func _ready():
-	# TODO connect to HUD updates, get initial puzzle
-	var initial_puzzle = null
-	if initial_puzzle == null:
-		Log.warn("No initial puzzle found!")
-	else:
-		_on_entry_updated(initial_puzzle)
-
 ## unhandled_input ########################################################
 
 func _unhandled_input(event):
@@ -43,18 +33,19 @@ func _unhandled_input(event):
 
 var last_puzzle_update
 
-func _on_entry_updated(entry):
-	last_puzzle_update = entry
+func update_state(data):
+	last_puzzle_update = data
 
-	update_level_number(entry)
-	update_level_message(entry)
-	update_dots_remaining(entry)
+	update_level_number(data)
+	update_level_message(data)
+	update_dots_remaining(data)
 
 ## level number ########################################################
 
 func update_level_number(entry):
-	if "level_number" in entry:
-		level_num_label.text = "[center]#%s/n[/center]" % entry.level_number
+	if "level_number" in entry and "level_number_total" in entry:
+		level_num_label.text = "[center]#%s/%s[/center]" %\
+			[entry.level_number, entry.level_number_total]
 
 ## message ########################################################
 

@@ -78,6 +78,12 @@ var state
 
 signal win
 
+# hud updates
+signal player_moved
+signal move_attempted
+signal move_blocked
+signal rebuilt_nodes
+
 var obj_type = {
 	"Dot": DHData.dotType.Dot,
 	"Dotted": DHData.dotType.Dotted,
@@ -167,6 +173,8 @@ func check_move_input():
 		last_move = move_vec
 		move(move_vec)
 		restart_block_move_timer()
+	elif block_move:
+		move_blocked.emit()
 
 var block_move_timer
 func restart_block_move_timer(t=0.2):
@@ -262,7 +270,8 @@ func rebuild_nodes():
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
 
-	# TODO trigger a HUD update
+	# trigger HUD update
+	rebuilt_nodes.emit()
 
 func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 	var node = node_for_object_name(obj_name)
@@ -567,7 +576,8 @@ func move(move_dir):
 			if m[0] in ["dot", "goal"]:
 				m[1].call(m[2], m[3])
 
-		# TODO Update data/HUD
+		# trigger HUD update
+		player_moved.emit()
 		return
 
 	var any_undo = moves_to_make.any(func(m): return m[0] == "undo")
@@ -576,4 +586,5 @@ func move(move_dir):
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
 
-	# TODO Update data/HUD
+	# trigger HUD update
+	move_attempted.emit()

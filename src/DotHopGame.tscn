@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=6 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" path="res://src/DotHopGame.gd" id="1_ak4mv"]
+[ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/DotHopHUD.tscn" id="3_3vrse"]
 [ext_resource type="Script" path="res://src/DotHopPuzzleSet.gd" id="3_qrqrt"]
 
 [sub_resource type="Resource" id="Resource_0ba6n"]
@@ -15,3 +16,5 @@ _id = "16"
 script = ExtResource("1_ak4mv")
 puzzle_theme = SubResource("Resource_0ba6n")
 puzzle_set = SubResource("Resource_x0oki")
+
+[node name="HUD" parent="." instance=ExtResource("3_3vrse")]
