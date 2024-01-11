@@ -7,7 +7,6 @@ var editor_interface
 
 func _enter_tree():
 	Log.pr("<Core>")
-	add_autoload_singleton("Debug", "res://addons/core/Debug.gd")
 
 	editor_interface = get_editor_interface()
 
@@ -18,7 +17,6 @@ func _enter_tree():
 
 
 func _exit_tree():
-	remove_autoload_singleton("Debug")
 	remove_control_from_container(CONTAINER_TOOLBAR, reload_scene_btn)
 	Log.pr("</Core>")
 
