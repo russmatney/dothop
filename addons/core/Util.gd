@@ -464,7 +464,8 @@ static func find_level_root(node):
 	if parent == null:
 		var t = node.get_tree()
 		if t == null:
-			return Navi.get_tree().current_scene
+			# we need something in the tree here... is there something built in?
+			return Dino.get_tree().current_scene
 		else:
 			return node.get_tree().current_scene
 	elif parent.has_method("add_child_to_level"):

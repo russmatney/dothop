@@ -22,14 +22,12 @@ func _ready():
 		first_scene = first
 
 	pause_menu = add_menu(load(pause_menu_path))
-	death_menu = add_menu(death_menu_scene)
-	win_menu = add_menu(win_menu_scene)
 
 ## input ###################################################################
 
 func _unhandled_input(event):
 	if not Engine.is_editor_hint() and Trolls.is_pause(event):
-		Navi.toggle_pause()
+		toggle_pause()
 
 ## process ###################################################################
 
@@ -200,7 +198,8 @@ func clear_menus():
 
 ## main menu ###################################################################
 
-var main_menu_path = "res://src/dino/menus/DinoMenu.tscn"
+# TODO handle menus elsewhere?
+var main_menu_path = "res://src/menus/DotHopMainMenu.tscn"
 
 func set_main_menu(path):
 	if ResourceLoader.exists(path):
@@ -218,7 +217,8 @@ func nav_to_main_menu():
 
 ## pause menu ###################################################################
 
-var pause_menu_path = "res://src/dino/menus/DinoPauseMenu.tscn"
+# TODO handle menus elsewhere?
+var pause_menu_path = "res://src/menus/DotHopPauseMenu.tscn"
 var pause_menu
 
 func set_pause_menu(path_or_scene):
@@ -230,66 +230,7 @@ func set_pause_menu(path_or_scene):
 		if pause_menu and is_instance_valid(pause_menu):
 			if pause_menu.scene_file_path == path:
 				return
-			# is there a race-case here?
 			pause_menu.queue_free()
 		pause_menu = add_menu(load(path))
 	else:
 		Log.prn("No scene at path: ", path, ", can't set pause menu.")
-
-## death ###########################################
-
-@export var death_menu_scene: PackedScene = preload("res://addons/navi/NaviDeathMenu.tscn")
-var death_menu
-
-func set_death_menu(path_or_scene):
-	if path_or_scene == null:
-		Log.warn("Null passed to set_pause_menu, returning")
-		return
-	var path = U.to_scene_path(path_or_scene)
-	if ResourceLoader.exists(path):
-		if death_menu and is_instance_valid(death_menu):
-			if death_menu.scene_file_path == path:
-				return
-			death_menu.queue_free()
-		death_menu = add_menu(load(path))
-	else:
-		Log.prn("No scene at path: ", path, ", can't set death menu.")
-
-func show_death_menu():
-	Log.prn("Show death screen")
-	DJ.pause_game_song()
-	death_menu.show()
-	find_focus(death_menu)
-
-func hide_death_menu():
-	Log.prn("Hide death screen")
-	death_menu.hide()
-
-## win ###########################################
-
-@export var win_menu_scene: PackedScene = preload("res://addons/navi/NaviWinMenu.tscn")
-var win_menu
-
-func set_win_menu(path_or_scene):
-	if path_or_scene == null:
-		Log.warn("Null passed to set_pause_menu, returning")
-		return
-	var path = U.to_scene_path(path_or_scene)
-	if ResourceLoader.exists(path):
-		if win_menu and is_instance_valid(win_menu):
-			if win_menu.scene_file_path == path:
-				return
-			win_menu.queue_free()
-		win_menu = add_menu(load(path))
-	else:
-		Log.prn("No scene at path: ", path, ", can't set win menu.")
-
-func show_win_menu():
-	Log.prn("Show win screen")
-	DJ.pause_game_song()
-	win_menu.show()
-	find_focus(win_menu)
-
-func hide_win_menu():
-	Log.prn("Hide win screen")
-	win_menu.hide()

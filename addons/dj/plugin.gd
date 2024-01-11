@@ -8,8 +8,8 @@ var editor_interface
 
 func _enter_tree():
 	Log.pr("<DJ>")
-	# add_autoload_singleton("DJ", "res://addons/dj/DJ.gd")
-	# add_autoload_singleton("DJZ", "res://addons/dj/DJZ.gd")
+	add_autoload_singleton("DJ", "res://addons/dj/DJ.gd")
+	add_autoload_singleton("DJZ", "res://addons/dj/DJZ.gd")
 
 	# turn_table = TurnTable.instantiate()
 	# if turn_table == null:
@@ -25,8 +25,8 @@ func _enter_tree():
 
 
 func _exit_tree():
-	# remove_autoload_singleton("DJ")
-	# remove_autoload_singleton("DJZ")
+	remove_autoload_singleton("DJ")
+	remove_autoload_singleton("DJZ")
 	if turn_table != null and is_instance_valid(turn_table):
 		turn_table.free()
 
