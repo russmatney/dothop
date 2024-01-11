@@ -6,3 +6,6 @@
 .lsp/
 
 reports/
+
+build/build-output
+dist/
