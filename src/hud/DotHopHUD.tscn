@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/dotHop/hud/DotHopHUD.gd" id="1_5wqol"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_1a27s"]
-[ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://addons/hood/Notifications.tscn" id="3_fxnlu"]
+[ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://addons/core/notifications/Notifications.tscn" id="3_fxnlu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_li620"]
 bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.156863)

@@ -14,12 +14,17 @@ var puzzle_scene
 ## ready #####################################################################
 
 func _ready():
-	if puzzle_set == null:
-		puzzle_set = Pandora.get_entity(DhPuzzleSet.ONE)
+	# if puzzle_set == null:
+	# 	puzzle_set = Pandora.get_entity(DhPuzzleSet.ONE)
 
 	if puzzle_set != null:
 		game_def_path = puzzle_set.get_puzzle_script_path()
 		puzzle_theme = puzzle_set.get_theme()
+
+	if game_def_path == null:
+		Log.warn("No game_def_path found!!")
+		return
+
 	game_def = Puzz.parse_game_def(game_def_path)
 	load_theme()
 	rebuild_puzzle()
@@ -88,10 +93,10 @@ func on_puzzle_win():
 		header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
-			Hood.notif("Win all")
+			Dino.notif("Win all")
 			Navi.show_win_menu()
 		else:
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()
-			Hood.notif("Building next level!")
+			Dino.notif("Building next level!")
 			rebuild_puzzle()})
