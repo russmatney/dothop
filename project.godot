@@ -24,7 +24,7 @@ Dino="*res://addons/core/Dino.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/camera/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/hood/plugin.cfg", "res://addons/navi/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/puzz/plugin.cfg", "res://addons/quest/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/camera/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/hood/plugin.cfg", "res://addons/navi/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/puzz/plugin.cfg")
 
 [rendering]
 
