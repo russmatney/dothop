@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bxeqkgb2ipswn"
+path="res://.godot/imported/page-background.aseprite-bfddaf01d004f62e4b1de533150a38e1.res"
+
+[deps]
+
+source_file="res://assets/boxart/page-background.aseprite"
+dest_files=["res://.godot/imported/page-background.aseprite-bfddaf01d004f62e4b1de533150a38e1.res"]
+
+[params]
+

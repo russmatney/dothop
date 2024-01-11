@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c5qgb127lwow4"
+path="res://.godot/imported/client-icon.aseprite-ee34ee3c3357cb5aaae9e7c0511c1bdb.res"
+
+[deps]
+
+source_file="res://assets/boxart/client-icon.aseprite"
+dest_files=["res://.godot/imported/client-icon.aseprite-ee34ee3c3357cb5aaae9e7c0511c1bdb.res"]
+
+[params]
+

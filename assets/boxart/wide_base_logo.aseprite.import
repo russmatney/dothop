@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://8nehmpxlow6o"
+path="res://.godot/imported/wide_base_logo.aseprite-71408f83724a2c2d70b896cf092b6905.res"
+
+[deps]
+
+source_file="res://assets/boxart/wide_base_logo.aseprite"
+dest_files=["res://.godot/imported/wide_base_logo.aseprite-71408f83724a2c2d70b896cf092b6905.res"]
+
+[params]
+

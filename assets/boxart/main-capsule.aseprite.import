@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c2ax8h2w011uk"
+path="res://.godot/imported/main-capsule.aseprite-c80c0620fcf27a953ac542d4b0d27d15.res"
+
+[deps]
+
+source_file="res://assets/boxart/main-capsule.aseprite"
+dest_files=["res://.godot/imported/main-capsule.aseprite-c80c0620fcf27a953ac542d4b0d27d15.res"]
+
+[params]
+

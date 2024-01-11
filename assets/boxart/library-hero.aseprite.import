@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c3rji12ax66qm"
+path="res://.godot/imported/library-hero.aseprite-08025abb4dc93a16651314607fac076f.res"
+
+[deps]
+
+source_file="res://assets/boxart/library-hero.aseprite"
+dest_files=["res://.godot/imported/library-hero.aseprite-08025abb4dc93a16651314607fac076f.res"]
+
+[params]
+
