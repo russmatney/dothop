@@ -2,7 +2,7 @@
 extends PandoraEntity
 class_name DotHopPuzzleSet
 
-var fallback_puzzle_set = "res://src/dotHop/dothop.txt"
+var fallback_puzzle_set = "res://src/dothop.txt"
 
 func get_puzzle_script_path() -> String:
 	var res = get_string("puzzle_script_path")

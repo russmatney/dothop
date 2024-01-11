@@ -2,10 +2,10 @@
 extends DotHopPuzzle
 
 var obj_scene_override = {
-	"Player": preload("res://src/dotHop/themes/space/Player.tscn"),
-	"Dot": preload("res://src/dotHop/themes/space/Dot.tscn"),
-	"Dotted": preload("res://src/dotHop/themes/space/Dot.tscn"),
-	"Goal": preload("res://src/dotHop/themes/space/Dot.tscn"),
+	"Player": preload("res://src/themes/space/Player.tscn"),
+	"Dot": preload("res://src/themes/space/Dot.tscn"),
+	"Dotted": preload("res://src/themes/space/Dot.tscn"),
+	"Goal": preload("res://src/themes/space/Dot.tscn"),
 	}
 
 func _init():

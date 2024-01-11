@@ -1,0 +1,20 @@
+{
+	"_entity_data": {
+		"_categories": [
+			{
+				"_category_id": "",
+				"_icon_color": "ffffff00",
+				"_id": "1",
+				"_index": 0,
+				"_name": "New Category"
+			}
+		],
+		"_entities": [],
+		"_properties": []
+	},
+	"_id_generator": {
+		"_ids_by_context": {
+			"default": 1
+		}
+	}
+}

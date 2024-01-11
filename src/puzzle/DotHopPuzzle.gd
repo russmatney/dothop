@@ -4,7 +4,7 @@ class_name DotHopPuzzle
 
 ## static ##########################################################################
 
-static var fallback_puzzle_scene = "res://src/dotHop/puzzle/DotHopPuzzle.tscn"
+static var fallback_puzzle_scene = "res://src/puzzle/DotHopPuzzle.tscn"
 
 # Builds and returns a "puzzle_scene" node, with a game_def and level_def set
 # Accepts several input options, but only 'game_def' or 'game_def_path' are required.
@@ -56,7 +56,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 
 ## vars ##############################################################
 
-@export_file var game_def_path: String = "res://src/dotHop/dothop.txt" :
+@export_file var game_def_path: String = "res://src/dothop.txt" :
 	set(gdp):
 		game_def_path = gdp
 		if gdp != "":

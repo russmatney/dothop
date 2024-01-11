@@ -11,7 +11,7 @@ var cam
 # ready
 
 func _ready():
-	Debug.debug_toggled.connect(_on_debug_toggled)
+	Dino.debug_toggled.connect(_on_debug_toggled)
 
 func _on_debug_toggled(debugging):
 	if debugging:
@@ -163,14 +163,12 @@ var slowmo_scales = {}
 
 
 func start_slowmo(label, scale = 0.5):
-	# Debug.debug_label("[CAM] start slowmo: ", label, " scale: ", scale)
 	slowmos.append(label)
 	slowmo_scales[label] = scale
 	Engine.time_scale = scale
 
 
 func stop_slowmo(label):
-	# Debug.debug_label("[CAM] stop slowmo: ", label)
 	slowmos.erase(label)
 	slowmo_scales.erase(label)
 	slowmo_stopped.emit(label)
@@ -254,25 +252,7 @@ func remove_from_poas(node):
 	node.remove_from_group(poa_group)
 	update_poas()
 
-###########################################################################
-# input
-
-
-func _input(event):
-	if Trolls.is_event(event, "zoom_in"):
-		if cam and is_instance_valid(cam):
-			cam.zoom_dir("in")
-	elif Trolls.is_event(event, "zoom_out"):
-		if cam and is_instance_valid(cam):
-			cam.zoom_dir("out")
-	if Trolls.is_action(event):
-		if cam and is_instance_valid(cam):
-			# freezeframe("shake-watch", 0.2, 1.5)
-			cam.inc_trauma(0.1)
-
-
-###########################################################################
-# offscreen indicators
+## offscreen indicators ##########################################################################
 
 var fallback_indicator_scene = "res://addons/camera/OffscreenIndicator.tscn"
 

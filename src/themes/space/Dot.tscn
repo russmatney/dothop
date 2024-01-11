@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://bmm1270drou5v"]
 
-[ext_resource type="Script" path="res://src/dotHop/themes/space/Dot.gd" id="1_bmb34"]
-[ext_resource type="Texture2D" uid="uid://bnehigh2xb350" path="res://src/dotHop/themes/space/asteroid.png" id="2_mqxg7"]
+[ext_resource type="Script" path="res://src/themes/space/Dot.gd" id="1_bmb34"]
+[ext_resource type="Texture2D" uid="uid://bnehigh2xb350" path="res://src/themes/space/asteroid.png" id="2_mqxg7"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_onbrw"]
 atlas = ExtResource("2_mqxg7")
@@ -136,5 +136,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/space/assets/asteroid.aseprite"
+"source": "res://src/themes/space/assets/asteroid.aseprite"
 }

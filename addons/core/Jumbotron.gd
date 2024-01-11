@@ -4,10 +4,10 @@ class_name Jumbotron
 
 ## static ##########################################################################
 
-static var jumbotron_scene = preload("res://addons/core/Jumbotron.tscn")
+static var jumbotron_scene_path = "res://addons/core/Jumbotron.tscn"
 
 static func jumbo_notif(opts):
-	var jumbotron = jumbotron_scene.instantiate()
+	var jumbotron = load(jumbotron_scene_path).instantiate()
 	Navi.add_child(jumbotron)
 
 	var header = opts.get("header")
@@ -21,10 +21,10 @@ static func jumbo_notif(opts):
 	# reset data
 	jumbotron.header_text = header
 	jumbotron.body_text = body
-	jumbotron.action_hint.hide()
+	# jumbotron.action_hint.hide()
 
-	if key_or_action or action_label_text:
-		jumbotron.action_hint.display(key_or_action, action_label_text)
+	# if key_or_action or action_label_text:
+	# 	jumbotron.action_hint.display(key_or_action, action_label_text)
 
 	jumbotron.jumbo_closed.connect(func():
 		if on_close:
@@ -47,7 +47,7 @@ signal jumbo_closed
 
 @onready var header = $%Header
 @onready var body = $%Body
-@onready var action_hint = $%ActionHint
+# @onready var action_hint = $%ActionHint
 
 @export var header_text: String :
 	set(v):

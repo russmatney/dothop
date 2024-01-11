@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://csgpsdj4n3rfj"]
 
-[ext_resource type="Script" path="res://src/dotHop/themes/space/Player.gd" id="1_j03dg"]
-[ext_resource type="Texture2D" uid="uid://dg0gqnq12lqhl" path="res://src/dotHop/themes/space/player.png" id="2_aku4m"]
+[ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
+[ext_resource type="Texture2D" uid="uid://dg0gqnq12lqhl" path="res://src/themes/space/player.png" id="2_aku4m"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t7mnh"]
 atlas = ExtResource("2_aku4m")
@@ -67,5 +67,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/space/assets/player.aseprite"
+"source": "res://src/themes/space/assets/player.aseprite"
 }

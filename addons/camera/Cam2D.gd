@@ -59,7 +59,7 @@ func _ready():
 	if not following:
 		find_node_to_follow()
 
-	Debug.debug_toggled.connect(_on_debug_toggled)
+	Dino.debug_toggled.connect(_on_debug_toggled)
 
 func _on_debug_toggled(debugging):
 	if debugging:
@@ -78,14 +78,7 @@ func update_window_size():
 
 
 func _process(delta):
-	# Debug.debug_label("Window Size", window_size)
-	# var vp_size = get_viewport().size
-	# Debug.debug_label("Viewport Size", vp_size)
-	# Debug.debug_label("Zoom Level", "[jump]", zoom_level, "[/jump]")
-	# Debug.debug_label("Zoom Offset", zoom_offset)
-	# Debug.debug_label("Cam Center", get_target_position())
-
-	if Debug.debugging:
+	if Dino.debugging:
 		queue_redraw()
 
 
@@ -109,11 +102,6 @@ func _process(delta):
 			update_pofs()
 			update_poas()
 			update_focus()
-
-			# Debug.debug_label("poas: ", poa_follows)
-			# Debug.debug_label("pofs: ", pof_follows)
-			# Debug.debug_label("pois: ", poi_follows)
-
 
 
 ###########################################################################
@@ -400,7 +388,6 @@ func screenshake_reset():
 
 func process_shake(delta):
 	if trauma > 0:
-		# Debug.debug_label("[CAM] Trauma: ", trauma)
 		trauma -= trauma_decrement_factor * delta
 		trauma = clamp(trauma, 0.0, 1.0)
 		if trauma == 0.0:
@@ -511,7 +498,7 @@ func weighted_poi_offset(poi) -> Vector2:
 
 var debug_font = preload("res://addons/core/assets/fonts/at01.ttf")
 func _draw():
-	if Debug.debugging:
+	if Dino.debugging:
 		var player_pos = following.global_position - get_target_position()
 
 		for p in focuses:

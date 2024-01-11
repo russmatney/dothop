@@ -26,13 +26,13 @@ var scene_ready
 
 func _ready():
 	Dino.notification.connect(_on_notification)
-	Dino.notif("[HOOD] Notifications online.", {id="initial"})
+	Dino.notif("[Notifications online]", {id="initial"})
 	scene_ready = true
 
 #############################################################
 
-var notif_label = preload("res://addons/hood/NotifLabel.tscn")
-var notif_rich_label = preload("res://addons/hood/NotifRichLabel.tscn")
+var notif_label = preload("res://addons/core/notifications/NotifLabel.tscn")
+var notif_rich_label = preload("res://addons/core/notifications/NotifRichLabel.tscn")
 
 var id_notifs = {}
 

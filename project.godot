@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Dot Hop"
+run/main_scene="res://src/menus/DotHopMainMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.227451, 0.207843, 0.196078, 1)
 boot_splash/image="res://assets/boxart/page-background.png"
@@ -19,14 +20,15 @@ config/icon="res://dothop-icon.png"
 [autoload]
 
 Pandora="*res://addons/pandora/api.gd"
-DJ="*res://addons/dj/DJ.gd"
-DJZ="*res://addons/dj/DJZ.gd"
 Dino="*res://addons/core/Dino.gd"
 Navi="*res://addons/core/Navi.gd"
+DJ="*res://addons/dj/DJ.gd"
+DJZ="*res://addons/dj/DJZ.gd"
+Cam="*res://addons/camera/Camera.gd"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/camera/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/hood/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/puzz/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/camera/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/pandora/plugin.cfg")
 
 [rendering]
 

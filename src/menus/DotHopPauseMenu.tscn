@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvb2xnd1kbtbc"]
 
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="1_iq60s"]
-[ext_resource type="Script" path="res://src/dotHop/menus/DotHopPauseList.gd" id="1_uhwkb"]
-[ext_resource type="Script" path="res://src/dotHop/menus/ThemeButtonList.gd" id="2_parj4"]
+[ext_resource type="Script" path="res://src/menus/DotHopPauseList.gd" id="1_uhwkb"]
+[ext_resource type="Script" path="res://src/menus/ThemeButtonList.gd" id="2_parj4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tngc"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)

@@ -2,7 +2,7 @@ extends GdUnitTestSuite
 class_name DotHopTest
 
 func build_puzzle(puzzle):
-	return DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/dotHop/dothop.txt"})
+	return DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/dothop.txt"})
 
 class TestBasicMovement:
 	extends DotHopTest

@@ -1,11 +1,11 @@
 [gd_scene load_steps=28 format=3 uid="uid://di85piestdv0m"]
 
-[ext_resource type="Script" path="res://src/dotHop/themes/fall/Leaf.gd" id="1_l6y56"]
-[ext_resource type="Texture2D" uid="uid://d23a8ljxjvq0x" path="res://src/dotHop/themes/fall/leaf_green.png" id="2_7qt6e"]
-[ext_resource type="Texture2D" uid="uid://f6v5qu873jn1" path="res://src/dotHop/themes/fall/leaf_greenred.png" id="3_b4v6s"]
-[ext_resource type="Texture2D" uid="uid://b46m768vfaimt" path="res://src/dotHop/themes/fall/leaf_purple.png" id="4_e6ltx"]
-[ext_resource type="Texture2D" uid="uid://db1aoxx6bupyd" path="res://src/dotHop/themes/fall/leaf_yellow.png" id="5_0l1bi"]
-[ext_resource type="Texture2D" uid="uid://bvkai7ky5c1qa" path="res://src/dotHop/themes/fall/leaf_redorange.png" id="5_sop23"]
+[ext_resource type="Script" path="res://src/themes/fall/Leaf.gd" id="1_l6y56"]
+[ext_resource type="Texture2D" uid="uid://d23a8ljxjvq0x" path="res://src/themes/fall/leaf_green.png" id="2_7qt6e"]
+[ext_resource type="Texture2D" uid="uid://f6v5qu873jn1" path="res://src/themes/fall/leaf_greenred.png" id="3_b4v6s"]
+[ext_resource type="Texture2D" uid="uid://b46m768vfaimt" path="res://src/themes/fall/leaf_purple.png" id="4_e6ltx"]
+[ext_resource type="Texture2D" uid="uid://db1aoxx6bupyd" path="res://src/themes/fall/leaf_yellow.png" id="5_0l1bi"]
+[ext_resource type="Texture2D" uid="uid://bvkai7ky5c1qa" path="res://src/themes/fall/leaf_redorange.png" id="5_sop23"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8dvo"]
 atlas = ExtResource("2_7qt6e")
@@ -188,7 +188,7 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/fall/assets/leaf_green.aseprite"
+"source": "res://src/themes/fall/assets/leaf_green.aseprite"
 }
 
 [node name="GreenRed" type="AnimatedSprite2D" parent="."]
@@ -202,7 +202,7 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/fall/assets/leaf_greenred.aseprite"
+"source": "res://src/themes/fall/assets/leaf_greenred.aseprite"
 }
 
 [node name="Purple" type="AnimatedSprite2D" parent="."]
@@ -218,7 +218,7 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/fall/assets/leaf_purple.aseprite"
+"source": "res://src/themes/fall/assets/leaf_purple.aseprite"
 }
 
 [node name="RedOrange" type="AnimatedSprite2D" parent="."]
@@ -233,7 +233,7 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/fall/assets/leaf_redorange.aseprite"
+"source": "res://src/themes/fall/assets/leaf_redorange.aseprite"
 }
 
 [node name="Yellow" type="AnimatedSprite2D" parent="."]
@@ -248,5 +248,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/dotHop/themes/fall/assets/leaf_yellow.aseprite"
+"source": "res://src/themes/fall/assets/leaf_yellow.aseprite"
 }

@@ -1,11 +1,11 @@
 [gd_scene load_steps=7 format=3 uid="uid://cggxk31fgnci7"]
 
-[ext_resource type="Script" path="res://src/dotHop/themes/space/SpacePuzzle.gd" id="1_biqou"]
-[ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/dotHop/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
-[ext_resource type="PackedScene" uid="uid://csgpsdj4n3rfj" path="res://src/dotHop/themes/space/Player.tscn" id="3_i647e"]
-[ext_resource type="PackedScene" uid="uid://bmm1270drou5v" path="res://src/dotHop/themes/space/Dot.tscn" id="4_sim88"]
-[ext_resource type="Script" path="res://src/dotHop/themes/space/Player.gd" id="4_u1jx2"]
-[ext_resource type="Script" path="res://src/dotHop/themes/space/Dot.gd" id="5_3250r"]
+[ext_resource type="Script" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
+[ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
+[ext_resource type="PackedScene" uid="uid://csgpsdj4n3rfj" path="res://src/themes/space/Player.tscn" id="3_i647e"]
+[ext_resource type="PackedScene" uid="uid://bmm1270drou5v" path="res://src/themes/space/Dot.tscn" id="4_sim88"]
+[ext_resource type="Script" path="res://src/themes/space/Player.gd" id="4_u1jx2"]
+[ext_resource type="Script" path="res://src/themes/space/Dot.gd" id="5_3250r"]
 
 [node name="SpacePuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_biqou")
