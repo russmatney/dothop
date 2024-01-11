@@ -14,6 +14,11 @@
 
   watch tasks/watch
 
+  serve-web
+  {:extra-deps {org.babashka/http-server {:local/root "../../babashka/http-server"}}
+   :requires   ([babashka.http-server :as http-server])
+   :task       (http-server/exec {:port 3010 :dir (str "dist/dothop-web")})}
+
   generate-steam-box-art
   {:description ""
    :task        (tasks/generate-steam-box-art)}}}

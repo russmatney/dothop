@@ -1,0 +1,47 @@
+name: Itch.io Web Build and Deploy
+
+on:
+  workflow_run:
+    workflows: ["Unit Tests"]
+    types: [completed]
+    branches: [edge, prod]
+
+jobs:
+  export-web:
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+    name: Web Export
+    runs-on: ubuntu-20.04
+    container:
+      image: barichello/godot-ci:4.2.1
+    environment: Godot Dev Env
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+      - name: Issue 120
+        run: |
+          mkdir -p /github/home/.config/godot
+          cp /root/.config/godot/editor_settings-4.tres /github/home/.config/godot/
+      - name: Sanity check
+        run: ls /root/.local/share/godot/export_templates
+      - name: Setup
+        run: |
+          mkdir -v -p ~/.local/share/godot/export_templates
+          mv /root/.local/share/godot/export_templates/${{ vars.GODOT_VERSION }}.stable ~/.local/share/godot/export_templates/${{ vars.GODOT_VERSION }}.stable
+      - name: Initial Godot import
+        shell: bash
+        run: |
+          godot --quiet --editor --headless -s addons/core/initial_import.gd || exit 0
+          godot --editor --headless --quit || exit 0
+      - name: Web Build
+        run: |
+          mkdir -v -p dist/dothop-web
+          godot --headless -v --export-debug dothop-web dist/dothop-web/index.html || exit 0
+      - name: Sanity check
+        run: |
+          ls -alh dist/
+          ls -alh dist/dothop-web
+          stat dist/dothop-web/index.html
+      - name: Deploy web build to itch.io (dothop)
+        run: BUTLER_API_KEY=${{secrets.BUTLER_API_KEY}} butler push dist/dothop-web russmatney/dothop:html5
