@@ -19,10 +19,10 @@ func _enter_tree():
 
 
 func _exit_tree():
-	Log.pr("</Core>")
 	remove_autoload_singleton("Navi")
 	remove_autoload_singleton("Dino")
 	remove_control_from_container(CONTAINER_TOOLBAR, reload_scene_btn)
+	Log.pr("</Core>")
 
 
 func reload_scene():
