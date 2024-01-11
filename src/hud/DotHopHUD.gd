@@ -23,10 +23,10 @@ func _ready():
 ## unhandled_input ########################################################
 
 func _unhandled_input(event):
-	var is_undo = Trolley.is_undo(event)
-	var is_move = Trolley.is_move(event)
-	var is_restart_held = Trolley.is_restart_held(event)
-	var is_restart_released = Trolley.is_restart_released(event)
+	var is_undo = Trolls.is_undo(event)
+	var is_move = Trolls.is_move(event)
+	var is_restart_held = Trolls.is_restart_held(event)
+	var is_restart_released = Trolls.is_restart_released(event)
 
 	if is_undo:
 		animate_undo()

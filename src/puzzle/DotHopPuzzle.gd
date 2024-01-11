@@ -118,12 +118,12 @@ func _unhandled_input(event):
 		Log.pr("Blocking input events b/c we're in a win state")
 		return
 
-	if Trolley.is_move(event):
+	if Trolls.is_move(event):
 		if state == null:
 			Log.warn("No state, ignoring move input")
 			return
 		check_move_input()
-	elif Trolley.is_undo(event) and not block_move:
+	elif Trolls.is_undo(event) and not block_move:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
 			return
@@ -131,11 +131,11 @@ func _unhandled_input(event):
 			undo_last_move(p)
 		restart_block_move_timer(0.1)
 
-	elif Trolley.is_restart_held(event):
+	elif Trolls.is_restart_held(event):
 		hold_to_reset_puzzle()
-	elif Trolley.is_restart_released(event):
+	elif Trolls.is_restart_released(event):
 		cancel_reset_puzzle()
-	elif Trolley.is_debug_toggle(event):
+	elif Trolls.is_debug_toggle(event):
 		Log.prn(state.grid)
 
 var reset_tween
@@ -157,7 +157,7 @@ var block_move
 var last_move
 
 func check_move_input():
-	var move_vec = Trolley.grid_move_vector()
+	var move_vec = Trolls.grid_move_vector()
 
 	if move_vec != last_move:
 		# allow moving in a new direction

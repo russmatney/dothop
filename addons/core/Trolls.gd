@@ -1,17 +1,6 @@
 @tool
 extends Node
-
-## is this window focused?
-# https://docs.godotengine.org/en/stable/tutorials/inputs/controllers_gamepads_joysticks.html#window-focus
-# TODO move this state to some other node so this can be just controls
-var focused := true
-
-func _notification(what: int) -> void:
-	match what:
-		NOTIFICATION_APPLICATION_FOCUS_OUT:
-			focused = false
-		NOTIFICATION_APPLICATION_FOCUS_IN:
-			focused = true
+class_name Trolls
 
 ## simulate ################################################################
 
@@ -53,7 +42,7 @@ func sim_move(dir: Vector2, release_after=0.8, released=null):
 ## public #################################################################
 
 func is_event(event, event_name):
-	if focused:
+	if Dino.focused:
 		return event.is_action_pressed(event_name)
 	return false
 
@@ -64,14 +53,14 @@ func is_held(event, event_name):
 	return is_event(event, event_name)
 
 func is_released(event, event_name):
-	if focused:
+	if Dino.focused:
 		return event.is_action_released(event_name)
 	return false
 
 
 # returns a normalized Vector2 based checked the controller's movement
 func move_vector():
-	if focused:
+	if Dino.focused:
 		return Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	return Vector2.ZERO
 
