@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cruv8hngbvxxl"
+path="res://.godot/imported/fallbg-1.aseprite-d41ac020e1bbdd319c81b49c48dabe0f.res"
+
+[deps]
+
+source_file="res://src/themes/fall/assets/fallbg-1.aseprite"
+dest_files=["res://.godot/imported/fallbg-1.aseprite-d41ac020e1bbdd319c81b49c48dabe0f.res"]
+
+[params]
+

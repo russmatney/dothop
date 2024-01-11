@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://blb183ml272ec"
+path="res://.godot/imported/leaf_green.aseprite-6e7f4246f3d29023209ed0bc68e477d2.res"
+
+[deps]
+
+source_file="res://src/themes/fall/assets/leaf_green.aseprite"
+dest_files=["res://.godot/imported/leaf_green.aseprite-6e7f4246f3d29023209ed0bc68e477d2.res"]
+
+[params]
+
