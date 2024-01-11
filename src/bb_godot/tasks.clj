@@ -232,9 +232,10 @@
      :vertical-capsule {:width 374 :height 448}
      :page-background  {:width 1438 :height 810}
      :library-capsule  {:width 600 :height 900}
+     :library-header   {:width 460 :height 215 :wide true}
      :library-hero     {:width 3840 :height 1240 :wide true}
      :library-logo     {:width 1280 :height 720}
-     :client-icon      {:width 16 :height 16 :skip true}
+     :client-icon      {:width 16 :height 16 :skip true :export-ext ".jpg"}
      :community-icon   {:width 184 :height 184}}
     (map (fn [[label opts]] [label (assoc opts :label label)]))
     (into {})))
@@ -297,7 +298,7 @@
 (defn aseprite-export-boxart-png [b-opts]
   (println "Exporting with opts" b-opts)
   (let [path     (boxart->path b-opts)
-        png-path (boxart->path b-opts ".png")]
+        png-path (boxart->path b-opts (:export-ext b-opts ".png"))]
     (println "Exporting" path "as" png-path)
     (-> (p/$ ~(aseprite-bin-path) -b ~path --save-as ~png-path)
         p/check :out)))
