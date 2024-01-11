@@ -86,10 +86,10 @@ var obj_type = {
 
 # NOTE these are overridden by each theme - essentially fallbacks for testing/debugging
 var obj_scene = {
-	"Player": preload("res://src/dotHop/puzzle/Player.tscn"),
-	"Dot": preload("res://src/dotHop/puzzle/Dot.tscn"),
-	"Dotted": preload("res://src/dotHop/puzzle/Dot.tscn"),
-	"Goal": preload("res://src/dotHop/puzzle/Dot.tscn"),
+	"Player": preload("res://src/puzzle/Player.tscn"),
+	"Dot": preload("res://src/puzzle/Dot.tscn"),
+	"Dotted": preload("res://src/puzzle/Dot.tscn"),
+	"Goal": preload("res://src/puzzle/Dot.tscn"),
 	}
 
 ## enter_tree ##############################################################
@@ -100,7 +100,6 @@ func _init():
 ## ready ##############################################################
 
 func _ready():
-	Hotel.register(self)
 	if level_def == null:
 		Log.pr("no level_def, trying backups!", name)
 		if game_def_path != "":
@@ -111,24 +110,6 @@ func _ready():
 			Log.err("no game_def_path!!")
 	else:
 		init_game_state()
-
-## hotel ##############################################################
-
-func check_out(_d):
-	pass
-
-func hotel_data():
-	var message
-	if level_def != null and "message" in level_def and level_def.message != "":
-		message = level_def.message
-
-	var data = {
-		dots_total=dot_count(),
-		dots_remaining=dot_count(true),
-		}
-	if message != null:
-		data["level_message"] = message
-	return data
 
 ## input ##############################################################
 
@@ -281,9 +262,7 @@ func rebuild_nodes():
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
 
-	if is_node_ready():
-		# triggering a HUD update?
-		Hotel.check_in(self)
+	# TODO trigger a HUD update
 
 func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 	var node = node_for_object_name(obj_name)
@@ -588,8 +567,7 @@ func move(move_dir):
 			if m[0] in ["dot", "goal"]:
 				m[1].call(m[2], m[3])
 
-		# Update data/HUD
-		Hotel.check_in(self)
+		# TODO Update data/HUD
 		return
 
 	var any_undo = moves_to_make.any(func(m): return m[0] == "undo")
@@ -598,5 +576,4 @@ func move(move_dir):
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
 
-	# Update data/HUD
-	Hotel.check_in(self)
+	# TODO Update data/HUD

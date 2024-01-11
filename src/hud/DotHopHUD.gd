@@ -13,8 +13,8 @@ extends CanvasLayer
 ## ready ########################################################
 
 func _ready():
-	Hotel.entry_updated.connect(_on_entry_updated)
-	var initial_puzzle = Hotel.first({group=DHData.puzzle_group})
+	# TODO connect to HUD updates, get initial puzzle
+	var initial_puzzle = null
 	if initial_puzzle == null:
 		Log.warn("No initial puzzle found!")
 	else:

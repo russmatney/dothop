@@ -6,9 +6,6 @@ extends Marker2D
 
 var last_visited = 0
 
-func _ready():
-	Hotel.register(self)
-
 func check_out(data):
 	last_visited = data.get("last_visited", last_visited)
 
