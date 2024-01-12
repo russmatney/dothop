@@ -221,21 +221,23 @@
 ;; steam box art
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(def boxart-base-logo-path "assets/boxart/base_logo.aseprite")
-(def boxart-base-logo-path-wide "assets/boxart/wide_base_logo.aseprite")
+(def boxart-base-logo "assets/boxart/base_logo.aseprite")
+(def boxart-base-logo-wide "assets/boxart/base_logo_wide.aseprite")
+(def boxart-base-bg-no-logo "assets/boxart/base_bg_no_logo.aseprite")
+(def boxart-base-logo-no-bg "assets/boxart/base_logo_no_bg.aseprite")
 
 (def boxart-defs
   (->>
-    {:header-capsule   {:width 460 :height 215 :wide true}
-     :small-capsule    {:width 231 :height 87 :wide true}
+    {:header-capsule   {:width 460 :height 215 :base boxart-base-logo-wide}
+     :small-capsule    {:width 231 :height 87 :base boxart-base-logo-wide}
      :main-capsule     {:width 616 :height 353}
      :vertical-capsule {:width 374 :height 448}
      :page-background  {:width 1438 :height 810}
      :library-capsule  {:width 600 :height 900}
-     :library-header   {:width 460 :height 215 :wide true}
-     :library-hero     {:width 3840 :height 1240 :wide true}
-     :library-logo     {:width 1280 :height 720}
-     :client-icon      {:width 16 :height 16 :skip true :export-ext ".jpg"}
+     :library-header   {:width 460 :height 215 :base boxart-base-logo-wide}
+     :library-hero     {:width 3840 :height 1240 :base boxart-base-bg-no-logo}
+     :library-logo     {:width 1280 :height 720 :base boxart-base-logo-no-bg}
+     :client-icon      {:width 16 :height 16 :skip-generate true :export-ext ".jpg"}
      :community-icon   {:width 184 :height 184}}
     (map (fn [[label opts]] [label (assoc opts :label label)]))
     (into {})))
@@ -248,8 +250,8 @@
    (str boxart-dir (name label) ext)))
 
 (defn create-resized-file
-  [{:keys [base-path base-path-wide overwrite verbose?]}
-   {:keys [width height wide] :as opts}]
+  [{:keys [base-path overwrite verbose?]}
+   {:keys [width height base] :as opts}]
   (let [new-path (boxart->path opts)
         exists?  (fs/exists? new-path)]
     (when (and exists? overwrite)
@@ -260,9 +262,8 @@
         (println (str "Creating aseprite file: " (str new-path))
                  (assoc opts :notify/id (str new-path)))
 
-        (if wide
-          (fs/copy base-path-wide new-path)
-          (fs/copy base-path new-path))
+        (let [base (or base base-path)]
+          (fs/copy base new-path))
 
         (let [result
               (->
@@ -280,20 +281,17 @@
 (comment
   (name :main-capsule)
   (create-resized-file
-    {:base-path      boxart-base-logo-path
-     :base-path-wide boxart-base-logo-path-wide
-     :overwrite      true
-     :verbose?       true}
+    {:base-path boxart-base-logo
+     :overwrite true :verbose? true}
     {:width 616 :height 353 :label :main-capsule}))
 
 (defn generate-boxart-files []
   (-> (p/$ mkdir -p ~boxart-dir) p/check)
-  (->> boxart-defs vals (remove #(-> % :skip))
+  (->> boxart-defs vals (remove #(-> % :skip-generate))
        (map (partial create-resized-file
-                     {:base-path      boxart-base-logo-path
-                      :base-path-wide boxart-base-logo-path-wide
-                      :verbose?       true
-                      :overwrite      true}))))
+                     {:base-path boxart-base-logo
+                      :verbose?  true
+                      :overwrite true}))))
 
 (defn aseprite-export-boxart-png [b-opts]
   (println "Exporting with opts" b-opts)
