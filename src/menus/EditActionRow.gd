@@ -1,3 +1,4 @@
+@tool
 extends HBoxContainer
 
 @export var action_name = "ui_accept"
@@ -6,7 +7,7 @@ extends HBoxContainer
 @onready var action_name_inputs = $%ActionInputs
 
 func _ready():
-	print("edit action row ready", action_name)
+	action_name_label.text = "[center]%s[/center]" % action_name
 
 	render_action_icons()
 

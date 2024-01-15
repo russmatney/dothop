@@ -1,7 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://cq5r4oojxyu5a"]
+[gd_scene load_steps=2 format=3 uid="uid://cq5r4oojxyu5a"]
 
 [ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
-[ext_resource type="PackedScene" uid="uid://vy2sl481qu00" path="res://src/menus/EditActionRow.tscn" id="2_p040m"]
 
 [node name="ControlsPanel" type="CanvasLayer"]
 script = ExtResource("1_j8soe")
@@ -30,7 +29,4 @@ scroll_active = false
 
 [node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
-layout_mode = 2
-
-[node name="EditActionRow" parent="PanelContainer/VBoxContainer/EditActionRows" instance=ExtResource("2_p040m")]
 layout_mode = 2
