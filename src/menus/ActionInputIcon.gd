@@ -1,29 +1,64 @@
 @tool
 extends RichTextLabel
 
-@export var input_text = "a" :
+@export var input_text = "" :
 	set(v):
 		input_text = v
-		render_icon()
+		if Engine.is_editor_hint():
+			render_icon()
 
 func _ready():
 	render_icon()
 
-func render_icon():
-	if input_text == null or input_text == "":
-		return
-
-	var ei_key = keymap.get(input_text)
-	var ei_key_extra = keymap_extra.get(input_text)
+func get_literal_text(input_key):
+	var ei_key = keymap.get(input_key)
+	var ei_key_extra = keymap_extra.get(input_key)
 
 	if ei_key:
-		text = "%s" % ei_key
+		return ei_key
 	elif ei_key_extra:
 		# our bold font is the enter_input_extra variant
-		text = "[b]%s[/b]" % ei_key_extra
+		return "[b]%s[/b]" % ei_key_extra
 	else:
-		Log.warn("No key found for input", input_text)
+		Log.warn("No key found for input", input_key)
 		return
+
+func render_icon():
+	if input_text == null or input_text in ignores:
+		set_visible(false)
+		return
+	set_visible(true)
+	Log.pr("rendering input icon for text", input_text)
+
+	var input_key = ""
+	var mods = []
+	var parts = input_text.split("+")
+	if len(parts) == 0:
+		set_visible(false)
+		return
+	parts.reverse()
+	input_key = parts[0]
+	if len(parts) > 1:
+		mods = parts.slice(1)
+
+	var key = get_literal_text(input_key)
+	if key == null or key == "":
+		return
+	var mod_width = 0
+
+	for m in mods:
+		var mod_text = get_literal_text(m)
+		key = "%s%s" % [mod_text, key]
+		mod_width += 80
+
+	text = key
+
+	if input_text in ["Space", "Enter"]:
+		set_custom_minimum_size(Vector2(80 + mod_width, 0))
+	else:
+		set_custom_minimum_size(Vector2(32 + mod_width, 0))
+
+var ignores = ["", "Kp Enter"]
 
 var keymap = {
 	"A"="a",
@@ -96,7 +131,7 @@ var keymap = {
 	"@"="@",
 	"Ctrl"="C",
 	"Scroll Lock"="L",
-	"Esc"="R",
+	"Escape"="R",
 	"Alt"="A",
 	"Tab"="T",
 	"Menu"="M",
@@ -113,11 +148,11 @@ var keymap = {
 	"Pause"="U",
 	"Page Up"="K",
 	"Page Down"="J",
-	"Up Arrow"="G",
-	"Down Arrow"="F",
-	"Left Arrow"="V",
-	"Right Arrow"="Q",
-	"Space Bar"="Z",
+	"Up"="G",
+	"Down"="F",
+	"Left"="V",
+	"Right"="Q",
+	"Space"="Z",
 	}
 
 

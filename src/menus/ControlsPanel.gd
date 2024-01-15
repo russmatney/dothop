@@ -5,8 +5,10 @@ extends CanvasLayer
 
 @onready var action_rows = $%EditActionRows
 
-# TODO list all relevant dothop actions
-var displayed_actions = ["ui_accept", "ui_undo", "ui_redo"]
+var displayed_actions = [
+	"ui_accept", "ui_undo", "pause", "close", "restart",
+	"ui_left", "ui_right", "ui_up", "ui_down"
+	]
 
 func _ready():
 	Log.pr("displayed actions", displayed_actions)
