@@ -20,7 +20,6 @@ func render_action_icons():
 	U.remove_children(action_inputs)
 
 	Log.pr("\n\nicons for", action_name)
-	Log.pr("kbd inputs", keyboard_inputs)
 	for inp in keyboard_inputs:
 		var icon = input_icon_scene.instantiate()
 		var key_str_mods = OS.get_keycode_string(inp.get_keycode_with_modifiers())
@@ -29,6 +28,18 @@ func render_action_icons():
 		action_inputs.add_child(icon)
 
 	Log.pr("joy inputs", joypad_inputs)
+	for inp in joypad_inputs:
+		var icon = input_icon_scene.instantiate()
+		if "axis" in inp:
+			var joy_axis_idx = inp.axis
+			Log.pr("joy_axis_idx", joy_axis_idx)
+			icon.input_text = "Joystick left"
+		else:
+			var joy_button_idx = inp.button_index
+			Log.pr("joy_button_idx", joy_button_idx)
+			icon.input_text = "B Button"
+		# TODO if no action icon is found, we ought to remove the icon
+		action_inputs.add_child(icon)
 
 
 	# TODO pull controller icons for the given inputs

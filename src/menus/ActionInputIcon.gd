@@ -28,7 +28,6 @@ func render_icon():
 		set_visible(false)
 		return
 	set_visible(true)
-	Log.pr("rendering input icon for text", input_text)
 
 	var input_key = ""
 	var mods = []
@@ -49,14 +48,23 @@ func render_icon():
 	for m in mods:
 		var mod_text = get_literal_text(m)
 		key = "%s%s" % [mod_text, key]
-		mod_width += 80
+		if m in ["Shift"]:
+			mod_width += 90
+		elif m in ["Ctrl"]:
+			mod_width += 80
+		else:
+			mod_width += 80
 
 	text = key
 
-	if input_text in ["Space", "Enter"]:
-		set_custom_minimum_size(Vector2(80 + mod_width, 0))
+	if input_text in ["Space"]:
+		set_custom_minimum_size(Vector2(110 + mod_width, 0))
+	elif input_text in ["Enter"]:
+		set_custom_minimum_size(Vector2(90 + mod_width, 0))
+	elif input_text in ["Escape"]:
+		set_custom_minimum_size(Vector2(70 + mod_width, 0))
 	else:
-		set_custom_minimum_size(Vector2(32 + mod_width, 0))
+		set_custom_minimum_size(Vector2(50 + mod_width, 0))
 
 var ignores = ["", "Kp Enter"]
 

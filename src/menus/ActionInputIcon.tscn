@@ -16,4 +16,3 @@ text = "a"
 fit_content = true
 scroll_active = false
 script = ExtResource("2_lnakd")
-input_text = ""
