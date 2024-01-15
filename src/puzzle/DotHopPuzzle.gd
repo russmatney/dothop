@@ -119,10 +119,14 @@ func _ready():
 
 ## input ##############################################################
 
+var just_logged_blocked_input = false
 func _unhandled_input(event):
 	if state != null and state.win:
-		Log.pr("Blocking input events b/c we're in a win state")
+		if not just_logged_blocked_input:
+			Log.pr("Blocking input events b/c we're in a win state")
+			just_logged_blocked_input = true
 		return
+	just_logged_blocked_input = false
 
 	if Trolls.is_move(event):
 		if state == null:
