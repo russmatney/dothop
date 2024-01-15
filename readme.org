@@ -2,8 +2,18 @@
 #+startup: overview
 
 * _
+
+#+html: <p align="center">
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/unit_tests.yml"><img alt="Unit Tests" src="https://github.com/russmatney/dothop/actions/workflows/unit-tests.yml/badge.svg" /></a>
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/itch_build_and_deploy.yml"><img alt="Itch Deploy" src="https://github.com/russmatney/dothop/actions/workflows/itch-build-and-deploy.yml/badge.svg" /></a>
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/steam_build_and_deploy.yml"><img alt="Steam Deploy" src="https://github.com/russmatney/dothop/actions/workflows/steam-build-and-deploy.yml/badge.svg" /></a>
+#+html:  </p>
+
 #+html: <div id="header" align="center">
 #+html: <div id="badges">
+#+html:   <a href="https://store.steampowered.com/app/2779710/Dot_Hop/">
+#+html:     <img alt="Dot Hop on Steam" src="https://img.shields.io/badge/add%20to%20wishlist%20-%20?style=for-the-badge&logo=steam&label=steam&color=55abef" />
+#+html:   </a>
 #+html:   <a href="https://mastodon.gamedev.place/@russmatney">
 #+html:     <img src="https://img.shields.io/badge/Mastodon-teal?style=for-the-badge&logo=mastodon&logoColor=white" alt="Mastodon Badge"/>
 #+html:   </a>
@@ -20,8 +30,9 @@
 #+html: </div>
 
 * Dot Hop
+Dot Hop is a grid-based puzzle game implemented in Godot, coming to Steam in Q1 2024!
 
-Steam page coming soon!
+Check out the [[https://store.steampowered.com/app/2779710/Dot_Hop/][Dot Hop Steam Page]] to add to your steam wishlist today!
 
 * Copyright Notice
 Dot Hop © 2023-2024 by Russell Matney is licensed under CC BY-NC-ND 4.0. To view a copy
