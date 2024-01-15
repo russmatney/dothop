@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://dq1rff2gu3q68"]
+
+[ext_resource type="Theme" uid="uid://cyixdgke4pk7d" path="res://addons/core/assets/fonts/vexed/EnterInputLight.tres" id="1_v6qpj"]
+[ext_resource type="Script" path="res://src/menus/ActionInputIcon.gd" id="2_lnakd"]
+
+[node name="ActionInputIcon" type="RichTextLabel"]
+clip_contents = false
+custom_minimum_size = Vector2(32, 32)
+theme = ExtResource("1_v6qpj")
+bbcode_enabled = true
+text = "[b]X[/b]"
+fit_content = true
+scroll_active = false
+script = ExtResource("2_lnakd")
+input_text = "X Button"
