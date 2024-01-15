@@ -1,5 +1,5 @@
 
--- useful reference: Kacper's extension: https://thkaspar.itch.io/center-image
+-- useful reference: Kacper Wozniak's extension: https://thkaspar.itch.io/center-image
 function center_sprite()
   local s = app.sprite
   for _, cel in ipairs(app.range.cels) do
@@ -15,9 +15,9 @@ end
 
 -- change_sprite_size --------------------------------------------------------------
 
-function change_sprite_size(w, h)
+function change_sprite_size(new_filename, w, h)
   local s = app.sprite
-  print("current sprite", s, s.width, s.height, s.pixelRatio)
+  print("current sprite", s, s.width, s.height)
 
   local longer
 
@@ -26,15 +26,15 @@ function change_sprite_size(w, h)
   else
     longer = w
   end
-  print("resizing", w, h, "longer: ", longer)
 
   -- resize to larger dimension
   app.command.SpriteSize({ui=false, width=longer, height=longer, lockRatio=true})
-  print("resized sprite to longer: ", longer, s.width, s.height)
+  print("resized sprite: ", s.width, s.height)
 
+  -- center the sprite
   center_sprite()
 
-  -- crop shorter dimension
+  -- crop the shorter dimension
   local new_x = 0
   local new_y = 0
   local new_width = s.width
@@ -53,16 +53,17 @@ function change_sprite_size(w, h)
   s:crop(new_x, new_y, new_width, new_height)
   print("cropped sprite", s.width, s.height)
 
-  s:saveAs(s.filename)
-  print("sprite re-saved")
+  s:saveAs(new_filename)
+  print("new file saved", new_filename)
 end
 
 -- main --------------------------------------------------------------
 
 app.transaction(
-  "main", function()
+  "resize_canvas", function()
+    local filename = app.params["filename"]
     local width = tonumber(app.params["width"])
     local height = tonumber(app.params["height"])
 
-    change_sprite_size(width, height)
+    change_sprite_size(filename, width, height)
 end)
