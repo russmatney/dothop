@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://y7prigmw5ilp"
+path="res://.godot/imported/base_bg_no_logo.aseprite-9f613e9c2812a3610627d7154bb139c8.res"
+
+[deps]
+
+source_file="res://assets/boxart/base_bg_no_logo.aseprite"
+dest_files=["res://.godot/imported/base_bg_no_logo.aseprite-9f613e9c2812a3610627d7154bb139c8.res"]
+
+[params]
+
