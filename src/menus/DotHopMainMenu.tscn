@@ -1,12 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://cdv566f17j4jx"]
+[gd_scene load_steps=5 format=3 uid="uid://cdv566f17j4jx"]
 
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="1_8ytxj"]
+[ext_resource type="Script" path="res://src/menus/DotHopMainMenu.gd" id="1_eal07"]
 [ext_resource type="Script" path="res://src/menus/DotHopMenuList.gd" id="2_tegql"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a04u7"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
 
 [node name="DotHopMainMenu" type="CanvasLayer"]
+script = ExtResource("1_eal07")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -45,6 +47,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="MenuList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("2_tegql")
