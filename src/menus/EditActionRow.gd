@@ -19,11 +19,12 @@ var current_joy_input
 ## ready ###############################################3
 
 func _ready():
-	action_name_label.text = "[center]%s[/center]" % action_name
+	action_name_label.text = "[center]%s[/center]" % action_name.trim_prefix("ui_").capitalize()
 	render_action_icons()
 	edit_button.pressed.connect(on_edit_pressed)
 
-	InputHelper.device_changed.connect(func(_d, _i): render_action_icons())
+	if not Engine.is_editor_hint():
+		InputHelper.device_changed.connect(func(_d, _i): render_action_icons())
 
 ## grab_focus ###############################################3
 
