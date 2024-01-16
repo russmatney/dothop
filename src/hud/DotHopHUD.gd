@@ -18,25 +18,11 @@ extends CanvasLayer
 
 func _ready():
 	set_control_icons()
-	InputHelper.device_changed.connect(func(device, _di): set_control_icons(device))
+	InputHelper.device_changed.connect(func(_device, _di): set_control_icons())
 
-func set_control_icons(device=null):
-	if not device:
-		device = InputHelper.guess_device_name()
-	if device == "keyboard":
-		for action in ["ui_undo", "restart"]:
-			var key_input = InputHelper.get_keyboard_input_for_action(action)
-			var txt = OS.get_keycode_string(key_input.get_keycode_with_modifiers())
-			match action:
-				"ui_undo": undo_input_icon.input_text = txt
-				"restart": reset_input_icon.input_text = txt
-	else:
-		for action in ["ui_undo", "restart"]:
-			var joy_input = InputHelper.get_joypad_input_for_action(action)
-			var j = [device, joy_input.button_index]
-			match action:
-				"ui_undo": undo_input_icon.joy_button = j
-				"restart": reset_input_icon.joy_button = j
+func set_control_icons():
+	undo_input_icon.set_icon_for_action("ui_undo")
+	reset_input_icon.set_icon_for_action("restart")
 
 ## unhandled_input ########################################################
 

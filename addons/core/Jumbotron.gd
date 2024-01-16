@@ -12,8 +12,6 @@ static func jumbo_notif(opts):
 
 	var header = opts.get("header")
 	var body = opts.get("body", "")
-	var key_or_action = opts.get("key")
-	key_or_action = opts.get("action", key_or_action)
 	var action_label_text = opts.get("action_label_text")
 	var on_close = opts.get("on_close")
 	var pause = opts.get("pause", true)
@@ -21,10 +19,7 @@ static func jumbo_notif(opts):
 	# reset data
 	jumbotron.header_text = header
 	jumbotron.body_text = body
-	# jumbotron.action_hint.hide()
-
-	# if key_or_action or action_label_text:
-	# 	jumbotron.action_hint.display(key_or_action, action_label_text)
+	jumbotron.set_control_icon()
 
 	jumbotron.jumbo_closed.connect(func():
 		if on_close:
@@ -47,7 +42,7 @@ signal jumbo_closed
 
 @onready var header = $%Header
 @onready var body = $%Body
-# @onready var action_hint = $%ActionHint
+@onready var dismiss_input_icon = $%DismissInputIcon
 
 @export var header_text: String :
 	set(v):
@@ -66,6 +61,15 @@ signal jumbo_closed
 				body.text = ""
 			else:
 				body.text = "[center]%s[/center]" % v
+
+func _ready():
+	set_control_icon()
+	InputHelper.device_changed.connect(func(device, _idx):
+		Log.pr("jumbotron detected device change")
+		set_control_icon(device))
+
+func set_control_icon(device=null):
+	dismiss_input_icon.set_icon_for_action("close", device)
 
 func _unhandled_input(event):
 	if Trolls.is_close(event):

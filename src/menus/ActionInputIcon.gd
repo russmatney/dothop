@@ -62,6 +62,21 @@ func axis_to_input_text(axis):
 			return
 	return txt
 
+## public
+
+func set_icon_for_action(action_name, device=null):
+	if not device:
+		device = InputHelper.device
+	if device == InputHelper.DEVICE_KEYBOARD:
+		var key_input = InputHelper.get_keyboard_input_for_action(action_name)
+		var txt = OS.get_keycode_string(key_input.get_keycode_with_modifiers())
+		input_text = txt
+	else:
+		var joy_input = InputHelper.get_joypad_input_for_action(action_name)
+		var j = [device, joy_input.button_index]
+		joy_button = j
+
+## ready
 
 func _ready():
 	render_icon()

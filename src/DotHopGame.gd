@@ -110,10 +110,10 @@ func on_puzzle_win():
 	var header
 	var body
 	if game_complete:
-		header = "[jump]All %s Puzzles Complete![/jump]" % puzzle_num
+		header = "All %s Puzzles Complete!" % puzzle_num
 		body = "Your friends must think you're\npretty nerdy"
 	else:
-		header = "[jump]Puzzle %s Complete![/jump]" % puzzle_num
+		header = "Puzzle %s Complete!" % puzzle_num
 		body = "....but how?"
 
 	Jumbotron.jumbo_notif({
