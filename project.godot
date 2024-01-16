@@ -26,6 +26,13 @@ Navi="*res://addons/core/Navi.gd"
 DJ="*res://addons/dj/DJ.gd"
 DJZ="*res://addons/dj/DJZ.gd"
 
+[display]
+
+window/size/viewport_width=1200
+window/size/viewport_height=720
+window/stretch/mode="viewport"
+window/stretch/scale_mode="integer"
+
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
