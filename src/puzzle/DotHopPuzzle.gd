@@ -235,17 +235,11 @@ func clear_nodes():
 				pcam.erase_follow_group_node(ch)
 			ch.free()
 
-var cam_anchor
-var cam_anchor_scene = preload("res://addons/camera/CamAnchor.tscn")
 var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
 var pcam
-func ensure_camera_anchor():
+func ensure_camera():
 	if len(state.grid) == 0:
 		return
-	if cam_anchor == null:
-		cam_anchor = cam_anchor_scene.instantiate()
-		cam_anchor.position = Vector2(len(state.grid[0]), len(state.grid)) * square_size / 2
-		add_child(cam_anchor)
 
 	pcam = get_node("PhantomCamera2D")
 	if pcam == null:
@@ -259,7 +253,7 @@ func rebuild_nodes():
 	clear_nodes()
 
 	if not Engine.is_editor_hint():
-		ensure_camera_anchor()
+		ensure_camera()
 
 	for y in len(state.grid):
 		for x in len(state.grid[y]):

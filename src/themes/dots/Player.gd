@@ -72,8 +72,6 @@ func move_to_coord(coord):
 	scale_tween.tween_property(self, "scale", 0.8*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-	Cam.screenshake(0.2)
-
 ## undo #########################################################
 
 func undo_to_coord(coord):
@@ -91,8 +89,6 @@ func undo_to_coord(coord):
 	scale_tween.tween_property(self, "scale", 0.8*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-	Cam.screenshake(0.2)
-
 # undo-step for other player, but we're staying in the same coord
 func undo_to_same_coord():
 	var t = 0.3
@@ -103,8 +99,6 @@ func undo_to_same_coord():
 ## move attempts #########################################################
 
 func move_attempt_stuck(move_dir:Vector2):
-	Cam.screenshake(0.3)
-
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
@@ -118,8 +112,6 @@ func move_attempt_stuck(move_dir:Vector2):
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func move_attempt_away_from_edge(move_dir:Vector2):
-	Cam.screenshake(0.3)
-
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
@@ -133,8 +125,6 @@ func move_attempt_away_from_edge(move_dir:Vector2):
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func move_attempt_only_nulls(move_dir:Vector2):
-	Cam.screenshake(0.3)
-
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
