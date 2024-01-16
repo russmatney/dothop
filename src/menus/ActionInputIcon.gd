@@ -279,7 +279,6 @@ var keymap_extra={
 	"Joystick 'R'"="}",
 	}
 
-# unfortunate we can't use constants to create dictionary keys here
 var device_button_idx_input_text = {
 		"xbox"={
 			0: "A Button",
