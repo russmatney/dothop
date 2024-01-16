@@ -27,6 +27,11 @@ text = "[center]Controls[/center]"
 fit_content = true
 scroll_active = false
 
+[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Reset All"
+
 [node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

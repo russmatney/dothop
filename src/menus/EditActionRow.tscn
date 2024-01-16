@@ -15,8 +15,8 @@ alignment = 1
 script = ExtResource("1_1si0w")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
+custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
-size_flags_horizontal = 3
 
 [node name="ActionName" type="RichTextLabel" parent="CenterContainer"]
 unique_name_in_owner = true
@@ -28,6 +28,18 @@ bbcode_enabled = true
 text = "[center]ui_accept[/center]"
 fit_content = true
 scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+size_flags_vertical = 4
+alignment = 1
+
+[node name="EditButton" type="Button" parent="HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+text = "Edit
+"
 
 [node name="ActionInputs" type="HBoxContainer" parent="."]
 unique_name_in_owner = true
