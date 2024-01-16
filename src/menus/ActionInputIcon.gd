@@ -7,6 +7,63 @@ extends RichTextLabel
 		if Engine.is_editor_hint():
 			render_icon()
 
+@export var joy_button = [] :
+	set(v):
+		if input_text == "" and v and len(v) == 2:
+			input_text = button_to_input_text(v)
+
+func button_to_input_text(button):
+	var device_type = button[0]
+	var idx = button[1]
+	if device_type == "keyboard":
+		# not sure i love this
+		device_type = "generic"
+
+	var dev_map = device_button_idx_input_text.get(device_type, {})
+	var txt
+	if idx in dev_map:
+		txt = dev_map.get(idx, "")
+
+	return txt
+
+
+@export var joy_axis = [] :
+	set(v):
+		if input_text == "" and v and len(v) == 2:
+			input_text = axis_to_input_text(v)
+
+func axis_to_input_text(axis):
+	var idx = axis[0]
+	var val = axis[1]
+
+	var txt = ""
+	match idx:
+		JOY_AXIS_LEFT_X:
+			if val > 0:
+				txt = "Joystick right"
+			else:
+				txt = "Joystick left"
+		JOY_AXIS_LEFT_Y:
+			if val > 0:
+				txt = "Joystick down"
+			else:
+				txt = "Joystick up"
+		JOY_AXIS_RIGHT_X:
+			if val > 0:
+				txt = "Joystick right"
+			else:
+				txt = "Joystick left"
+		JOY_AXIS_RIGHT_Y:
+			if val > 0:
+				txt = "Joystick down"
+			else:
+				txt = "Joystick up"
+		[JOY_AXIS_INVALID, JOY_AXIS_TRIGGER_LEFT, JOY_AXIS_TRIGGER_RIGHT, JOY_AXIS_SDL_MAX, JOY_AXIS_MAX]:
+			Log.pr("Unsupported joystick axis")
+			return
+	return txt
+
+
 func _ready():
 	render_icon()
 
@@ -185,11 +242,12 @@ var keymap_extra={
 	"B Button"="B",
 	"X Button"="X",
 	"Y Button"="Y",
+	"Cross Button"="X", # mapped to X button for now
 	"Square Button"="N",
 	"Triangle Button"="T",
 	"Circle Button"="C",
 	"Dpad"="D",
-	"Dpad Up"="^",
+	"Dpad up"="^",
 	"Dpad down"="V",
 	"Dpad left"="<",
 	"Dpad right"=">",
@@ -219,4 +277,83 @@ var keymap_extra={
 	"Joystick down right"="n",
 	"Joystick 'L'"="{",
 	"Joystick 'R'"="}",
+	}
+
+# unfortunate we can't use constants to create dictionary keys here
+var device_button_idx_input_text = {
+		"xbox"={
+			0: "A Button",
+			1: "B Button",
+			2: "X Button",
+			3: "Y Button",
+			4: "Pause", # back
+			5: "Home",
+			6: "Menu", # menu
+			7: "Left Stick",
+			8: "Right Stick",
+			9: "Left Button",
+			10: "Right Button",
+			11: "Dpad up",
+			12: "Dpad down",
+			13: "Dpad left",
+			14: "Dpad right",
+			15: "Share",
+			},
+		"switch"={
+			0: "B Button",
+			1: "A Button",
+			2: "Y Button",
+			3: "X Button",
+			4: "Menu", # -
+			5: "",
+			6: "Pause", # +
+			7: "Left Stick",
+			8: "Right Stick",
+			9: "Left Button",
+			10: "Right Button",
+			11: "Dpad up",
+			12: "Dpad down",
+			13: "Dpad left",
+			14: "Dpad right",
+			15: "Capture",
+			},
+		"switch_left_joycon"={},
+		"switch_right_joycon"={},
+		"playstation"={
+			0: "Cross Button",
+			1: "Circle Button",
+			2: "Square Button",
+			3: "Triangle Button",
+			4: "Menu", # Select
+			5: "PS",
+			6: "Pause", # Start
+			7: "Left Stick",
+			8: "Right Stick",
+			9: "Left Button",
+			10: "Right Button",
+			11: "Dpad up",
+			12: "Dpad down",
+			13: "Dpad left",
+			14: "Dpad right",
+			15: "Microphone",
+			20: "Touchpad",
+			},
+		"generic"={
+			0: "A Button",
+			1: "B Button",
+			2: "X Button",
+			3: "Y Button",
+			4: "Pause", # back
+			5: "Home",
+			6: "Menu", # menu
+			7: "Left Stick",
+			8: "Right Stick",
+			9: "Left Button",
+			10: "Right Button",
+			11: "Dpad up",
+			12: "Dpad down",
+			13: "Dpad left",
+			14: "Dpad right",
+			15: "Share",
+			},
 	}

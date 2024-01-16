@@ -18,28 +18,23 @@ func render_action_icons():
 	var joypad_inputs = InputHelper.get_joypad_inputs_for_action(action_name)
 
 	U.remove_children(action_inputs)
+	# TODO if no action icon is found, we ought to remove the icon
 
 	Log.pr("\n\nicons for", action_name)
 	for inp in keyboard_inputs:
 		var icon = input_icon_scene.instantiate()
 		var key_str_mods = OS.get_keycode_string(inp.get_keycode_with_modifiers())
 		icon.input_text = key_str_mods
-		# TODO if no action icon is found, we ought to remove the icon
 		action_inputs.add_child(icon)
 
 	Log.pr("joy inputs", joypad_inputs)
 	for inp in joypad_inputs:
 		var icon = input_icon_scene.instantiate()
 		if "axis" in inp:
-			var joy_axis_idx = inp.axis
-			Log.pr("joy_axis_idx", joy_axis_idx)
-			icon.input_text = "Joystick left"
+			icon.joy_axis = [inp.axis, inp.axis_value]
 		else:
 			var joy_button_idx = inp.button_index
-			Log.pr("joy_button_idx", joy_button_idx)
-			icon.input_text = "B Button"
-		# TODO if no action icon is found, we ought to remove the icon
+			Log.pr("joy_button_idx", InputHelper.guess_device_name(), joy_button_idx)
+			icon.joy_button = [InputHelper.guess_device_name(), inp.button_index]
+
 		action_inputs.add_child(icon)
-
-
-	# TODO pull controller icons for the given inputs
