@@ -23,6 +23,11 @@ func _ready():
 	render_action_icons()
 	edit_button.pressed.connect(on_edit_pressed)
 
+## grab_focus ###############################################3
+
+func set_focus():
+	edit_button.grab_focus()
+
 ## render action icons ###############################################3
 
 func render_action_icons():

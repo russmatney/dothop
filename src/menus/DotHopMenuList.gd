@@ -1,7 +1,10 @@
 @tool
 extends NaviButtonList
 
-var button_defs = []
+var button_defs = [{
+	nav_to="res://src/menus/ControlsPanel.tscn",
+	label="Controls",
+	}]
 
 var dh_game = "res://src/DotHopGame.tscn"
 
@@ -20,10 +23,3 @@ func _ready():
 
 	if Engine.is_editor_hint():
 		request_ready()
-
-	InputHelper.device_changed.connect(_on_input_device_changed)
-
-
-func _on_input_device_changed(device: String, device_index: int) -> void:
-	Log.pr("XBox? ", device == InputHelper.DEVICE_XBOX_CONTROLLER)
-	Log.pr("Device index? ", device_index) # Probably 0

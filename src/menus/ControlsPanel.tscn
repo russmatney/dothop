@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
 
 [node name="ControlsPanel" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_j8soe")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -27,11 +28,32 @@ text = "[center]Controls[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
 unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Reset All"
 
-[node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "Main Menu"
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+follow_focus = true
+
+[node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

@@ -6,10 +6,11 @@ extends CanvasLayer
 @onready var edit_action_scene = preload("res://src/menus/EditActionRow.tscn")
 @onready var action_rows = $%EditActionRows
 @onready var reset_all_button = $%ResetButton
+@onready var main_menu_button = $%MainMenuButton
 
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
-	"ui_left", "ui_right", "ui_up", "ui_down"
+	"ui_up", "ui_down", "ui_left", "ui_right",
 	]
 
 ## ready ###############################################3
@@ -19,6 +20,8 @@ func _ready():
 
 	render_action_rows()
 	reset_all_button.pressed.connect(on_reset_all_pressed)
+	main_menu_button.pressed.connect(func():
+		Navi.nav_to_main_menu())
 
 ## render ###############################################3
 
@@ -28,6 +31,10 @@ func render_action_rows():
 		var row = edit_action_scene.instantiate()
 		row.action_name = action
 		action_rows.add_child(row)
+
+	for row in action_rows.get_children():
+		row.set_focus()
+		break
 
 ## reset all ###############################################3
 
