@@ -272,6 +272,8 @@ func rebuild_nodes():
 
 	if pcam != null:
 		pcam.append_follow_group_node_array(all_cell_nodes())
+		for p in state.players:
+			pcam.append_follow_group_node(p.node)
 
 	# trigger HUD update
 	rebuilt_nodes.emit()
@@ -432,6 +434,9 @@ func mark_cell_dotted(cell):
 	state.grid[cell.coord.y][cell.coord.x].erase("Dot")
 	state.grid[cell.coord.y][cell.coord.x].append("Dotted")
 
+	if pcam != null:
+		pcam.erase_follow_group_node(node)
+
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
 func mark_cell_undotted(cell):
@@ -450,6 +455,9 @@ func mark_cell_undotted(cell):
 	# update game state
 	state.grid[cell.coord.y][cell.coord.x].erase("Dotted")
 	state.grid[cell.coord.y][cell.coord.x].append("Dot")
+
+	if pcam != null:
+		pcam.append_follow_group_node(node)
 
 ## move to dot ##############################################################
 
