@@ -241,7 +241,7 @@ func ensure_camera():
 	if len(state.grid) == 0:
 		return
 
-	pcam = get_node("PhantomCamera2D")
+	pcam = get_node_or_null("PhantomCamera2D")
 	if pcam == null:
 		pcam = pcam_scene.instantiate()
 		add_child(pcam)
