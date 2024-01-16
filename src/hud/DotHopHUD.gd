@@ -6,9 +6,37 @@ extends CanvasLayer
 @onready var level_message_label = $%LevelMessage
 @onready var dots_remaining_label = $%DotsRemaining
 
-@onready var move_label = $%Move
-@onready var undo_label = $%Undo
-@onready var reset_label = $%Reset
+@onready var undo_control_hint = $%UndoControlHint
+@onready var reset_control_hint = $%ResetControlHint
+@onready var undo_label = $%UndoLabel
+@onready var reset_label = $%ResetLabel
+@onready var undo_input_icon = $%UndoInputIcon
+@onready var reset_input_icon = $%ResetInputIcon
+
+
+## ready ########################################################
+
+func _ready():
+	set_control_icons()
+	InputHelper.device_changed.connect(func(device, _di): set_control_icons(device))
+
+func set_control_icons(device=null):
+	if not device:
+		device = InputHelper.guess_device_name()
+	if device == "keyboard":
+		for action in ["ui_undo", "restart"]:
+			var key_input = InputHelper.get_keyboard_input_for_action(action)
+			var txt = OS.get_keycode_string(key_input.get_keycode_with_modifiers())
+			match action:
+				"ui_undo": undo_input_icon.input_text = txt
+				"restart": reset_input_icon.input_text = txt
+	else:
+		for action in ["ui_undo", "restart"]:
+			var joy_input = InputHelper.get_joypad_input_for_action(action)
+			var j = [device, joy_input.button_index]
+			match action:
+				"ui_undo": undo_input_icon.joy_button = j
+				"restart": reset_input_icon.joy_button = j
 
 ## unhandled_input ########################################################
 
@@ -64,11 +92,11 @@ func update_dots_remaining(entry):
 ## controls ########################################################
 
 func controls():
-	var cts = [move_label]
+	var cts = []
 	if not resetting:
-		cts.append(reset_label)
+		cts.append(reset_control_hint)
 	if not undoing:
-		cts.append(undo_label)
+		cts.append(undo_control_hint)
 	return cts
 
 var fade_controls_tween
@@ -110,9 +138,9 @@ func animate_undo():
 		return
 	show_controls()
 	undo_tween = create_tween()
-	undo_tween.tween_property(undo_label, "modulate:a", 1.0, undo_t/4)
-	undo_tween.parallel().tween_property(undo_label, "scale", Vector2.ONE*1.4, undo_t/2)
-	undo_tween.tween_property(undo_label, "scale", Vector2.ONE, undo_t/2)
+	undo_tween.tween_property(undo_control_hint, "modulate:a", 1.0, undo_t/4)
+	undo_tween.parallel().tween_property(undo_control_hint, "scale", Vector2.ONE*1.4, undo_t/2)
+	undo_tween.tween_property(undo_control_hint, "scale", Vector2.ONE, undo_t/2)
 	undo_tween.tween_callback(func(): undoing = false)
 
 ## restarting ########################################################
@@ -122,13 +150,13 @@ var reset_tween
 func show_resetting():
 	var hold_t = DHData.reset_hold_t
 	resetting = true
-	reset_label.text = "Keep holding to reset..."
+	reset_label.text = "Hold..."
 
 	if reset_tween != null and reset_tween.is_running():
 		return
 	reset_tween = create_tween()
-	reset_tween.tween_property(reset_label, "modulate:a", 1.0, hold_t/0.3)
-	reset_tween.parallel().tween_property(reset_label, "scale", 1.3 * Vector2.ONE, hold_t)
+	reset_tween.tween_property(reset_control_hint, "modulate:a", 1.0, hold_t/0.3)
+	reset_tween.parallel().tween_property(reset_control_hint, "scale", 1.3 * Vector2.ONE, hold_t)
 	# presumably we're back at the beginning
 	reset_tween.tween_callback(hide_resetting)
 
@@ -137,5 +165,5 @@ func hide_resetting():
 	if reset_tween != null:
 		reset_tween.kill()
 
-	reset_label.text = "Reset: Hold x/y"
-	reset_label.scale = Vector2.ONE
+	reset_label.text = "Reset:"
+	reset_control_hint.scale = Vector2.ONE

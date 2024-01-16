@@ -4,12 +4,11 @@ extends RichTextLabel
 @export var input_text = "" :
 	set(v):
 		input_text = v
-		if Engine.is_editor_hint():
-			render_icon()
+		render_icon()
 
 @export var joy_button = [] :
 	set(v):
-		if input_text == "" and v and len(v) == 2:
+		if v and len(v) == 2:
 			input_text = button_to_input_text(v)
 
 func button_to_input_text(button):
