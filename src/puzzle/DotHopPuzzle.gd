@@ -231,10 +231,14 @@ func init_player(coord, node) -> Dictionary:
 func clear_nodes():
 	for ch in get_children():
 		if ch.is_in_group("generated"):
+			if pcam != null:
+				pcam.erase_follow_group_node(ch)
 			ch.free()
 
 var cam_anchor
 var cam_anchor_scene = preload("res://addons/camera/CamAnchor.tscn")
+var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
+var pcam
 func ensure_camera_anchor():
 	if len(state.grid) == 0:
 		return
@@ -243,12 +247,10 @@ func ensure_camera_anchor():
 		cam_anchor.position = Vector2(len(state.grid[0]), len(state.grid)) * square_size / 2
 		add_child(cam_anchor)
 
-	Cam.request_camera({
-		anchor=cam_anchor,
-		# could use dynamic zoom based on level size
-		zoom_level=2.5,
-		# zoom_offset=1000.0,
-		mode=Cam.mode.ANCHOR})
+	pcam = get_node("PhantomCamera2D")
+	if pcam == null:
+		pcam = pcam_scene.instantiate()
+		add_child(pcam)
 
 # Adds nodes for the object_names in each cell of the grid.
 # Tracks nodes (except for players) in a state.cell_nodes dict.
@@ -273,6 +275,9 @@ func rebuild_nodes():
 					if not coord in state.cell_nodes:
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
+
+	if pcam != null:
+		pcam.append_follow_group_node_array(all_cell_nodes())
 
 	# trigger HUD update
 	rebuilt_nodes.emit()
@@ -368,10 +373,13 @@ func all_players_at_goal() -> bool:
 			return true
 		).all(func(c): return "Player" in c)
 
-func all_cell_nodes() -> Array[Variant]:
-	return state.cell_nodes.values().reduce(func(agg, nodes):
+func all_cell_nodes() -> Array[Node2D]:
+	var ns = state.cell_nodes.values().reduce(func(agg, nodes):
 		agg.append_array(nodes)
 		return agg)
+	var t_nodes: Array[Node2D] = []
+	t_nodes.assign(ns)
+	return t_nodes
 
 ## move/state-updates ##############################################################
 

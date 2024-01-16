@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bsymtklf0qp36"]
+
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2D.gd" id="1_mclm1"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_ddwqt"]
+
+[sub_resource type="Resource" id="Resource_romtu"]
+script = ExtResource("2_ddwqt")
+duration = 0.6
+transition = 1
+ease = 2
+
+[node name="PhantomCamera2D" type="Node2D"]
+script = ExtResource("1_mclm1")
+priority_override = false
+priority = 0
+zoom = Vector2(4, 4)
+follow_mode = 3
+follow_group = Array[NodePath]([])
+follow_parameters/auto_zoom = false
+follow_parameters/target_offset = Vector2(0, 0)
+follow_parameters/damping = false
+frame_preview = true
+pixel_perfect = true
+limit/draw_limits = true
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+limit/limit_node_target = NodePath("")
+limit/smoothed = false
+tween_parameters = SubResource("Resource_romtu")
+tween_on_load = true
+inactive_update_mode = 0
