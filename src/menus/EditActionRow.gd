@@ -23,6 +23,8 @@ func _ready():
 	render_action_icons()
 	edit_button.pressed.connect(on_edit_pressed)
 
+	InputHelper.device_changed.connect(func(_d, _i): render_action_icons())
+
 ## grab_focus ###############################################3
 
 func set_focus():
@@ -31,30 +33,35 @@ func set_focus():
 ## render action icons ###############################################3
 
 func render_action_icons():
-	var keyboard_inputs = InputHelper.get_keyboard_inputs_for_action(action_name)
-	var joypad_inputs = InputHelper.get_joypad_inputs_for_action(action_name)
-
 	U.remove_children(action_inputs)
+
+	var icon = input_icon_scene.instantiate()
+	icon.set_icon_for_action(action_name)
+	action_inputs.add_child(icon)
+
+	# show all option
 	# TODO if no action icon is found, we ought to remove the icon
+	# var keyboard_inputs = InputHelper.get_keyboard_inputs_for_action(action_name)
+	# var joypad_inputs = InputHelper.get_joypad_inputs_for_action(action_name)
 
-	for inp in keyboard_inputs:
-		if not current_key_input:
-			current_key_input = inp
-		var icon = input_icon_scene.instantiate()
-		var key_str_mods = OS.get_keycode_string(inp.get_keycode_with_modifiers())
-		icon.input_text = key_str_mods
-		action_inputs.add_child(icon)
+	# for inp in keyboard_inputs:
+	# 	if not current_key_input:
+	# 		current_key_input = inp
+	# 	var icon = input_icon_scene.instantiate()
+	# 	var key_str_mods = OS.get_keycode_string(inp.get_keycode_with_modifiers())
+	# 	icon.input_text = key_str_mods
+	# 	action_inputs.add_child(icon)
 
-	for inp in joypad_inputs:
-		var icon = input_icon_scene.instantiate()
-		if "axis" in inp:
-			icon.joy_axis = [inp.axis, inp.axis_value]
-		else:
-			if not current_joy_input:
-				current_joy_input = inp
-			icon.joy_button = [InputHelper.guess_device_name(), inp.button_index]
+	# for inp in joypad_inputs:
+	# 	var icon = input_icon_scene.instantiate()
+	# 	if "axis" in inp:
+	# 		icon.joy_axis = [inp.axis, inp.axis_value]
+	# 	else:
+	# 		if not current_joy_input:
+	# 			current_joy_input = inp
+	# 		icon.joy_button = [InputHelper.guess_device_name(), inp.button_index]
 
-		action_inputs.add_child(icon)
+	# 	action_inputs.add_child(icon)
 
 ## edit signals ###############################################3
 

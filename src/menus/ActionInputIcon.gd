@@ -67,14 +67,12 @@ func axis_to_input_text(axis):
 func set_icon_for_action(action_name, device=null):
 	if not device:
 		device = InputHelper.device
+	var input = InputHelper.get_keyboard_or_joypad_input_for_action(action_name)
 	if device == InputHelper.DEVICE_KEYBOARD:
-		var key_input = InputHelper.get_keyboard_input_for_action(action_name)
-		var txt = OS.get_keycode_string(key_input.get_keycode_with_modifiers())
-		input_text = txt
+		input_text = OS.get_keycode_string(input.get_keycode_with_modifiers())
 	else:
-		var joy_input = InputHelper.get_joypad_input_for_action(action_name)
-		var j = [device, joy_input.button_index]
-		joy_button = j
+		# TODO support axes as well
+		joy_button = [device, input.button_index]
 
 ## ready
 
