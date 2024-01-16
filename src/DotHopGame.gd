@@ -51,7 +51,7 @@ func rebuild_puzzle():
 
 	if puzzle_node == null:
 		Log.pr("Failed to create puzzle_node, probably a win?")
-		Navi.show_win_menu()
+		Navi.nav_to_main_menu()
 		return
 
 	puzzle_node.win.connect(on_puzzle_win)
@@ -120,8 +120,8 @@ func on_puzzle_win():
 		header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
-			Dino.notif("Win all")
-			Navi.show_win_menu()
+			Dino.notif("Win all!")
+			Navi.nav_to_main_menu()
 		else:
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()

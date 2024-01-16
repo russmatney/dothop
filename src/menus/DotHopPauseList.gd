@@ -6,14 +6,9 @@ var button_defs = [
 		label="Resume",
 		fn=Navi.resume,
 	},
-	# {
-	# 	label="Game Menu",
-	# 	fn=Game.load_main_menu,
-	# },
 	{
-		label="Dino Menu",
+		label="Main Menu",
 		fn=Navi.nav_to_main_menu,
-		hide_fn=func(): return not (OS.has_feature("dino") or OS.has_feature("editor")),
 	},
 ]
 
