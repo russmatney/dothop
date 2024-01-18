@@ -12,7 +12,7 @@
 #+html: <div id="header" align="center">
 #+html: <div id="badges">
 #+html:   <a href="https://store.steampowered.com/app/2779710/Dot_Hop/">
-#+html:     <img alt="Dot Hop on Steam" src="https://img.shields.io/badge/add%20to%20wishlist%20-%20?style=for-the-badge&logo=steam&label=steam&color=55abef" />
+#+html:     <img alt="Dot Hop on Steam" src="https://img.shields.io/badge/add%20to%20wishlist%20-%20?style=for-the-badge&logo=steam&label=Dot Hop&color=55abef" />
 #+html:   </a>
 #+html:   <a href="https://mastodon.gamedev.place/@russmatney">
 #+html:     <img src="https://img.shields.io/badge/Mastodon-teal?style=for-the-badge&logo=mastodon&logoColor=white" alt="Mastodon Badge"/>
@@ -25,6 +25,9 @@
 #+html:   </a>
 #+html:   <a href="https://discord.gg/xZHWtGfAvF">
 #+html:     <img alt="Discord" src="https://img.shields.io/discord/758750490015563776?style=for-the-badge&logo=discord&logoColor=fff&label=discord" />
+#+html:   </a>
+#+html:   <a href="https://www.youtube.com/@russmatney">
+#+html:     <img src="https://img.shields.io/badge/Youtube-red?style=for-the-badge&logo=youtube&logoColor=white" alt="Youtube Badge"/>
 #+html:   </a>
 #+html: </div>
 #+html: </div>
