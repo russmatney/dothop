@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://bri7j48xu7ujk"]
+
+[ext_resource type="Script" path="res://src/menus/WorldMap.gd" id="1_hw6qs"]
+[ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_n1bpl"]
+[ext_resource type="Script" path="res://src/menus/WorldList.gd" id="3_sgxgd"]
+[ext_resource type="Script" path="res://src/menus/WorldMapOptionsList.gd" id="4_d7s3e"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcjp"]
+bg_color = Color(0.94902, 0.811765, 0.615686, 1)
+
+[node name="WorldMap" type="CanvasLayer"]
+script = ExtResource("1_hw6qs")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_4vcjp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/default_color = Color(0.560784, 0.364706, 0.517647, 1)
+theme_override_fonts/normal_font = ExtResource("2_n1bpl")
+theme_override_font_sizes/normal_font_size = 64
+bbcode_enabled = true
+text = "[center]World Map[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="WorldList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+script = ExtResource("3_sgxgd")
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(10, 0)
+layout_mode = 2
+
+[node name="Options" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+script = ExtResource("4_d7s3e")
+
+[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2

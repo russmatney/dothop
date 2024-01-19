@@ -7,6 +7,7 @@ extends CanvasLayer
 @onready var action_rows = $%EditActionRows
 @onready var reset_all_button = $%ResetButton
 @onready var main_menu_button = $%MainMenuButton
+@onready var world_map_button = $%WorldMapButton
 
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
@@ -22,6 +23,8 @@ func _ready():
 	reset_all_button.pressed.connect(on_reset_all_pressed)
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
+	world_map_button.pressed.connect(func():
+		Navi.nav_to("res://src/menus/WorldMap.tscn"))
 
 ## render ###############################################3
 

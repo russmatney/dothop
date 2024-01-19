@@ -1,11 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cdv566f17j4jx"]
+[gd_scene load_steps=6 format=3 uid="uid://cdv566f17j4jx"]
 
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="1_8ytxj"]
 [ext_resource type="Script" path="res://src/menus/DotHopMainMenu.gd" id="1_eal07"]
+[ext_resource type="Texture2D" uid="uid://wescmejk4ssr" path="res://assets/boxart/base_logo_no_bg_sheet.png" id="2_btcra"]
 [ext_resource type="Script" path="res://src/menus/DotHopMenuList.gd" id="2_tegql"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a04u7"]
-bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
+bg_color = Color(0.94902, 0.811765, 0.615686, 1)
 
 [node name="DotHopMainMenu" type="CanvasLayer"]
 script = ExtResource("1_eal07")
@@ -23,11 +24,21 @@ layout_mode = 2
 alignment = 1
 
 [node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(600, 600)
+layout_mode = 2
+texture = ExtResource("2_btcra")
+stretch_mode = 4
+
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+visible = false
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/normal_font = ExtResource("1_8ytxj")
@@ -36,6 +47,10 @@ bbcode_enabled = true
 text = "[center]Dot Hop[/center]"
 fit_content = true
 scroll_active = false
+
+[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

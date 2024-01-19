@@ -2,14 +2,12 @@
 extends NaviButtonList
 
 var button_defs = [{
-	nav_to="res://src/menus/WorldMap.tscn",
-	label="Start",
-	}, {
 	nav_to="res://src/menus/ControlsPanel.tscn",
 	label="Controls",
+	}, {
+	nav_to="res://src/menus/DotHopMainMenu.tscn",
+	label="Main Menu",
 	}]
-
-var dh_game = "res://src/DotHopGame.tscn"
 
 func _ready():
 	for def in button_defs:

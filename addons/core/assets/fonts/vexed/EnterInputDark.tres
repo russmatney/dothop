@@ -1,0 +1,10 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cr65utgpxw5w4"]
+
+[ext_resource type="FontFile" uid="uid://bs0t7ti67xggf" path="res://addons/core/assets/fonts/vexed/Enter_Input_Dark_Extra.ttf" id="1_4ot7r"]
+[ext_resource type="FontFile" uid="uid://bpvgnjs2q0rbd" path="res://addons/core/assets/fonts/vexed/Enter_Input_Dark.ttf" id="2_42fvj"]
+
+[resource]
+RichTextLabel/font_sizes/bold_font_size = 32
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/bold_font = ExtResource("1_4ot7r")
+RichTextLabel/fonts/normal_font = ExtResource("2_42fvj")

@@ -1,6 +1,10 @@
-[gd_scene load_steps=2 format=3 uid="uid://cq5r4oojxyu5a"]
+[gd_scene load_steps=4 format=3 uid="uid://cq5r4oojxyu5a"]
 
 [ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
+[ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_s8vdu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]
+bg_color = Color(0.94902, 0.811765, 0.615686, 1)
 
 [node name="ControlsPanel" type="CanvasLayer"]
 layer = 5
@@ -12,6 +16,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_6sn6c")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
@@ -21,8 +26,11 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_s8vdu")
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Controls[/center]"
 fit_content = true
@@ -46,6 +54,12 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 text = "Main Menu"
+
+[node name="WorldMapButton" type="Button" parent="PanelContainer/VBoxContainer/CenterContainer2/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+text = "World Map"
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
