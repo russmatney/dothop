@@ -40,7 +40,7 @@
       :out)))
 
 (defn is-mac? []
-  (string/includes? (expand "$OSTYPE") "darwin21"))
+  (string/includes? (expand "$OSTYPE") "darwin"))
 
 (comment
   (is-mac?))
