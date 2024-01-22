@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://v0lnq23iifnn"
+path="res://.godot/imported/greenboard_full.aseprite-58091f12928932bdda430cf5f51cc0b8.res"
+
+[deps]
+
+source_file="res://assets/ui/greenboard_full.aseprite"
+dest_files=["res://.godot/imported/greenboard_full.aseprite-58091f12928932bdda430cf5f51cc0b8.res"]
+
+[params]
+

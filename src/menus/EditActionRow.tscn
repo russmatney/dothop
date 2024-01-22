@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://vy2sl481qu00"]
+[gd_scene load_steps=5 format=3 uid="uid://vy2sl481qu00"]
 
 [ext_resource type="Script" path="res://src/menus/EditActionRow.gd" id="1_1si0w"]
-[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_gxwrb"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="2_k8ysn"]
+[ext_resource type="Theme" uid="uid://dn5bl1q612dpj" path="res://addons/core/ui/MenuButtonStyle.tres" id="3_ivufr"]
+
+[sub_resource type="Theme" id="Theme_kos1j"]
+RichTextLabel/colors/default_color = Color(0.94902, 0.811765, 0.615686, 1)
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("2_k8ysn")
 
 [node name="EditActionRow" type="HBoxContainer"]
 anchors_preset = 14
@@ -15,34 +21,32 @@ grow_vertical = 2
 alignment = 1
 script = ExtResource("1_1si0w")
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-
-[node name="ActionName" type="RichTextLabel" parent="CenterContainer"]
-unique_name_in_owner = true
-clip_contents = false
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_colors/default_color = Color(0, 0, 0, 1)
-theme_override_fonts/normal_font = ExtResource("2_gxwrb")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "[center]Accept[/center]"
-fit_content = true
-scroll_active = false
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="ActionName" type="RichTextLabel" parent="HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = SubResource("Theme_kos1j")
+bbcode_enabled = true
+text = "[center]Accept[/center]"
+fit_content = true
+scroll_active = false
+
 [node name="EditButton" type="Button" parent="HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
+theme = ExtResource("3_ivufr")
 text = "Edit
 "
 
@@ -50,4 +54,5 @@ text = "Edit
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
+size_flags_vertical = 4
 alignment = 1

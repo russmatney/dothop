@@ -1,0 +1,20 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://tmcplph82m7i"]
+
+[ext_resource type="Texture2D" uid="uid://d2hoi781khjsy" path="res://assets/ui/greenboard_full_sheet.png" id="1_umm00"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pibk3"]
+texture = ExtResource("1_umm00")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+region_rect = Rect2(0, 0, 94, 90)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yow8"]
+region_rect = Rect2(0, 0, 94, 90)
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxTexture_pibk3")
+ScrollContainer/styles/panel = SubResource("StyleBoxTexture_7yow8")
