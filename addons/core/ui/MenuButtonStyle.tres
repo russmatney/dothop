@@ -1,6 +1,6 @@
-[gd_scene load_steps=7 format=3 uid="uid://b3ivyg8cxtuof"]
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://dn5bl1q612dpj"]
 
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_fr6gb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_3n65y"]
 content_margin_left = 8.0
@@ -46,17 +46,10 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
-[sub_resource type="Theme" id="Theme_gsvm3"]
+[resource]
 Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("1")
+Button/fonts/font = ExtResource("1_fr6gb")
 Button/styles/focus = SubResource("StyleBoxFlat_3n65y")
 Button/styles/hover = SubResource("StyleBoxFlat_th2ko")
 Button/styles/normal = SubResource("StyleBoxFlat_7qgli")
 Button/styles/pressed = SubResource("StyleBoxFlat_tjbed")
-
-[node name="Button" type="Button"]
-custom_minimum_size = Vector2(60, 0)
-offset_right = 58.0
-offset_bottom = 20.0
-theme = SubResource("Theme_gsvm3")
-text = "Level 1"

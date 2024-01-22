@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://src/menus/ActionInputIcon.gd" id="2_lnakd"]
 
 [node name="ActionInputIcon" type="RichTextLabel"]
+visible = false
 clip_contents = false
 custom_minimum_size = Vector2(30, 0)
 offset_right = 30.0

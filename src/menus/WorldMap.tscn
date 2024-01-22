@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/WorldMap.gd" id="1_hw6qs"]
-[ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_n1bpl"]
+[ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="2_hqo3t"]
 [ext_resource type="Script" path="res://src/menus/WorldList.gd" id="3_sgxgd"]
 [ext_resource type="Script" path="res://src/menus/WorldMapOptionsList.gd" id="4_d7s3e"]
 
@@ -31,9 +31,7 @@ size_flags_vertical = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_colors/default_color = Color(0.560784, 0.364706, 0.517647, 1)
-theme_override_fonts/normal_font = ExtResource("2_n1bpl")
-theme_override_font_sizes/normal_font_size = 64
+theme = ExtResource("2_hqo3t")
 bbcode_enabled = true
 text = "[center]World Map[/center]"
 fit_content = true
