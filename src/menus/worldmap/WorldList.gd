@@ -12,6 +12,7 @@ func _ready():
 	for ps in puzzle_sets:
 		add_menu_item({
 			label=ps.get_display_name(),
+			puzzle_set=ps,
 			fn=func(): Navi.nav_to(dh_game, {setup=func(g): g.puzzle_set = ps}),
 			})
 

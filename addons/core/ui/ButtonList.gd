@@ -4,6 +4,9 @@ class_name NaviButtonList
 
 @export var default_button_scene: PackedScene = preload("res://addons/core/ui/MenuButton.tscn")
 
+signal button_focused(btn)
+signal button_unfocused(btn)
+
 ## config warnings #####################################################################
 
 func _get_configuration_warnings():
@@ -55,11 +58,13 @@ func add_menu_item(item):
 
 	var label = item.get("label", "Fallback Label")
 	if label in texts:
-		Log.pr("Found existing button with label, skpping add_menu_item", item)
+		Log.pr("Found existing button with label, skipping add_menu_item", item)
 		return
 	var button_scene = item.get("button_scene", default_button_scene)
 	var button = button_scene.instantiate()
 
+	button.focus_entered.connect(func(): button_focused.emit(button, item))
+	button.focus_exited.connect(func(): button_unfocused.emit(button, item))
 	button.text = label
 	connect_pressed_to_action(button, item)
 	add_child(button)

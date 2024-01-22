@@ -26,3 +26,12 @@ func center_map():
 		t.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.4)\
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)
+
+# Returns an array of puzzle map markers
+# does not include markers without assigned puzzle_sets
+func get_markers():
+	var ms = []
+	for ch in get_children():
+		if ch is PuzzleMapMarker and ch.puzzle_set != null:
+			ms.append(ch)
+	return ms

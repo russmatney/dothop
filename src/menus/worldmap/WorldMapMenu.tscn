@@ -1,10 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=18 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Texture2D" uid="uid://bi4s4jv3tvxw" path="res://src/menus/world_map.png" id="2_2j4fb"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMap.gd" id="2_cfldw"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="3_7do1c"]
+[ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMapMarker.gd" id="4_4mgrn"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="4_ny0i5"]
+[ext_resource type="Script" path="res://src/DotHopPuzzleSet.gd" id="5_1b8je"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldList.gd" id="5_6wysa"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
@@ -25,6 +27,18 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="Resource" id="Resource_75t88"]
+script = ExtResource("5_1b8je")
+_id = "16"
+
+[sub_resource type="Resource" id="Resource_nwy16"]
+script = ExtResource("5_1b8je")
+_id = "17"
+
+[sub_resource type="Resource" id="Resource_u75we"]
+script = ExtResource("5_1b8je")
+_id = "18"
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcjp"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
@@ -32,13 +46,14 @@ bg_color = Color(0.6, 0.6, 0.6, 0)
 script = ExtResource("1_ns6x1")
 
 [node name="WorldMap" type="Node2D" parent="."]
+unique_name_in_owner = true
 position = Vector2(589, 396)
 script = ExtResource("2_cfldw")
 
 [node name="MapSprite" type="AnimatedSprite2D" parent="WorldMap"]
 unique_name_in_owner = true
 texture_filter = 1
-scale = Vector2(20, 20)
+scale = Vector2(10, 10)
 sprite_frames = SubResource("SpriteFrames_fd0gt")
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -51,16 +66,23 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="BlueMountainMarker" type="Marker2D" parent="WorldMap"]
-position = Vector2(-508, -655)
+position = Vector2(-232, -334)
+script = ExtResource("4_4mgrn")
+puzzle_set = SubResource("Resource_75t88")
 
 [node name="GreenMountainMarker" type="Marker2D" parent="WorldMap"]
-position = Vector2(663, -630)
+position = Vector2(328, -317)
+script = ExtResource("4_4mgrn")
+puzzle_set = SubResource("Resource_nwy16")
 
 [node name="GreenMountainMarker2" type="Marker2D" parent="WorldMap"]
-position = Vector2(-427, 675)
+position = Vector2(-217, 335)
+script = ExtResource("4_4mgrn")
+puzzle_set = SubResource("Resource_u75we")
 
 [node name="RedMountainMarker" type="Marker2D" parent="WorldMap"]
-position = Vector2(558, 652)
+position = Vector2(271, 324)
+script = ExtResource("4_4mgrn")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
