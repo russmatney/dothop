@@ -1,36 +1,36 @@
-[gd_scene load_steps=5 format=3 uid="uid://vy2sl481qu00"]
+[gd_scene load_steps=6 format=3 uid="uid://vy2sl481qu00"]
 
 [ext_resource type="Script" path="res://src/menus/EditActionRow.gd" id="1_1si0w"]
+[ext_resource type="Theme" uid="uid://djvux6ddc48qg" path="res://addons/core/ui/PaperPanelTheme.tres" id="1_1u36k"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="2_k8ysn"]
 [ext_resource type="Theme" uid="uid://dn5bl1q612dpj" path="res://addons/core/ui/MenuButtonStyle.tres" id="3_ivufr"]
 
 [sub_resource type="Theme" id="Theme_kos1j"]
-RichTextLabel/colors/default_color = Color(0.94902, 0.811765, 0.615686, 1)
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
 RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/normal_font = ExtResource("2_k8ysn")
 
-[node name="EditActionRow" type="HBoxContainer"]
-anchors_preset = 14
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_top = -103.5
-offset_bottom = 103.5
-grow_horizontal = 2
-grow_vertical = 2
-alignment = 1
+[node name="EditActionRow" type="PanelContainer"]
+offset_left = 861.0
+offset_right = 861.0
+offset_bottom = 207.0
+theme = ExtResource("1_1u36k")
 script = ExtResource("1_1si0w")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="HBox" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="HBox"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 4
 alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="HBox/HBoxContainer"]
 layout_mode = 2
 
-[node name="ActionName" type="RichTextLabel" parent="HBoxContainer/CenterContainer"]
+[node name="ActionName" type="RichTextLabel" parent="HBox/HBoxContainer/CenterContainer"]
 unique_name_in_owner = true
 clip_contents = false
 custom_minimum_size = Vector2(200, 0)
@@ -42,7 +42,7 @@ text = "[center]Accept[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="EditButton" type="Button" parent="HBoxContainer"]
+[node name="EditButton" type="Button" parent="HBox/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
@@ -50,7 +50,7 @@ theme = ExtResource("3_ivufr")
 text = "Edit
 "
 
-[node name="ActionInputs" type="HBoxContainer" parent="."]
+[node name="ActionInputs" type="HBoxContainer" parent="HBox"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
