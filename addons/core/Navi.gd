@@ -199,7 +199,7 @@ func clear_menus():
 ## main menu ###################################################################
 
 # TODO handle menus elsewhere?
-var main_menu_path = "res://src/menus/DotHopMainMenu.tscn"
+var main_menu_path = "res://src/menus/MainMenu.tscn"
 
 func set_main_menu(path):
 	if ResourceLoader.exists(path):
@@ -218,7 +218,7 @@ func nav_to_main_menu():
 ## pause menu ###################################################################
 
 # TODO handle menus elsewhere?
-var pause_menu_path = "res://src/menus/DotHopPauseMenu.tscn"
+var pause_menu_path = "res://src/menus/PauseMenu.tscn"
 var pause_menu
 
 func set_pause_menu(path_or_scene):

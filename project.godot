@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Dot Hop"
-run/main_scene="res://src/menus/DotHopMainMenu.tscn"
+run/main_scene="res://src/menus/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.227451, 0.207843, 0.196078, 1)
 boot_splash/image="res://assets/boxart/page-background.png"

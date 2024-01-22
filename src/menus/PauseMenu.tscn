@@ -1,13 +1,13 @@
 [gd_scene load_steps=5 format=3 uid="uid://cvb2xnd1kbtbc"]
 
-[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="1_iq60s"]
-[ext_resource type="Script" path="res://src/menus/DotHopPauseList.gd" id="1_uhwkb"]
+[ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="1_2e7wm"]
+[ext_resource type="Script" path="res://src/menus/PauseList.gd" id="1_uhwkb"]
 [ext_resource type="Script" path="res://src/menus/ThemeButtonList.gd" id="2_parj4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tngc"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
 
-[node name="DotHopPauseMenu" type="CanvasLayer"]
+[node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 10
 
@@ -31,8 +31,7 @@ size_flags_vertical = 3
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_fonts/normal_font = ExtResource("1_iq60s")
-theme_override_font_sizes/normal_font_size = 128
+theme = ExtResource("1_2e7wm")
 bbcode_enabled = true
 text = "[center]Paused[/center]"
 fit_content = true
