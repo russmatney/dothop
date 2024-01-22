@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://bfbwotpm3lvta"]
+
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="1_gqvvk"]
+
+[node name="RedButton" type="Button"]
+theme = ExtResource("1_gqvvk")
+text = "Button"

@@ -1,0 +1,19 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://nnr7pyxv7mve"]
+
+[ext_resource type="FontFile" uid="uid://btn5klepjoqi5" path="res://addons/core/assets/fonts/Adventurer.ttf" id="1_ml87l"]
+[ext_resource type="Texture2D" uid="uid://lva0vc80ykxo" path="res://assets/ui/paper_bg_full_4x.png" id="2_u3p52"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xyra6"]
+texture = ExtResource("2_u3p52")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[resource]
+RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
+RichTextLabel/font_sizes/normal_font_size = 128
+RichTextLabel/fonts/normal_font = ExtResource("1_ml87l")
+RichTextLabel/styles/normal = SubResource("StyleBoxTexture_xyra6")

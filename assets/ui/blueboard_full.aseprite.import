@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dnunbwjf1dhyv"
+path="res://.godot/imported/blueboard_full.aseprite-c455f55525b90a1f21b8aa9f45365e16.res"
+
+[deps]
+
+source_file="res://assets/ui/blueboard_full.aseprite"
+dest_files=["res://.godot/imported/blueboard_full.aseprite-c455f55525b90a1f21b8aa9f45365e16.res"]
+
+[params]
+
