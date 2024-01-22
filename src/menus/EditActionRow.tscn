@@ -1,25 +1,18 @@
-[gd_scene load_steps=6 format=3 uid="uid://vy2sl481qu00"]
+[gd_scene load_steps=5 format=3 uid="uid://vy2sl481qu00"]
 
 [ext_resource type="Script" path="res://src/menus/EditActionRow.gd" id="1_1si0w"]
-[ext_resource type="Theme" uid="uid://djvux6ddc48qg" path="res://addons/core/ui/PaperPanelTheme.tres" id="1_1u36k"]
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="2_k8ysn"]
-[ext_resource type="Theme" uid="uid://dn5bl1q612dpj" path="res://addons/core/ui/MenuButtonStyle.tres" id="3_ivufr"]
-
-[sub_resource type="Theme" id="Theme_kos1j"]
-RichTextLabel/colors/default_color = Color(0, 0, 0, 1)
-RichTextLabel/font_sizes/normal_font_size = 32
-RichTextLabel/fonts/normal_font = ExtResource("2_k8ysn")
+[ext_resource type="Theme" uid="uid://by6t2ej5k6dbc" path="res://src/ui/EmptyPanelTheme.tres" id="1_rwb70"]
+[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_tdonl"]
+[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://addons/core/ui/GreenButtonTheme.tres" id="4_ui3fi"]
 
 [node name="EditActionRow" type="PanelContainer"]
-offset_left = 861.0
-offset_right = 861.0
-offset_bottom = 207.0
-theme = ExtResource("1_1u36k")
+offset_right = 518.0
+offset_bottom = 48.0
+theme = ExtResource("1_rwb70")
 script = ExtResource("1_1si0w")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
-alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="HBox"]
 custom_minimum_size = Vector2(100, 0)
@@ -36,7 +29,7 @@ clip_contents = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = SubResource("Theme_kos1j")
+theme = ExtResource("3_tdonl")
 bbcode_enabled = true
 text = "[center]Accept[/center]"
 fit_content = true
@@ -44,15 +37,16 @@ scroll_active = false
 
 [node name="EditButton" type="Button" parent="HBox/HBoxContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(60, 0)
+custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-theme = ExtResource("3_ivufr")
+theme = ExtResource("4_ui3fi")
 text = "Edit
 "
 
 [node name="ActionInputs" type="HBoxContainer" parent="HBox"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
+custom_minimum_size = Vector2(150, 0)
 layout_mode = 2
+size_flags_horizontal = 3
 size_flags_vertical = 4
 alignment = 1
