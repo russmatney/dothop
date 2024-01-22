@@ -86,7 +86,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme = ExtResource("3_7do1c")
 bbcode_enabled = true
-text = "[center]Puzzle List[/center]"
+text = "[center]World Map[/center]"
 fit_content = true
 scroll_active = false
 
