@@ -1,6 +1,6 @@
 @tool
 extends VBoxContainer
-class_name NaviButtonList
+class_name ButtonList
 
 @export var default_button_scene: PackedScene = preload("res://addons/core/ui/MenuButton.tscn")
 

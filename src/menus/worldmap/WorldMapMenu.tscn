@@ -43,6 +43,7 @@ _id = "18"
 bg_color = Color(0.6, 0.6, 0.6, 0)
 
 [node name="WorldMapMenu" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_ns6x1")
 
 [node name="WorldMap" type="Node2D" parent="."]

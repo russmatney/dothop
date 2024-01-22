@@ -1,5 +1,5 @@
 @tool
-extends NaviButtonList
+extends ButtonList
 
 var button_defs = [{
 	nav_to="res://src/menus/worldmap/WorldMapMenu.tscn",

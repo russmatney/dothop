@@ -1,5 +1,5 @@
 @tool
-extends NaviButtonList
+extends ButtonList
 
 var themes = []
 
