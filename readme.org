@@ -63,3 +63,11 @@ Fonts:
 
 These are available (after purchase) under the CC4 licence:
 https://creativecommons.org/licenses/by/4.0/legalcode
+* Credits
+TODO: much more to include here!
+
+** Fonts
+Vexed - Enter Input
+** Art
+Pixel Frog - Treasure Hunters
+https://pixelfrog-assets.itch.io/treasure-hunters

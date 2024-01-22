@@ -9,3 +9,6 @@ reports/
 
 build/build-output/
 dist/
+
+
+.DS_Store
