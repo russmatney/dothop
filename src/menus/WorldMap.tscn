@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/menus/WorldMap.gd" id="1_hw6qs"]
 [ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="2_hqo3t"]
 [ext_resource type="Script" path="res://src/menus/WorldList.gd" id="3_sgxgd"]
-[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/wood_panel_bg_theme.tres" id="3_ywhnl"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="3_ywhnl"]
 [ext_resource type="Script" path="res://src/menus/WorldMapOptionsList.gd" id="4_d7s3e"]
 [ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://addons/core/ui/GreenButton.tscn" id="5_qxy5x"]
 

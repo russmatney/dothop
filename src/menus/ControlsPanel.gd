@@ -11,7 +11,7 @@ extends CanvasLayer
 
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
-	"ui_up", "ui_down", "ui_left", "ui_right",
+	# "ui_up", "ui_down", "ui_left", "ui_right",
 	]
 
 ## ready ###############################################3
