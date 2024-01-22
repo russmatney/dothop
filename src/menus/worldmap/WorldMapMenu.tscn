@@ -1,18 +1,66 @@
-[gd_scene load_steps=9 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=13 format=3 uid="uid://bri7j48xu7ujk"]
 
-[ext_resource type="Script" path="res://src/menus/WorldMap.gd" id="1_hw6qs"]
-[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_yahrj"]
-[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="3_bd7nv"]
-[ext_resource type="Script" path="res://src/menus/WorldList.gd" id="3_sgxgd"]
-[ext_resource type="Script" path="res://src/menus/WorldMapOptionsList.gd" id="4_d7s3e"]
-[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="5_vgq3b"]
-[ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="7_rn826"]
+[ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
+[ext_resource type="Texture2D" uid="uid://bi4s4jv3tvxw" path="res://src/menus/world_map.png" id="2_2j4fb"]
+[ext_resource type="Script" path="res://src/menus/worldmap/WorldMap.gd" id="2_cfldw"]
+[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="3_7do1c"]
+[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="4_ny0i5"]
+[ext_resource type="Script" path="res://src/menus/worldmap/WorldList.gd" id="5_6wysa"]
+[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
+[ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
+[ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h8stb"]
+atlas = ExtResource("2_2j4fb")
+region = Rect2(0, 0, 123, 99)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fd0gt"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h8stb")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcjp"]
-bg_color = Color(0.94902, 0.811765, 0.615686, 1)
+bg_color = Color(0.6, 0.6, 0.6, 0)
 
-[node name="WorldMap" type="CanvasLayer"]
-script = ExtResource("1_hw6qs")
+[node name="WorldMapMenu" type="CanvasLayer"]
+script = ExtResource("1_ns6x1")
+
+[node name="WorldMap" type="Node2D" parent="."]
+position = Vector2(589, 396)
+script = ExtResource("2_cfldw")
+
+[node name="MapSprite" type="AnimatedSprite2D" parent="WorldMap"]
+unique_name_in_owner = true
+texture_filter = 1
+scale = Vector2(20, 20)
+sprite_frames = SubResource("SpriteFrames_fd0gt")
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://assets/worldmap/world_map.aseprite"
+}
+
+[node name="BlueMountainMarker" type="Marker2D" parent="WorldMap"]
+position = Vector2(-508, -655)
+
+[node name="GreenMountainMarker" type="Marker2D" parent="WorldMap"]
+position = Vector2(663, -630)
+
+[node name="GreenMountainMarker2" type="Marker2D" parent="WorldMap"]
+position = Vector2(-427, 675)
+
+[node name="RedMountainMarker" type="Marker2D" parent="WorldMap"]
+position = Vector2(558, 652)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -24,7 +72,6 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4vcjp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
-alignment = 1
 
 [node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
@@ -37,7 +84,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
-theme = ExtResource("2_yahrj")
+theme = ExtResource("3_7do1c")
 bbcode_enabled = true
 text = "[center]Puzzle List[/center]"
 fit_content = true
@@ -50,8 +97,8 @@ size_flags_vertical = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("3_bd7nv")
+size_flags_horizontal = 0
+theme = ExtResource("4_ny0i5")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -66,8 +113,8 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-script = ExtResource("3_sgxgd")
-default_button_scene = ExtResource("5_vgq3b")
+script = ExtResource("5_6wysa")
+default_button_scene = ExtResource("6_j7ncb")
 
 [node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 visible = false
@@ -90,8 +137,8 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-script = ExtResource("4_d7s3e")
-default_button_scene = ExtResource("7_rn826")
+script = ExtResource("7_3wo5h")
+default_button_scene = ExtResource("8_t2pos")
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 10)

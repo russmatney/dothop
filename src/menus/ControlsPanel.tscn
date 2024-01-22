@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://cq5r4oojxyu5a"]
 
 [ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
-[ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="2_qkmov"]
+[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_xligg"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="3_88sjl"]
 [ext_resource type="Theme" uid="uid://dn5bl1q612dpj" path="res://addons/core/ui/MenuButtonStyle.tres" id="4_b8l8d"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="5_xcyb7"]
@@ -31,7 +31,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(500, 0)
 layout_mode = 2
-theme = ExtResource("2_qkmov")
+theme = ExtResource("2_xligg")
 bbcode_enabled = true
 text = "[center]Options[/center]"
 fit_content = true
