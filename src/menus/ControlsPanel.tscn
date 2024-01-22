@@ -93,6 +93,7 @@ size_flags_vertical = 3
 theme = ExtResource("5_xcyb7")
 follow_focus = true
 horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true

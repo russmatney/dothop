@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://ctvdymtcba0qd"
+path="res://.godot/imported/green_button_full.aseprite-a92c9d3e4d76a7931b60876ce692c618.res"
+
+[deps]
+
+source_file="res://assets/ui/green_button_full.aseprite"
+dest_files=["res://.godot/imported/green_button_full.aseprite-a92c9d3e4d76a7931b60876ce692c618.res"]
+
+[params]
+

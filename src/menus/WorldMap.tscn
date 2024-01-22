@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=8 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/WorldMap.gd" id="1_hw6qs"]
 [ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="2_hqo3t"]
 [ext_resource type="Script" path="res://src/menus/WorldList.gd" id="3_sgxgd"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/wood_panel_bg_theme.tres" id="3_ywhnl"]
 [ext_resource type="Script" path="res://src/menus/WorldMapOptionsList.gd" id="4_d7s3e"]
+[ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://addons/core/ui/GreenButton.tscn" id="5_qxy5x"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4vcjp"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
@@ -37,22 +39,29 @@ text = "[center]World Map[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("3_ywhnl")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-alignment = 1
 
-[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="WorldList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="WorldList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("3_sgxgd")
+default_button_scene = ExtResource("5_qxy5x")
 
-[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 

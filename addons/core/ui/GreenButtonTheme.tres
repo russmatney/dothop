@@ -1,0 +1,18 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://beg0yvicrirg0"]
+
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_xqvab"]
+[ext_resource type="Texture2D" uid="uid://g4d8cc478sxb" path="res://assets/ui/green_button_full_sheet.png" id="2_to3rn"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_bhdgw"]
+texture = ExtResource("2_to3rn")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 10.0
+texture_margin_bottom = 8.0
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[resource]
+Button/font_sizes/font_size = 32
+Button/fonts/font = ExtResource("1_xqvab")
+Button/styles/normal = SubResource("StyleBoxTexture_bhdgw")
