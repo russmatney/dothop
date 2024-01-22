@@ -24,7 +24,7 @@ func _ready():
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
 	world_map_button.pressed.connect(func():
-		Navi.nav_to("res://src/menus/WorldMap.tscn"))
+		Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn"))
 
 ## render ###############################################3
 

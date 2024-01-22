@@ -2,7 +2,7 @@
 extends NaviButtonList
 
 var button_defs = [{
-	nav_to="res://src/menus/WorldMap.tscn",
+	nav_to="res://src/menus/worldmap/WorldMapMenu.tscn",
 	label="Start",
 	}, {
 	nav_to="res://src/menus/ControlsPanel.tscn",

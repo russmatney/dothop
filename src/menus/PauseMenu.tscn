@@ -1,8 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://cvb2xnd1kbtbc"]
+[gd_scene load_steps=9 format=3 uid="uid://cvb2xnd1kbtbc"]
 
-[ext_resource type="Theme" uid="uid://ckbpwodffr03" path="res://addons/core/ui/HeroLabelStyle.tres" id="1_2e7wm"]
+[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="1_dntsj"]
 [ext_resource type="Script" path="res://src/menus/PauseList.gd" id="1_uhwkb"]
+[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="2_2yx0j"]
 [ext_resource type="Script" path="res://src/menus/ThemeButtonList.gd" id="2_parj4"]
+[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="4_qka5e"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="5_4xevk"]
+[ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://addons/core/ui/GreenButton.tscn" id="7_jr1jd"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tngc"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
@@ -28,14 +32,23 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
+custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("1_2e7wm")
+theme = ExtResource("1_dntsj")
 bbcode_enabled = true
 text = "[center]Paused[/center]"
 fit_content = true
 scroll_active = false
+
+[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -43,26 +56,40 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="PauseList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme = ExtResource("2_2yx0j")
+
+[node name="PauseList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 script = ExtResource("1_uhwkb")
+default_button_scene = ExtResource("4_qka5e")
 
 [node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="ThemeButtonList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+theme = ExtResource("5_4xevk")
+
+[node name="ThemeButtonList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 script = ExtResource("2_parj4")
+default_button_scene = ExtResource("7_jr1jd")
 
 [node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
