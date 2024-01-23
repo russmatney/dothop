@@ -16,11 +16,15 @@ func get_display_name() -> String:
 func get_theme() -> DotHopTheme:
 	return get_resource("theme")
 
+func get_icon_texture() -> Texture:
+	return get_resource("icon_texture")
+
 func data():
 	return {
 		puzzle_script_path=get_puzzle_script_path(),
 		name=get_display_name(),
 		theme=get_theme(),
+		icon_texture=get_icon_texture(),
 		}
 
 ##############################################

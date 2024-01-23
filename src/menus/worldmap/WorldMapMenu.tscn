@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=21 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Texture2D" uid="uid://bi4s4jv3tvxw" path="res://src/menus/world_map.png" id="2_2j4fb"]
@@ -8,6 +8,7 @@
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="4_ny0i5"]
 [ext_resource type="Script" path="res://src/PuzzleSet.gd" id="5_1b8je"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldList.gd" id="5_6wysa"]
+[ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="6_afb7j"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
 [ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
@@ -37,7 +38,7 @@ _id = "16"
 script = ExtResource("5_1b8je")
 _id = "17"
 
-[sub_resource type="Resource" id="Resource_u75we"]
+[sub_resource type="Resource" id="Resource_f42ho"]
 script = ExtResource("5_1b8je")
 _id = "18"
 
@@ -81,11 +82,7 @@ puzzle_set = SubResource("Resource_nwy16")
 [node name="GreenMountainMarker2" type="Marker2D" parent="WorldMap"]
 position = Vector2(-217, 335)
 script = ExtResource("4_4mgrn")
-puzzle_set = SubResource("Resource_u75we")
-
-[node name="RedMountainMarker" type="Marker2D" parent="WorldMap"]
-position = Vector2(271, 324)
-script = ExtResource("4_4mgrn")
+puzzle_set = SubResource("Resource_f42ho")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -152,18 +149,35 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("10_yrro2")
 
-[node name="PuzzleList" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer"]
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PuzzleSetIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+texture = ExtResource("6_afb7j")
+stretch_mode = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="PuzzleList" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 3
 
-[node name="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
+[node name="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
 
-[node name="RichTextLabel2" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
+[node name="RichTextLabel2" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
 
-[node name="RichTextLabel3" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
+[node name="RichTextLabel3" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]

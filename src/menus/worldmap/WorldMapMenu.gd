@@ -6,12 +6,14 @@ extends CanvasLayer
 @onready var world_map = $%WorldMap
 @onready var puzzle_list_container = $%PuzzleListContainer
 @onready var puzzle_list = $%PuzzleList
+@onready var puzzle_set_icon = $%PuzzleSetIcon
 
 ## ready ################################################
 
 func _ready():
 	world_list.button_focused.connect(on_button_focused)
 	world_list.button_unfocused.connect(on_button_unfocused)
+
 	reset_map()
 	set_focus()
 
@@ -36,6 +38,8 @@ func show_puzzle_set(puzzle_set):
 		if m.puzzle_set.get_entity_id() == puzzle_set.get_entity_id():
 			world_map.current_marker = m
 			break
+
+	puzzle_set_icon.set_texture(puzzle_set.get_icon_texture())
 
 	puzzle_list_container.set_visible(true)
 	U.remove_children(puzzle_list)
