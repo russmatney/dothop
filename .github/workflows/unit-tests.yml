@@ -4,11 +4,13 @@ on: [ push ]
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     environment: Godot Dev Env
     steps:
     - name: Checkout
       uses: actions/checkout@v4
+      with:
+        lfs: true
 
     - name: Cache Godot files
       id: cache-godot
@@ -32,9 +34,10 @@ jobs:
 
     # https://github.com/MikeSchulze/gdUnit4/blob/master/.github/workflows/ci-pr-example.yml
     - name: "Update Project"
+      continue-on-error: true
       shell: bash
       run: |
-        godot -e --path . -s res://addons/gdUnit4/bin/ProjectScanner.gd --headless --audio-driver Dummy || exit 0
+        godot -e --path . -s res://addons/gdUnit4/bin/ProjectScanner.gd --headless --audio-driver Dummy
 
     - name: "Run Unit Tests"
       timeout-minutes: 10
