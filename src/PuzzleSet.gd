@@ -19,6 +19,9 @@ func get_theme() -> DotHopTheme:
 func get_icon_texture() -> Texture:
 	return get_resource("icon_texture")
 
+func is_unlocked() -> bool:
+	return get_bool("is_unlocked")
+
 func data():
 	return {
 		puzzle_script_path=get_puzzle_script_path(),

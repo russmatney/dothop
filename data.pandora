@@ -114,6 +114,10 @@
 						"type": "string",
 						"value": "Them Dots"
 					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop.txt"
@@ -233,12 +237,19 @@
 				"_id": "19",
 				"_name": "icon_texture",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": false,
+				"_id": "20",
+				"_name": "is_unlocked",
+				"_type": "bool"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 19
+			"default": 20
 		}
 	}
 }
