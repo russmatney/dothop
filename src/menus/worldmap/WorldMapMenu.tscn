@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=20 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Texture2D" uid="uid://bi4s4jv3tvxw" path="res://src/menus/world_map.png" id="2_2j4fb"]
@@ -11,6 +11,8 @@
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
 [ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="10_yrro2"]
+[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="11_rjqii"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8stb"]
 atlas = ExtResource("2_2j4fb")
@@ -97,9 +99,8 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_4vcjp")
 layout_mode = 2
 
 [node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -113,56 +114,97 @@ text = "[center]World Map[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer9" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+[node name="MarginContainer9" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
 theme = ExtResource("4_ny0i5")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-
-[node name="WorldList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
+[node name="WorldList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("5_6wysa")
 default_button_scene = ExtResource("6_j7ncb")
 
-[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
+[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="PuzzlesListContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("10_yrro2")
+
+[node name="PuzzlesList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("11_rjqii")
+bbcode_enabled = true
+text = "[center]One: 38:07[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("11_rjqii")
+bbcode_enabled = true
+text = "[center]One: 38:07[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("11_rjqii")
+bbcode_enabled = true
+text = "[center]One: 38:07[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("11_rjqii")
+bbcode_enabled = true
+text = "[center]One: 38:07[/center]"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
-custom_minimum_size = Vector2(10, 0)
-layout_mode = 2
-
-[node name="Options" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+[node name="Options" type="VBoxContainer" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
+offset_left = 17.0
+offset_top = 22.0
+offset_right = 217.0
+offset_bottom = 154.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("7_3wo5h")
 default_button_scene = ExtResource("8_t2pos")
-
-[node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2

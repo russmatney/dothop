@@ -112,7 +112,7 @@
 				"_property_overrides": {
 					"display_name": {
 						"type": "string",
-						"value": "One"
+						"value": "Them Dots"
 					},
 					"puzzle_script_path": {
 						"type": "string",
@@ -136,7 +136,7 @@
 				"_property_overrides": {
 					"display_name": {
 						"type": "string",
-						"value": "Two"
+						"value": "Get Outer Here"
 					},
 					"puzzle_script_path": {
 						"type": "string",
@@ -160,7 +160,7 @@
 				"_property_overrides": {
 					"display_name": {
 						"type": "string",
-						"value": "Three"
+						"value": "Leaf Me Alone"
 					},
 					"puzzle_script_path": {
 						"type": "string",
