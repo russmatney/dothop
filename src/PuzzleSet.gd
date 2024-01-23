@@ -1,6 +1,6 @@
 @tool
 extends PandoraEntity
-class_name DotHopPuzzleSet
+class_name PuzzleSet
 
 var fallback_puzzle_set = "res://src/dothop.txt"
 

@@ -2,7 +2,7 @@
 extends Marker2D
 class_name PuzzleMapMarker
 
-@export var puzzle_set: DotHopPuzzleSet
+@export var puzzle_set: PuzzleSet
 
 func _get_configuration_warnings():
 	if puzzle_set == null:

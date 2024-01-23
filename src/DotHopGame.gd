@@ -4,7 +4,7 @@ extends Node2D
 
 @export_file var game_def_path: String
 @export var puzzle_theme: DotHopTheme
-@export var puzzle_set: DotHopPuzzleSet
+@export var puzzle_set: PuzzleSet
 
 var game_def
 var puzzle_node

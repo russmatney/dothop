@@ -9,7 +9,7 @@
 				"_ids_generation_class": "PuzzleSetIDs",
 				"_index": 0,
 				"_name": "PuzzleSet",
-				"_script_path": "res://src/DotHopPuzzleSet.gd"
+				"_script_path": "res://src/PuzzleSet.gd"
 			},
 			{
 				"_category_id": "",
@@ -138,6 +138,10 @@
 						"type": "string",
 						"value": "Get Outer Here"
 					},
+					"icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/space/assets/player.png"
+					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-two.txt"
@@ -161,6 +165,10 @@
 					"display_name": {
 						"type": "string",
 						"value": "Leaf Me Alone"
+					},
+					"icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/fall/player.png"
 					},
 					"puzzle_script_path": {
 						"type": "string",
@@ -218,12 +226,19 @@
 				"_id": "11",
 				"_name": "is_unlocked",
 				"_type": "bool"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": "res://src/themes/dots/dots_player.png",
+				"_id": "19",
+				"_name": "icon_texture",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 18
+			"default": 19
 		}
 	}
 }
