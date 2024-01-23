@@ -22,7 +22,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		_game_def = Puzz.parse_game_def(game_def_p)
 
 	if _game_def == null:
-		Log.warn("No gamedef passed, cannot build_puzzle_node()", opts)
+		Log.warn("No game_def passed, cannot build_puzzle_node()", opts)
 		return
 
 	# parse/pick the puzzle to load

@@ -12,7 +12,7 @@
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
 [ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="10_yrro2"]
-[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="11_rjqii"]
+[ext_resource type="PackedScene" uid="uid://c5kc1uq2mn0i1" path="res://src/menus/worldmap/PuzzleLabel.tscn" id="11_stio4"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_h8stb"]
 atlas = ExtResource("2_2j4fb")
@@ -147,50 +147,24 @@ size_flags_vertical = 3
 layout_mode = 2
 alignment = 1
 
-[node name="PuzzlesListContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
+[node name="PuzzleListContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("10_yrro2")
 
-[node name="PuzzlesList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer"]
+[node name="PuzzleList" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+columns = 3
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
-custom_minimum_size = Vector2(200, 0)
+[node name="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
-theme = ExtResource("11_rjqii")
-bbcode_enabled = true
-text = "[center]One: 38:07[/center]"
-fit_content = true
-scroll_active = false
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
-custom_minimum_size = Vector2(200, 0)
+[node name="RichTextLabel2" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
-theme = ExtResource("11_rjqii")
-bbcode_enabled = true
-text = "[center]One: 38:07[/center]"
-fit_content = true
-scroll_active = false
 
-[node name="RichTextLabel3" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
-custom_minimum_size = Vector2(200, 0)
+[node name="RichTextLabel3" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/PuzzleList" instance=ExtResource("11_stio4")]
 layout_mode = 2
-theme = ExtResource("11_rjqii")
-bbcode_enabled = true
-text = "[center]One: 38:07[/center]"
-fit_content = true
-scroll_active = false
-
-[node name="RichTextLabel4" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzlesListContainer/PuzzlesList"]
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("11_rjqii")
-bbcode_enabled = true
-text = "[center]One: 38:07[/center]"
-fit_content = true
-scroll_active = false
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)

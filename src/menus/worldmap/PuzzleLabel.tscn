@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://c5kc1uq2mn0i1"]
+
+[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="1_io0jj"]
+
+[node name="RichTextLabel" type="RichTextLabel"]
+custom_minimum_size = Vector2(60, 0)
+theme = ExtResource("1_io0jj")
+bbcode_enabled = true
+text = "[center]1[/center]"
+fit_content = true
+scroll_active = false

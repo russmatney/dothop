@@ -186,6 +186,8 @@ func parse_level(lines, msg=null):
 	lvl["shape"] = parse_shape(lines, false)
 	return lvl
 
+# TODO rename `levels` to `puzzles`
+# TODO write unit test for including `idx`
 func parse_levels(chunks):
 	var levels = []
 	var msg
@@ -200,4 +202,6 @@ func parse_levels(chunks):
 	if msg != null:
 		# add final message as new level?
 		levels.append({message=msg, shape=null})
+	for i in len(levels):
+		levels[i].merge({idx=i})
 	return levels

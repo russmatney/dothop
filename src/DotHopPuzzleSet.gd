@@ -22,3 +22,12 @@ func data():
 		name=get_display_name(),
 		theme=get_theme(),
 		}
+
+##############################################
+
+func get_game_def():
+	return Puzz.parse_game_def(get_puzzle_script_path())
+
+func get_puzzles():
+	var def = get_game_def()
+	return def.levels.filter(func(puzz): return puzz.shape)
