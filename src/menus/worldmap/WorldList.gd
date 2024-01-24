@@ -6,8 +6,10 @@ var button_defs = []
 var dh_game = "res://src/DotHopGame.tscn"
 
 func _ready():
+	# TODO get saved puzzle sets
 	var ent = Pandora.get_entity(PuzzleSetIDs.ONE)
 	var puzzle_sets = Pandora.get_all_entities(Pandora.get_category(ent._category_id))
+
 
 	for ps in puzzle_sets:
 		add_menu_item({

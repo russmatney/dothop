@@ -38,3 +38,6 @@ func get_game_def():
 func get_puzzles():
 	var def = get_game_def()
 	return def.levels.filter(func(puzz): return puzz.shape)
+
+func unlock():
+	set_bool("is_unlocked", true)
