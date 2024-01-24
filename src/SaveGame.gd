@@ -13,7 +13,7 @@ static func delete_save():
 static func has_save():
 	return FileAccess.file_exists(DATA_PATH)
 
-static func save_game(tree, data):
+static func save_game(_tree, data):
 	# TODO consider encryption
 
 	Log.pr("Saving game....")
@@ -25,7 +25,7 @@ static func save_game(tree, data):
 		file.store_line(JSON.stringify(val))
 	Log.pr("Game saved.")
 
-static func load_game(tree) -> Dictionary:
+static func load_game(_tree) -> Dictionary:
 	if not has_save():
 		Log.pr("No save game found")
 		return {}
