@@ -1,18 +1,17 @@
-[gd_resource type="Theme" load_steps=6 format=3 uid="uid://d36tu8qosbiom"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://d36tu8qosbiom"]
 
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_wt04q"]
-[ext_resource type="Texture2D" uid="uid://g4d8cc478sxb" path="res://assets/ui/green_button_full_sheet.png" id="2_iqo32"]
 [ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="3_q7ogl"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0y8h3"]
-texture = ExtResource("2_iqo32")
-texture_margin_left = 8.0
-texture_margin_top = 8.0
-texture_margin_right = 10.0
-texture_margin_bottom = 8.0
+texture = ExtResource("3_q7ogl")
+texture_margin_left = 16.0
+texture_margin_top = 16.0
+texture_margin_right = 16.0
+texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-modulate_color = Color(1, 0.282353, 0.352941, 1)
+modulate_color = Color(1, 0.372549, 0.411765, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ka57"]
 texture = ExtResource("3_q7ogl")

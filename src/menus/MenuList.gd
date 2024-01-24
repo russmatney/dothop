@@ -5,8 +5,11 @@ var button_defs = [{
 	nav_to="res://src/menus/worldmap/WorldMapMenu.tscn",
 	label="Start",
 	}, {
-	nav_to="res://src/menus/ControlsPanel.tscn",
-	label="Controls",
+	nav_to="res://src/menus/OptionsPanel.tscn",
+	label="Options",
+	}, {
+	label="Quit",
+	fn=func(): get_tree().quit(),
 	}]
 
 # TODO is this used anywhere?

@@ -1,19 +1,19 @@
 [gd_scene load_steps=9 format=3 uid="uid://cq5r4oojxyu5a"]
 
-[ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
-[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_xligg"]
-[ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="3_88sjl"]
-[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="3_fhdsa"]
-[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="4_j4dme"]
-[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="5_xcyb7"]
-[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_et5fj"]
+[ext_resource type="Script" path="res://src/menus/OptionsPanel.gd" id="1_axmuv"]
+[ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_6cvgy"]
+[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="3_jf7n4"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="4_3vbr1"]
+[ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_bdku5"]
+[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_0lj7b"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="7_0beg6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
 
 [node name="OptionsPanel" type="CanvasLayer"]
 layer = 5
-script = ExtResource("1_j8soe")
+script = ExtResource("1_axmuv")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -37,7 +37,7 @@ layout_mode = 2
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("2_xligg")
+theme = ExtResource("2_6cvgy")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Options[/center]"
@@ -56,11 +56,13 @@ size_flags_horizontal = 3
 
 [node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
-theme = ExtResource("3_fhdsa")
+theme = ExtResource("3_jf7n4")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer"]
 custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer"]
 layout_mode = 2
@@ -71,30 +73,30 @@ size_flags_vertical = 3
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("4_j4dme")
+theme = ExtResource("4_3vbr1")
 text = "Main Menu"
 
 [node name="WorldMapButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("4_j4dme")
+theme = ExtResource("4_3vbr1")
 text = "World Map"
 
 [node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("4_j4dme")
+theme = ExtResource("4_3vbr1")
 text = "Reset Save Data"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_88sjl")]
+[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
 layout_mode = 2
-default_button_scene = ExtResource("6_et5fj")
+default_button_scene = ExtResource("6_0lj7b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -103,7 +105,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-theme = ExtResource("5_xcyb7")
+theme = ExtResource("7_0beg6")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -113,7 +115,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(250, 0)
 layout_mode = 2
 size_flags_horizontal = 4
-theme = ExtResource("4_j4dme")
+theme = ExtResource("4_3vbr1")
 text = "Reset Controls"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
@@ -124,7 +126,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
-theme = ExtResource("5_xcyb7")
+theme = ExtResource("7_0beg6")
 follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
