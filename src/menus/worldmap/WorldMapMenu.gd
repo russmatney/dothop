@@ -1,3 +1,4 @@
+@tool
 extends CanvasLayer
 
 ## vars ################################################
@@ -14,8 +15,9 @@ func _ready():
 	world_list.button_focused.connect(on_button_focused)
 	world_list.button_unfocused.connect(on_button_unfocused)
 
-	reset_map()
-	set_focus()
+	if not Engine.is_editor_hint():
+		reset_map()
+		set_focus()
 
 func set_focus():
 	world_list.set_focus()

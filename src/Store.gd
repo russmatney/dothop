@@ -1,3 +1,4 @@
+@tool
 extends Node
 
 ## _ready ###########################################
@@ -22,21 +23,21 @@ func load_game():
 	if not "puzzle_sets" in data or len(data.puzzle_sets) == 0:
 		puzzle_sets = initial_puzzle_sets()
 		Log.pr("Loaded %s puzzle_sets" % len(puzzle_sets))
+	else:
+		puzzle_sets.assign(data.puzzle_sets.map(Pandora.deserialize))
 
 	if not "themes" in data or len(data.themes) == 0:
 		themes = initial_themes()
 		Log.pr("Loaded %s themes" % len(themes))
+	else:
+		themes.assign(data.puzzle_sets.map(Pandora.deserialize))
 
 	# TODO validation and basic recovery on loaded data
-	# i.e. missing puzzle_sets, at least set the initial ones
+	# i.e. missing puzzle_sets, at least set the initial ones and get to playable state
 
 func reset_game_data():
-	# set initial data
-	puzzle_sets = initial_puzzle_sets()
-	themes = initial_themes()
-
-	# save that data
-	save_game()
+	SaveGame.delete_save()
+	load_game()
 
 ## initial data ###########################################
 
