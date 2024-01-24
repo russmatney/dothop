@@ -22,7 +22,6 @@ static func save_game(_tree, data):
 	Log.pr("Saving game....")
 	var file = FileAccess.open(DATA_PATH, FileAccess.WRITE)
 
-	# TODO do we need to clear the file first?
 	for key in data.keys():
 		var val = [data_dict_key, key, data.get(key)]
 		file.store_line(JSON.stringify(val))
@@ -49,7 +48,6 @@ static func load_game(_tree) -> Dictionary:
 		var line = json.get_data()
 
 		if line is Array and len(line) == 3 and line[0] == data_dict_key:
-			# TODO validation/error handling
 			var key = line[1]
 			var val = line[2]
 

@@ -1,5 +1,8 @@
 extends GdUnitTestSuite
 
+# TODO support a dynamic `DATA_PATH` for testing on fixed savegames
+# would also be useful to jump into a specific game state for testing/demos
+
 func test_basic_round_trip():
 	var data = {
 		my_special="value",
