@@ -5,7 +5,7 @@ extends GdUnitTestSuite
 var game
 
 func before_all():
-	game = load("res://src/DotHopGame.tscn").instantiate()
+	game = load("res://src/puzzle/GameScene.tscn").instantiate()
 	add_child(game)
 
 func after_all():

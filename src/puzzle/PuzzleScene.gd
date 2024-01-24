@@ -4,7 +4,7 @@ class_name DotHopPuzzle
 
 ## static ##########################################################################
 
-static var fallback_puzzle_scene = "res://src/puzzle/DotHopPuzzle.tscn"
+static var fallback_puzzle_scene = "res://src/puzzle/PuzzleScene.tscn"
 
 # Builds and returns a "puzzle_scene" node, with a game_def and level_def set
 # Accepts several input options, but only 'game_def' or 'game_def_path' are required.

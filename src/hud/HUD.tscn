@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://cmj60xakurhk0"]
 
-[ext_resource type="Script" path="res://src/hud/DotHopHUD.gd" id="1_5wqol"]
+[ext_resource type="Script" path="res://src/hud/HUD.gd" id="1_5wqol"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_1a27s"]
 [ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://addons/core/notifications/Notifications.tscn" id="3_fxnlu"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/ActionInputIcon.tscn" id="3_ocg6b"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cub0kguq12eo4"]
 
-[ext_resource type="Script" path="res://src/puzzle/DotHopPuzzle.gd" id="1_ckjkc"]
+[ext_resource type="Script" path="res://src/puzzle/PuzzleScene.gd" id="1_ckjkc"]
 
 [node name="DotHopPuzzle" type="Node2D" groups=["dothop_puzzle", "hotel_singletons"]]
 script = ExtResource("1_ckjkc")

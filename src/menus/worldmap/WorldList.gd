@@ -3,7 +3,7 @@ extends ButtonList
 
 var button_defs = []
 
-var dh_game = "res://src/DotHopGame.tscn"
+var dh_game = "res://src/puzzle/GameScene.tscn"
 
 func _ready():
 	# TODO get saved puzzle sets

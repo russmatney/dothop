@@ -9,7 +9,8 @@ var button_defs = [{
 	label="Controls",
 	}]
 
-var dh_game = "res://src/DotHopGame.tscn"
+# TODO is this used anywhere?
+var dh_game = "res://src/puzzle/GameScene.tscn"
 
 func _ready():
 	for def in button_defs:

@@ -198,7 +198,7 @@
 			},
 			{
 				"_category_id": "3",
-				"_default_value": "res://src/puzzle/DotHopPuzzle.tscn",
+				"_default_value": "res://src/puzzle/PuzzleScene.tscn",
 				"_id": "6",
 				"_name": "puzzle_scene",
 				"_type": "resource"
