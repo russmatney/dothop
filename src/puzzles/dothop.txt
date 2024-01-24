@@ -228,5 +228,3 @@ xoooooy
 ooooooo
 ooooooo
 tooooot
-
-message "Thanks for playing!"

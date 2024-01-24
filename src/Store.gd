@@ -64,3 +64,14 @@ func get_puzzle_sets() -> Array[PuzzleSet]:
 
 func get_themes() -> Array[DotHopTheme]:
 	return themes
+
+func unlock_next_puzzle_set(puz: PuzzleSet):
+	if puz.get_next_puzzle_set():
+		var locked = puzzle_sets.filter(func(ps):
+			return ps.get_entity_id() == puz.get_next_puzzle_set().get_entity_id())
+		if len(locked) > 0:
+			var next = locked[0]
+			next.unlock()
+			save_game()
+	else:
+		Log.warn("No next puzzle to unlock!", puz)

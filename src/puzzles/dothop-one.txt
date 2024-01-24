@@ -1,0 +1,43 @@
+title DotHop
+author Russell Matney
+
+=======
+LEGEND
+=======
+
+. = Background
+a = PlayerA
+b = PlayerB
+o = Dot
+t = Goal
+
+Player = a or b
+pt = Dot or Goal
+x = PlayerA and Dotted
+y = PlayerB and Dotted
+
+=======
+LEVELS
+=======
+
+message "Eat all the flowers. The red/orange must be last."
+
+.......
+.xooot.
+.......
+
+...o..t
+.x...o.
+...o.o.
+
+.o.o...
+.x.....
+.t.o.o.
+.o...o.
+
+message "If you get stuck, remember z to undo"
+
+o..o.o.
+ox.o.ot
+...o.o.
+.......

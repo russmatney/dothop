@@ -67,7 +67,10 @@ https://creativecommons.org/licenses/by/4.0/legalcode
 TODO: much more to include here!
 
 ** Fonts
-Vexed - Enter Input
+- Vexed - Enter Input
+- at01
+- Born2BSporty
+- Adventure - ?
 ** Art
-Pixel Frog - Treasure Hunters
+Pixel Frog - Treasure Hunters (Wood and Paper Panel UI)
 https://pixelfrog-assets.itch.io/treasure-hunters

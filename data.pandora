@@ -118,9 +118,16 @@
 						"type": "bool",
 						"value": true
 					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "17",
+							"_type": 0
+						}
+					},
 					"puzzle_script_path": {
 						"type": "string",
-						"value": "res://src/puzzles/dothop.txt"
+						"value": "res://src/puzzles/dothop-one.txt"
 					},
 					"theme": {
 						"type": "reference",
@@ -145,6 +152,13 @@
 					"icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/space/assets/player.png"
+					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "18",
+							"_type": 0
+						}
 					},
 					"puzzle_script_path": {
 						"type": "string",
@@ -244,12 +258,19 @@
 				"_id": "20",
 				"_name": "is_unlocked",
 				"_type": "bool"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": null,
+				"_id": "21",
+				"_name": "next_set",
+				"_type": "reference"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 20
+			"default": 21
 		}
 	}
 }

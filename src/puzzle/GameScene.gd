@@ -120,7 +120,10 @@ func on_puzzle_win():
 		header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
-			Dino.notif("Win all!")
+			if puzzle_set.get_next_puzzle_set():
+				Store.unlock_next_puzzle_set(puzzle_set)
+			Dino.notif("Puzzle Set complete!")
+			# TODO return to world map instead
 			Navi.nav_to_main_menu()
 		else:
 			if puzzle_node.has_method("animate_exit"):

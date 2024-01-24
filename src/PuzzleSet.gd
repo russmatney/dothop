@@ -2,13 +2,8 @@
 extends PandoraEntity
 class_name PuzzleSet
 
-var fallback_puzzle_set = "res://src/dothop.txt"
-
 func get_puzzle_script_path() -> String:
-	var res = get_string("puzzle_script_path")
-	if res == null or res == "":
-		return fallback_puzzle_set
-	return res
+	return get_string("puzzle_script_path")
 
 func get_display_name() -> String:
 	return get_string("display_name")
@@ -22,12 +17,16 @@ func get_icon_texture() -> Texture:
 func is_unlocked() -> bool:
 	return get_bool("is_unlocked")
 
+func get_next_puzzle_set() -> PuzzleSet:
+	return get_reference("next_set")
+
 func data():
 	return {
 		puzzle_script_path=get_puzzle_script_path(),
 		name=get_display_name(),
 		theme=get_theme(),
 		icon_texture=get_icon_texture(),
+		unlocked=is_unlocked(),
 		}
 
 ##############################################
