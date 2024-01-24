@@ -6,12 +6,7 @@ var button_defs = []
 var dh_game = "res://src/puzzle/GameScene.tscn"
 
 func _ready():
-	# TODO get saved puzzle sets
-	var ent = Pandora.get_entity(PuzzleSetIDs.ONE)
-	var puzzle_sets = Pandora.get_all_entities(Pandora.get_category(ent._category_id))
-
-
-	for ps in puzzle_sets:
+	for ps in Store.get_puzzle_sets():
 		add_menu_item({
 			label=ps.get_display_name(),
 			puzzle_set=ps,

@@ -25,6 +25,7 @@ Dino="*res://addons/core/Dino.gd"
 Navi="*res://addons/core/Navi.gd"
 DJ="*res://addons/dj/DJ.gd"
 DJZ="*res://addons/dj/DJZ.gd"
+Store="*res://src/Store.gd"
 
 [display]
 
