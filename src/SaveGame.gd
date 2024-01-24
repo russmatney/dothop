@@ -1,9 +1,12 @@
 @tool
 class_name SaveGame
 
-# referenced: https://github.com/bitbrain/godot-gamejam/blob/5667a7c797e13e335ab0380d52492fa04bfc78f4/godot/savegame/save_game.gd
+# referenced:
+# https://docs.godotengine.org/en/stable/tutorials/io/saving_games.html
+# https://github.com/bitbrain/godot-gamejam/blob/5667a7c797e13e335ab0380d52492fa04bfc78f4/godot/savegame/save_game.gd
 
 const DATA_PATH = "user://savegame.save"
+const data_dict_key = "datadict"
 
 static func delete_save():
 	Log.pr("Deleting save data....")
@@ -21,7 +24,7 @@ static func save_game(_tree, data):
 
 	# TODO do we need to clear the file first?
 	for key in data.keys():
-		var val = [key, data.get(key)]
+		var val = [data_dict_key, key, data.get(key)]
 		file.store_line(JSON.stringify(val))
 	Log.pr("Game saved.")
 
@@ -37,20 +40,27 @@ static func load_game(_tree) -> Dictionary:
 	var data = {}
 
 	while file.get_position() < file.get_length():
-		var json_conv = JSON.new()
-		json_conv.parse(file.get_line())
-		var line = json_conv.get_data()
-
-		# TODO validation/error handling
-		var key = line[0]
-		var val = line[1]
-
-		if key in data:
-			Log.err("Found duplicate key in savegame data", key)
-			# Probably want to reset data at this point
+		var json = JSON.new()
+		var err = json.parse(file.get_line())
+		if err != OK:
+			Log.error("JSON.parse error while loading save game", json.get_error_message())
+			# How best to handle mangled save games?
 			return {}
+		var line = json.get_data()
 
-		data[key] = val
+		if line is Array and len(line) == 3 and line[0] == data_dict_key:
+			# TODO validation/error handling
+			var key = line[1]
+			var val = line[2]
+
+			if key in data:
+				Log.err("Found duplicate key in savegame data", key)
+				# Probably want to reset data at this point
+				return {}
+
+			data[key] = val
+		else:
+			Log.warn("Some other save-game shape found, ignoring.")
 
 	Log.pr("Data loaded.")
 	return data
