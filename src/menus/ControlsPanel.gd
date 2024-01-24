@@ -5,9 +5,10 @@ extends CanvasLayer
 
 @onready var edit_action_scene = preload("res://src/menus/EditActionRow.tscn")
 @onready var action_rows = $%EditActionRows
-@onready var reset_all_button = $%ResetButton
+@onready var reset_controls_button = $%ResetControlsButton
 @onready var main_menu_button = $%MainMenuButton
 @onready var world_map_button = $%WorldMapButton
+@onready var reset_save_data_button = $%ResetSaveDataButton
 
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
@@ -20,7 +21,12 @@ func _ready():
 	Log.pr("displayed actions", displayed_actions)
 
 	render_action_rows()
-	reset_all_button.pressed.connect(on_reset_all_pressed)
+	reset_controls_button.pressed.connect(on_reset_controls_pressed)
+
+	# TODO "Are you sure" pop up, confirmation notification
+	reset_save_data_button.pressed.connect(func():
+		Store.reset_game_data())
+
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
 	world_map_button.pressed.connect(func():
@@ -39,9 +45,9 @@ func render_action_rows():
 		row.set_focus()
 		break
 
-## reset all ###############################################3
+## reset controls ###############################################3
 
-func on_reset_all_pressed():
-	Log.pr("resetting all actions!")
+func on_reset_controls_pressed():
+	Log.pr("resetting controls!")
 	InputHelper.reset_all_actions()
 	render_action_rows()

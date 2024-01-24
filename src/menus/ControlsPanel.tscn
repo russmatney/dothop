@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=3 uid="uid://cq5r4oojxyu5a"]
+[gd_scene load_steps=9 format=3 uid="uid://cq5r4oojxyu5a"]
 
 [ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="1_j8soe"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_xligg"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="3_88sjl"]
-[ext_resource type="Theme" uid="uid://dn5bl1q612dpj" path="res://addons/core/ui/MenuButtonStyle.tres" id="4_b8l8d"]
+[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="3_fhdsa"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="4_j4dme"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="5_xcyb7"]
+[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_et5fj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
 
-[node name="ControlsPanel" type="CanvasLayer"]
+[node name="OptionsPanel" type="CanvasLayer"]
 layer = 5
 script = ExtResource("1_j8soe")
 
@@ -24,14 +26,19 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_6sn6c")
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
 [node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
-custom_minimum_size = Vector2(500, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("2_xligg")
+theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Options[/center]"
 fit_content = true
@@ -47,25 +54,47 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+layout_mode = 2
+theme = ExtResource("3_fhdsa")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer"]
+custom_minimum_size = Vector2(300, 400)
 layout_mode = 2
 
-[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("4_b8l8d")
+theme = ExtResource("4_j4dme")
 text = "Main Menu"
 
-[node name="WorldMapButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer"]
+[node name="WorldMapButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-theme = ExtResource("4_b8l8d")
+theme = ExtResource("4_j4dme")
 text = "World Map"
 
-[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer" instance=ExtResource("3_88sjl")]
+[node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+theme = ExtResource("4_j4dme")
+text = "Reset Save Data"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("3_88sjl")]
+layout_mode = 2
+default_button_scene = ExtResource("6_et5fj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -76,7 +105,22 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme = ExtResource("5_xcyb7")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="ResetControlsButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme = ExtResource("4_j4dme")
+text = "Reset Controls"
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 10)
+layout_mode = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
@@ -85,19 +129,12 @@ follow_focus = true
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 3
 
-[node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/ScrollContainer"]
+[node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 alignment = 1
-
-[node name="ResetButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("4_b8l8d")
-text = "Reset Controls"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
