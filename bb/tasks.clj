@@ -69,34 +69,26 @@
          (notify "Malformed ralphie.notify/notify call"
                  "Expected string or map.")))
   ([subject body & args]
-   (let [opts             (or (some-> args first) {})
-         print?           (:notify/print? opts)
-         replaces-process (some opts [:notify/id :replaces-process :notify/replaces-process])
-         exec-strs
-         (if (is-mac?)
-           ["osascript" "-e" (str "display notification \""
-                                  (cond
-                                    (string? body) body
-                                    (not body)     "no body"
-                                    :else          "unsupported body")
-                                  "\""
-                                  (when subject
-                                    (str " with title \"" subject "\"")))]
-           (cond->
-               ["notify-send.py" subject]
+   (if (is-mac?)
+     (println subject body args)
+     (let [opts             (or (some-> args first) {})
+           print?           (:notify/print? opts)
+           replaces-process (some opts [:notify/id :replaces-process :notify/replaces-process])
+           exec-strs
+           (cond-> ["notify-send.py" subject]
              body (conj body)
              replaces-process
-             (conj "--replaces-process" replaces-process)))
-         _                (when print?
-                            (println subject (when body (str "\n" body))))
-         proc             (p/process (conj exec-strs) {:out :string})]
+             (conj "--replaces-process" replaces-process))
+           _                (when print?
+                              (println subject (when body (str "\n" body))))
+           proc             (p/process (conj exec-strs) {:out :string})]
 
-     ;; we only check when --replaces-process is not passed
-     ;; ... skips error messages if bad data is passed
-     ;; ... also not sure when these get dealt with. is this a memory leak?
-     (when-not replaces-process
-       (-> proc p/check :out))
-     nil)))
+       ;; we only check when --replaces-process is not passed
+       ;; ... skips error messages if bad data is passed
+       ;; ... also not sure when these get dealt with. is this a memory leak?
+       (when-not replaces-process
+         (-> proc p/check :out))
+       nil))))
 
 (comment
   (notify {:subject "subj" :body {:value "v" :label "laaaa"}})
