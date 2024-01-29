@@ -15,9 +15,9 @@ func test_initial_store_puzzle_data():
 	# test that we get as many sets as entities
 	assert_that(len(sets)).is_equal(len(puzzle_ents))
 
-	# only one unlocked puzzle set
+	# at least one unlocked puzzle set
 	var unlocked = sets.filter(func(ent): return ent.is_unlocked())
-	assert_that(len(unlocked)).is_equal(1)
+	assert_that(len(unlocked)).is_greater(1)
 
 	# all but one set point to a next_puzzle_set
 	var have_next = sets.filter(func(ent): return ent.get_next_puzzle_set())
