@@ -20,17 +20,26 @@ func save_game():
 func load_game():
 	var data = SaveGame.load_game(get_tree())
 
+	# TODO merge/update puzzle set data when new ones are added or the parent entity is updated
+	# this gets complicated - some fields should be updated and saved per user ('is_unlocked')
+	# but others should be overwritable by changes to the data (i.e. some I should be able to
+	# clear and unlock some puzzle set for a user, and rearrange the 'next-puzzle' bit)
+	# maybe it's easier to save events like 'puzzle-set-2 completed'
+	# and then reapply them to the initial data (which can change)
+
 	if not "puzzle_sets" in data or len(data.puzzle_sets) == 0:
 		puzzle_sets = initial_puzzle_sets()
-		Log.pr("Loaded %s puzzle_sets" % len(puzzle_sets))
 	else:
+		Log.pr("Loading saved puzzle sets")
 		puzzle_sets.assign(data.puzzle_sets.map(Pandora.deserialize))
+	Log.pr("Loaded %s puzzle sets" % len(puzzle_sets))
 
 	if not "themes" in data or len(data.themes) == 0:
 		themes = initial_themes()
-		Log.pr("Loaded %s themes" % len(themes))
 	else:
+		Log.pr("Loading saved themes")
 		themes.assign(data.puzzle_sets.map(Pandora.deserialize))
+	Log.pr("Loaded %s themes" % len(themes))
 
 	# TODO validation and basic recovery on loaded data
 	# i.e. missing puzzle_sets, at least set the initial ones and get to playable state
