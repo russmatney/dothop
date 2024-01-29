@@ -8,40 +8,44 @@ func _ready():
 
 ## data store ###########################################
 
-var puzzle_sets: Array[PuzzleSet] = []
-var themes: Array[DotHopTheme] = []
+var state: GameState
+
+# var events: Array[Events] = []
+var events: Array = []
+
+# event types
+
+# puzzle_set_completed
+#  - puzzle_set entity_id
+#  - completed_at timestamp
+#  - display_name
+
+# puzzle_set_unlocked
+#  - puzzle_set entity_id
+#  - unlocked_at timestamp
+#  - display_name
 
 func save_game():
 	SaveGame.save_game(get_tree(), {
-		puzzle_sets=puzzle_sets.map(Pandora.serialize),
-		themes=themes.map(Pandora.serialize),
+		events=events.map(Pandora.serialize),
 		})
 
 func load_game():
 	var data = SaveGame.load_game(get_tree())
 
-	# TODO merge/update puzzle set data when new ones are added or the parent entity is updated
-	# this gets complicated - some fields should be updated and saved per user ('is_unlocked')
-	# but others should be overwritable by changes to the data (i.e. some I should be able to
-	# clear and unlock some puzzle set for a user, and rearrange the 'next-puzzle' bit)
-	# maybe it's easier to save events like 'puzzle-set-2 completed'
-	# and then reapply them to the initial data (which can change)
-
-	if not "puzzle_sets" in data or len(data.puzzle_sets) == 0:
-		puzzle_sets = initial_puzzle_sets()
+	if not "events" in data or len(data.events) == 0:
+		events = initial_events()
 	else:
-		Log.pr("Loading saved puzzle sets")
-		puzzle_sets.assign(data.puzzle_sets.map(Pandora.deserialize))
-	Log.pr("Loaded %s puzzle sets" % len(puzzle_sets))
+		Log.pr("Loading saved events")
+		events.assign(data.events.map(Pandora.deserialize))
 
-	if not "themes" in data or len(data.themes) == 0:
-		themes = initial_themes()
-	else:
-		Log.pr("Loading saved themes")
-		themes.assign(data.puzzle_sets.map(Pandora.deserialize))
-	Log.pr("Loaded %s themes" % len(themes))
+	state = GameState.new(events)
 
-	# TODO validation and basic recovery on loaded data
+	Log.pr("Loaded data", {
+		events=len(events), puzzle_sets=len(state.puzzle_sets), themes=len(state.themes)
+		})
+
+	# TODO validation and basic recovery from crashes on loaded data?
 	# i.e. missing puzzle_sets, at least set the initial ones and get to playable state
 
 func reset_game_data():
@@ -50,36 +54,37 @@ func reset_game_data():
 
 ## initial data ###########################################
 
-func initial_puzzle_sets() -> Array[PuzzleSet]:
-	var ent = Pandora.get_entity(PuzzleSetIDs.ONE)
-	var pss = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
-		.map(func(e): return e.instantiate())
-	var ps: Array[PuzzleSet] = []
-	ps.assign(pss)
-	return ps
-
-func initial_themes() -> Array[DotHopTheme]:
-	var ent = Pandora.get_entity(PuzzleThemeIDs.DEBUG)
-	var ths = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
-		.map(func(e): return e.instantiate())
-	var th: Array[DotHopTheme] = []
-	th.assign(ths)
-	return th
+func initial_events() -> Array:
+	return []
 
 ## repository ###########################################
 
 func get_puzzle_sets() -> Array[PuzzleSet]:
-	return puzzle_sets
+	return state.puzzle_sets
 
 func get_themes() -> Array[DotHopTheme]:
-	return themes
+	return state.themes
+
+func get_events() -> Array:
+	return events
+
+## events ###########################################
+
+func complete_puzzle_set(puz: PuzzleSet):
+	# TODO create, apply, and save puzzle_set_unlocked event
+
+	if puz.get_next_puzzle_set():
+		unlock_next_puzzle_set(puz)
 
 func unlock_next_puzzle_set(puz: PuzzleSet):
+	# TODO create, apply, and save puzzle_set_unlocked event
+
+	# move this logic to GameState and make it a result of applying the event
 	if puz.get_next_puzzle_set():
-		var locked = puzzle_sets.filter(func(ps):
+		var to_unlock = state.puzzle_sets.filter(func(ps):
 			return ps.get_entity_id() == puz.get_next_puzzle_set().get_entity_id())
-		if len(locked) > 0:
-			var next = locked[0]
+		if len(to_unlock) > 0:
+			var next = to_unlock[0]
 			next.unlock()
 			save_game()
 	else:

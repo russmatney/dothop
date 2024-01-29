@@ -20,12 +20,7 @@ func test_basic_round_trip():
 
 	assert_dict(loaded).is_equal(data)
 
-# TODO how to support migrating savegames across code changes/versions
-# maybe we need to version the save games and keep the old code around?
-# or keep all possible versions of savegames to be sure they're all parsable?
-
-
-# TODO move this test into pandora
+# consider moving this test into pandora
 func test_save_load_instance_with_new_property() -> void:
 	var category = Pandora.create_category("Swords")
 	var entity = Pandora.create_entity("Zweihander", category)
@@ -46,3 +41,21 @@ func test_save_load_instance_with_new_property() -> void:
 
 	# be sure it the new property is usable
 	assert_that(new_instance.get_float("value")).is_equal(0.0)
+
+# consider moving this test into pandora
+func test_save_load_instance_with_deleted_entity() -> void:
+	var category = Pandora.create_category("Swords")
+	var entity = Pandora.create_entity("Zweihander", category)
+	var _property1 = Pandora.create_property(category, "ref", "reference")
+	var _property2 = Pandora.create_property(category, "weight", "float")
+	var instance = entity.instantiate()
+	instance.set_reference("ref", entity)
+	instance.set_float("weight", 10.3)
+	var data = Pandora.serialize(instance)
+
+	Pandora.delete_entity(entity)
+
+	var new_instance = Pandora.deserialize(data)
+
+	# the entity for this instance was deleted!!
+	assert_that(new_instance).is_null()

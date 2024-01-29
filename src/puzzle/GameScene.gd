@@ -120,11 +120,13 @@ func on_puzzle_win():
 		header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
-			if puzzle_set.get_next_puzzle_set():
-				Store.unlock_next_puzzle_set(puzzle_set)
+			# TODO move to nice toast/notif components, maybe fire from the store?
 			Dino.notif("Puzzle Set complete!")
-			# TODO return to world map instead
-			Navi.nav_to_main_menu()
+
+			# function call, or emit event ?
+			Store.complete_puzzle_set(puzzle_set)
+			# TODO better navigation (string-less, path-less)
+			Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
 		else:
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()
