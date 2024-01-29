@@ -23,6 +23,9 @@ func test_level_counts():
 	var six = DotHopPuzzle.build_puzzle_node({game_def_path="res://src/puzzles/dothop-six.txt"})
 	assert_int(len(six.game_def.levels)).is_equal(3)
 
+	for x in [one, two, three, four, five, six]:
+		x.free()
+
 func test_expected_level_count():
 	var parsed = Puzz.parse_game_def(null, {contents="
 title DotHop
