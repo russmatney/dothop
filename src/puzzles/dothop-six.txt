@@ -35,4 +35,4 @@ message "it be like BRRRRRR"
 
 .o.o.oo
 .o...o.
-.x.oo.t
+.x.o..t
