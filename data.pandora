@@ -20,6 +20,34 @@
 				"_index": 0,
 				"_name": "PuzzleTheme",
 				"_script_path": "res://src/themes/DotHopTheme.gd"
+			},
+			{
+				"_category_id": "",
+				"_icon_color": "49e5caff",
+				"_id": "28",
+				"_index": 0,
+				"_name": "Event"
+			},
+			{
+				"_category_id": "28",
+				"_icon_color": "ffffff00",
+				"_id": "32",
+				"_index": 0,
+				"_name": "PuzzleSetCompleted"
+			},
+			{
+				"_category_id": "28",
+				"_icon_color": "ffffff00",
+				"_id": "33",
+				"_index": 0,
+				"_name": "PuzzleSetUnlocked"
+			},
+			{
+				"_category_id": "28",
+				"_icon_color": "ffffff00",
+				"_id": "34",
+				"_index": 0,
+				"_name": "ThemeUnlocked"
 			}
 		],
 		"_entities": [
@@ -433,12 +461,54 @@
 				"_id": "21",
 				"_name": "next_set",
 				"_type": "reference"
+			},
+			{
+				"_category_id": "28",
+				"_default_value": "",
+				"_id": "29",
+				"_name": "display_name",
+				"_type": "string"
+			},
+			{
+				"_category_id": "28",
+				"_default_value": "",
+				"_id": "30",
+				"_name": "timestamp_string",
+				"_type": "string"
+			},
+			{
+				"_category_id": "32",
+				"_default_value": null,
+				"_id": "35",
+				"_name": "puzzle_set",
+				"_type": "reference"
+			},
+			{
+				"_category_id": "33",
+				"_default_value": null,
+				"_id": "36",
+				"_name": "puzzle_set",
+				"_type": "reference"
+			},
+			{
+				"_category_id": "34",
+				"_default_value": null,
+				"_id": "37",
+				"_name": "theme",
+				"_type": "reference"
+			},
+			{
+				"_category_id": "28",
+				"_default_value": 0,
+				"_id": "38",
+				"_name": "timestamp_float",
+				"_type": "float"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 27
+			"default": 38
 		}
 	}
 }

@@ -33,6 +33,11 @@ func _ready():
 
 	hud = get_node_or_null("HUD")
 
+func nav_to_world_map():
+	# TODO better navigation (string-less, path-less)
+	Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
+
+
 ## rebuild puzzle #####################################################################
 
 func rebuild_puzzle():
@@ -50,8 +55,8 @@ func rebuild_puzzle():
 		})
 
 	if puzzle_node == null:
-		Log.pr("Failed to create puzzle_node, probably a win?")
-		Navi.nav_to_main_menu()
+		Log.warn("built puzzle_node is nil, returning to world map", puzzle_set)
+		nav_to_world_map()
 		return
 
 	puzzle_node.win.connect(on_puzzle_win)
@@ -81,8 +86,9 @@ func update_hud():
 			}
 		if message != null:
 			data["level_message"] = message
-		data["level_number"] = puzzle_num + 1
-		data["level_number_total"] = len(game_def.levels)
+		var total_levels = len(game_def.levels)
+		data["level_number"] = clamp(puzzle_num + 1, 1, total_levels)
+		data["level_number_total"] = total_levels
 		hud.update_state(data)
 
 ## load theme #####################################################################
@@ -125,8 +131,7 @@ func on_puzzle_win():
 
 			# function call, or emit event ?
 			Store.complete_puzzle_set(puzzle_set)
-			# TODO better navigation (string-less, path-less)
-			Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
+			nav_to_world_map()
 		else:
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()

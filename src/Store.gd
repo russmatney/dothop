@@ -72,20 +72,34 @@ func get_events() -> Array:
 
 func complete_puzzle_set(puz: PuzzleSet):
 	# TODO create, apply, and save puzzle_set_unlocked event
+	var event_cat = Pandora.get_category("PuzzleSetCompleted")
+	var event_ent = Pandora.create_entity("%s complete!" % puz.get_display_name(), event_cat)
+	var event = event_ent.instantiate()
+	# TODO event.set_* puzzle, timestamps, display_name, etc
+	events.append(event)
+	save_game()
 
 	if puz.get_next_puzzle_set():
 		unlock_next_puzzle_set(puz)
 
 func unlock_next_puzzle_set(puz: PuzzleSet):
 	# TODO create, apply, and save puzzle_set_unlocked event
-
 	# move this logic to GameState and make it a result of applying the event
 	if puz.get_next_puzzle_set():
 		var to_unlock = state.puzzle_sets.filter(func(ps):
 			return ps.get_entity_id() == puz.get_next_puzzle_set().get_entity_id())
 		if len(to_unlock) > 0:
 			var next = to_unlock[0]
+
+			var event_cat = Pandora.get_category("PuzzleSetUnlocked")
+			var event_ent = Pandora.create_entity("%s unlocked!" % next.get_display_name(), event_cat)
+			var event = event_ent.instantiate()
+			events.append(event)
+			# TODO event.set_* puzzle, timestamps, display_name, etc
+
+			# TODO unlock for immediate use
 			next.unlock()
+			# save update events for later reloading
 			save_game()
 	else:
 		Log.warn("No next puzzle to unlock!", puz)

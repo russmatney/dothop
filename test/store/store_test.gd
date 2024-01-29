@@ -2,6 +2,8 @@ extends GdUnitTestSuite
 
 # probably want to update SaveGame to point to some test save file
 
+#########################################################################
+## initial data
 
 func test_initial_store_puzzle_data():
 	Store.reset_game_data()
@@ -40,6 +42,9 @@ func test_initial_store_theme_data():
 	# TODO theme unlocking!
 	assert_that(len(unlocked)).is_equal(len(theme_ents))
 
+#########################################################################
+## completing and unlocking puzzle sets
+
 func test_unlocking_puzzle_set():
 	Store.reset_game_data()
 
@@ -51,8 +56,11 @@ func test_unlocking_puzzle_set():
 	# ensure it's not unlocked already!
 	assert_that(next.is_unlocked()).is_false()
 
-	# unlock the 'next' puzzle
-	Store.unlock_next_puzzle_set(first)
+	# complete the current (which for now also unlocks the 'next' puzzle)
+	Store.complete_puzzle_set(first)
+
+	# should have two events created
+	assert_that(len(Store.events)).is_equal(2)
 
 	# in-place entity updates
 	assert_that(next.is_unlocked()).is_true()
@@ -61,10 +69,8 @@ func test_unlocking_puzzle_set():
 	var _next = Store.get_puzzle_sets().filter(func(e): return e.get_entity_id() == next_id)[0]
 	assert_that(_next.is_unlocked()).is_true()
 
-	####################
-
-	# unlock the 'next-next' puzzle
-	Store.unlock_next_puzzle_set(next)
+	# do it again, unlocking the 'next-next' puzzle
+	Store.complete_puzzle_set(next)
 	var third = Store.get_puzzle_sets().filter(func(e):
 		return e.get_entity_id() == next.get_next_puzzle_set().get_entity_id())[0]
 	assert_that(third.is_unlocked()).is_true()

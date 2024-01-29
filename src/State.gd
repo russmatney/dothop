@@ -11,6 +11,16 @@ func _init(events=[]):
 	Log.pr("Creating game state with %d events" % len(events))
 	puzzle_sets = initial_puzzle_sets()
 	themes = initial_themes()
+	apply_events(events)
+
+## apply events #######################################################
+
+func apply_events(events):
+	for event in events:
+		apply_event(event)
+
+func apply_event(event):
+	pass
 
 ## initial states #######################################################
 
