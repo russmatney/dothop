@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://b600ixqdoe5ix"
+path="res://.godot/imported/goal.aseprite-3635a86c348a3410b3fee14e68f374c1.res"
+
+[deps]
+
+source_file="res://src/themes/summer/assets/goal.aseprite"
+dest_files=["res://.godot/imported/goal.aseprite-3635a86c348a3410b3fee14e68f374c1.res"]
+
+[params]
+

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://4richanbib5g"
+path="res://.godot/imported/dot.aseprite-98a92fdb94af4bcb3f2551a075e3d7f3.res"
+
+[deps]
+
+source_file="res://src/themes/summer/assets/dot.aseprite"
+dest_files=["res://.godot/imported/dot.aseprite-98a92fdb94af4bcb3f2551a075e3d7f3.res"]
+
+[params]
+

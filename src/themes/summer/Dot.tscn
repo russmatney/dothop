@@ -1,0 +1,64 @@
+[gd_scene load_steps=8 format=3 uid="uid://coyuchcg4n431"]
+
+[ext_resource type="Script" path="res://src/themes/summer/Dot.gd" id="1_jnnoi"]
+[ext_resource type="Texture2D" uid="uid://2ngigotjxdpq" path="res://src/themes/summer/dot.png" id="2_pba0y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86o2j"]
+atlas = ExtResource("2_pba0y")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xoe8"]
+atlas = ExtResource("2_pba0y")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gum3v"]
+atlas = ExtResource("2_pba0y")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qtg70"]
+atlas = ExtResource("2_pba0y")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_owlrn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86o2j")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xoe8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gum3v")
+}],
+"loop": true,
+"name": &"dot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qtg70")
+}],
+"loop": true,
+"name": &"dotted",
+"speed": 10.0
+}]
+
+[node name="Dot" type="Node2D"]
+script = ExtResource("1_jnnoi")
+square_size = 32
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_owlrn")
+animation = &"dot"
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://src/themes/summer/assets/dot.aseprite"
+}

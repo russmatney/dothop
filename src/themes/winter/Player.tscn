@@ -41,9 +41,11 @@ animations = [{
 
 [node name="Player" type="Node2D"]
 script = ExtResource("1_vvvex")
+square_size = 32
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
+scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jr3qj")
 animation = &"idle"
 autoplay = "idle"

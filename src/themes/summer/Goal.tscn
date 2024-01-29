@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://m8pypw3n8v1d"]
 
-[ext_resource type="Script" path="res://src/themes/winter/Goal.gd" id="1_wbkvj"]
-[ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/winter/goal.png" id="2_t8468"]
+[ext_resource type="Script" path="res://src/themes/summer/Goal.gd" id="1_wbkvj"]
+[ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/summer/goal.png" id="2_2mdkd"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4nmop"]
-atlas = ExtResource("2_t8468")
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f7fd"]
+atlas = ExtResource("2_2mdkd")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_87m6j"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_62dma"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4nmop")
+"texture": SubResource("AtlasTexture_6f7fd")
 }],
 "loop": true,
 "name": &"goal",
@@ -26,7 +26,7 @@ square_size = 32
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_87m6j")
+sprite_frames = SubResource("SpriteFrames_62dma")
 animation = &"goal"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -35,5 +35,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/themes/winter/assets/goal.aseprite"
+"source": "res://src/themes/summer/assets/goal.aseprite"
 }

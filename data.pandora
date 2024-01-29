@@ -221,6 +221,48 @@
 						"value": "res://src/themes/winter/WinterPuzzle.tscn"
 					}
 				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "23",
+				"_index": 0,
+				"_name": "Spring",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Spring"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/spring/SpringPuzzle.tscn"
+					}
+				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "24",
+				"_index": 0,
+				"_name": "Summer",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Summer"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/summer/SummerPuzzle.tscn"
+					}
+				}
 			}
 		],
 		"_properties": [
@@ -291,7 +333,7 @@
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 22
+			"default": 24
 		}
 	}
 }

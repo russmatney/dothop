@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://crq5eh3kjrx0s"]
+
+[ext_resource type="Script" path="res://src/themes/summer/SummerPuzzle.gd" id="1_n4qjr"]
+[ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/summer/Dot.tscn" id="2_gwlv5"]
+[ext_resource type="Script" path="res://src/themes/summer/Dot.gd" id="3_fsmef"]
+[ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/summer/Player.tscn" id="4_enatp"]
+[ext_resource type="Script" path="res://src/themes/summer/Player.gd" id="5_i30ei"]
+[ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/summer/Goal.tscn" id="6_p4gsv"]
+[ext_resource type="Script" path="res://src/themes/summer/Goal.gd" id="7_a4g5r"]
+
+[node name="SummerPuzzle" type="Node2D"]
+script = ExtResource("1_n4qjr")
+square_size = 32
+
+[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(64, 0)
+script = ExtResource("3_fsmef")
+square_size = 32
+
+[node name="@Node2D@19722" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(96, 0)
+script = ExtResource("3_fsmef")
+square_size = 32
+
+[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_enatp")]
+z_index = 5
+position = Vector2(32, 32)
+script = ExtResource("5_i30ei")
+square_size = 32
+
+[node name="@Node2D@19723" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(32, 32)
+script = ExtResource("3_fsmef")
+type = 1
+square_size = 32
+
+[node name="@Node2D@19724" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(64, 32)
+script = ExtResource("3_fsmef")
+square_size = 32
+
+[node name="@Node2D@19725" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(128, 32)
+script = ExtResource("3_fsmef")
+square_size = 32
+
+[node name="Goal" type="Node2D" parent="." groups=["generated"] instance=ExtResource("6_p4gsv")]
+position = Vector2(160, 32)
+script = ExtResource("7_a4g5r")
+type = 2
+square_size = 32
+
+[node name="@Node2D@19726" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(96, 64)
+script = ExtResource("3_fsmef")
+square_size = 32
+
+[node name="@Node2D@19727" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+position = Vector2(128, 64)
+script = ExtResource("3_fsmef")
+square_size = 32
