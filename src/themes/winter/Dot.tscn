@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://coyuchcg4n431"]
+
+[ext_resource type="Script" path="res://src/themes/winter/Dot.gd" id="1_jnnoi"]
+[ext_resource type="Texture2D" uid="uid://2ngigotjxdpq" path="res://src/themes/winter/dot.png" id="2_2ddge"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o6203"]
+atlas = ExtResource("2_2ddge")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibyrd"]
+atlas = ExtResource("2_2ddge")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6x4it"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o6203")
+}],
+"loop": true,
+"name": &"dot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibyrd")
+}],
+"loop": true,
+"name": &"dotted",
+"speed": 10.0
+}]
+
+[node name="Dot" type="Node2D"]
+script = ExtResource("1_jnnoi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_6x4it")
+animation = &"dot"
+frame_progress = 0.0483848
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://src/themes/winter/assets/dot.aseprite"
+}

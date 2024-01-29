@@ -56,7 +56,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 
 ## vars ##############################################################
 
-@export_file var game_def_path: String = "res://src/dothop.txt" :
+@export_file var game_def_path: String = "res://src/puzzles/dothop-two.txt" :
 	set(gdp):
 		game_def_path = gdp
 		if gdp != "":

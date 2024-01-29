@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://di85piestdv0m"]
+[gd_scene load_steps=31 format=3 uid="uid://di85piestdv0m"]
 
 [ext_resource type="Script" path="res://src/themes/fall/Leaf.gd" id="1_l6y56"]
 [ext_resource type="Texture2D" uid="uid://d23a8ljxjvq0x" path="res://src/themes/fall/leaf_green.png" id="2_7qt6e"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://b46m768vfaimt" path="res://src/themes/fall/leaf_purple.png" id="4_e6ltx"]
 [ext_resource type="Texture2D" uid="uid://db1aoxx6bupyd" path="res://src/themes/fall/leaf_yellow.png" id="5_0l1bi"]
 [ext_resource type="Texture2D" uid="uid://bvkai7ky5c1qa" path="res://src/themes/fall/leaf_redorange.png" id="5_sop23"]
+[ext_resource type="Texture2D" uid="uid://cfbf5ry6rbser" path="res://src/themes/fall/leaf_goal.png" id="7_x2qis"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n8dvo"]
 atlas = ExtResource("2_7qt6e")
@@ -171,9 +172,22 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhxcl"]
+atlas = ExtResource("7_x2qis")
+region = Rect2(0, 0, 64, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ulq3h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhxcl")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
 [node name="Leaf" type="Node2D"]
-position = Vector2(-20, -20)
-scale = Vector2(0.5, 0.5)
 script = ExtResource("1_l6y56")
 
 [node name="Green" type="AnimatedSprite2D" parent="."]
@@ -192,9 +206,11 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="GreenRed" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_774ja")
 animation = &"twist"
+frame_progress = 0.539485
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -206,11 +222,10 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="Purple" type="AnimatedSprite2D" parent="."]
-visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_5u8eb")
 animation = &"twist"
-frame_progress = 0.514065
+frame_progress = 0.866991
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -249,4 +264,19 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "op_exp": false,
 "source": "res://src/themes/fall/assets/leaf_yellow.aseprite"
+}
+
+[node name="Goal" type="AnimatedSprite2D" parent="."]
+visible = false
+texture_filter = 1
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_ulq3h")
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://src/themes/fall/assets/leaf_goal.aseprite"
 }

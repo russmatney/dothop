@@ -1,0 +1,58 @@
+[gd_scene load_steps=8 format=3 uid="uid://caphciwfwdctj"]
+
+[ext_resource type="Script" path="res://src/themes/winter/Player.gd" id="1_vvvex"]
+[ext_resource type="Texture2D" uid="uid://cskxrvybyb1xr" path="res://src/themes/winter/player.png" id="2_er510"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yxv6"]
+atlas = ExtResource("2_er510")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hokf4"]
+atlas = ExtResource("2_er510")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5px2m"]
+atlas = ExtResource("2_er510")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rk7c5"]
+atlas = ExtResource("2_er510")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jr3qj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yxv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hokf4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5px2m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rk7c5")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 1.0
+}]
+
+[node name="Player" type="Node2D"]
+script = ExtResource("1_vvvex")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_jr3qj")
+animation = &"idle"
+autoplay = "idle"
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://src/themes/winter/assets/player.aseprite"
+}

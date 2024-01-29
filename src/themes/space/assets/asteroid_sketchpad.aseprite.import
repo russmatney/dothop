@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://b0u3i1q7y4fq0"
+path="res://.godot/imported/asteroid_sketchpad.aseprite-ca12ea435cc533b0c52efca715b26e83.res"
+
+[deps]
+
+source_file="res://src/themes/space/assets/asteroid_sketchpad.aseprite"
+dest_files=["res://.godot/imported/asteroid_sketchpad.aseprite-ca12ea435cc533b0c52efca715b26e83.res"]
+
+[params]
+

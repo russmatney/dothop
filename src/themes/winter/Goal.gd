@@ -1,10 +1,7 @@
 @tool
 extends DotHopDot
 
-@onready var asteroid1 = $Asteroid1
-@onready var asteroid2 = $Asteroid2
-@onready var star = $Star
-var anim: AnimatedSprite2D
+@onready var anim = $AnimatedSprite2D
 
 ## config warnings ###########################################################
 
@@ -15,26 +12,8 @@ func _get_configuration_warnings():
 
 func _ready():
 	super._ready()
+
 	animate_entry()
-
-	var anims = [asteroid1, asteroid2, star]
-
-	match type:
-		DHData.dotType.Dot:
-			anim = U.rand_of([asteroid1, asteroid2])
-			anim.play("dot")
-		DHData.dotType.Dotted:
-			anim = U.rand_of([asteroid1, asteroid2])
-			anim.play("dotted")
-		DHData.dotType.Goal:
-			anim = star
-			anim.play("goal")
-
-	for an in anims:
-		if anim != an:
-			an.set_visible(false)
-		else:
-			an.set_visible(true)
 
 ## render ###########################################################
 
@@ -42,19 +21,12 @@ func render():
 	super.render()
 
 	if anim != null:
-		match type:
-			DHData.dotType.Dot:
-				anim.play("dot")
-			DHData.dotType.Dotted:
-				await get_tree().create_timer(0.4).timeout
-				anim.play("dotted")
-			DHData.dotType.Goal:
-				anim.play("goal")
+		anim.play("goal")
 
 ## entry animation ###########################################################
 
 var entry_tween
-var entry_t = 0.3
+var entry_t = 0.6
 func animate_entry():
 	var og_position = position
 	position = position - Vector2.ONE * 10

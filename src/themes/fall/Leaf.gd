@@ -8,12 +8,10 @@ extends DotHopDot
 @onready var anim_purple = $Purple
 @onready var anim_redorange = $RedOrange
 @onready var anim_yellow = $Yellow
+@onready var anim_goal = $Goal
 
 func all_anims() -> Array:
-	return [anim_green, anim_greenred, anim_purple, anim_redorange,
-		# using yellow for 'goal' for now
-		# anim_yellow
-		]
+	return [anim_green, anim_greenred, anim_purple, anim_redorange, anim_yellow]
 
 ## config warnings ###########################################################
 
@@ -32,7 +30,7 @@ func _ready():
 
 func hide_anims():
 	all_anims().map(func(a): a.set_visible(false))
-	anim_yellow.set_visible(false)
+	anim_goal.set_visible(false)
 
 ## render ###########################################################
 
@@ -52,8 +50,7 @@ func render():
 				anim.set_visible(false)
 			DHData.dotType.Goal:
 				hide_anims()
-				anim_yellow.set_visible(true)
-				anim_yellow.play("twist")
+				anim_goal.set_visible(true)
 
 ## entry animation ###########################################################
 

@@ -1,0 +1,52 @@
+[gd_scene load_steps=8 format=3 uid="uid://crq5eh3kjrx0s"]
+
+[ext_resource type="Script" path="res://src/themes/winter/WinterPuzzle.gd" id="1_n4qjr"]
+[ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/winter/Dot.tscn" id="2_lp3xv"]
+[ext_resource type="Script" path="res://src/themes/winter/Dot.gd" id="3_ewvvx"]
+[ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/winter/Player.tscn" id="4_rscbe"]
+[ext_resource type="Script" path="res://src/themes/winter/Player.gd" id="5_0udgy"]
+[ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/winter/Goal.tscn" id="6_krwv4"]
+[ext_resource type="Script" path="res://src/themes/winter/Goal.gd" id="7_mhn3r"]
+
+[node name="WinterPuzzle" type="Node2D"]
+script = ExtResource("1_n4qjr")
+square_size = 16
+
+[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(32, 0)
+script = ExtResource("3_ewvvx")
+
+[node name="@Node2D@115125" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(48, 0)
+script = ExtResource("3_ewvvx")
+
+[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_rscbe")]
+z_index = 5
+position = Vector2(16, 16)
+script = ExtResource("5_0udgy")
+
+[node name="@Node2D@115126" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(16, 16)
+script = ExtResource("3_ewvvx")
+type = 1
+
+[node name="@Node2D@115127" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(32, 16)
+script = ExtResource("3_ewvvx")
+
+[node name="@Node2D@115128" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(64, 16)
+script = ExtResource("3_ewvvx")
+
+[node name="Goal" type="Node2D" parent="." groups=["generated"] instance=ExtResource("6_krwv4")]
+position = Vector2(80, 16)
+script = ExtResource("7_mhn3r")
+type = 2
+
+[node name="@Node2D@115129" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(48, 32)
+script = ExtResource("3_ewvvx")
+
+[node name="@Node2D@115130" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_lp3xv")]
+position = Vector2(64, 32)
+script = ExtResource("3_ewvvx")

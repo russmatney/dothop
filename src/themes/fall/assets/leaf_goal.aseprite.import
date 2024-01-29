@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://faep0ojqjj0d"
+path="res://.godot/imported/leaf_goal.aseprite-be52004c7a26de6cb795353a372d03ff.res"
+
+[deps]
+
+source_file="res://src/themes/fall/assets/leaf_goal.aseprite"
+dest_files=["res://.godot/imported/leaf_goal.aseprite-be52004c7a26de6cb795353a372d03ff.res"]
+
+[params]
+

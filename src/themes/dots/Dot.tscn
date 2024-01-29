@@ -73,6 +73,7 @@ scroll_active = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_velks")
 animation = &"dot"
+frame_progress = 0.773314
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
