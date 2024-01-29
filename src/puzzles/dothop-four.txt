@@ -1,0 +1,37 @@
+title That's Just Beachy
+author Russell Matney
+
+=======
+LEGEND
+=======
+
+. = Background
+a = PlayerA
+b = PlayerB
+o = Dot
+t = Goal
+
+Player = a or b
+pt = Dot or Goal
+x = PlayerA and Dotted
+y = PlayerB and Dotted
+
+=======
+LEVELS
+=======
+
+message "Fun in the sun!"
+
+....o..o
+o.x.o.t.
+o......o
+
+.o...o.
+.o.o.o.
+.x.....
+.o.o.t.
+
+o..ooo.
+o...o.t
+...o.o.
+.x..o..

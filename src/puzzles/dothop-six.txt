@@ -1,0 +1,38 @@
+title No Season like Snow Season
+author Russell Matney
+
+=======
+LEGEND
+=======
+
+. = Background
+a = PlayerA
+b = PlayerB
+o = Dot
+t = Goal
+
+Player = a or b
+pt = Dot or Goal
+x = PlayerA and Dotted
+y = PlayerB and Dotted
+
+=======
+LEVELS
+=======
+
+message "it be like BRRRRRR"
+
+.x.
+.o.
+.o.
+.o.
+.t.
+
+.o.o...
+..xo.o.
+.o...o.
+...t...
+
+.o.o.oo
+.o...o.
+.x.oo.t

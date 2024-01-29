@@ -17,7 +17,7 @@ position = Vector2(64, 0)
 script = ExtResource("3_fsmef")
 square_size = 32
 
-[node name="@Node2D@56448" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18057" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(96, 0)
 script = ExtResource("3_fsmef")
 square_size = 32
@@ -28,18 +28,18 @@ position = Vector2(32, 32)
 script = ExtResource("5_i30ei")
 square_size = 32
 
-[node name="@Node2D@56449" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18058" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(32, 32)
 script = ExtResource("3_fsmef")
 type = 1
 square_size = 32
 
-[node name="@Node2D@56450" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18059" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(64, 32)
 script = ExtResource("3_fsmef")
 square_size = 32
 
-[node name="@Node2D@56451" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18060" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(128, 32)
 script = ExtResource("3_fsmef")
 square_size = 32
@@ -50,12 +50,12 @@ script = ExtResource("7_a4g5r")
 type = 2
 square_size = 32
 
-[node name="@Node2D@56452" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18061" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(96, 64)
 script = ExtResource("3_fsmef")
 square_size = 32
 
-[node name="@Node2D@56453" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
+[node name="@Node2D@18062" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
 position = Vector2(128, 64)
 script = ExtResource("3_fsmef")
 square_size = 32

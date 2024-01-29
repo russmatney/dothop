@@ -188,6 +188,13 @@
 						"type": "resource",
 						"value": "res://src/themes/fall/player.png"
 					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "25",
+							"_type": 0
+						}
+					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-three.txt"
@@ -263,6 +270,104 @@
 						"value": "res://src/themes/summer/SummerPuzzle.tscn"
 					}
 				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "25",
+				"_index": 0,
+				"_name": "Four",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "That's Just Beachy"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "26",
+							"_type": 0
+						}
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop-four.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "24",
+							"_type": 0
+						}
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "26",
+				"_index": 0,
+				"_name": "Five",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "A Spring in your Hop"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "27",
+							"_type": 0
+						}
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop-five.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "23",
+							"_type": 0
+						}
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "27",
+				"_index": 0,
+				"_name": "Six",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Snow Way"
+					},
+					"is_unlocked": {
+						"type": "bool",
+						"value": true
+					},
+					"puzzle_script_path": {
+						"type": "string",
+						"value": "res://src/puzzles/dothop-six.txt"
+					},
+					"theme": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "22",
+							"_type": 0
+						}
+					}
+				}
 			}
 		],
 		"_properties": [
@@ -333,7 +438,7 @@
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 24
+			"default": 27
 		}
 	}
 }
