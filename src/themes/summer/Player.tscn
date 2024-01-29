@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://caphciwfwdctj"]
 
 [ext_resource type="Script" path="res://src/themes/summer/Player.gd" id="1_vvvex"]
-[ext_resource type="Texture2D" uid="uid://cskxrvybyb1xr" path="res://src/themes/summer/player.png" id="2_a7pxc"]
+[ext_resource type="Texture2D" uid="uid://kpd43nkqpb6y" path="res://src/themes/summer/player.png" id="2_a7pxc"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_lnqsx"]
 atlas = ExtResource("2_a7pxc")

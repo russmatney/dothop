@@ -13,58 +13,49 @@ script = ExtResource("1_n4qjr")
 square_size = 32
 
 [node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(54, -10)
-scale = Vector2(0.5, 0.5)
+position = Vector2(64, 0)
 script = ExtResource("3_3jqdc")
 square_size = 32
 
-[node name="@Node2D@18966" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(86, -10)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54538" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(96, 0)
 script = ExtResource("3_3jqdc")
 square_size = 32
 
-[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_0so7q")]
+[node name="SpringPlayer" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_0so7q")]
 z_index = 5
-position = Vector2(22, 22)
-scale = Vector2(0.5, 0.5)
+position = Vector2(32, 32)
 script = ExtResource("5_spaaq")
 square_size = 32
 
-[node name="@Node2D@18967" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(22, 22)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54539" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(32, 32)
 script = ExtResource("3_3jqdc")
 type = 1
 square_size = 32
 
-[node name="@Node2D@18968" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(54, 22)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54540" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(64, 32)
 script = ExtResource("3_3jqdc")
 square_size = 32
 
-[node name="@Node2D@18969" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(118, 22)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54541" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(128, 32)
 script = ExtResource("3_3jqdc")
 square_size = 32
 
 [node name="Goal" type="Node2D" parent="." groups=["generated"] instance=ExtResource("6_th2cj")]
-position = Vector2(150, 22)
-scale = Vector2(0.5, 0.5)
+position = Vector2(160, 32)
 script = ExtResource("7_px31t")
 type = 2
 square_size = 32
 
-[node name="@Node2D@18970" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(86, 54)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54542" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(96, 64)
 script = ExtResource("3_3jqdc")
 square_size = 32
 
-[node name="@Node2D@18971" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
-position = Vector2(118, 54)
-scale = Vector2(0.5, 0.5)
+[node name="@Node2D@54543" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+position = Vector2(128, 64)
 script = ExtResource("3_3jqdc")
 square_size = 32

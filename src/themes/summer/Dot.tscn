@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://coyuchcg4n431"]
 
 [ext_resource type="Script" path="res://src/themes/summer/Dot.gd" id="1_jnnoi"]
-[ext_resource type="Texture2D" uid="uid://2ngigotjxdpq" path="res://src/themes/summer/dot.png" id="2_pba0y"]
+[ext_resource type="Texture2D" uid="uid://bejpom40io2dg" path="res://src/themes/summer/dot.png" id="2_pba0y"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_86o2j"]
 atlas = ExtResource("2_pba0y")
@@ -53,6 +53,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_owlrn")
 animation = &"dot"
+frame_progress = 0.0712259
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

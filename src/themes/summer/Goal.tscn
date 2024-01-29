@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://m8pypw3n8v1d"]
 
 [ext_resource type="Script" path="res://src/themes/summer/Goal.gd" id="1_wbkvj"]
-[ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/summer/goal.png" id="2_2mdkd"]
+[ext_resource type="Texture2D" uid="uid://bin8a2qxwpw8x" path="res://src/themes/summer/goal.png" id="2_2mdkd"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_6f7fd"]
 atlas = ExtResource("2_2mdkd")
@@ -28,6 +28,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_62dma")
 animation = &"goal"
+frame_progress = 0.214821
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

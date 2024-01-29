@@ -39,7 +39,8 @@ animations = [{
 "speed": 1.0
 }]
 
-[node name="Player" type="Node2D"]
+[node name="WinterPlayer" type="Node2D" groups=["player"]]
+z_index = 5
 script = ExtResource("1_vvvex")
 square_size = 32
 

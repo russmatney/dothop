@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://coyuchcg4n431"]
 
 [ext_resource type="Script" path="res://src/themes/spring/Dot.gd" id="1_jnnoi"]
-[ext_resource type="Texture2D" uid="uid://2ngigotjxdpq" path="res://src/themes/spring/dot.png" id="2_l15b5"]
+[ext_resource type="Texture2D" uid="uid://cjef0ur1vupio" path="res://src/themes/spring/dot.png" id="2_l15b5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qajgi"]
 atlas = ExtResource("2_l15b5")
@@ -59,7 +59,8 @@ square_size = 32
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_cp2eu")
-animation = &"dotted"
+animation = &"dot"
+frame_progress = 0.0342945
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

@@ -195,7 +195,7 @@ func restart_block_move_timer(t=0.2):
 # sets up the state grid and some initial data based on the assigned level_def
 func init_game_state():
 	if len(level_def.shape) == 0:
-		Log.warn("init_game_state() called with out level_def.shape", level_def)
+		Log.warn("init_game_state() called without level_def.shape", level_def)
 		return
 
 	var grid = []
