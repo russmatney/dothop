@@ -10,6 +10,9 @@ extends CanvasLayer
 @onready var reset_save_data_button = $%ResetSaveDataButton
 @onready var unlock_all_button = $%UnlockAllButton
 
+@onready var data_reset_conf = $%DataResetConfirmationDialog
+@onready var data_unlock_conf = $%DataUnlockConfirmationDialog
+
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
 	# "ui_up", "ui_down", "ui_left", "ui_right",
@@ -23,10 +26,11 @@ func _ready():
 	render_action_rows()
 	reset_controls_button.pressed.connect(on_reset_controls_pressed)
 
-	# TODO "Are you sure" pop up, confirmation notification
-	reset_save_data_button.pressed.connect(func():
+	reset_save_data_button.pressed.connect(func(): data_reset_conf.show())
+	unlock_all_button.pressed.connect(func(): data_unlock_conf.show())
+	data_reset_conf.confirmed.connect(func():
 		Store.reset_game_data())
-	unlock_all_button.pressed.connect(func():
+	data_unlock_conf.confirmed.connect(func():
 		Store.unlock_all_puzzle_sets())
 
 	main_menu_button.pressed.connect(func():

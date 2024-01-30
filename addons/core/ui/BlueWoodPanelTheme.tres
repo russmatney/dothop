@@ -1,19 +1,10 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://rv7rm10d10gc"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://rv7rm10d10gc"]
 
-[ext_resource type="Texture2D" uid="uid://b04wi82jvw2se" path="res://assets/ui/blueboard_full_4x.png" id="1_bxe01"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pibk3"]
-texture = ExtResource("1_bxe01")
-texture_margin_left = 64.0
-texture_margin_top = 64.0
-texture_margin_right = 64.0
-texture_margin_bottom = 64.0
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+[ext_resource type="StyleBox" uid="uid://i5t8fygrktcp" path="res://addons/core/ui/BlueWoodPanelTexture.tres" id="1_1ocxo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yow8"]
 region_rect = Rect2(0, 0, 94, 90)
 
 [resource]
-PanelContainer/styles/panel = SubResource("StyleBoxTexture_pibk3")
+PanelContainer/styles/panel = ExtResource("1_1ocxo")
 ScrollContainer/styles/panel = SubResource("StyleBoxTexture_7yow8")

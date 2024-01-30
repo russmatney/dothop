@@ -145,3 +145,25 @@ layout_mode = 2
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
+
+[node name="DataResetConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(600, 303)
+transparent = true
+keep_title_visible = false
+theme = ExtResource("4_3vbr1")
+ok_button_text = "Reset my datums!"
+dialog_text = "Are you sure you want to reset the game's progress? This will re-lock any unlocked Puzzle Sets and Themes."
+dialog_autowrap = true
+cancel_button_text = "Nevermind!"
+
+[node name="DataUnlockConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(700, 251)
+theme = ExtResource("4_3vbr1")
+ok_button_text = "Yeah, give me the works!"
+dialog_text = "Are you sure you want to unlock everything? Your current playthrough will be lost!"
+dialog_autowrap = true
+cancel_button_text = "Nevermind!"
