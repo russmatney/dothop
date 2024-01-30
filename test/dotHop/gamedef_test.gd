@@ -21,7 +21,9 @@ x = Player and Dotted
 LEVELS
 =======
 
+.....
 xooot
+.....
 
 o..o.o.
 ox.o.ot
