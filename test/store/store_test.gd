@@ -45,9 +45,27 @@ func test_initial_store_theme_data():
 #########################################################################
 ## completing and unlocking puzzle sets
 
+func test_completing_puzzle_set():
+	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
+
+	# get an unlocked puzzle and it's 'next' puzzle
+	var sets = Store.get_puzzle_sets()
+	var first = sets.filter(func(e): return not e.is_completed())[0]
+	Store.complete_puzzle_set(first)
+
+	assert_that(first.is_completed()).is_true()
+
+	assert_that(len(Store.events)).is_equal(2) # includes 'unlocking' event
+	var ev = Store.events[0]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(first.get_entity_id())
+
+
 func test_unlocking_puzzle_set():
 	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
 
+	# get an unlocked puzzle and it's 'next' puzzle
 	var sets = Store.get_puzzle_sets()
 	var first = sets.filter(func(e): return e.is_unlocked())[0]
 	var next_id = first.get_next_puzzle_set().get_entity_id()
@@ -61,6 +79,8 @@ func test_unlocking_puzzle_set():
 
 	# should have two events created
 	assert_that(len(Store.events)).is_equal(2)
+	var ev = Store.events[1]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(next.get_entity_id())
 
 	# in-place entity updates
 	assert_that(next.is_unlocked()).is_true()
@@ -68,6 +88,13 @@ func test_unlocking_puzzle_set():
 	# re-pulled entity updates as well
 	var _next = Store.get_puzzle_sets().filter(func(e): return e.get_entity_id() == next_id)[0]
 	assert_that(_next.is_unlocked()).is_true()
+
+	# reloaded data shows the same
+	Store.load_game()
+	_next = Store.get_puzzle_sets().filter(func(e): return e.get_entity_id() == next_id)[0]
+	assert_that(_next.is_unlocked()).is_true()
+
+	####################
 
 	# do it again, unlocking the 'next-next' puzzle
 	Store.complete_puzzle_set(next)

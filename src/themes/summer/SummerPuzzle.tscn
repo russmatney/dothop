@@ -13,49 +13,58 @@ script = ExtResource("1_n4qjr")
 square_size = 32
 
 [node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(64, 0)
+position = Vector2(54, -10)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32
 
 [node name="@Node2D@18057" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(96, 0)
+position = Vector2(86, -10)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32
 
 [node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_enatp")]
 z_index = 5
-position = Vector2(32, 32)
+position = Vector2(22, 22)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("5_i30ei")
 square_size = 32
 
 [node name="@Node2D@18058" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(32, 32)
+position = Vector2(22, 22)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 type = 1
 square_size = 32
 
 [node name="@Node2D@18059" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(64, 32)
+position = Vector2(54, 22)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32
 
 [node name="@Node2D@18060" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(128, 32)
+position = Vector2(118, 22)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32
 
 [node name="Goal" type="Node2D" parent="." groups=["generated"] instance=ExtResource("6_p4gsv")]
-position = Vector2(160, 32)
+position = Vector2(150, 22)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("7_a4g5r")
 type = 2
 square_size = 32
 
 [node name="@Node2D@18061" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(96, 64)
+position = Vector2(86, 54)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32
 
 [node name="@Node2D@18062" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_gwlv5")]
-position = Vector2(128, 64)
+position = Vector2(118, 54)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("3_fsmef")
 square_size = 32

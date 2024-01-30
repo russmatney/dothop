@@ -14,6 +14,9 @@ func get_theme() -> DotHopTheme:
 func get_icon_texture() -> Texture:
 	return get_resource("icon_texture")
 
+func is_completed() -> bool:
+	return get_bool("is_completed")
+
 func is_unlocked() -> bool:
 	return get_bool("is_unlocked")
 
@@ -26,6 +29,7 @@ func data():
 		name=get_display_name(),
 		theme=get_theme(),
 		icon_texture=get_icon_texture(),
+		completed=is_completed(),
 		unlocked=is_unlocked(),
 		}
 
@@ -40,3 +44,6 @@ func get_puzzles():
 
 func unlock():
 	set_bool("is_unlocked", true)
+
+func mark_complete():
+	set_bool("is_completed", true)

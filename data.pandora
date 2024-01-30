@@ -26,28 +26,56 @@
 				"_icon_color": "49e5caff",
 				"_id": "28",
 				"_index": 0,
-				"_name": "Event"
+				"_name": "Event",
+				"_script_path": "res://src/events/Event.gd"
 			},
 			{
 				"_category_id": "28",
+				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "32",
+				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "PuzzleSetCompleted"
+				"_name": "PuzzleSetCompleted",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Puzzle Set Completed"
+					}
+				},
+				"_script_path": "res://src/events/PuzzleSetCompleted.gd"
 			},
 			{
 				"_category_id": "28",
+				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "33",
+				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "PuzzleSetUnlocked"
+				"_name": "PuzzleSetUnlocked",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Puzzle Set Unlocked"
+					}
+				},
+				"_script_path": "res://src/events/PuzzleSetUnlocked.gd"
 			},
 			{
 				"_category_id": "28",
+				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "34",
+				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "ThemeUnlocked"
+				"_name": "ThemeUnlocked",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Theme Unlocked"
+					}
+				},
+				"_script_path": "res://src/events/ThemeUnlocked.gd"
 			}
 		],
 		"_entities": [
@@ -396,6 +424,27 @@
 						}
 					}
 				}
+			},
+			{
+				"_category_id": "32",
+				"_icon_color": "ffffff00",
+				"_id": "40",
+				"_index": 0,
+				"_name": "PuzzleSetCompletedEvent"
+			},
+			{
+				"_category_id": "33",
+				"_icon_color": "ffffff00",
+				"_id": "41",
+				"_index": 0,
+				"_name": "PuzzleSetUnlockedEvent"
+			},
+			{
+				"_category_id": "34",
+				"_icon_color": "ffffff00",
+				"_id": "42",
+				"_index": 0,
+				"_name": "ThemeUnlockedEvent"
 			}
 		],
 		"_properties": [
@@ -477,38 +526,45 @@
 				"_type": "string"
 			},
 			{
-				"_category_id": "32",
-				"_default_value": null,
-				"_id": "35",
-				"_name": "puzzle_set",
-				"_type": "reference"
-			},
-			{
-				"_category_id": "33",
-				"_default_value": null,
-				"_id": "36",
-				"_name": "puzzle_set",
-				"_type": "reference"
-			},
-			{
-				"_category_id": "34",
-				"_default_value": null,
-				"_id": "37",
-				"_name": "theme",
-				"_type": "reference"
-			},
-			{
 				"_category_id": "28",
 				"_default_value": 0,
 				"_id": "38",
 				"_name": "timestamp_float",
 				"_type": "float"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": false,
+				"_id": "39",
+				"_name": "is_completed",
+				"_type": "bool"
+			},
+			{
+				"_category_id": "32",
+				"_default_value": "",
+				"_id": "43",
+				"_name": "puzzle_set_id",
+				"_type": "string"
+			},
+			{
+				"_category_id": "33",
+				"_default_value": "",
+				"_id": "44",
+				"_name": "puzzle_set_id",
+				"_type": "string"
+			},
+			{
+				"_category_id": "34",
+				"_default_value": "",
+				"_id": "45",
+				"_name": "theme_id",
+				"_type": "string"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 38
+			"default": 45
 		}
 	}
 }

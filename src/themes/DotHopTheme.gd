@@ -17,3 +17,6 @@ func data():
 		name=get_display_name(),
 		is_unlocked=is_unlocked(),
 		}
+
+func unlock():
+	set_bool("is_unlocked", true)
