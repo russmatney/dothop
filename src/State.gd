@@ -16,10 +16,15 @@ func _init(events=[]):
 ## apply events #######################################################
 
 func apply_events(events):
+	# do we need to sort by timestamp? does application order matter?
 	for event in events:
 		apply_event(event)
 
 func apply_event(event):
+	# TODO branch on event type
+	# unlock the referenced puzzle_set
+	# mark the referenced puzzle_set complete
+
 	pass
 
 ## initial states #######################################################
