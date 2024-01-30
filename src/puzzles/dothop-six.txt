@@ -1,5 +1,4 @@
 title No Season like Snow Season
-author Russell Matney
 
 =======
 LEGEND
@@ -36,3 +35,52 @@ message "it be like BRRRRRR"
 .o.o.oo
 .o...o.
 .x.o..t
+
+xo......
+.oo.....
+..oo....
+...oooot
+
+message "Better bundle up!"
+
+.oo..o..o.
+...o.o.oo.
+..o.o..xo.
+.......oo.
+.t.oo.....
+
+...o..o.
+.o.oooo.
+o.o..t..
+x...o.o.
+.oo.o.o.
+
+.oo.o.o.
+..o.ooo.
+.o.t.o..
+oo...xo.
+.....oo.
+oo......
+
+.oo.o.t.
+..o.ooo.
+.o...o..
+oo.o.xo.
+.o.o.oo.
+oo......
+
+message "Now, the deep freeze!"
+
+...o......o...
+......t.o..o..
+....oo..o....o
+...oooo.......
+oox........o.o
+ooo.......o...
+
+..o.o.........
+.o..x...o.....
+.oo..o.o..o...
+...too....o.o.
+.oooo.....o.o.
+...o......o...

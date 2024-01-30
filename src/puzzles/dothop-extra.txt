@@ -1,0 +1,30 @@
+title Misc other levels
+
+=======
+LEGEND
+=======
+
+. = Background
+a = PlayerA
+b = PlayerB
+o = Dot
+t = Goal
+
+Player = a or b
+pt = Dot or Goal
+x = PlayerA and Dotted
+y = PlayerB and Dotted
+
+=======
+LEVELS
+=======
+
+symmetry
+
+..........
+.o.o..o.o.
+..oo..oo..
+.o.o..o.o.
+..........
+..x....t..
+..........
