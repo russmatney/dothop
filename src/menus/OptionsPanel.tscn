@@ -76,19 +76,19 @@ layout_mode = 2
 theme = ExtResource("4_3vbr1")
 text = "Main Menu"
 
-[node name="WorldMapButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("4_3vbr1")
-text = "World Map"
-
 [node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_3vbr1")
 text = "Reset Save Data"
+
+[node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("4_3vbr1")
+text = "Unlock All Puzzles"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)

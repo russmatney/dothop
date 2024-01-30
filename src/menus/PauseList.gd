@@ -7,10 +7,10 @@ var button_defs = [
 		fn=Navi.resume,
 	},
 	{
-		label="Controls",
+		label="Options",
 		# TODO return from controls to whatever brought us here
 		# TODO OR refactor into a popup panel
-		fn=Navi.nav_to.bind("res://src/menus/ControlsPanel.tscn"),
+		fn=Navi.nav_to.bind("res://src/menus/OptionsPanel.tscn"),
 	},
 	{
 		label="Main Menu",

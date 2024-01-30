@@ -7,8 +7,8 @@ extends CanvasLayer
 @onready var action_rows = $%EditActionRows
 @onready var reset_controls_button = $%ResetControlsButton
 @onready var main_menu_button = $%MainMenuButton
-@onready var world_map_button = $%WorldMapButton
 @onready var reset_save_data_button = $%ResetSaveDataButton
+@onready var unlock_all_button = $%UnlockAllButton
 
 var displayed_actions = [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
@@ -26,11 +26,11 @@ func _ready():
 	# TODO "Are you sure" pop up, confirmation notification
 	reset_save_data_button.pressed.connect(func():
 		Store.reset_game_data())
+	unlock_all_button.pressed.connect(func():
+		Store.unlock_all_puzzle_sets())
 
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
-	world_map_button.pressed.connect(func():
-		Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn"))
 
 ## render ###############################################3
 

@@ -2,11 +2,8 @@
 extends ButtonList
 
 var button_defs = [{
-	nav_to="res://src/menus/ControlsPanel.tscn",
-	label="Controls",
-	}, {
 	nav_to="res://src/menus/MainMenu.tscn",
-	label="Main Menu",
+	label="< Main Menu",
 	}]
 
 func _ready():
