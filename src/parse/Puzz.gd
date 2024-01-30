@@ -2,14 +2,16 @@ extends Node
 class_name Puzz
 
 static func parse_game_def(path, opts={}):
-	var contents
+	var contents = opts.get("contents")
 	if path != null:
+		if not FileAccess.file_exists(path):
+			Log.error("Path does not exist! returning nil", path)
+			return
 		# could make sure file exists
 		var file = FileAccess.open(path, FileAccess.READ)
+
 		# TODO check if file exists!!
 		contents = file.get_as_text()
-	else:
-		contents = opts.get("contents")
 
 	# TODO check if contents exists!!
 	var game = ParsedGame.new()
