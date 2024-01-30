@@ -19,7 +19,7 @@ func test_initial_store_puzzle_data():
 
 	# at least one unlocked puzzle set
 	var unlocked = sets.filter(func(ent): return ent.is_unlocked())
-	assert_that(len(unlocked)).is_greater(1)
+	assert_that(len(unlocked)).is_greater(0)
 
 	# all but one set point to a next_puzzle_set
 	var have_next = sets.filter(func(ent): return ent.get_next_puzzle_set())
