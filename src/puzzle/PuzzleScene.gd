@@ -80,6 +80,7 @@ signal win
 
 # hud updates
 signal player_moved
+signal player_undo
 signal move_attempted
 signal move_blocked
 signal rebuilt_nodes
@@ -592,13 +593,14 @@ func move(move_dir):
 
 		# trigger HUD update
 		player_moved.emit()
-		return
+		return true # we moved!
 
 	var any_undo = moves_to_make.any(func(m): return m[0] == "undo")
 	if any_undo:
 		for m in moves_to_make:
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
+		player_undo.emit()
 
 	# trigger HUD update
 	move_attempted.emit()

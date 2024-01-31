@@ -63,6 +63,7 @@ func rebuild_puzzle():
 	puzzle_node.ready.connect(on_puzzle_ready)
 
 	puzzle_node.player_moved.connect(update_hud)
+	puzzle_node.player_undo.connect(update_hud)
 	puzzle_node.move_attempted.connect(update_hud)
 	puzzle_node.rebuilt_nodes.connect(update_hud)
 	puzzle_node.move_blocked.connect(update_hud)
