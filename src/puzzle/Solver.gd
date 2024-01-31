@@ -40,7 +40,7 @@ func collect_move_tree(current_move_dict={}, last_move=null):
 
 func collect_paths(move_tree, current_path=[], paths=[]):
 	if not move_tree is Dictionary:
-		# this is a test-only edge case, but just-in-case we can't make moves from the start...
+		# this is a test-only edge case, but if we can't make moves from the start...
 		var new_path = current_path.duplicate()
 		new_path.append(move_tree)
 		paths.append(new_path)
@@ -64,12 +64,16 @@ func analyze():
 	var paths = collect_paths(move_tree)
 
 	var winning_paths = paths.filter(func(p): return p[-1] == WIN)
-	var solveable = len(winning_paths) > 0
+	var solvable = len(winning_paths) > 0
+	var dot_count = 0
+	if solvable:
+		dot_count = len(winning_paths[0])
 
 	return {
 		move_tree=move_tree,
 		paths=paths,
-		solveable=solveable,
+		solvable=solvable,
+		dot_count=dot_count,
 		path_count=len(paths),
 		winning_path_count=len(winning_paths),
 		stuck_path_count=len(paths) - len(winning_paths),

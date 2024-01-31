@@ -565,7 +565,7 @@ func move(move_dir):
 		else:
 			for cell in cells:
 				if p.stuck:
-					Log.warn("stuck, didn't see an undo in dir", p.stuck, move_dir, p.move_history)
+					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(["stuck", null, p])
 					if p.node.has_method("move_attempt_stuck"):
 						p.node.move_attempt_stuck(move_dir)
