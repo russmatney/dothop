@@ -110,7 +110,10 @@ func test_all_puzzles_solvable():
 				"solvable?", solve.solvable,
 				"dot count", solve.dot_count,
 				"winning paths:", solve.winning_path_count,
-				"total paths:", solve.path_count])
+				"total paths:", solve.path_count,
+				"width", solve.width,
+				"height", solve.height,
+				])
 			if not solve.solvable:
 				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
 			assert_bool(solve.solvable).is_true()

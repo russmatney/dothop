@@ -69,10 +69,15 @@ func analyze():
 	if solvable:
 		dot_count = len(winning_paths[0])
 
+	var width = puzzle.level_def.width
+	var height = puzzle.level_def.height
+
 	return {
 		move_tree=move_tree,
 		paths=paths,
 		solvable=solvable,
+		width=width,
+		height=height,
 		dot_count=dot_count,
 		path_count=len(paths),
 		winning_path_count=len(winning_paths),

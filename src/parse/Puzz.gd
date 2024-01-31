@@ -9,14 +9,9 @@ static func parse_game_def(path, opts={}):
 			return
 		# could make sure file exists
 		var file = FileAccess.open(path, FileAccess.READ)
-
-		# TODO check if file exists!!
 		contents = file.get_as_text()
 
-	# TODO check if contents exists!!
-	var game = ParsedGame.new()
-	var parsed = game.parse(contents)
-	return parsed
+	return ParsedGame.new().parse(contents)
 
 static func parse_level_def(lines, msg=null):
 	return ParsedGame.new().parse_level(lines, msg)

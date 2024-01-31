@@ -188,6 +188,9 @@ func parse_level(lines, msg=null):
 	if msg != null:
 		lvl["message"] = msg
 	lvl["shape"] = parse_shape(lines, false)
+	lvl["height"] = len(lines)
+	if len(lines) > 0:
+		lvl["width"] = len(lines[0])
 	return lvl
 
 # TODO rename `levels` to `puzzles`
