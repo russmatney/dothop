@@ -480,6 +480,9 @@ func move_to_goal(player, cell):
 ## undo last move ##############################################################
 
 func undo_last_move(player):
+	# supports the solver - undo moves state.win back to false
+	state.win = false
+
 	if len(player.move_history) == 0:
 		Log.warn("Can't undo, no moves yet!")
 		return
