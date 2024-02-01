@@ -147,15 +147,11 @@ func pause():
 	if pause_menu and is_instance_valid(pause_menu):
 		pause_menu.show()
 		find_focus(pause_menu)
-	DJ.pause_game_song()
-	DJ.resume_menu_song()
 	pause_toggled.emit(true)
 
 func resume():
 	get_tree().paused = false
 	hide_menus()
-	DJ.pause_menu_song()
-	DJ.resume_game_song()
 	pause_toggled.emit(false)
 
 ## menus ###################################################################

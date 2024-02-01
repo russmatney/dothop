@@ -24,9 +24,10 @@ InputHelper="*res://addons/input_helper/input_helper.gd"
 Dino="*res://addons/core/Dino.gd"
 Navi="*res://addons/core/Navi.gd"
 DJ="*res://addons/dj/DJ.gd"
-DJZ="*res://addons/dj/DJZ.gd"
 Store="*res://src/Store.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
+Music="*res://src/Music.gd"
+Sounds="*res://src/Sounds.gd"
 
 [display]
 

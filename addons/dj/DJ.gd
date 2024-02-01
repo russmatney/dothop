@@ -1,35 +1,10 @@
 @tool
 extends Node
 
-# maybe drop preload
-var menu_song = preload("res://addons/dj/assets/songs/Late Night Radio.mp3")
-var menu_song_player
-var playback_pos
-
 ## ready ######################################################################
 
 func _ready():
 	process_mode = PROCESS_MODE_ALWAYS
-	menu_song_player = setup_sound(menu_song, {"is_sound": false})
-
-func resume_menu_song(song = null):
-	if muted_music:
-		# Log.warn("Cannot resume menu song, music is muted")
-		return
-
-	if song and menu_song != song:
-		menu_song = song
-		menu_song_player.set_stream(menu_song)
-
-	if not Engine.is_editor_hint():
-		if playback_pos:
-			menu_song_player.play(playback_pos)
-		else:
-			menu_song_player.play()
-
-func pause_menu_song():
-	menu_song_player.stop()
-	playback_pos = menu_song_player.get_playback_position()
 
 func play_sound_rand(sounds, opts = {}):
 	var vary = opts.get("vary", 0.0)
@@ -163,11 +138,8 @@ func toggle_mute_music(should_mute=null):
 
 	if muted_music:
 		pause_game_song()
-		pause_menu_song()
 	else:
-		# TODO refactor to avoid multiple songs playing at the same time
 		resume_game_song()
-		resume_menu_song()
 
 	mute_toggle.emit()
 

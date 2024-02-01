@@ -74,7 +74,6 @@ func set_control_icon(device=null):
 func _unhandled_input(event):
 	if Trolls.is_close(event):
 		fade_out()
-		DJZ.play(DJZ.S.showjumbotron)
 
 func fade_in():
 	$PanelContainer.modulate.a = 0
