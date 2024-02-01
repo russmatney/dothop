@@ -118,6 +118,32 @@ func _ready():
 	else:
 		init_game_state()
 
+	win.connect(on_win)
+	player_moved.connect(on_player_moved)
+	player_undo.connect(on_player_undo)
+	move_attempted.connect(on_move_attempted)
+	move_blocked.connect(on_move_blocked)
+	rebuilt_nodes.connect(on_rebuilt_nodes)
+
+func on_win():
+	Sounds.play(Sounds.S.cure)
+
+func on_player_moved():
+	Sounds.play(Sounds.S.coin)
+
+func on_player_undo():
+	Sounds.play(Sounds.S.showjumbotron)
+
+func on_move_attempted():
+	Sounds.play(Sounds.S.showjumbotron)
+
+func on_move_blocked():
+	pass
+
+func on_rebuilt_nodes():
+	Sounds.play(Sounds.S.candleout)
+
+
 ## input ##############################################################
 
 var just_logged_blocked_input = false
