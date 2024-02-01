@@ -18,3 +18,6 @@ func animate_exit():
 
 	# return blocking signal until animations finish
 	return get_tree().create_timer(exit_t).timeout
+
+func on_player_moved():
+	Sounds.play(Sounds.S.candlelit)
