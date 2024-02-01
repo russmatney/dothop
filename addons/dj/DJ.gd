@@ -44,6 +44,8 @@ func setup_sound_map(sound_map, default_opts=defaults):
 	var playables = {}
 	for k in sound_map.keys():
 		playables[k] = []
+		if not sound_map[k] is Array:
+			sound_map[k] = [sound_map[k]]
 		for s in sound_map[k]:
 			var sound = s
 			var opts = {}

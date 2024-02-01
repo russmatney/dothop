@@ -5,6 +5,8 @@ extends Node
 func snds():
 	if "sounds" in self:
 		return self["sounds"]
+	if "music" in self:
+		return self["music"]
 	else:
 		Log.warn("no sounds configured in sound map:", name)
 		return {}

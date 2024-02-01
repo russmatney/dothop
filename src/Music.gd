@@ -29,13 +29,13 @@ enum M {
 	}
 
 @onready var level_music_tracks = [
-	music[M.chill_electric_background],
-	music[M.cool_kids_electronic_bass_groove],
-	music[M.detective_agency_theme],
-	music[M.evening_dogs],
-	music[M.funk_till_five_loop],
-	music[M.funkmachine_master_loop],
-	music[M.jazz_work],
-	music[M.jungle_groove],
-	music[M.killer_factory_retro_video_game],
+	M.chill_electric_background,
+	M.cool_kids_electronic_bass_groove,
+	M.detective_agency_theme,
+	M.evening_dogs,
+	M.funk_till_five_loop,
+	M.funkmachine_master_loop,
+	M.jazz_work,
+	M.jungle_groove,
+	M.killer_factory_retro_video_game,
 	]

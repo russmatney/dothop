@@ -33,6 +33,12 @@ func _ready():
 
 	hud = get_node_or_null("HUD")
 
+	# TODO add music controls and toasts
+	# TODO stop music when pausing or navigating away
+	var song_key = U.rand_of(Music.level_music_tracks)
+	Music.play_song(song_key)
+
+
 func nav_to_world_map():
 	# TODO better navigation (string-less, path-less)
 	Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
