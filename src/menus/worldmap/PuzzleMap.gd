@@ -45,11 +45,14 @@ func render():
 
 	var acc_x = 0
 	var acc_y = 0
+	var last_color
 	for psmap in ps_maps:
 		psmap.size = Vector2(psmap.width, psmap.height)
 		psmap.pos = Vector2(acc_x, acc_y) - Vector2(psmap.size.x / 2, 0)
 
-		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA])
+		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA]\
+			.filter(func(x): return x != last_color))
+		last_color = color
 		var rect = U.add_color_rect(self, psmap.pos, psmap.size, color, true)
 		rect.ready.connect(func(): rect.set_owner(self))
 
