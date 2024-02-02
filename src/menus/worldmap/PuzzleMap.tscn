@@ -1,40 +1,106 @@
-[gd_scene load_steps=2 format=3 uid="uid://drnps7gh2v4en"]
+[gd_scene load_steps=10 format=3 uid="uid://drnps7gh2v4en"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMap.gd" id="1_4t3eb"]
+[ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMapMarker.gd" id="2_jhjra"]
+[ext_resource type="Script" path="res://src/PuzzleSet.gd" id="3_386ps"]
+
+[sub_resource type="Resource" id="Resource_pbreq"]
+script = ExtResource("3_386ps")
+_id = "16"
+
+[sub_resource type="Resource" id="Resource_fb2i8"]
+script = ExtResource("3_386ps")
+_id = "17"
+
+[sub_resource type="Resource" id="Resource_3pi1s"]
+script = ExtResource("3_386ps")
+_id = "18"
+
+[sub_resource type="Resource" id="Resource_8p3co"]
+script = ExtResource("3_386ps")
+_id = "25"
+
+[sub_resource type="Resource" id="Resource_gv5bq"]
+script = ExtResource("3_386ps")
+_id = "26"
+
+[sub_resource type="Resource" id="Resource_r52di"]
+script = ExtResource("3_386ps")
+_id = "27"
 
 [node name="PuzzleMap" type="Node2D"]
 script = ExtResource("1_4t3eb")
 
-[node name="@ColorRect@31554" type="ColorRect" parent="."]
-offset_right = 49.0
+[node name="MapSprite" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="@ColorRect@28632" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -24.5
+offset_right = 24.5
 offset_bottom = 26.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
 
-[node name="@ColorRect@31555" type="ColorRect" parent="."]
-offset_left = 49.0
+[node name="@ColorRect@28633" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -48.0
 offset_top = 26.0
-offset_right = 145.0
+offset_right = 48.0
 offset_bottom = 89.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
 
-[node name="@ColorRect@31556" type="ColorRect" parent="."]
-offset_left = 145.0
+[node name="@ColorRect@28634" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -34.0
 offset_top = 89.0
-offset_right = 213.0
+offset_right = 34.0
 offset_bottom = 137.0
+color = Color(0, 1, 1, 1)
 
-[node name="@ColorRect@31557" type="ColorRect" parent="."]
-offset_left = 213.0
+[node name="@ColorRect@28635" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -46.0
 offset_top = 137.0
-offset_right = 305.0
+offset_right = 46.0
 offset_bottom = 186.0
+color = Color(0, 1, 0, 1)
 
-[node name="@ColorRect@31558" type="ColorRect" parent="."]
-offset_left = 305.0
+[node name="@ColorRect@28636" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -42.0
 offset_top = 186.0
-offset_right = 389.0
+offset_right = 42.0
 offset_bottom = 230.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
 
-[node name="@ColorRect@31559" type="ColorRect" parent="."]
-offset_left = 389.0
+[node name="@ColorRect@28637" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = -42.0
 offset_top = 230.0
-offset_right = 473.0
+offset_right = 42.0
 offset_bottom = 280.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@Marker2D@28254" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 13)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_pbreq")
+
+[node name="@Marker2D@28255" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 57.5)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_fb2i8")
+
+[node name="@Marker2D@28256" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 113)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_3pi1s")
+
+[node name="@Marker2D@28257" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 161.5)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_8p3co")
+
+[node name="@Marker2D@28258" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 208)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_gv5bq")
+
+[node name="@Marker2D@28259" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(0, 255)
+script = ExtResource("2_jhjra")
+puzzle_set = SubResource("Resource_r52di")

@@ -1,5 +1,6 @@
 @tool
 extends Node2D
+class_name WorldMap
 
 @onready var map = $%MapSprite
 
@@ -12,6 +13,9 @@ func center_map():
 	var pos = Vector2(0, 0)
 	if current_marker != null:
 		pos = current_marker.position * -1
+
+	if Engine.is_editor_hint():
+		return
 
 	var t = create_tween()
 	t.tween_property(map, "position", pos, 0.4)\

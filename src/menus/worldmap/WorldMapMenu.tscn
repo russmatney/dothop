@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=22 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Texture2D" uid="uid://bi4s4jv3tvxw" path="res://src/menus/world_map.png" id="2_2j4fb"]
@@ -10,6 +10,7 @@
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldList.gd" id="5_6wysa"]
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="6_afb7j"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
+[ext_resource type="PackedScene" uid="uid://drnps7gh2v4en" path="res://src/menus/worldmap/PuzzleMap.tscn" id="6_onobc"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
 [ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="10_yrro2"]
@@ -83,6 +84,10 @@ puzzle_set = SubResource("Resource_nwy16")
 position = Vector2(-217, 335)
 script = ExtResource("4_4mgrn")
 puzzle_set = SubResource("Resource_f42ho")
+
+[node name="PuzzleMap" parent="." instance=ExtResource("6_onobc")]
+unique_name_in_owner = true
+position = Vector2(586, 395)
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

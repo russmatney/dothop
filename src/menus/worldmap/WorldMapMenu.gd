@@ -4,6 +4,7 @@ extends CanvasLayer
 ## vars ################################################
 
 @onready var world_list = $%WorldList
+@onready var puzzle_map = $%PuzzleMap
 @onready var world_map = $%WorldMap
 @onready var puzzle_list_container = $%PuzzleListContainer
 @onready var puzzle_list = $%PuzzleList
@@ -35,15 +36,27 @@ func on_button_unfocused(_button, _item):
 var puzzle_label = preload("res://src/menus/worldmap/PuzzleLabel.tscn")
 
 func show_puzzle_set(puzzle_set):
+	# update world map
 	var markers = world_map.get_markers()
 	for m in markers:
 		if m.puzzle_set.get_entity_id() == puzzle_set.get_entity_id():
 			world_map.current_marker = m
 			break
 
+	# update puzzle map
+	markers = puzzle_map.get_markers()
+	for m in markers:
+		if m.puzzle_set.get_entity_id() == puzzle_set.get_entity_id():
+			puzzle_map.current_marker = m
+			break
+
+	# update puzzle_set popup container
+	puzzle_list_container.set_visible(true)
+
+	# icon
 	puzzle_set_icon.set_texture(puzzle_set.get_icon_texture())
 
-	puzzle_list_container.set_visible(true)
+	# list of puzzles
 	U.remove_children(puzzle_list)
 	for puzzle in puzzle_set.get_puzzles():
 		var label = puzzle_label.instantiate()
@@ -52,5 +65,6 @@ func show_puzzle_set(puzzle_set):
 
 func reset_map():
 	world_map.current_marker = null
+	puzzle_map.current_marker = null
 	puzzle_list_container.set_visible(false)
 	U.remove_children(puzzle_list)

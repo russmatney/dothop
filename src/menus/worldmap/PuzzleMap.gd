@@ -1,5 +1,5 @@
 @tool
-extends Node2D
+extends WorldMap
 
 ## props ##################################################
 
@@ -24,6 +24,9 @@ class PSMap:
 			width += float(level.width)
 			height += float(level.height)
 
+	func center():
+		return pos + (size / 2)
+
 ## ready ##################################################
 
 func _ready():
@@ -40,8 +43,12 @@ func _ready():
 
 ## render ##################################################
 
+const gen_key = "puzzlemap_generated"
 func render():
-	U.remove_children(self)
+	U.remove_children(self, {filter=func(ch):
+		return ch.is_in_group(gen_key)})
+	U.remove_children(map, {filter=func(ch):
+		return ch.is_in_group(gen_key)})
 
 	var acc_x = 0
 	var acc_y = 0
@@ -50,11 +57,21 @@ func render():
 		psmap.size = Vector2(psmap.width, psmap.height)
 		psmap.pos = Vector2(acc_x, acc_y) - Vector2(psmap.size.x / 2, 0)
 
-		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA]\
-			.filter(func(x): return x != last_color))
-		last_color = color
-		var rect = U.add_color_rect(self, psmap.pos, psmap.size, color, true)
-		rect.ready.connect(func(): rect.set_owner(self))
-
 		# acc_x += psmap.width
 		acc_y += psmap.height
+
+		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA, Color.LIME]\
+			.filter(func(x): return x != last_color))
+		last_color = color
+		var rect = U.add_color_rect(map, psmap.pos, psmap.size, color, true)
+		rect.ready.connect(func():
+			rect.set_owner(self)
+			rect.add_to_group(gen_key, true))
+
+		var marker = PuzzleMapMarker.new()
+		marker.puzzle_set = psmap.puzzle_set
+		marker.position = psmap.center()
+		marker.ready.connect(func():
+			marker.set_owner(self)
+			marker.add_to_group(gen_key, true))
+		add_child(marker)
