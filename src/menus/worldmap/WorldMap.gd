@@ -27,9 +27,13 @@ func center_map():
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)
 	else:
-		t.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.4)\
+		t.parallel().tween_property(self, "scale", Vector2.ONE, 0.1)\
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)
+		t.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.4)\
+			.set_trans(Tween.TRANS_CUBIC)\
+			.set_ease(Tween.EASE_IN_OUT)\
+			.set_delay(0.1)
 
 # Returns an array of puzzle map markers
 # does not include markers without assigned puzzle_sets
