@@ -12,6 +12,9 @@ class PSMap:
 	var width: float
 	var height: float
 
+	var pos: Vector2
+	var size: Vector2
+
 	func _init(ps):
 		puzzle_set = ps
 		width = 0
@@ -43,11 +46,12 @@ func render():
 	var acc_x = 0
 	var acc_y = 0
 	for psmap in ps_maps:
-		var size = Vector2(psmap.width, psmap.height)
-		var pos = Vector2(acc_x, acc_y) # - (rect.size / 2)
+		psmap.size = Vector2(psmap.width, psmap.height)
+		psmap.pos = Vector2(acc_x, acc_y) - Vector2(psmap.size.x / 2, 0)
+
 		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA])
-		var rect = U.add_color_rect(self, pos, size, color, true)
+		var rect = U.add_color_rect(self, psmap.pos, psmap.size, color, true)
 		rect.ready.connect(func(): rect.set_owner(self))
 
-		acc_x += psmap.width
+		# acc_x += psmap.width
 		acc_y += psmap.height
