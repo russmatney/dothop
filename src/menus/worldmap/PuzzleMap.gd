@@ -21,7 +21,6 @@ class PSMap:
 			width += float(level.width)
 			height += float(level.height)
 
-
 ## ready ##################################################
 
 func _ready():
@@ -47,7 +46,7 @@ func render():
 		var size = Vector2(psmap.width, psmap.height)
 		var pos = Vector2(acc_x, acc_y) # - (rect.size / 2)
 		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA])
-		var rect = U.add_color_rect(self, pos, size, color)
+		var rect = U.add_color_rect(self, pos, size, color, true)
 		rect.ready.connect(func(): rect.set_owner(self))
 
 		acc_x += psmap.width
