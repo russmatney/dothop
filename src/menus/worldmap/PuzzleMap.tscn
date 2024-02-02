@@ -1,0 +1,40 @@
+[gd_scene load_steps=2 format=3 uid="uid://drnps7gh2v4en"]
+
+[ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMap.gd" id="1_4t3eb"]
+
+[node name="PuzzleMap" type="Node2D"]
+script = ExtResource("1_4t3eb")
+
+[node name="@ColorRect@31554" type="ColorRect" parent="."]
+offset_right = 49.0
+offset_bottom = 26.0
+
+[node name="@ColorRect@31555" type="ColorRect" parent="."]
+offset_left = 49.0
+offset_top = 26.0
+offset_right = 145.0
+offset_bottom = 89.0
+
+[node name="@ColorRect@31556" type="ColorRect" parent="."]
+offset_left = 145.0
+offset_top = 89.0
+offset_right = 213.0
+offset_bottom = 137.0
+
+[node name="@ColorRect@31557" type="ColorRect" parent="."]
+offset_left = 213.0
+offset_top = 137.0
+offset_right = 305.0
+offset_bottom = 186.0
+
+[node name="@ColorRect@31558" type="ColorRect" parent="."]
+offset_left = 305.0
+offset_top = 186.0
+offset_right = 389.0
+offset_bottom = 230.0
+
+[node name="@ColorRect@31559" type="ColorRect" parent="."]
+offset_left = 389.0
+offset_top = 230.0
+offset_right = 473.0
+offset_bottom = 280.0

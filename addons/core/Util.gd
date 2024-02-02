@@ -429,12 +429,16 @@ static func update_stylebox(node, stylebox_name, fn):
 	node.add_theme_stylebox_override(stylebox_name, stylebox)
 
 
-static func add_color_rect(node, pos, size, color):
+static func add_color_rect(node, pos, size, color, deferred=false):
 	var crect = ColorRect.new()
 	crect.color = color
 	crect.position = pos
 	crect.size = size
-	node.add_child(crect)
+	if deferred:
+		node.add_child.call_deferred(crect)
+	else:
+		node.add_child(crect)
+	return crect
 
 
 ########################################################

@@ -31,7 +31,6 @@ func test_puzzle_solver_basic(puzz, solvable, test_parameters=[
 			], true],
 	]):
 	var puzzle = build_puzzle(puzz)
-	add_child(puzzle)
 	var result = Solver.new(puzzle).analyze()
 	assert_bool(result.solvable).is_equal(solvable)
 
@@ -79,7 +78,6 @@ func test_puzzle_solver_analysis(puzz, expected_result, test_parameters=[
 			}],
 	]):
 	var puzzle = build_puzzle(puzz)
-	add_child(puzzle)
 
 	var result = Solver.new(puzzle).analyze()
 
@@ -99,11 +97,12 @@ func test_all_puzzles_solvable():
 		var level_count = len(game_def.levels)
 		assert_int(level_count).is_greater(0)
 		for i in level_count:
+			# requiring a node that is added to the scene to analyze is a damn shame here
+			# (can the analysis be run without the node's _ready()?
 			var puzz_node = DotHopPuzzle.build_puzzle_node({
 				game_def=game_def,
 				puzzle_num=i,
 				})
-			add_child(puzz_node)
 
 			var solve = Solver.new(puzz_node).analyze()
 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), "num:", i,
@@ -117,3 +116,5 @@ func test_all_puzzles_solvable():
 			if not solve.solvable:
 				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
 			assert_bool(solve.solvable).is_true()
+
+			puzz_node.free()
