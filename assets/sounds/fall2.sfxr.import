@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://dscqnoyu8t25m"
-path="res://.godot/imported/fall2.sfxr-f75d2893e220b3ac3d229664f52b6fb6.sample"
+path="res://.godot/imported/fall2.sfxr-e75e104ff31012a4f40c5b2d8c2033e1.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/fall2.sfxr"
-dest_files=["res://.godot/imported/fall2.sfxr-f75d2893e220b3ac3d229664f52b6fb6.sample"]
+source_file="res://assets/sounds/fall2.sfxr"
+dest_files=["res://.godot/imported/fall2.sfxr-e75e104ff31012a4f40c5b2d8c2033e1.sample"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://ryu3jjksnjn"
-path="res://.godot/imported/candleout1.sfxr-23bd01c235ff587bd2127f98b868613d.sample"
+path="res://.godot/imported/candleout1.sfxr-a2f7bf1abf32ccf0f00ec1dc934340f1.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/candleout1.sfxr"
-dest_files=["res://.godot/imported/candleout1.sfxr-23bd01c235ff587bd2127f98b868613d.sample"]
+source_file="res://assets/sounds/candleout1.sfxr"
+dest_files=["res://.godot/imported/candleout1.sfxr-a2f7bf1abf32ccf0f00ec1dc934340f1.sample"]
 
 [params]
 

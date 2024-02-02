@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://kyhdi7q3wa6v"
-path="res://.godot/imported/cool-kids-electronic-bass-groo.wav-81843636784bd7a49a4977dbbe79f82a.sample"
+path="res://.godot/imported/cool-kids-electronic-bass-groo.wav-74928b7630ac30ac9e4e4c21c69c692a.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/songs/sulosounds/cool-kids-electronic-bass-groo.wav"
-dest_files=["res://.godot/imported/cool-kids-electronic-bass-groo.wav-81843636784bd7a49a4977dbbe79f82a.sample"]
+source_file="res://assets/songs/sulosounds/cool-kids-electronic-bass-groo.wav"
+dest_files=["res://.godot/imported/cool-kids-electronic-bass-groo.wav-74928b7630ac30ac9e4e4c21c69c692a.sample"]
 
 [params]
 

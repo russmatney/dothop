@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://bi5aeoeob0jbk"
-path="res://.godot/imported/bosswarp1.sfxr-e491abc74181355aa9f1b897ff4b8aef.sample"
+path="res://.godot/imported/bosswarp1.sfxr-6818359acdc754216c95f50ad5713768.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/bosswarp1.sfxr"
-dest_files=["res://.godot/imported/bosswarp1.sfxr-e491abc74181355aa9f1b897ff4b8aef.sample"]
+source_file="res://assets/sounds/bosswarp1.sfxr"
+dest_files=["res://.godot/imported/bosswarp1.sfxr-6818359acdc754216c95f50ad5713768.sample"]
 
 [params]
 

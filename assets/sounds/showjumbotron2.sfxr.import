@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://cf47ejo0mrks7"
-path="res://.godot/imported/showjumbotron2.sfxr-03ef07c0366db652f8d93faced39eaf1.sample"
+path="res://.godot/imported/showjumbotron2.sfxr-c8a1565d496a3c530544aedbe3a5f4e0.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/showjumbotron2.sfxr"
-dest_files=["res://.godot/imported/showjumbotron2.sfxr-03ef07c0366db652f8d93faced39eaf1.sample"]
+source_file="res://assets/sounds/showjumbotron2.sfxr"
+dest_files=["res://.godot/imported/showjumbotron2.sfxr-c8a1565d496a3c530544aedbe3a5f4e0.sample"]
 
 [params]
 

@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://csgql6u1c1ve"
-path="res://.godot/imported/Retro Game Weapons Sound Effects - alert.ogg-5e47672be5b7aba7bcb6e2d827609141.oggvorbisstr"
+path="res://.godot/imported/Retro Game Weapons Sound Effects - alert.ogg-8aedf80cffdc3b66aedde5143a4ec964.oggvorbisstr"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/Retro Game Weapons Sound Effects - alert.ogg"
-dest_files=["res://.godot/imported/Retro Game Weapons Sound Effects - alert.ogg-5e47672be5b7aba7bcb6e2d827609141.oggvorbisstr"]
+source_file="res://assets/sounds/Retro Game Weapons Sound Effects - alert.ogg"
+dest_files=["res://.godot/imported/Retro Game Weapons Sound Effects - alert.ogg-8aedf80cffdc3b66aedde5143a4ec964.oggvorbisstr"]
 
 [params]
 

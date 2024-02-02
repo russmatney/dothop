@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://wy0j3y28hgf8"
-path="res://.godot/imported/player_dead1.sfxr-2946355ce79e7246d0376f284960fd82.sample"
+path="res://.godot/imported/player_dead1.sfxr-20fb0c0b2a8df11c84623ae14af8d329.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/player_dead1.sfxr"
-dest_files=["res://.godot/imported/player_dead1.sfxr-2946355ce79e7246d0376f284960fd82.sample"]
+source_file="res://assets/sounds/player_dead1.sfxr"
+dest_files=["res://.godot/imported/player_dead1.sfxr-20fb0c0b2a8df11c84623ae14af8d329.sample"]
 
 [params]
 

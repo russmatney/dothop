@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://ddwfgoedk0si1"
-path="res://.godot/imported/swordswing3.sfxr-e2c0b8989959fce02baa78e861bf63e8.sample"
+path="res://.godot/imported/swordswing3.sfxr-f1181797d90368732bd1059a03cb41af.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/swordswing3.sfxr"
-dest_files=["res://.godot/imported/swordswing3.sfxr-e2c0b8989959fce02baa78e861bf63e8.sample"]
+source_file="res://assets/sounds/swordswing3.sfxr"
+dest_files=["res://.godot/imported/swordswing3.sfxr-f1181797d90368732bd1059a03cb41af.sample"]
 
 [params]
 

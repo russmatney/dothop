@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://dnvkk04ai6lgv"
-path="res://.godot/imported/punch2.sfxr-3f20d30015c683f56140a0c840a6bb30.sample"
+path="res://.godot/imported/punch2.sfxr-091cae8776466927e10b425fb44e07dd.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/punch2.sfxr"
-dest_files=["res://.godot/imported/punch2.sfxr-3f20d30015c683f56140a0c840a6bb30.sample"]
+source_file="res://assets/sounds/punch2.sfxr"
+dest_files=["res://.godot/imported/punch2.sfxr-091cae8776466927e10b425fb44e07dd.sample"]
 
 [params]
 

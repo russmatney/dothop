@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://bal4il71ogcsg"
-path="res://.godot/imported/destroyedblock2.sfxr-dcfa36dd8a0db8ca83cc35e48675b376.sample"
+path="res://.godot/imported/destroyedblock2.sfxr-9e8cd105bab25fe3f8635f74cb3a97b9.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/destroyedblock2.sfxr"
-dest_files=["res://.godot/imported/destroyedblock2.sfxr-dcfa36dd8a0db8ca83cc35e48675b376.sample"]
+source_file="res://assets/sounds/destroyedblock2.sfxr"
+dest_files=["res://.godot/imported/destroyedblock2.sfxr-9e8cd105bab25fe3f8635f74cb3a97b9.sample"]
 
 [params]
 

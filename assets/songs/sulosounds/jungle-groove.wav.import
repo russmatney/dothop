@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://c61mgxxjhgi1r"
-path="res://.godot/imported/jungle-groove.wav-92230d50016fe0817cf44451c3793499.sample"
+path="res://.godot/imported/jungle-groove.wav-e314e39e718ee2ffaf877be33f75fbb7.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/songs/sulosounds/jungle-groove.wav"
-dest_files=["res://.godot/imported/jungle-groove.wav-92230d50016fe0817cf44451c3793499.sample"]
+source_file="res://assets/songs/sulosounds/jungle-groove.wav"
+dest_files=["res://.godot/imported/jungle-groove.wav-e314e39e718ee2ffaf877be33f75fbb7.sample"]
 
 [params]
 

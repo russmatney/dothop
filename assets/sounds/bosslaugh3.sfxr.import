@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://qpucpn1jidnf"
-path="res://.godot/imported/bosslaugh3.sfxr-2995f8ab361d84a1d72e5eb0bfb0aee0.sample"
+path="res://.godot/imported/bosslaugh3.sfxr-2ac0f69827b6a4af4a8ee5a87fa71a01.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/bosslaugh3.sfxr"
-dest_files=["res://.godot/imported/bosslaugh3.sfxr-2995f8ab361d84a1d72e5eb0bfb0aee0.sample"]
+source_file="res://assets/sounds/bosslaugh3.sfxr"
+dest_files=["res://.godot/imported/bosslaugh3.sfxr-2ac0f69827b6a4af4a8ee5a87fa71a01.sample"]
 
 [params]
 

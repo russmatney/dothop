@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://dplgbu26y8lld"
-path="res://.godot/imported/collectpowerup1.sfxr-200311a398eb2cd96fe78642ee406cde.sample"
+path="res://.godot/imported/collectpowerup1.sfxr-589ff8847a099edec5ca38778887d30d.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/collectpowerup1.sfxr"
-dest_files=["res://.godot/imported/collectpowerup1.sfxr-200311a398eb2cd96fe78642ee406cde.sample"]
+source_file="res://assets/sounds/collectpowerup1.sfxr"
+dest_files=["res://.godot/imported/collectpowerup1.sfxr-589ff8847a099edec5ca38778887d30d.sample"]
 
 [params]
 

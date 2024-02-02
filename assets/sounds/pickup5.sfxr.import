@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://bt6eigeemnw63"
-path="res://.godot/imported/pickup5.sfxr-8d73a4e9219a1794f5bf3d4f75f529dc.sample"
+path="res://.godot/imported/pickup5.sfxr-340f7e3166eec24d875e0bb62f4f0084.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/pickup5.sfxr"
-dest_files=["res://.godot/imported/pickup5.sfxr-8d73a4e9219a1794f5bf3d4f75f529dc.sample"]
+source_file="res://assets/sounds/pickup5.sfxr"
+dest_files=["res://.godot/imported/pickup5.sfxr-340f7e3166eec24d875e0bb62f4f0084.sample"]
 
 [params]
 

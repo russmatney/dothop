@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://fr2r2arco6g1"
-path="res://.godot/imported/soldierhit2.sfxr-82a4f4dac49617c5fc33836cf89d6934.sample"
+path="res://.godot/imported/soldierhit2.sfxr-830948ed470ed32f082bb03ca9b29a76.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/soldierhit2.sfxr"
-dest_files=["res://.godot/imported/soldierhit2.sfxr-82a4f4dac49617c5fc33836cf89d6934.sample"]
+source_file="res://assets/sounds/soldierhit2.sfxr"
+dest_files=["res://.godot/imported/soldierhit2.sfxr-830948ed470ed32f082bb03ca9b29a76.sample"]
 
 [params]
 

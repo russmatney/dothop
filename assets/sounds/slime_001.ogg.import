@@ -3,12 +3,12 @@
 importer="oggvorbisstr"
 type="AudioStreamOggVorbis"
 uid="uid://bptnayl6uxrvt"
-path="res://.godot/imported/slime_001.ogg-bca97f8d72798d21fd5e6ee4b644b959.oggvorbisstr"
+path="res://.godot/imported/slime_001.ogg-291d97a4114936140f2f4458e57948c2.oggvorbisstr"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/slime_001.ogg"
-dest_files=["res://.godot/imported/slime_001.ogg-bca97f8d72798d21fd5e6ee4b644b959.oggvorbisstr"]
+source_file="res://assets/sounds/slime_001.ogg"
+dest_files=["res://.godot/imported/slime_001.ogg-291d97a4114936140f2f4458e57948c2.oggvorbisstr"]
 
 [params]
 

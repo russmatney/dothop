@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://dq1r6uigf7x8w"
-path="res://.godot/imported/tap.sfxr-b41a7b347818fc719db78324d783eb32.sample"
+path="res://.godot/imported/tap.sfxr-77eaa568c333574a3e205b83e31c683f.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/tap.sfxr"
-dest_files=["res://.godot/imported/tap.sfxr-b41a7b347818fc719db78324d783eb32.sample"]
+source_file="res://assets/sounds/tap.sfxr"
+dest_files=["res://.godot/imported/tap.sfxr-77eaa568c333574a3e205b83e31c683f.sample"]
 
 [params]
 

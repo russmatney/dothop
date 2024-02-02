@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://3jo0sdkjfo1h"
-path="res://.godot/imported/new_room_blip4.sfxr-980ac992af33c8af6b6d966853a7098c.sample"
+path="res://.godot/imported/new_room_blip4.sfxr-395ec30770019e23e1ea82b481982291.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/new_room_blip4.sfxr"
-dest_files=["res://.godot/imported/new_room_blip4.sfxr-980ac992af33c8af6b6d966853a7098c.sample"]
+source_file="res://assets/sounds/new_room_blip4.sfxr"
+dest_files=["res://.godot/imported/new_room_blip4.sfxr-395ec30770019e23e1ea82b481982291.sample"]
 
 [params]
 

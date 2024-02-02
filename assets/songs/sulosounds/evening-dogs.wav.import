@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://pe86ov000emh"
-path="res://.godot/imported/evening-dogs.wav-dc53fc8cbbf28b0da7f28a6dd2bed730.sample"
+path="res://.godot/imported/evening-dogs.wav-03568bedfbcb7d4855a41cbf7eb8b2b3.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/songs/sulosounds/evening-dogs.wav"
-dest_files=["res://.godot/imported/evening-dogs.wav-dc53fc8cbbf28b0da7f28a6dd2bed730.sample"]
+source_file="res://assets/songs/sulosounds/evening-dogs.wav"
+dest_files=["res://.godot/imported/evening-dogs.wav-03568bedfbcb7d4855a41cbf7eb8b2b3.sample"]
 
 [params]
 

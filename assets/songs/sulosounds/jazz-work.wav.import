@@ -3,12 +3,12 @@
 importer="wav"
 type="AudioStreamWAV"
 uid="uid://rkqljane1lqu"
-path="res://.godot/imported/jazz-work.wav-7661936450d20c006ba8cad162c46bda.sample"
+path="res://.godot/imported/jazz-work.wav-8cab6211e50327ee8ac3ebfba8efd206.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/songs/sulosounds/jazz-work.wav"
-dest_files=["res://.godot/imported/jazz-work.wav-7661936450d20c006ba8cad162c46bda.sample"]
+source_file="res://assets/songs/sulosounds/jazz-work.wav"
+dest_files=["res://.godot/imported/jazz-work.wav-8cab6211e50327ee8ac3ebfba8efd206.sample"]
 
 [params]
 

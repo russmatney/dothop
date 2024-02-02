@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://637sbmcanrh3"
-path="res://.godot/imported/walk1.sfxr-e4124b81016628d47256684e29f75f9b.sample"
+path="res://.godot/imported/walk1.sfxr-afad29c95ac309d817912fb599df0f4b.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/walk1.sfxr"
-dest_files=["res://.godot/imported/walk1.sfxr-e4124b81016628d47256684e29f75f9b.sample"]
+source_file="res://assets/sounds/walk1.sfxr"
+dest_files=["res://.godot/imported/walk1.sfxr-afad29c95ac309d817912fb599df0f4b.sample"]
 
 [params]
 

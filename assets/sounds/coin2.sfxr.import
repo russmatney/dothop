@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://vbx7dlmmvoeo"
-path="res://.godot/imported/coin2.sfxr-0d18432c320fb1629e9ac531ff2301b0.sample"
+path="res://.godot/imported/coin2.sfxr-1d49195cfc5a37674afd84e631cf4fde.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/coin2.sfxr"
-dest_files=["res://.godot/imported/coin2.sfxr-0d18432c320fb1629e9ac531ff2301b0.sample"]
+source_file="res://assets/sounds/coin2.sfxr"
+dest_files=["res://.godot/imported/coin2.sfxr-1d49195cfc5a37674afd84e631cf4fde.sample"]
 
 [params]
 

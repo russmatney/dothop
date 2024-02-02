@@ -3,12 +3,12 @@
 importer="com.timothyqiu.gdfxr.importer"
 type="AudioStreamWAV"
 uid="uid://c48gpmhinyw0p"
-path="res://.godot/imported/enemylaugh3.sfxr-71aa400d33cb731af8e938e1d86b8058.sample"
+path="res://.godot/imported/enemylaugh3.sfxr-bb9c5243f8496bdf34864ce030d0c3c6.sample"
 
 [deps]
 
-source_file="res://addons/dj/assets/sounds/enemylaugh3.sfxr"
-dest_files=["res://.godot/imported/enemylaugh3.sfxr-71aa400d33cb731af8e938e1d86b8058.sample"]
+source_file="res://assets/sounds/enemylaugh3.sfxr"
+dest_files=["res://.godot/imported/enemylaugh3.sfxr-bb9c5243f8496bdf34864ce030d0c3c6.sample"]
 
 [params]
 
