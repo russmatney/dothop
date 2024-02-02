@@ -9,6 +9,9 @@ class_name WorldMap
 		current_marker = marker
 		center_map()
 
+@export var zoom_scale_min = 1.0
+@export var zoom_scale_max = 2.0
+
 func center_map():
 	var pos = Vector2(0, 0)
 	if current_marker != null:
@@ -23,14 +26,14 @@ func center_map():
 		.set_ease(Tween.EASE_IN_OUT)
 
 	if pos == Vector2(0, 0):
-		t.parallel().tween_property(self, "scale", Vector2.ONE, 0.4)\
+		t.parallel().tween_property(self, "scale", Vector2.ONE * zoom_scale_min, 0.4)\
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)
 	else:
-		t.parallel().tween_property(self, "scale", Vector2.ONE, 0.1)\
+		t.parallel().tween_property(self, "scale", Vector2.ONE * zoom_scale_min, 0.1)\
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)
-		t.parallel().tween_property(self, "scale", Vector2.ONE * 2.0, 0.4)\
+		t.parallel().tween_property(self, "scale", Vector2.ONE * zoom_scale_max, 0.4)\
 			.set_trans(Tween.TRANS_CUBIC)\
 			.set_ease(Tween.EASE_IN_OUT)\
 			.set_delay(0.1)

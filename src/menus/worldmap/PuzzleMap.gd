@@ -69,6 +69,8 @@ func render():
 			rect.set_owner(self)
 			rect.add_to_group(gen_key, true))
 
+		render_children(psmap, rect)
+
 		# add icon
 		var icon = psmap.puzzle_set.get_icon_texture()
 		var texture_rect = TextureRect.new()
@@ -80,6 +82,7 @@ func render():
 			texture_rect.add_to_group(gen_key, true))
 		map.add_child(texture_rect)
 
+
 		# create marker
 		var marker = PuzzleMapMarker.new()
 		marker.puzzle_set = psmap.puzzle_set
@@ -88,3 +91,25 @@ func render():
 			marker.set_owner(self)
 			marker.add_to_group(gen_key, true))
 		add_child(marker)
+
+func render_children(psmap, node):
+	var acc_x = 0
+	var acc_y = 0
+	var last_color
+
+	for level_def in psmap.puzzle_set.get_puzzles():
+		# Log.pr("level_def", level_def.idx)
+
+		var size = Vector2(level_def.width, level_def.height)
+		var pos = Vector2(acc_x, acc_y) - Vector2(size.x / 2, 0)
+
+		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA, Color.LIME]\
+			.filter(func(x): return x != last_color))
+		last_color = color
+		var rect = U.add_color_rect(node, pos, size, color, true)
+		rect.ready.connect(func():
+			rect.set_owner(self)
+			rect.add_to_group(gen_key, true))
+
+		acc_x += level_def.width
+		acc_y += level_def.height

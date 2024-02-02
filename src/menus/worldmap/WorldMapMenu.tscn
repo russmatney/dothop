@@ -88,7 +88,9 @@ puzzle_set = SubResource("Resource_f42ho")
 [node name="PuzzleMap" parent="." instance=ExtResource("6_onobc")]
 unique_name_in_owner = true
 position = Vector2(586, 395)
-scale = Vector2(3, 3)
+scale = Vector2(5, 5)
+zoom_scale_min = 5.0
+zoom_scale_max = 10.0
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15

@@ -37,7 +37,7 @@ script = ExtResource("1_4t3eb")
 [node name="MapSprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="@TextureRect@33316" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38174" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = -3.0
@@ -45,7 +45,7 @@ offset_right = -16.0
 offset_bottom = -3.0
 texture = ExtResource("2_agxm3")
 
-[node name="@TextureRect@33318" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38176" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = 41.5
@@ -53,7 +53,7 @@ offset_right = -16.0
 offset_bottom = 41.5
 texture = ExtResource("3_3qbdu")
 
-[node name="@TextureRect@33320" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38178" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = 97.0
@@ -61,7 +61,7 @@ offset_right = -16.0
 offset_bottom = 97.0
 texture = ExtResource("4_1y4rt")
 
-[node name="@TextureRect@33322" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38180" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = 145.5
@@ -69,7 +69,7 @@ offset_right = -16.0
 offset_bottom = 145.5
 texture = ExtResource("2_agxm3")
 
-[node name="@TextureRect@33324" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38182" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = 192.0
@@ -77,7 +77,7 @@ offset_right = -16.0
 offset_bottom = 192.0
 texture = ExtResource("2_agxm3")
 
-[node name="@TextureRect@33326" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@38184" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 z_index = 2
 offset_left = -16.0
 offset_top = 239.0
@@ -85,73 +85,539 @@ offset_right = -16.0
 offset_bottom = 239.0
 texture = ExtResource("2_agxm3")
 
-[node name="@ColorRect@33700" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38558" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -24.5
 offset_right = 24.5
 offset_bottom = 26.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38559" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -3.5
+offset_right = 3.5
+offset_bottom = 3.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38560" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 3.5
+offset_top = 3.0
+offset_right = 10.5
+offset_bottom = 6.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38561" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 10.5
+offset_top = 6.0
+offset_right = 17.5
+offset_bottom = 10.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38562" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 17.5
+offset_top = 10.0
+offset_right = 24.5
+offset_bottom = 14.0
 color = Color(0.803922, 0.521569, 0.247059, 1)
 
-[node name="@ColorRect@33701" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38563" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 24.5
+offset_top = 14.0
+offset_right = 31.5
+offset_bottom = 18.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38564" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 31.5
+offset_top = 18.0
+offset_right = 38.5
+offset_bottom = 22.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38565" type="ColorRect" parent="MapSprite/@ColorRect@38558" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 38.5
+offset_top = 22.0
+offset_right = 45.5
+offset_bottom = 26.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38566" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -48.0
 offset_top = 26.0
 offset_right = 48.0
 offset_bottom = 89.0
 color = Color(0, 1, 0, 1)
 
-[node name="@ColorRect@33702" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38567" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -3.5
+offset_right = 3.5
+offset_bottom = 3.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38568" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 3.0
+offset_right = 10.0
+offset_bottom = 8.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38569" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 8.0
+offset_right = 16.0
+offset_bottom = 13.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38570" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 15.5
+offset_top = 13.0
+offset_right = 22.5
+offset_bottom = 17.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38571" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 21.5
+offset_top = 17.0
+offset_right = 30.5
+offset_bottom = 21.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38572" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = 39.0
+offset_bottom = 27.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38573" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 38.5
+offset_top = 27.0
+offset_right = 47.5
+offset_bottom = 33.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38574" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 47.5
+offset_top = 33.0
+offset_right = 56.5
+offset_bottom = 39.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38575" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 56.5
+offset_top = 39.0
+offset_right = 65.5
+offset_bottom = 45.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38576" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 65.5
+offset_top = 45.0
+offset_right = 74.5
+offset_bottom = 51.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38577" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 51.0
+offset_right = 83.0
+offset_bottom = 57.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38578" type="ColorRect" parent="MapSprite/@ColorRect@38566" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 82.5
+offset_top = 57.0
+offset_right = 91.5
+offset_bottom = 63.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38579" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -34.0
 offset_top = 89.0
 offset_right = 34.0
 offset_bottom = 137.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38580" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -1.5
+offset_right = 1.5
+offset_bottom = 2.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38581" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 0.5
+offset_top = 2.0
+offset_right = 5.5
+offset_bottom = 6.0
 color = Color(0.803922, 0.521569, 0.247059, 1)
 
-[node name="@ColorRect@33703" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38582" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 5.5
+offset_top = 6.0
+offset_right = 10.5
+offset_bottom = 11.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38583" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 11.0
+offset_right = 16.0
+offset_bottom = 17.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38584" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 15.5
+offset_top = 17.0
+offset_right = 22.5
+offset_bottom = 23.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38585" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 23.0
+offset_right = 29.5
+offset_bottom = 28.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38586" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 28.0
+offset_right = 37.0
+offset_bottom = 33.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38587" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 36.5
+offset_top = 33.0
+offset_right = 45.5
+offset_bottom = 38.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38588" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 45.5
+offset_top = 38.0
+offset_right = 54.5
+offset_bottom = 43.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38589" type="ColorRect" parent="MapSprite/@ColorRect@38579" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 54.5
+offset_top = 43.0
+offset_right = 63.5
+offset_bottom = 48.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38590" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -46.0
 offset_top = 137.0
 offset_right = 46.0
 offset_bottom = 186.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38591" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -4.0
+offset_right = 4.0
+offset_bottom = 3.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38592" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 4.5
+offset_top = 3.0
+offset_right = 11.5
+offset_bottom = 7.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38593" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 11.5
+offset_top = 7.0
+offset_right = 18.5
+offset_bottom = 11.0
 color = Color(0.862745, 0.0784314, 0.235294, 1)
 
-[node name="@ColorRect@33704" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38594" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 18.5
+offset_top = 11.0
+offset_right = 25.5
+offset_bottom = 16.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38595" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 24.5
+offset_top = 16.0
+offset_right = 33.5
+offset_bottom = 20.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38596" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 33.5
+offset_top = 20.0
+offset_right = 42.5
+offset_bottom = 25.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38597" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 42.5
+offset_top = 25.0
+offset_right = 51.5
+offset_bottom = 30.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38598" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 50.5
+offset_top = 30.0
+offset_right = 61.5
+offset_bottom = 36.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38599" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 61.5
+offset_top = 36.0
+offset_right = 72.5
+offset_bottom = 42.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38600" type="ColorRect" parent="MapSprite/@ColorRect@38590" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 71.0
+offset_top = 42.0
+offset_right = 85.0
+offset_bottom = 49.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38601" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -42.0
 offset_top = 186.0
 offset_right = 42.0
 offset_bottom = 230.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38602" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -1.5
+offset_right = 1.5
+offset_bottom = 2.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38603" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -0.5
+offset_top = 2.0
+offset_right = 6.5
+offset_bottom = 5.0
 color = Color(0.803922, 0.521569, 0.247059, 1)
 
-[node name="@ColorRect@33705" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38604" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 6.5
+offset_top = 5.0
+offset_right = 13.5
+offset_bottom = 9.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38605" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 13.5
+offset_top = 9.0
+offset_right = 20.5
+offset_bottom = 14.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38606" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 14.0
+offset_right = 27.0
+offset_bottom = 18.0
+color = Color(0, 1, 1, 1)
+
+[node name="@ColorRect@38607" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 26.5
+offset_top = 18.0
+offset_right = 33.5
+offset_bottom = 22.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38608" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 41.0
+offset_bottom = 26.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38609" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 38.5
+offset_top = 26.0
+offset_right = 51.5
+offset_bottom = 32.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38610" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 51.5
+offset_top = 32.0
+offset_right = 64.5
+offset_bottom = 38.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38611" type="ColorRect" parent="MapSprite/@ColorRect@38601" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 64.5
+offset_top = 38.0
+offset_right = 77.5
+offset_bottom = 44.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38612" type="ColorRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = -42.0
 offset_top = 230.0
 offset_right = 42.0
 offset_bottom = 280.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38613" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -1.5
+offset_right = 1.5
+offset_bottom = 5.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38614" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = -0.5
+offset_top = 5.0
+offset_right = 6.5
+offset_bottom = 9.0
+color = Color(0.803922, 0.521569, 0.247059, 1)
+
+[node name="@ColorRect@38615" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 6.5
+offset_top = 9.0
+offset_right = 13.5
+offset_bottom = 12.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38616" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 13.0
+offset_top = 12.0
+offset_right = 21.0
+offset_bottom = 16.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38617" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 16.0
+offset_right = 30.0
+offset_bottom = 21.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38618" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 31.0
+offset_top = 21.0
+offset_right = 39.0
+offset_bottom = 26.0
 color = Color(0, 1, 1, 1)
 
-[node name="@Marker2D@33317" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@ColorRect@38619" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 39.0
+offset_top = 26.0
+offset_right = 47.0
+offset_bottom = 32.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38620" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 47.0
+offset_top = 32.0
+offset_right = 55.0
+offset_bottom = 38.0
+color = Color(0.862745, 0.0784314, 0.235294, 1)
+
+[node name="@ColorRect@38621" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 52.0
+offset_top = 38.0
+offset_right = 66.0
+offset_bottom = 44.0
+color = Color(0, 1, 0, 1)
+
+[node name="@ColorRect@38622" type="ColorRect" parent="MapSprite/@ColorRect@38612" groups=["puzzlemap_generated"]]
+layout_mode = 0
+offset_left = 67.5
+offset_top = 44.0
+offset_right = 78.5
+offset_bottom = 50.0
+color = Color(0, 1, 1, 1)
+
+[node name="@Marker2D@38175" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 13)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_db376")
 
-[node name="@Marker2D@33319" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@38177" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 57.5)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_xbrm4")
 
-[node name="@Marker2D@33321" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@38179" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 113)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_obw5l")
 
-[node name="@Marker2D@33323" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@38181" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 161.5)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_segob")
 
-[node name="@Marker2D@33325" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@38183" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 208)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_q2jfh")
 
-[node name="@Marker2D@33327" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@38185" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(0, 255)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_7hdr6")
