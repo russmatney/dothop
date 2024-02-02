@@ -60,6 +60,7 @@ func render():
 		# acc_x += psmap.width
 		acc_y += psmap.height
 
+		# create rect
 		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA, Color.LIME]\
 			.filter(func(x): return x != last_color))
 		last_color = color
@@ -68,6 +69,18 @@ func render():
 			rect.set_owner(self)
 			rect.add_to_group(gen_key, true))
 
+		# add icon
+		var icon = psmap.puzzle_set.get_icon_texture()
+		var texture_rect = TextureRect.new()
+		texture_rect.set_texture(icon)
+		texture_rect.position = psmap.center() - Vector2(16, 16)
+		texture_rect.z_index = 2
+		texture_rect.ready.connect(func():
+			texture_rect.set_owner(self)
+			texture_rect.add_to_group(gen_key, true))
+		map.add_child(texture_rect)
+
+		# create marker
 		var marker = PuzzleMapMarker.new()
 		marker.puzzle_set = psmap.puzzle_set
 		marker.position = psmap.center()
