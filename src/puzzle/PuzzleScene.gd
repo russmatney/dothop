@@ -126,6 +126,7 @@ func _ready():
 	rebuilt_nodes.connect(on_rebuilt_nodes)
 
 func on_win():
+	Sounds.interrupt(Sounds.S.coin)
 	Sounds.play(Sounds.S.cure)
 
 func on_player_moved():

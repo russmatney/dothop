@@ -38,6 +38,8 @@ func _ready():
 	var song_key = U.rand_of(Music.level_music_tracks)
 	Music.play_song(song_key)
 
+func _exit_tree():
+	Music.interrupt_song()
 
 func nav_to_world_map():
 	# TODO better navigation (string-less, path-less)

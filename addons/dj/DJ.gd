@@ -99,10 +99,18 @@ func play_song(sound_map, name):
 	else:
 		Log.warn("no song for name", name)
 
-func interrupt_song(sound_map, name):
-	var song = interrupt_sound(sound_map, name)
+func interrupt_song(sound_map, name=null):
+	var song
+	if not name == null:
+		song = interrupt_sound(sound_map, name)
+	elif len(playing_game_songs) > 0:
+		song = playing_game_songs[0]
+		song.stop()
+
 	if song:
 		playing_game_songs.erase(song)
+	else:
+		Log.warn("Could not find song to interrupt!", sound_map)
 
 func pause_game_song():
 	paused_game_songs = []
