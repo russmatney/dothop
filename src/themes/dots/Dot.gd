@@ -25,7 +25,8 @@ func render():
 			DHData.dotType.Dot: anim.play("dot")
 			DHData.dotType.Dotted:
 				await get_tree().create_timer(0.4).timeout
-				anim.play("dotted")
+				if type == DHData.dotType.Dotted: # if we're still dotted
+					anim.play("dotted")
 			DHData.dotType.Goal: anim.play("goal")
 
 ## entry animation ###########################################################

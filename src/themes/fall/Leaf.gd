@@ -47,7 +47,10 @@ func render():
 				var t = 0.4
 				animate_exit(t)
 				await get_tree().create_timer(t).timeout
-				anim.set_visible(false)
+				if type == DHData.dotType.Dotted: # if we're still dotted
+					anim.set_visible(false)
+				else:
+					render()
 			DHData.dotType.Goal:
 				hide_anims()
 				anim_goal.set_visible(true)
