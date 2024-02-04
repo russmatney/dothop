@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://pl1pi7xc5vkn"
+path="res://.godot/imported/world_map_island9.aseprite-2e01b54f253c7909c2a41c3a5a2d8ea0.res"
+
+[deps]
+
+source_file="res://assets/worldmap/world_map_island9.aseprite"
+dest_files=["res://.godot/imported/world_map_island9.aseprite-2e01b54f253c7909c2a41c3a5a2d8ea0.res"]
+
+[params]
+
