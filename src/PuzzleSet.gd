@@ -10,7 +10,7 @@ func get_puzzle_script_path() -> String:
 func get_display_name() -> String:
 	return get_string("display_name")
 
-func get_theme() -> DotHopTheme:
+func get_theme() -> DHTheme:
 	return get_resource("theme")
 
 func get_icon_texture() -> Texture:

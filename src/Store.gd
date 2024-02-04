@@ -48,7 +48,7 @@ func initial_events() -> Array[Event]:
 func get_puzzle_sets() -> Array[PuzzleSet]:
 	return state.puzzle_sets
 
-func get_themes() -> Array[DotHopTheme]:
+func get_themes() -> Array[DHTheme]:
 	return state.themes
 
 func get_events() -> Array[Event]:

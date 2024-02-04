@@ -1,6 +1,6 @@
 @tool
 extends PandoraEntity
-class_name DotHopTheme
+class_name DHTheme
 
 func get_puzzle_scene() -> PackedScene:
 	return get_resource("puzzle_scene")
