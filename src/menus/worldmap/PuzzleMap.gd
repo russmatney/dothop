@@ -7,26 +7,15 @@ extends WorldMap
 @onready var puzzle_sets = Store.get_puzzle_sets()
 @onready var ps_maps: Array[PSMap]
 
+@export var x_buffer: float = 48
+
 class PSMap:
 	var puzzle_set: PuzzleSet
-	var width: float = 0
-	var height: float = 0
-	var max_puzzle_width: float = 0
-	var max_puzzle_height: float = 0
-
 	var pos: Vector2
 	var size: Vector2
 
 	func _init(ps):
 		puzzle_set = ps
-
-		for level in puzzle_set.get_game_def().levels:
-			width += float(level.width)
-			height += float(level.height)
-			if level.width > max_puzzle_width:
-				max_puzzle_width = level.width
-			if level.height > max_puzzle_height:
-				max_puzzle_height = level.height
 
 	func center():
 		return pos + (size / 2)
@@ -38,8 +27,6 @@ func _ready():
 
 	ps_maps = []
 	for ps in puzzle_sets:
-		# Log.pr("Solving....")
-		# ps.get_analyzed_game_def()
 		ps_maps.append(PSMap.new(ps))
 	Log.pr("Built puzzle maps.")
 
@@ -56,13 +43,13 @@ func render():
 
 	var acc_x = 0
 	var acc_y = 0
-	# var last_color
 	for psmap in ps_maps:
-		psmap.size = Vector2(psmap.width, psmap.max_puzzle_height)
-		psmap.pos = Vector2(acc_x, acc_y) #- Vector2(psmap.size.x / 2, 0)
+		var worldmap_island = psmap.puzzle_set.get_worldmap_island_texture()
 
-		# acc_x += psmap.width
-		acc_y += psmap.max_puzzle_height
+		psmap.size = worldmap_island.get_size()
+		psmap.pos = Vector2(acc_x, acc_y)
+
+		acc_x += psmap.size.x + x_buffer
 
 		# create world node
 		var world = Node2D.new()
@@ -72,28 +59,14 @@ func render():
 			world.add_to_group(gen_key, true))
 		map.add_child(world)
 
-		# create rect
-		# var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA, Color.LIME]\
-		# 	.filter(func(x): return x != last_color))
-		# last_color = color
-		# var rect = U.add_color_rect(world, psmap.pos, psmap.size, color, true)
-		# rect.ready.connect(func():
-		# 	rect.set_owner(self)
-		# 	rect.add_to_group(gen_key, true))
-
-		render_children(psmap, world)
-
-		# add icon
-		# var icon = psmap.puzzle_set.get_icon_texture()
-		# var texture_rect = TextureRect.new()
-		# texture_rect.set_texture(icon)
-		# texture_rect.position = psmap.center() - Vector2(16, 16)
-		# texture_rect.z_index = 2
-		# texture_rect.ready.connect(func():
-		# 	texture_rect.set_owner(self)
-		# 	texture_rect.add_to_group(gen_key, true))
-		# map.add_child(texture_rect)
-
+		# worldmap island texture
+		var texture_rect = TextureRect.new()
+		texture_rect.set_texture(worldmap_island)
+		texture_rect.position = psmap.pos
+		texture_rect.ready.connect(func():
+			texture_rect.set_owner(self)
+			texture_rect.add_to_group(gen_key, true))
+		map.add_child(texture_rect)
 
 		# create marker
 		var marker = PuzzleMapMarker.new()
@@ -103,25 +76,3 @@ func render():
 			marker.set_owner(self)
 			marker.add_to_group(gen_key, true))
 		add_child(marker)
-
-func render_children(psmap, node):
-	var acc_x = 0
-	var acc_y = 0
-	var last_color
-
-	for level_def in psmap.puzzle_set.get_puzzles():
-		# Log.pr("level_def", level_def.idx)
-
-		var size = Vector2(level_def.width, level_def.height)
-		var pos = Vector2(acc_x, acc_y)
-
-		var color = U.rand_of([Color.CRIMSON, Color.PERU, Color.AQUA, Color.LIME]\
-			.filter(func(x): return x != last_color))
-		last_color = color
-		var rect = U.add_color_rect(node, pos, size, color, true)
-		rect.ready.connect(func():
-			rect.set_owner(self)
-			rect.add_to_group(gen_key, true))
-
-		acc_x += level_def.width
-		# acc_y += level_def.height

@@ -1,8 +1,14 @@
-[gd_scene load_steps=10 format=3 uid="uid://drnps7gh2v4en"]
+[gd_scene load_steps=16 format=3 uid="uid://drnps7gh2v4en"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMap.gd" id="1_4t3eb"]
 [ext_resource type="Script" path="res://src/menus/worldmap/PuzzleMapMarker.gd" id="2_jhjra"]
+[ext_resource type="Texture2D" uid="uid://c0bbwjpu7vnq4" path="res://assets/worldmap/world_map_island1_sheet.png" id="2_uod71"]
 [ext_resource type="Script" path="res://src/PuzzleSet.gd" id="3_386ps"]
+[ext_resource type="Texture2D" uid="uid://dmqftljhwi6wh" path="res://assets/worldmap/world_map_island2_sheet.png" id="3_vh7x8"]
+[ext_resource type="Texture2D" uid="uid://bqvpqj8apcxqj" path="res://assets/worldmap/world_map_island3_sheet.png" id="4_sxfhr"]
+[ext_resource type="Texture2D" uid="uid://1gqhpapggxjr" path="res://assets/worldmap/world_map_island4_sheet.png" id="5_n2dda"]
+[ext_resource type="Texture2D" uid="uid://wgm34cmhyqk" path="res://assets/worldmap/world_map_island5_sheet.png" id="6_h34ua"]
+[ext_resource type="Texture2D" uid="uid://cj834sx06wvo0" path="res://assets/worldmap/world_map_island6_sheet.png" id="7_4l06y"]
 
 [sub_resource type="Resource" id="Resource_a8hul"]
 script = ExtResource("3_386ps")
@@ -34,397 +40,77 @@ script = ExtResource("1_4t3eb")
 [node name="MapSprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="@Node2D@18052" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@Node2D@51781" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
 
-[node name="@ColorRect@18192" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_right = 7.0
-offset_bottom = 3.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
+[node name="@TextureRect@51782" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+texture = ExtResource("2_uod71")
 
-[node name="@ColorRect@18193" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 7.0
-offset_right = 14.0
-offset_bottom = 3.0
-color = Color(0, 1, 0, 1)
+[node name="@Node2D@51784" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(96, 0)
 
-[node name="@ColorRect@18194" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 14.0
-offset_right = 21.0
-offset_bottom = 4.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18195" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 21.0
-offset_right = 28.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18196" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 28.0
-offset_right = 35.0
-offset_bottom = 4.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18197" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 35.0
-offset_right = 42.0
-offset_bottom = 4.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18198" type="ColorRect" parent="MapSprite/@Node2D@18052" groups=["puzzlemap_generated"]]
-offset_left = 42.0
-offset_right = 49.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@Node2D@18054" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(0, 4)
-
-[node name="@ColorRect@18199" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_right = 7.0
-offset_bottom = 3.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18200" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 7.0
-offset_right = 13.0
-offset_bottom = 5.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18201" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 13.0
-offset_right = 19.0
-offset_bottom = 5.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18202" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 19.0
-offset_right = 26.0
-offset_bottom = 4.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18203" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 26.0
-offset_right = 35.0
-offset_bottom = 4.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18204" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 35.0
-offset_right = 43.0
-offset_bottom = 6.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18205" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 43.0
-offset_right = 52.0
-offset_bottom = 6.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18206" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 52.0
-offset_right = 61.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18207" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 61.0
-offset_right = 70.0
-offset_bottom = 6.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18208" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 70.0
-offset_right = 79.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18209" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 79.0
-offset_right = 87.0
-offset_bottom = 6.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18210" type="ColorRect" parent="MapSprite/@Node2D@18054" groups=["puzzlemap_generated"]]
-offset_left = 87.0
+[node name="@TextureRect@51785" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = 96.0
 offset_right = 96.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
+texture = ExtResource("3_vh7x8")
 
-[node name="@Node2D@18056" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(0, 10)
+[node name="@Node2D@51787" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(192, 0)
 
-[node name="@ColorRect@18211" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_right = 3.0
-offset_bottom = 2.0
-color = Color(0, 1, 1, 1)
+[node name="@TextureRect@51788" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = 192.0
+offset_right = 192.0
+texture = ExtResource("4_sxfhr")
 
-[node name="@ColorRect@18212" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 3.0
-offset_right = 8.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
+[node name="@Node2D@51790" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(288, 0)
 
-[node name="@ColorRect@18213" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 8.0
-offset_right = 13.0
-offset_bottom = 5.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
+[node name="@TextureRect@51791" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = 288.0
+offset_right = 288.0
+texture = ExtResource("5_n2dda")
 
-[node name="@ColorRect@18214" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 13.0
-offset_right = 19.0
-offset_bottom = 6.0
-color = Color(0, 1, 1, 1)
+[node name="@Node2D@51793" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(384, 0)
 
-[node name="@ColorRect@18215" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 19.0
-offset_right = 26.0
-offset_bottom = 6.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
+[node name="@TextureRect@51794" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = 384.0
+offset_right = 384.0
+texture = ExtResource("6_h34ua")
 
-[node name="@ColorRect@18216" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 26.0
-offset_right = 33.0
-offset_bottom = 5.0
-color = Color(0, 1, 0, 1)
+[node name="@Node2D@51796" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(480, 0)
 
-[node name="@ColorRect@18217" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 33.0
-offset_right = 41.0
-offset_bottom = 5.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
+[node name="@TextureRect@51797" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+offset_left = 480.0
+offset_right = 480.0
+texture = ExtResource("7_4l06y")
 
-[node name="@ColorRect@18218" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 41.0
-offset_right = 50.0
-offset_bottom = 5.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18219" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 50.0
-offset_right = 59.0
-offset_bottom = 5.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18220" type="ColorRect" parent="MapSprite/@Node2D@18056" groups=["puzzlemap_generated"]]
-offset_left = 59.0
-offset_right = 68.0
-offset_bottom = 5.0
-color = Color(0, 1, 0, 1)
-
-[node name="@Node2D@18058" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(0, 16)
-
-[node name="@ColorRect@18221" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_right = 8.0
-offset_bottom = 3.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18222" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 8.0
-offset_right = 15.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18223" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 15.0
-offset_right = 22.0
-offset_bottom = 4.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18224" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 22.0
-offset_right = 29.0
-offset_bottom = 5.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18225" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 29.0
-offset_right = 38.0
-offset_bottom = 4.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18226" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 38.0
-offset_right = 47.0
-offset_bottom = 5.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18227" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 47.0
-offset_right = 56.0
-offset_bottom = 5.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18228" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 56.0
-offset_right = 67.0
-offset_bottom = 6.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18229" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 67.0
-offset_right = 78.0
-offset_bottom = 6.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18230" type="ColorRect" parent="MapSprite/@Node2D@18058" groups=["puzzlemap_generated"]]
-offset_left = 78.0
-offset_right = 92.0
-offset_bottom = 7.0
-color = Color(0, 1, 0, 1)
-
-[node name="@Node2D@18060" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(0, 23)
-
-[node name="@ColorRect@18231" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_right = 3.0
-offset_bottom = 2.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18232" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 3.0
-offset_right = 10.0
-offset_bottom = 3.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18233" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 10.0
-offset_right = 17.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18234" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 17.0
-offset_right = 24.0
-offset_bottom = 5.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18235" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 24.0
-offset_right = 30.0
-offset_bottom = 4.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18236" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 30.0
-offset_right = 37.0
-offset_bottom = 4.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18237" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 37.0
-offset_right = 45.0
-offset_bottom = 4.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18238" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 45.0
-offset_right = 58.0
-offset_bottom = 6.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18239" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 58.0
-offset_right = 71.0
-offset_bottom = 6.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18240" type="ColorRect" parent="MapSprite/@Node2D@18060" groups=["puzzlemap_generated"]]
-offset_left = 71.0
-offset_right = 84.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
-
-[node name="@Node2D@18062" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(0, 29)
-
-[node name="@ColorRect@18241" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_right = 3.0
-offset_bottom = 5.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18242" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 3.0
-offset_right = 10.0
-offset_bottom = 4.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18243" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 10.0
-offset_right = 17.0
-offset_bottom = 3.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18244" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 17.0
-offset_right = 25.0
-offset_bottom = 4.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18245" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 25.0
-offset_right = 35.0
-offset_bottom = 5.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@ColorRect@18246" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 35.0
-offset_right = 43.0
-offset_bottom = 5.0
-color = Color(0, 1, 1, 1)
-
-[node name="@ColorRect@18247" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 43.0
-offset_right = 51.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18248" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 51.0
-offset_right = 59.0
-offset_bottom = 6.0
-color = Color(0.862745, 0.0784314, 0.235294, 1)
-
-[node name="@ColorRect@18249" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 59.0
-offset_right = 73.0
-offset_bottom = 6.0
-color = Color(0, 1, 0, 1)
-
-[node name="@ColorRect@18250" type="ColorRect" parent="MapSprite/@Node2D@18062" groups=["puzzlemap_generated"]]
-offset_left = 73.0
-offset_right = 84.0
-offset_bottom = 6.0
-color = Color(0.803922, 0.521569, 0.247059, 1)
-
-[node name="@Marker2D@18053" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(24.5, 2)
+[node name="@Marker2D@51783" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(24, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_a8hul")
 
-[node name="@Marker2D@18055" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(48, 7)
+[node name="@Marker2D@51786" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(120, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_pa3pa")
 
-[node name="@Marker2D@18057" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(34, 13)
+[node name="@Marker2D@51789" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(216, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_f0u0p")
 
-[node name="@Marker2D@18059" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(46, 19.5)
+[node name="@Marker2D@51792" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(312, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_g7q21")
 
-[node name="@Marker2D@18061" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(42, 26)
+[node name="@Marker2D@51795" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(408, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_1kc7n")
 
-[node name="@Marker2D@18063" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(42, 32)
+[node name="@Marker2D@51798" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(512, 24)
 script = ExtResource("2_jhjra")
 puzzle_set = SubResource("Resource_8cakh")

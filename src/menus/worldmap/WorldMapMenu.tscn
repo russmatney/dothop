@@ -72,6 +72,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 
 [node name="WorldMap" type="Node2D" parent="."]
 unique_name_in_owner = true
+visible = false
 position = Vector2(589, 396)
 script = ExtResource("2_cfldw")
 zoom_scale_min = 0.7
@@ -128,9 +129,9 @@ puzzle_set = SubResource("Resource_f42ho")
 
 [node name="PuzzleMap" parent="." instance=ExtResource("6_onobc")]
 unique_name_in_owner = true
-visible = false
 position = Vector2(586, 395)
 scale = Vector2(5, 5)
+x_buffer = 48.0
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 

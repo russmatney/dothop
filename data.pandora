@@ -191,6 +191,10 @@
 							"_entity_id": "13",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island1_sheet.png"
 					}
 				}
 			},
@@ -226,6 +230,10 @@
 							"_entity_id": "14",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island2_sheet.png"
 					}
 				}
 			},
@@ -261,6 +269,10 @@
 							"_entity_id": "15",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island3_sheet.png"
 					}
 				}
 			},
@@ -359,6 +371,10 @@
 							"_entity_id": "24",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island4_sheet.png"
 					}
 				}
 			},
@@ -394,6 +410,10 @@
 							"_entity_id": "23",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island5_sheet.png"
 					}
 				}
 			},
@@ -422,6 +442,10 @@
 							"_entity_id": "22",
 							"_type": 0
 						}
+					},
+					"worldmap_island_texture": {
+						"type": "resource",
+						"value": "res://assets/worldmap/world_map_island6_sheet.png"
 					}
 				}
 			},
@@ -559,12 +583,19 @@
 				"_id": "45",
 				"_name": "theme_id",
 				"_type": "string"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": null,
+				"_id": "46",
+				"_name": "worldmap_island_texture",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 45
+			"default": 46
 		}
 	}
 }

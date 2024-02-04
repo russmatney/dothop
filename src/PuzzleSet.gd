@@ -16,6 +16,9 @@ func get_theme() -> DotHopTheme:
 func get_icon_texture() -> Texture:
 	return get_resource("icon_texture")
 
+func get_worldmap_island_texture() -> Texture:
+	return get_resource("worldmap_island_texture")
+
 func is_completed() -> bool:
 	return get_bool("is_completed")
 
