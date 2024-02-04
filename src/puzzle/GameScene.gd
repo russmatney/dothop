@@ -129,7 +129,7 @@ func on_puzzle_win():
 		body = "Your friends must think you're\npretty nerdy"
 	else:
 		header = "Puzzle %s Complete!" % puzzle_num
-		body = "....but how?"
+		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 
 	Jumbotron.jumbo_notif({
 		header=header, body=body, pause=false,
