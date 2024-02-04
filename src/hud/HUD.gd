@@ -71,9 +71,7 @@ func update_level_message(entry):
 
 func update_dots_remaining(entry):
 	if "dots_total" in entry:
-		var total = entry.dots_total
-		var found = total - entry.dots_remaining
-		dots_remaining_label.text = "[center]%s/%s dots[/center]" % [found, total]
+		dots_remaining_label.text = "[center]%s dots left[/center]" % entry.dots_remaining
 
 ## controls ########################################################
 
