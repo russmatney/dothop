@@ -1,16 +1,6 @@
 @tool
 extends DotHopPuzzle
 
-var obj_scene_override = {
-	"Player": preload("res://src/themes/winter/Player.tscn"),
-	"Dot": preload("res://src/themes/winter/Dot.tscn"),
-	"Dotted": preload("res://src/themes/winter/Dot.tscn"),
-	"Goal": preload("res://src/themes/winter/Goal.tscn"),
-	}
-
-func _init():
-	obj_scene = obj_scene_override
-
 var exit_t = 0.8
 func animate_exit():
 	state.players.map(func(p): p.node.animate_exit(exit_t))

@@ -91,13 +91,38 @@ var obj_type = {
 	"Goal": DHData.dotType.Goal,
 	}
 
-# NOTE these are overridden by each theme - essentially fallbacks for testing/debugging
-var obj_scene = {
-	"Player": preload("res://src/puzzle/Player.tscn"),
-	"Dot": preload("res://src/puzzle/Dot.tscn"),
-	"Dotted": preload("res://src/puzzle/Dot.tscn"),
-	"Goal": preload("res://src/puzzle/Dot.tscn"),
-	}
+## custom nodes ##############################################################
+
+var player_scenes = []
+var dot_scenes = []
+var goal_scenes = []
+
+func get_player_scene():
+	if len(player_scenes) > 0:
+		return U.rand_of(player_scenes)
+	return load("res://src/puzzle/Player.tscn")
+
+func get_dot_scene():
+	if len(dot_scenes) > 0:
+		return U.rand_of(dot_scenes)
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_dotted_scene():
+	if len(dot_scenes) > 0:
+		return U.rand_of(dot_scenes)
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_goal_scene():
+	if len(goal_scenes) > 0:
+		return U.rand_of(goal_scenes)
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_scene_for(obj_name):
+	match obj_name:
+		"Player": return get_player_scene()
+		"Dot": return get_dot_scene()
+		"Dotted": return get_dotted_scene()
+		"Goal": return get_goal_scene()
 
 ## enter_tree ##############################################################
 
@@ -321,7 +346,7 @@ func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 	return node
 
 func node_for_object_name(obj_name):
-	var scene = obj_scene.get(obj_name)
+	var scene = get_scene_for(obj_name)
 	if not scene:
 		Log.err("No scene found for object name", obj_name)
 		return

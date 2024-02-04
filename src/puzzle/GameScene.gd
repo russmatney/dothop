@@ -76,6 +76,8 @@ func rebuild_puzzle():
 	puzzle_node.rebuilt_nodes.connect(update_hud)
 	puzzle_node.move_blocked.connect(update_hud)
 
+	setup_theme(puzzle_node)
+
 	add_child.call_deferred(puzzle_node)
 
 func on_puzzle_ready():
@@ -110,6 +112,13 @@ func change_theme(theme):
 		puzzle_theme = theme
 		load_theme()
 		rebuild_puzzle()
+
+func setup_theme(p_node):
+	if not puzzle_theme:
+		return
+	p_node.player_scenes = puzzle_theme.get_player_scenes()
+	p_node.dot_scenes = puzzle_theme.get_dot_scenes()
+	p_node.goal_scenes = puzzle_theme.get_goal_scenes()
 
 ## win #####################################################################
 

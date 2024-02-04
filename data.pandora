@@ -107,9 +107,27 @@
 						"type": "string",
 						"value": "Dots"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/dots/Dot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/dots/Dot.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/dots/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -128,9 +146,27 @@
 						"type": "string",
 						"value": "Space"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/space/Dot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/space/Dot.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/space/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -149,9 +185,27 @@
 						"type": "string",
 						"value": "Fall"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/fall/Leaf.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/fall/Leaf.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/fall/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -287,9 +341,27 @@
 						"type": "string",
 						"value": "Winter"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/winter/Dot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/winter/Goal.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/winter/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -308,9 +380,27 @@
 						"type": "string",
 						"value": "Spring"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/spring/Dot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/spring/Goal.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/spring/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -329,9 +419,27 @@
 						"type": "string",
 						"value": "Summer"
 					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/summer/Dot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/summer/Goal.tscn"
+						}
+					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/summer/Player.tscn"
+						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -590,12 +698,39 @@
 				"_id": "46",
 				"_name": "worldmap_island_texture",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": {
+
+				},
+				"_id": "47",
+				"_name": "player_scenes",
+				"_type": "array"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": {
+
+				},
+				"_id": "48",
+				"_name": "dot_scenes",
+				"_type": "array"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": {
+
+				},
+				"_id": "49",
+				"_name": "goal_scenes",
+				"_type": "array"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 46
+			"default": 49
 		}
 	}
 }
