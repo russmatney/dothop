@@ -549,6 +549,8 @@ func undo_last_move(player):
 	# update state player position
 	player.coord = dest_cell.coord
 
+	player_undo.emit()
+
 ## move ##############################################################
 
 # attempt to move all players in move_dir
@@ -630,7 +632,6 @@ func move(move_dir):
 		for m in moves_to_make:
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
-		player_undo.emit()
 
 	# trigger HUD update
 	move_attempted.emit()
