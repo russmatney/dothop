@@ -384,9 +384,9 @@ func dot_count(only_undotted=false):
 		if c == null:
 			return false
 		for obj_name in c:
-			if only_undotted and obj_name in ["Dot", "Goal"]:
+			if only_undotted and obj_name in ["Dot"]:
 				return true
-			elif not only_undotted and obj_name in ["Dot", "Dotted", "Goal"]:
+			elif not only_undotted and obj_name in ["Dot", "Dotted"]:
 				return true
 		return false))
 
