@@ -22,6 +22,8 @@ extends CanvasLayer
 
 @onready var worldmap = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 
+var confirm_exit = true
+
 ## ready ###############################################3
 
 func _ready():
@@ -42,20 +44,35 @@ func _ready():
 		sound_panel.show())
 
 	to_main_conf.confirmed.connect(func(): Navi.nav_to_main_menu())
-	main_menu_button.pressed.connect(func(): to_main_conf.show())
+	main_menu_button.pressed.connect(func():
+		if confirm_exit:
+			to_main_conf.show()
+		else:
+			Navi.nav_to_main_menu())
 
 	to_worldmap_conf.confirmed.connect(func(): Navi.nav_to(worldmap))
 	worldmap_button.pressed.connect(func(): to_worldmap_conf.show())
 
 func on_visibility_changed():
 	if not visible:
-		# on hidden
+		# on hide
 		all_panels.map(func(p): p.hide())
 		secondary_margin.hide()
 		resume_button.release_focus()
 	else:
 		# on show
-		pass # explicitly grab focus?
+		match get_tree().current_scene.name:
+			"WorldMapMenu":
+				Log.pr("worldmap pause settings")
+				worldmap_button.hide()
+				confirm_exit = false
+			"DotHopGameScene":
+				Log.pr("game pause settings")
+				worldmap_button.show()
+				confirm_exit = true
+			_:
+				confirm_exit = true
+				worldmap_button.show()
 
 ## input ###################################################################
 
