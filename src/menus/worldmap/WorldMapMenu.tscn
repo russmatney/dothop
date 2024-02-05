@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=23 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMap.gd" id="2_cfldw"]
@@ -11,8 +11,6 @@
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="6_afb7j"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_j7ncb"]
 [ext_resource type="PackedScene" uid="uid://drnps7gh2v4en" path="res://src/menus/worldmap/PuzzleMap.tscn" id="6_onobc"]
-[ext_resource type="Script" path="res://src/menus/worldmap/WorldMapOptionsList.gd" id="7_3wo5h"]
-[ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="8_t2pos"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="10_yrro2"]
 [ext_resource type="PackedScene" uid="uid://c5kc1uq2mn0i1" path="res://src/menus/worldmap/PuzzleLabel.tscn" id="11_stio4"]
 
@@ -157,7 +155,7 @@ custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme = ExtResource("3_7do1c")
 bbcode_enabled = true
-text = "[center]World Map[/center]"
+text = "[center]Puzzles[/center]"
 fit_content = true
 scroll_active = false
 
@@ -234,15 +232,3 @@ layout_mode = 2
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_vertical = 3
-
-[node name="Options" type="VBoxContainer" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-offset_left = 17.0
-offset_top = 22.0
-offset_right = 217.0
-offset_bottom = 154.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-script = ExtResource("7_3wo5h")
-default_button_scene = ExtResource("8_t2pos")

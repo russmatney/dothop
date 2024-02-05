@@ -45,6 +45,7 @@ func on_visibility_changed():
 		# on hidden
 		all_panels.map(func(p): p.hide())
 		secondary_margin.hide()
+		resume_button.release_focus()
 	else:
 		# on show
 		pass # TODO grab focus?

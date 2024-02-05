@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://src/menus/MainMenu.gd" id="1_wrr04"]
 [ext_resource type="Texture2D" uid="uid://wescmejk4ssr" path="res://assets/boxart/base_logo_no_bg_sheet.png" id="2_1jwlh"]
-[ext_resource type="Script" path="res://src/menus/MenuList.gd" id="4_nrmx1"]
+[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://addons/core/ui/GreenButtonTheme.tres" id="4_mlk80"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="4_yjkk1"]
-[ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://addons/core/ui/GreenButton.tscn" id="6_ksdi3"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="5_o8jy0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a04u7"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
@@ -55,12 +55,27 @@ alignment = 1
 layout_mode = 2
 theme = ExtResource("4_yjkk1")
 
-[node name="MenuList" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/PanelContainer"]
-unique_name_in_owner = true
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/PanelContainer"]
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-script = ExtResource("4_nrmx1")
-default_button_scene = ExtResource("6_ksdi3")
+
+[node name="StartButton" type="Button" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_mlk80")
+text = "Start"
+
+[node name="OptionsButton" type="Button" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_mlk80")
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("5_o8jy0")
+text = "Quit"
 
 [node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/HBoxContainer/CenterContainer2/HBoxContainer"]
 visible = false

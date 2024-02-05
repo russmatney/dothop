@@ -70,6 +70,7 @@ size_flags_vertical = 0
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
+focus_neighbor_top = NodePath("../../../../../../../../MainMenuButton")
 theme = ExtResource("4_3vbr1")
 text = "Reset Save Data"
 
@@ -134,5 +135,6 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 208.0
 offset_bottom = 72.0
+focus_neighbor_bottom = NodePath("../PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer/ResetSaveDataButton")
 theme = ExtResource("4_3vbr1")
 text = "< Main Menu"
