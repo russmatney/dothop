@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" path="res://src/menus/MainMenu.gd" id="1_wrr04"]
 [ext_resource type="Texture2D" uid="uid://wescmejk4ssr" path="res://assets/boxart/base_logo_no_bg_sheet.png" id="2_1jwlh"]
-[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://addons/core/ui/GreenButtonTheme.tres" id="4_mlk80"]
-[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="4_yjkk1"]
-[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="5_o8jy0"]
+[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="4_mlk80"]
+[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="4_yjkk1"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="5_o8jy0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a04u7"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
