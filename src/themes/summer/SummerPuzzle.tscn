@@ -11,12 +11,20 @@
 script = ExtResource("1_n4qjr")
 square_size = 32
 
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -179.0
+offset_top = -160.0
+offset_right = 342.0
+offset_bottom = 355.0
+texture = ExtResource("6_fobk3")
+stretch_mode = 4
+
 [node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(64, 0)
 script = ExtResource("3_bchdy")
 square_size = 32
 
-[node name="@Node2D@28958" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18192" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(96, 0)
 script = ExtResource("3_bchdy")
 square_size = 32
@@ -27,42 +35,34 @@ position = Vector2(32, 32)
 script = ExtResource("5_nf3kt")
 square_size = 32
 
-[node name="@Node2D@28961" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18195" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(32, 32)
 script = ExtResource("3_bchdy")
 type = 1
 square_size = 32
 
-[node name="@Node2D@28963" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18197" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(64, 32)
 script = ExtResource("3_bchdy")
 square_size = 32
 
-[node name="@Node2D@28965" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18199" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(128, 32)
 script = ExtResource("3_bchdy")
 square_size = 32
 
-[node name="@Node2D@28967" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18201" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(160, 32)
 script = ExtResource("3_bchdy")
 type = 2
 square_size = 32
 
-[node name="@Node2D@28969" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18203" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(96, 64)
 script = ExtResource("3_bchdy")
 square_size = 32
 
-[node name="@Node2D@28971" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
+[node name="@Node2D@18205" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
 position = Vector2(128, 64)
 script = ExtResource("3_bchdy")
 square_size = 32
-
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -179.0
-offset_top = -160.0
-offset_right = 342.0
-offset_bottom = 355.0
-texture = ExtResource("6_fobk3")
-stretch_mode = 4

@@ -6,7 +6,7 @@
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="4_3vbr1"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_bdku5"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="6_0lj7b"]
-[ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="7_0beg6"]
+[ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/ControlsPanel.tscn" id="7_arbaq"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
@@ -46,7 +46,7 @@ scroll_active = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
-size_flags_vertical = 3
+size_flags_vertical = 0
 alignment = 1
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
@@ -54,95 +54,54 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2"]
 layout_mode = 2
 theme = ExtResource("3_jf7n4")
 
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer"]
-custom_minimum_size = Vector2(300, 400)
-layout_mode = 2
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-size_flags_vertical = 3
+size_flags_vertical = 0
 
-[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(200, 0)
-layout_mode = 2
-theme = ExtResource("4_3vbr1")
-text = "Main Menu"
-
-[node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+[node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_3vbr1")
 text = "Reset Save Data"
 
-[node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+[node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_3vbr1")
 text = "Unlock All Puzzles"
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
+[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2"]
 layout_mode = 2
+theme = ExtResource("3_jf7n4")
 
-[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
+[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer2" instance=ExtResource("5_bdku5")]
 layout_mode = 2
 default_button_scene = ExtResource("6_0lj7b")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 4
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="ControlsPanel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("7_arbaq")]
+custom_minimum_size = Vector2(0, 550)
 layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme = ExtResource("7_0beg6")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="ResetControlsButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(250, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-theme = ExtResource("4_3vbr1")
-text = "Reset Controls"
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 10)
-layout_mode = 2
-
-[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 3
-theme = ExtResource("7_0beg6")
-follow_focus = true
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
-
-[node name="EditActionRows" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/ScrollContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-alignment = 1
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
@@ -167,3 +126,13 @@ ok_button_text = "Yeah, give me the works!"
 dialog_text = "Are you sure you want to unlock everything? Your current playthrough will be lost!"
 dialog_autowrap = true
 cancel_button_text = "Nevermind!"
+
+[node name="MainMenuButton" type="Button" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 208.0
+offset_bottom = 72.0
+theme = ExtResource("4_3vbr1")
+text = "< Main Menu"
