@@ -1,0 +1,13 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://ce80gjswvmncn"]
+
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="1"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m25he"]
+content_margin_left = 10.0
+content_margin_right = 10.0
+bg_color = Color(0.180392, 0.180392, 0.180392, 1)
+
+[resource]
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_m25he")
+RichTextLabel/font_sizes/normal_font_size = 64
+RichTextLabel/fonts/normal_font = ExtResource("1")
