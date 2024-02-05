@@ -56,7 +56,13 @@ func add_menu_item(item):
 	if hide_fn and hide_fn.call():
 		return
 
-	var label = item.get("label", "Fallback Label")
+	var label = item.get("label")
+	if not label:
+		var label_fn = item.get("label_fn")
+		if label_fn:
+			label = label_fn.call()
+		if not label:
+			label = "Fallback Label"
 	if label in texts:
 		Log.pr("Found existing button with label, skipping add_menu_item", item)
 		return
