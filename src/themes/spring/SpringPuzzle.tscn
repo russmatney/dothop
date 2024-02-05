@@ -1,61 +1,68 @@
-[gd_scene load_steps=8 format=3 uid="uid://crq5eh3kjrx0s"]
+[gd_scene load_steps=7 format=3 uid="uid://crq5eh3kjrx0s"]
 
 [ext_resource type="Script" path="res://src/themes/spring/SpringPuzzle.gd" id="1_n4qjr"]
-[ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/spring/Dot.tscn" id="2_tapob"]
-[ext_resource type="Script" path="res://src/themes/spring/Dot.gd" id="3_3jqdc"]
-[ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/spring/Player.tscn" id="4_0so7q"]
-[ext_resource type="Script" path="res://src/themes/spring/Player.gd" id="5_spaaq"]
-[ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/spring/Goal.tscn" id="6_th2cj"]
-[ext_resource type="Script" path="res://src/themes/spring/Goal.gd" id="7_px31t"]
+[ext_resource type="PackedScene" uid="uid://bhwmpvb57mv06" path="res://src/puzzle/Dot.tscn" id="2_whh0a"]
+[ext_resource type="Script" path="res://src/puzzle/Dot.gd" id="3_i00ea"]
+[ext_resource type="PackedScene" uid="uid://b6wwc8int7l4p" path="res://src/puzzle/Player.tscn" id="4_khdbq"]
+[ext_resource type="Script" path="res://src/puzzle/Player.gd" id="5_i7skh"]
+[ext_resource type="Texture2D" uid="uid://ccp0c8ahlsvx5" path="res://src/themes/spring/assets/springbg1_sheet.png" id="6_cwjxf"]
 
-[node name="SpringPuzzle" type="Node2D"]
+[node name="SpringPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_n4qjr")
 square_size = 32
 
-[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(64, 0)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
 
-[node name="@Node2D@54538" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26160" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(96, 0)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
 
-[node name="SpringPlayer" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_0so7q")]
+[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_khdbq")]
 z_index = 5
 position = Vector2(32, 32)
-script = ExtResource("5_spaaq")
+script = ExtResource("5_i7skh")
 square_size = 32
 
-[node name="@Node2D@54539" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26163" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(32, 32)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 type = 1
 square_size = 32
 
-[node name="@Node2D@54540" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26165" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(64, 32)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
 
-[node name="@Node2D@54541" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26167" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(128, 32)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
 
-[node name="Goal" type="Node2D" parent="." groups=["generated"] instance=ExtResource("6_th2cj")]
+[node name="@Node2D@26169" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(160, 32)
-script = ExtResource("7_px31t")
+script = ExtResource("3_i00ea")
 type = 2
 square_size = 32
 
-[node name="@Node2D@54542" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26171" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(96, 64)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
 
-[node name="@Node2D@54543" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_tapob")]
+[node name="@Node2D@26173" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
 position = Vector2(128, 64)
-script = ExtResource("3_3jqdc")
+script = ExtResource("3_i00ea")
 square_size = 32
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -248.0
+offset_top = -180.0
+offset_right = 342.0
+offset_bottom = 406.0
+texture = ExtResource("6_cwjxf")
+stretch_mode = 4
