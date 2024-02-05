@@ -23,6 +23,14 @@ func _ready():
 func set_focus():
 	world_list.set_focus()
 
+## input ###################################################################
+
+func _unhandled_input(event):
+	if not Engine.is_editor_hint() and Trolls.is_pause(event):
+		if not get_tree().paused:
+			Navi.pause()
+			get_viewport().set_input_as_handled()
+
 ## button focus/unfocus ################################################
 
 func on_button_focused(_button, item):

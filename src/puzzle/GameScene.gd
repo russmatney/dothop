@@ -45,6 +45,13 @@ func nav_to_world_map():
 	# TODO better navigation (string-less, path-less)
 	Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
 
+## input ###################################################################
+
+func _unhandled_input(event):
+	if not Engine.is_editor_hint() and Trolls.is_pause(event):
+		if not get_tree().paused:
+			Navi.pause()
+			get_viewport().set_input_as_handled()
 
 ## rebuild puzzle #####################################################################
 

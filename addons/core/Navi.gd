@@ -23,12 +23,6 @@ func _ready():
 
 	pause_menu = add_menu(load(pause_menu_path))
 
-## input ###################################################################
-
-func _unhandled_input(event):
-	if not Engine.is_editor_hint() and Trolls.is_pause(event):
-		toggle_pause()
-
 ## process ###################################################################
 
 var focused_node

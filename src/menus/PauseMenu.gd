@@ -48,4 +48,13 @@ func on_visibility_changed():
 		resume_button.release_focus()
 	else:
 		# on show
-		pass # TODO grab focus?
+		pass # explicitly grab focus?
+
+## input ###################################################################
+
+func _unhandled_input(event):
+	if visible:
+		if not Engine.is_editor_hint() and Trolls.is_pause(event):
+			if get_tree().paused:
+				Navi.resume()
+				get_viewport().set_input_as_handled()
