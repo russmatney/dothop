@@ -1,10 +1,10 @@
 [gd_resource type="Theme" load_steps=5 format=3 uid="uid://cul4fuxbykddp"]
 
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_1yiyv"]
-[ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="3_ug3dl"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_snhp5"]
+[ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="2_yacb7"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cdjas"]
-texture = ExtResource("3_ug3dl")
+texture = ExtResource("2_yacb7")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
@@ -14,7 +14,7 @@ axis_stretch_vertical = 1
 modulate_color = Color(0.361844, 0.597204, 1, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rdhid"]
-texture = ExtResource("3_ug3dl")
+texture = ExtResource("2_yacb7")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
@@ -25,7 +25,10 @@ modulate_color = Color(0.301961, 0.556863, 1, 1)
 
 [resource]
 Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.141176, 1)
+Button/colors/font_hover_color = Color(0.949187, 0.949187, 0.141176, 1)
+Button/colors/font_hover_pressed_color = Color(0.949187, 0.949187, 0.141176, 1)
 Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("1_1yiyv")
+Button/fonts/font = ExtResource("1_snhp5")
 Button/styles/focus = SubResource("StyleBoxTexture_cdjas")
+Button/styles/hover = SubResource("StyleBoxTexture_cdjas")
 Button/styles/normal = SubResource("StyleBoxTexture_rdhid")

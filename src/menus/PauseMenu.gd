@@ -63,16 +63,17 @@ func on_visibility_changed():
 		# on show
 		match get_tree().current_scene.name:
 			"WorldMapMenu":
-				Log.pr("worldmap pause settings")
 				worldmap_button.hide()
+				theme_button.hide()
 				confirm_exit = false
 			"DotHopGameScene":
-				Log.pr("game pause settings")
 				worldmap_button.show()
+				theme_button.show()
 				confirm_exit = true
 			_:
-				confirm_exit = true
 				worldmap_button.show()
+				theme_button.show()
+				confirm_exit = true
 
 ## input ###################################################################
 

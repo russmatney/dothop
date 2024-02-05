@@ -1,7 +1,7 @@
 [gd_scene load_steps=2 format=3 uid="uid://ehopejv2gpy0"]
 
-[ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="1_7ucik"]
+[ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="1_xk5uv"]
 
 [node name="BlueButton" type="Button"]
-theme = ExtResource("1_7ucik")
+theme = ExtResource("1_xk5uv")
 text = "Button"

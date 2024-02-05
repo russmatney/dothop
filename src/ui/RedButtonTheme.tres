@@ -1,12 +1,12 @@
 [gd_resource type="Theme" load_steps=9 format=3 uid="uid://d36tu8qosbiom"]
 
-[ext_resource type="StyleBox" uid="uid://i5t8fygrktcp" path="res://src/ui/BlueWoodPanelTexture.tres" id="1_hymip"]
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_wt04q"]
-[ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="3_q7ogl"]
-[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="4_gtl0v"]
+[ext_resource type="StyleBox" uid="uid://i5t8fygrktcp" path="res://src/ui/BlueWoodPanelTexture.tres" id="1_hftyr"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="2_vaig3"]
+[ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="3_fiil7"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="4_6x40x"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0y8h3"]
-texture = ExtResource("3_q7ogl")
+texture = ExtResource("3_fiil7")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
@@ -16,7 +16,7 @@ axis_stretch_vertical = 1
 modulate_color = Color(1, 0.372549, 0.411765, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4ka57"]
-texture = ExtResource("3_q7ogl")
+texture = ExtResource("3_fiil7")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
 texture_margin_right = 16.0
@@ -30,13 +30,16 @@ modulate_color = Color(1, 0.101285, 0.0843643, 1)
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qobay"]
 
 [resource]
-AcceptDialog/styles/panel = ExtResource("1_hymip")
+AcceptDialog/styles/panel = ExtResource("1_hftyr")
 Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.141176, 1)
+Button/colors/font_hover_color = Color(0.949187, 0.949187, 0.141176, 1)
+Button/colors/font_hover_pressed_color = Color(0.949187, 0.949187, 0.141176, 1)
 Button/font_sizes/font_size = 32
-Button/fonts/font = ExtResource("1_wt04q")
+Button/fonts/font = ExtResource("2_vaig3")
 Button/styles/focus = SubResource("StyleBoxTexture_0y8h3")
+Button/styles/hover = SubResource("StyleBoxTexture_0y8h3")
 Button/styles/normal = SubResource("StyleBoxTexture_4ka57")
 Window/font_sizes/title_font_size = 32
-Window/fonts/title_font = ExtResource("4_gtl0v")
+Window/fonts/title_font = ExtResource("4_6x40x")
 Window/styles/embedded_border = SubResource("StyleBoxEmpty_let8v")
 Window/styles/embedded_unfocused_border = SubResource("StyleBoxEmpty_qobay")
