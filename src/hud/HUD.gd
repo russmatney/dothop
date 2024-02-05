@@ -19,6 +19,9 @@ extends CanvasLayer
 func _ready():
 	set_control_icons()
 	InputHelper.device_changed.connect(func(_device, _di): set_control_icons())
+	InputHelper.joypad_changed.connect(func(_di, _connected): set_control_icons())
+	InputHelper.keyboard_input_changed.connect(func(_action, _event): set_control_icons())
+	InputHelper.joypad_input_changed.connect(func(_action, _event): set_control_icons())
 
 func set_control_icons():
 	undo_input_icon.set_icon_for_action("ui_undo")

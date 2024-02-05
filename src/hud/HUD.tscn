@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/ActionInputIcon.tscn" id="3_ocg6b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_li620"]
-bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0.156863)
+bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0)
 
 [node name="DotHopHUD" type="CanvasLayer" groups=["hud"]]
 script = ExtResource("1_5wqol")
@@ -114,14 +114,13 @@ scroll_active = false
 
 [node name="UndoInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
+visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 text = "z"
 input_text = "Z"
-joy_button = []
-joy_axis = []
 
 [node name="ResetControlHint" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -142,11 +141,10 @@ scroll_active = false
 
 [node name="ResetInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
+visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 input_text = "R"
-joy_button = []
-joy_axis = []
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
