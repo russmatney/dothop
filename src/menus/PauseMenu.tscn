@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvb2xnd1kbtbc"]
+[gd_scene load_steps=13 format=3 uid="uid://cvb2xnd1kbtbc"]
 
+[ext_resource type="Script" path="res://src/menus/PauseMenu.gd" id="1_538kc"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="1_dntsj"]
-[ext_resource type="Script" path="res://src/menus/PauseList.gd" id="1_uhwkb"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://addons/core/ui/BlueWoodPanelTheme.tres" id="2_2yx0j"]
 [ext_resource type="Script" path="res://src/menus/ThemeButtonList.gd" id="2_parj4"]
-[ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://addons/core/ui/BlueButton.tscn" id="4_qka5e"]
+[ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://addons/core/ui/BlueButtonTheme.tres" id="3_8ygmt"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_2ebfx"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://addons/core/ui/GreenWoodPanelTheme.tres" id="5_4xevk"]
 [ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/ControlsPanel.tscn" id="5_en8a8"]
 [ext_resource type="PackedScene" uid="uid://bfbwotpm3lvta" path="res://addons/core/ui/RedButton.tscn" id="6_gibpx"]
 [ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://addons/core/ui/GreenButton.tscn" id="7_jr1jd"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://addons/core/ui/RedButtonTheme.tres" id="11_jr36v"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tngc"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
@@ -17,6 +18,7 @@ bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
 [node name="PauseMenu" type="CanvasLayer"]
 process_mode = 3
 layer = 10
+script = ExtResource("1_538kc")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
 anchors_preset = 15
@@ -31,10 +33,8 @@ layout_mode = 2
 alignment = 1
 
 [node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -51,70 +51,113 @@ fit_content = true
 scroll_active = false
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(100, 0)
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-size_flags_vertical = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 
-[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_2yx0j")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_8ygmt")
+text = "Resume"
+
+[node name="ControlsButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_8ygmt")
+text = "Controls"
+
+[node name="ThemeButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_8ygmt")
+text = "Theme"
+
+[node name="SoundButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("3_8ygmt")
+text = "Sound"
+
+[node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("11_jr36v")
+text = "Main Menu"
+
+[node name="SecondaryMenuMargin" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(500, 0)
-layout_mode = 2
-theme = ExtResource("2_2yx0j")
-
-[node name="PauseList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 1
-script = ExtResource("1_uhwkb")
-default_button_scene = ExtResource("4_qka5e")
-
-[node name="PanelContainer3" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("2_2yx0j")
-
-[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer3" instance=ExtResource("5_2ebfx")]
-layout_mode = 2
-default_button_scene = ExtResource("6_gibpx")
-
-[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="ControlsPanel" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer" instance=ExtResource("5_en8a8")]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(0, 550)
 layout_mode = 2
 
-[node name="ControlsPanel" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("5_en8a8")]
-layout_mode = 2
-
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="ThemePanel" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
 visible = false
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 theme = ExtResource("5_4xevk")
 
-[node name="ThemeButtonList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/ThemePanel"]
+custom_minimum_size = Vector2(0, 470)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="ThemeButtonList" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/ThemePanel/ScrollContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 script = ExtResource("2_parj4")
 default_button_scene = ExtResource("7_jr1jd")
 
-[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SoundPanel" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+unique_name_in_owner = true
 visible = false
-custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
+theme = ExtResource("2_2yx0j")
 
-[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-custom_minimum_size = Vector2(100, 0)
+[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/SoundPanel" instance=ExtResource("5_2ebfx")]
 layout_mode = 2
-size_flags_vertical = 3
+default_button_scene = ExtResource("6_gibpx")
+
+[node name="ExitToMainConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(700, 303)
+transparent = true
+keep_title_visible = false
+theme = ExtResource("11_jr36v")
+ok_button_text = "Forget this game!"
+dialog_text = "Are you sure you want to exit?
+
+Your completed puzzles in this map will be lost."
+dialog_autowrap = true
+cancel_button_text = "Oops, I'll stay here!"
