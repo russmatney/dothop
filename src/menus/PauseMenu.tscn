@@ -97,6 +97,12 @@ layout_mode = 2
 theme = ExtResource("3_8ygmt")
 text = "Sound"
 
+[node name="WorldmapButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("11_jr36v")
+text = "World Map"
+
 [node name="MainMenuButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
@@ -147,6 +153,20 @@ theme = ExtResource("2_2yx0j")
 [node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/SoundPanel" instance=ExtResource("5_2ebfx")]
 layout_mode = 2
 default_button_scene = ExtResource("6_gibpx")
+
+[node name="ExitToWorldMapConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(700, 303)
+transparent = true
+keep_title_visible = false
+theme = ExtResource("11_jr36v")
+ok_button_text = "Get me outta here!"
+dialog_text = "Are you sure you want to return to the world map?
+
+Your current puzzle run will be lost."
+dialog_autowrap = true
+cancel_button_text = "Oops, I'll stay!"
 
 [node name="ExitToMainConfirmationDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true

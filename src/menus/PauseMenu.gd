@@ -4,8 +4,10 @@ extends CanvasLayer
 ## vars ###############################################3
 
 @onready var resume_button = $%ResumeButton
+@onready var worldmap_button = $%WorldmapButton
 @onready var main_menu_button = $%MainMenuButton
-@onready var exit_conf = $%ExitToMainConfirmationDialog
+@onready var to_main_conf = $%ExitToMainConfirmationDialog
+@onready var to_worldmap_conf = $%ExitToWorldMapConfirmationDialog
 
 @onready var controls_button = $%ControlsButton
 @onready var theme_button = $%ThemeButton
@@ -17,6 +19,8 @@ extends CanvasLayer
 @onready var sound_panel = $%SoundPanel
 
 @onready var all_panels = [controls_panel, theme_panel, sound_panel]
+
+@onready var worldmap = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 
 ## ready ###############################################3
 
@@ -37,8 +41,11 @@ func _ready():
 		all_panels.map(func(p): p.hide())
 		sound_panel.show())
 
-	exit_conf.confirmed.connect(func(): Navi.nav_to_main_menu())
-	main_menu_button.pressed.connect(func(): exit_conf.show())
+	to_main_conf.confirmed.connect(func(): Navi.nav_to_main_menu())
+	main_menu_button.pressed.connect(func(): to_main_conf.show())
+
+	to_worldmap_conf.confirmed.connect(func(): Navi.nav_to(worldmap))
+	worldmap_button.pressed.connect(func(): to_worldmap_conf.show())
 
 func on_visibility_changed():
 	if not visible:
