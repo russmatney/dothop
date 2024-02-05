@@ -8,7 +8,6 @@ var themes: Array[DHTheme] = []
 ## new #######################################################
 
 func _init(events=[]):
-	Log.pr("Creating game state with %d events" % len(events))
 	puzzle_sets = initial_puzzle_sets()
 	themes = initial_themes()
 	apply_events(events)
@@ -16,13 +15,12 @@ func _init(events=[]):
 ## apply events #######################################################
 
 func apply_events(events):
-	# do we need to sort by timestamp? does application order matter?
+	Log.pr("applying %s events" % len(events), events.map(func(e): return e.get_display_name()))
+
 	for event in events:
 		apply_event(event)
 
 func apply_event(event):
-	Log.pr("applying event", event.get_display_name())
-
 	if event is PuzzleSetCompleted:
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:
