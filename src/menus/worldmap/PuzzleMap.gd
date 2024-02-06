@@ -8,6 +8,7 @@ extends WorldMap
 @onready var ps_maps: Array[PSMap]
 
 @export var x_buffer: float = 48
+@export var y_buffer: float = 24
 
 class PSMap:
 	var puzzle_set: PuzzleSet
@@ -50,6 +51,7 @@ func render():
 		psmap.pos = Vector2(acc_x, acc_y)
 
 		acc_x += psmap.size.x + x_buffer
+		acc_y += psmap.size.y + y_buffer
 
 		# create world node
 		var world = Node2D.new()

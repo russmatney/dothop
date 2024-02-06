@@ -7,7 +7,8 @@ class_name WorldMap
 @export var current_marker: Marker2D = null :
 	set(marker):
 		current_marker = marker
-		center_map()
+		if is_node_ready():
+			center_map()
 
 @export var zoom_scale_min = 1.0
 @export var zoom_scale_max = 2.0

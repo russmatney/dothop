@@ -10,27 +10,27 @@
 [ext_resource type="Texture2D" uid="uid://wgm34cmhyqk" path="res://assets/worldmap/world_map_island5_sheet.png" id="6_h34ua"]
 [ext_resource type="Texture2D" uid="uid://cj834sx06wvo0" path="res://assets/worldmap/world_map_island6_sheet.png" id="7_4l06y"]
 
-[sub_resource type="Resource" id="Resource_6opda"]
+[sub_resource type="Resource" id="Resource_58vk4"]
 script = ExtResource("3_386ps")
 _id = "16"
 
-[sub_resource type="Resource" id="Resource_ry8g4"]
+[sub_resource type="Resource" id="Resource_tblqg"]
 script = ExtResource("3_386ps")
 _id = "17"
 
-[sub_resource type="Resource" id="Resource_ui5nv"]
+[sub_resource type="Resource" id="Resource_k13wi"]
 script = ExtResource("3_386ps")
 _id = "18"
 
-[sub_resource type="Resource" id="Resource_vog2l"]
+[sub_resource type="Resource" id="Resource_cmcue"]
 script = ExtResource("3_386ps")
 _id = "25"
 
-[sub_resource type="Resource" id="Resource_d4ak5"]
+[sub_resource type="Resource" id="Resource_hkl57"]
 script = ExtResource("3_386ps")
 _id = "26"
 
-[sub_resource type="Resource" id="Resource_4jh2k"]
+[sub_resource type="Resource" id="Resource_tep1i"]
 script = ExtResource("3_386ps")
 _id = "27"
 
@@ -40,77 +40,87 @@ script = ExtResource("1_4t3eb")
 [node name="MapSprite" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="@Node2D@21686" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@Node2D@18134" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
 
-[node name="@TextureRect@21687" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18135" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 texture = ExtResource("2_uod71")
 
-[node name="@Node2D@21689" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(96, 0)
+[node name="@Node2D@18137" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(96, 72)
 
-[node name="@TextureRect@21690" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18138" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = 96.0
+offset_top = 72.0
 offset_right = 96.0
+offset_bottom = 72.0
 texture = ExtResource("3_vh7x8")
 
-[node name="@Node2D@21692" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(192, 0)
+[node name="@Node2D@18140" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(192, 144)
 
-[node name="@TextureRect@21693" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18141" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = 192.0
+offset_top = 144.0
 offset_right = 192.0
+offset_bottom = 144.0
 texture = ExtResource("4_sxfhr")
 
-[node name="@Node2D@21695" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(288, 0)
+[node name="@Node2D@18143" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(288, 216)
 
-[node name="@TextureRect@21696" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18144" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = 288.0
+offset_top = 216.0
 offset_right = 288.0
+offset_bottom = 216.0
 texture = ExtResource("5_n2dda")
 
-[node name="@Node2D@21698" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(384, 0)
+[node name="@Node2D@18146" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(384, 288)
 
-[node name="@TextureRect@21699" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18147" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = 384.0
+offset_top = 288.0
 offset_right = 384.0
+offset_bottom = 288.0
 texture = ExtResource("6_h34ua")
 
-[node name="@Node2D@21701" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
-position = Vector2(480, 0)
+[node name="@Node2D@18149" type="Node2D" parent="MapSprite" groups=["puzzlemap_generated"]]
+position = Vector2(480, 360)
 
-[node name="@TextureRect@21702" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
+[node name="@TextureRect@18150" type="TextureRect" parent="MapSprite" groups=["puzzlemap_generated"]]
 offset_left = 480.0
+offset_top = 360.0
 offset_right = 480.0
+offset_bottom = 360.0
 texture = ExtResource("7_4l06y")
 
-[node name="@Marker2D@21688" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+[node name="@Marker2D@18136" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
 position = Vector2(24, 24)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_6opda")
+puzzle_set = SubResource("Resource_58vk4")
 
-[node name="@Marker2D@21691" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(120, 24)
+[node name="@Marker2D@18139" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(120, 96)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_ry8g4")
+puzzle_set = SubResource("Resource_tblqg")
 
-[node name="@Marker2D@21694" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(216, 24)
+[node name="@Marker2D@18142" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(216, 168)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_ui5nv")
+puzzle_set = SubResource("Resource_k13wi")
 
-[node name="@Marker2D@21697" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(312, 24)
+[node name="@Marker2D@18145" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(312, 240)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_vog2l")
+puzzle_set = SubResource("Resource_cmcue")
 
-[node name="@Marker2D@21700" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(408, 24)
+[node name="@Marker2D@18148" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(408, 312)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_d4ak5")
+puzzle_set = SubResource("Resource_hkl57")
 
-[node name="@Marker2D@21703" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
-position = Vector2(512, 24)
+[node name="@Marker2D@18151" type="Marker2D" parent="." groups=["puzzlemap_generated"]]
+position = Vector2(512, 384)
 script = ExtResource("2_jhjra")
-puzzle_set = SubResource("Resource_4jh2k")
+puzzle_set = SubResource("Resource_tep1i")

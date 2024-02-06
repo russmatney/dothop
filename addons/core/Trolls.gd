@@ -53,6 +53,12 @@ static func is_move_up(event):
 static func is_move_down(event):
 	return is_event(event, "ui_down")
 
+static func is_move_left(event):
+	return is_event(event, "ui_left")
+
+static func is_move_right(event):
+	return is_event(event, "ui_right")
+
 static func is_restart(event):
 	return is_event(event, "restart")
 
