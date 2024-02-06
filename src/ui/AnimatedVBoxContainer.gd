@@ -33,11 +33,9 @@ func animate_opening():
 		Vector2.RIGHT*(max(og_size.x, child_size.x))
 		+ (Vector2.DOWN * child_size.y * len(chs)),
 		anim_duration).set_trans(Tween.TRANS_CUBIC)
-	Log.pr("awaiting first tween")
 	await get_tree().create_timer(anim_duration).timeout
 
 	for c in chs:
-		Log.pr("tweening vis and modulate for child", c)
 		c.set_visible(true)
 		var tw = c.create_tween()
 		tw.tween_property(c, "modulate:a", 1.0, anim_duration)\
