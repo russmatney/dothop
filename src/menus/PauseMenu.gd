@@ -54,26 +54,25 @@ func _ready():
 	worldmap_button.pressed.connect(func(): to_worldmap_conf.show())
 
 func on_visibility_changed():
-	if not visible:
-		# on hide
+	if not visible: # hide
 		all_panels.map(func(p): p.hide())
 		secondary_margin.hide()
 		resume_button.release_focus()
-	else:
-		# on show
+	else: # show
 		match get_tree().current_scene.name:
 			"WorldMapMenu":
-				worldmap_button.hide()
-				theme_button.hide()
+				worldmap_button.set_disabled(true)
+				theme_button.set_disabled(true)
 				confirm_exit = false
 			"DotHopGameScene":
-				worldmap_button.show()
-				theme_button.show()
+				worldmap_button.set_disabled(false)
+				theme_button.set_disabled(false)
 				confirm_exit = true
 			_:
-				worldmap_button.show()
-				theme_button.show()
+				worldmap_button.set_disabled(false)
+				theme_button.set_disabled(false)
 				confirm_exit = true
+		resume_button.visibility_changed.connect(func(): resume_button.grab_focus())
 
 ## input ###################################################################
 
