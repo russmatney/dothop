@@ -183,6 +183,7 @@ custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 script = ExtResource("5_6wysa")
 default_button_scene = ExtResource("10_xub4o")
+child_size = null
 
 [node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2

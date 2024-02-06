@@ -10,8 +10,8 @@ extends CanvasLayer
 @onready var credits_menu = preload("res://src/menus/Credits.tscn")
 
 func _ready():
-	# a bit flaky? grabs focus back from the pause menu...
-	start_button.call_deferred("grab_focus")
+	start_button.grab_focus.call_deferred()
+	start_button.visibility_changed.connect(func(): start_button.grab_focus())
 
 	start_button.pressed.connect(func(): Navi.nav_to(world_map))
 	options_button.pressed.connect(func(): Navi.nav_to(options_menu))
