@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://bri7j48xu7ujk"]
+[gd_scene load_steps=24 format=3 uid="uid://bri7j48xu7ujk"]
 
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMapMenu.gd" id="1_ns6x1"]
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldMap.gd" id="2_cfldw"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://src/menus/worldmap/WorldList.gd" id="5_6wysa"]
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="6_afb7j"]
 [ext_resource type="PackedScene" uid="uid://drnps7gh2v4en" path="res://src/menus/worldmap/PuzzleMap.tscn" id="6_onobc"]
+[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="8_fspbp"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="8_y3lp0"]
 [ext_resource type="PackedScene" uid="uid://ehopejv2gpy0" path="res://src/ui/BlueButton.tscn" id="10_xub4o"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="11_2vnax"]
@@ -198,7 +199,10 @@ layout_mode = 2
 theme = ExtResource("11_2vnax")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer"]
+custom_minimum_size = Vector2(200, 192)
 layout_mode = 2
+script = ExtResource("8_fspbp")
+child_size = Vector2(200, 64)
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 layout_mode = 2

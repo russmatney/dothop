@@ -1,10 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvb2xnd1kbtbc"]
+[gd_scene load_steps=13 format=3 uid="uid://cvb2xnd1kbtbc"]
 
 [ext_resource type="Script" path="res://src/menus/PauseMenu.gd" id="1_538kc"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="1_dntsj"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_2yx0j"]
 [ext_resource type="Script" path="res://src/menus/ThemeButtonList.gd" id="2_parj4"]
 [ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="3_8ygmt"]
+[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="4_3h3fn"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_2ebfx"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="5_4xevk"]
 [ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/controls/ControlsPanel.tscn" id="5_en8a8"]
@@ -69,8 +70,10 @@ layout_mode = 2
 theme = ExtResource("2_2yx0j")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer"]
-custom_minimum_size = Vector2(200, 0)
+custom_minimum_size = Vector2(200, 384)
 layout_mode = 2
+script = ExtResource("4_3h3fn")
+child_size = Vector2(200, 64)
 
 [node name="ResumeButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true

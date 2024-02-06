@@ -1,11 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://cq5r4oojxyu5a"]
+[gd_scene load_steps=10 format=3 uid="uid://cq5r4oojxyu5a"]
 
 [ext_resource type="Script" path="res://src/menus/OptionsPanel.gd" id="1_axmuv"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_6cvgy"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="3_io088"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="4_06n2g"]
+[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="4_gdi4a"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_bdku5"]
 [ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/controls/ControlsPanel.tscn" id="6_fg0x4"]
+[ext_resource type="Script" path="res://src/ui/FadeIn.gd" id="8_hk322"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]
 bg_color = Color(0.94902, 0.811765, 0.615686, 1)
@@ -61,9 +63,13 @@ layout_mode = 2
 theme = ExtResource("3_io088")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer"]
+custom_minimum_size = Vector2(244, 384)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
+script = ExtResource("4_gdi4a")
+child_size = Vector2(244, 96)
+anim_duration = 0.5
 
 [node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -87,11 +93,15 @@ layout_mode = 2
 [node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer"]
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="ControlsPanel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer" instance=ExtResource("6_fg0x4")]
+[node name="ControlsPanel" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/VBoxContainer" instance=ExtResource("6_fg0x4")]
 custom_minimum_size = Vector2(0, 550)
 layout_mode = 2
 
@@ -131,3 +141,7 @@ offset_bottom = 72.0
 focus_neighbor_bottom = NodePath("../PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer/ResetSaveDataButton")
 theme = ExtResource("4_06n2g")
 text = "< Main Menu"
+
+[node name="FadeIn" type="Node" parent="." node_paths=PackedStringArray("nodes")]
+script = ExtResource("8_hk322")
+nodes = [NodePath("../PanelContainer/VBoxContainer/CenterContainer/RichTextLabel"), NodePath("../MainMenuButton")]

@@ -332,11 +332,12 @@ func _enter_tree() -> void:
 
 func on_node_added(node: Node):
 	if node is Button:
-		node.focus_entered.connect(on_button_focused)
-		node.pressed.connect(on_button_pressed)
+		node.focus_entered.connect(on_button_focused.bind(node))
+		node.pressed.connect(on_button_pressed.bind(node))
 
-func on_button_focused() -> void:
-	play(S.ui_dading)
+func on_button_focused(button: Button) -> void:
+	if button.is_visible_in_tree():
+		play(S.ui_dading)
 
-func on_button_pressed() -> void:
+func on_button_pressed(_button: Button) -> void:
 	play(S.coin)
