@@ -62,17 +62,6 @@ func axis_to_input_text(axis):
 			return
 	return txt
 
-@onready var light_theme = preload("res://addons/core/assets/fonts/vexed/EnterInputLight.tres")
-@onready var dark_theme = preload("res://addons/core/assets/fonts/vexed/EnterInputDark.tres")
-
-@export var dark_mode = false :
-	set(v):
-		if v:
-			set_theme(dark_theme)
-		else:
-			set_theme(light_theme)
-		dark_mode = v
-
 ## public
 
 func set_icon_for_action(action_name, device=null):
