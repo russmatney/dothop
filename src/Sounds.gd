@@ -51,6 +51,7 @@ enum S {
 	step,
 	swordswing,
 	target_kill,
+	ui_dading,
 	walk,
 	}
 
@@ -310,9 +311,32 @@ enum S {
 		preload("res://assets/sounds/target_kill2.sfxr"),
 		preload("res://assets/sounds/target_kill3.sfxr"),
 	],
+	S.ui_dading:
+	[
+		preload("res://assets/sounds/ui_dading.sfxr"),
+		preload("res://assets/sounds/ui_dading1.sfxr"),
+		preload("res://assets/sounds/ui_dading2.sfxr"),
+	],
 	S.walk:
 	[
 		preload("res://assets/sounds/walk1.sfxr"),
 		preload("res://assets/sounds/walk2.sfxr"),
 	],
 }
+
+
+####################################################################
+
+func _enter_tree() -> void:
+	get_tree().node_added.connect(on_node_added)
+
+func on_node_added(node: Node):
+	if node is Button:
+		node.focus_entered.connect(on_button_focused)
+		node.pressed.connect(on_button_pressed)
+
+func on_button_focused() -> void:
+	play(S.ui_dading)
+
+func on_button_pressed() -> void:
+	play(S.coin)

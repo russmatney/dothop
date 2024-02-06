@@ -1,0 +1,17 @@
+[remap]
+
+importer="com.timothyqiu.gdfxr.importer"
+type="AudioStreamWAV"
+uid="uid://cx6jp0xlc7hug"
+path="res://.godot/imported/ui_dading2.sfxr-0f34f3b06e055023ce7679c0ed0b310f.sample"
+
+[deps]
+
+source_file="res://assets/sounds/ui_dading2.sfxr"
+dest_files=["res://.godot/imported/ui_dading2.sfxr-0f34f3b06e055023ce7679c0ed0b310f.sample"]
+
+[params]
+
+loop=false
+bit_depth=0
+sample_rate=0
