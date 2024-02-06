@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="3_8ygmt"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://addons/dj/MuteButtonList.tscn" id="5_2ebfx"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="5_4xevk"]
-[ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/ControlsPanel.tscn" id="5_en8a8"]
+[ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/controls/ControlsPanel.tscn" id="5_en8a8"]
 [ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://src/ui/GreenButton.tscn" id="7_jr1jd"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="11_jr36v"]
 

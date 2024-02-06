@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://vy2sl481qu00"]
 
-[ext_resource type="Script" path="res://src/menus/EditActionRow.gd" id="1_1si0w"]
+[ext_resource type="Script" path="res://src/menus/controls/EditActionRow.gd" id="1_1si0w"]
 [ext_resource type="Theme" uid="uid://by6t2ej5k6dbc" path="res://src/ui/EmptyPanelTheme.tres" id="1_rwb70"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_tdonl"]
 [ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="4_ui3fi"]

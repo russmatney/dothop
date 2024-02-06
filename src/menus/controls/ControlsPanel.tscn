@@ -2,7 +2,7 @@
 
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="1_2drhy"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="2_hs67r"]
-[ext_resource type="Script" path="res://src/menus/ControlsPanel.gd" id="2_sopwa"]
+[ext_resource type="Script" path="res://src/menus/controls/ControlsPanel.gd" id="2_sopwa"]
 
 [node name="ControlsPanel" type="PanelContainer"]
 size_flags_horizontal = 3

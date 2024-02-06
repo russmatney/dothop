@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dq1rff2gu3q68"]
 
 [ext_resource type="Theme" uid="uid://cyixdgke4pk7d" path="res://addons/core/assets/fonts/vexed/EnterInputLight.tres" id="1_v6qpj"]
-[ext_resource type="Script" path="res://src/menus/ActionInputIcon.gd" id="2_lnakd"]
+[ext_resource type="Script" path="res://src/menus/controls/ActionInputIcon.gd" id="2_lnakd"]
 
 [node name="ActionInputIcon" type="RichTextLabel"]
 visible = false

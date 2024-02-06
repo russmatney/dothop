@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/hud/HUD.gd" id="1_5wqol"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_1a27s"]
 [ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://addons/core/notifications/Notifications.tscn" id="3_fxnlu"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/ActionInputIcon.tscn" id="3_ocg6b"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_ocg6b"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_li620"]
 bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0)

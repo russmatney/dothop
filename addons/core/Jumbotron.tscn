@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://addons/core/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_uspvf"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/ActionInputIcon.tscn" id="3_1031q"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_1031q"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
