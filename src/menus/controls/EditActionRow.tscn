@@ -1,15 +1,15 @@
 [gd_scene load_steps=5 format=3 uid="uid://vy2sl481qu00"]
 
-[ext_resource type="Script" path="res://src/menus/controls/EditActionRow.gd" id="1_1si0w"]
-[ext_resource type="Theme" uid="uid://by6t2ej5k6dbc" path="res://src/ui/EmptyPanelTheme.tres" id="1_rwb70"]
-[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_tdonl"]
-[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="4_ui3fi"]
+[ext_resource type="Theme" uid="uid://by6t2ej5k6dbc" path="res://src/ui/EmptyPanelTheme.tres" id="1_pb2om"]
+[ext_resource type="Script" path="res://src/menus/controls/EditActionRow.gd" id="2_mp4i1"]
+[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_hyn14"]
+[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="4_5qtm4"]
 
 [node name="EditActionRow" type="PanelContainer"]
 offset_right = 518.0
 offset_bottom = 48.0
-theme = ExtResource("1_rwb70")
-script = ExtResource("1_1si0w")
+theme = ExtResource("1_pb2om")
+script = ExtResource("2_mp4i1")
 
 [node name="HBox" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -29,7 +29,7 @@ clip_contents = false
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("3_tdonl")
+theme = ExtResource("3_hyn14")
 bbcode_enabled = true
 text = "[center]Accept[/center]"
 fit_content = true
@@ -39,7 +39,7 @@ scroll_active = false
 unique_name_in_owner = true
 custom_minimum_size = Vector2(80, 0)
 layout_mode = 2
-theme = ExtResource("4_ui3fi")
+theme = ExtResource("4_5qtm4")
 text = "Edit
 "
 

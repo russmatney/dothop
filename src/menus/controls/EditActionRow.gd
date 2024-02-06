@@ -10,7 +10,7 @@ extends PanelContainer
 
 @onready var edit_button = $%EditButton
 
-var input_icon_scene = preload("res://src/menus/ActionInputIcon.tscn")
+var input_icon_scene = preload("res://src/menus/controls/ActionInputIcon.tscn")
 
 var waiting_for_new_input = false
 var current_key_input
@@ -69,7 +69,7 @@ func render_action_icons():
 func on_edit_pressed():
 	waiting_for_new_input = true
 	Log.pr("edit pressed, waiting for input!", action_name)
-	edit_button.text = "...listening for new key..."
+	edit_button.text = "...press new key..."
 
 ## listening for new key ###############################################3
 
