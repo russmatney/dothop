@@ -1,8 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://dve6wwmspbde0"]
+[gd_scene load_steps=8 format=3 uid="uid://dve6wwmspbde0"]
 
 [ext_resource type="Script" path="res://addons/core/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_uspvf"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_1031q"]
+[ext_resource type="Texture2D" uid="uid://db11pg0l5l562" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_x.png" id="4_ahu6m"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -22,8 +23,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxFlat_7vafy")
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
@@ -35,25 +34,23 @@ layout_mode = 2
 [node name="Header" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
-custom_minimum_size = Vector2(720, 2.08165e-12)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_uspvf")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "[center]Double Jump Discovered[/center]"
+text = "[center]Jump Discovered[/center]"
 fit_content = true
 scroll_active = false
 
 [node name="VSeparator" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxFlat_rp857")
 
 [node name="Body" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
-custom_minimum_size = Vector2(1280, 2.08165e-12)
+custom_minimum_size = Vector2(1080, 0)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_uspvf")
 theme_override_font_sizes/normal_font_size = 48
@@ -65,7 +62,6 @@ scroll_active = false
 [node name="VSeparator2" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
-size_flags_vertical = 3
 theme_override_styles/separator = SubResource("StyleBoxFlat_yrs0h")
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
@@ -73,9 +69,8 @@ layout_mode = 2
 
 [node name="DismissInputIcon" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer" instance=ExtResource("3_1031q")]
 unique_name_in_owner = true
+visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-text = "x"
+texture = ExtResource("4_ahu6m")
 input_text = "X"
-joy_button = []
-joy_axis = []

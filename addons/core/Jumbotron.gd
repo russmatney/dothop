@@ -64,12 +64,13 @@ signal jumbo_closed
 
 func _ready():
 	set_control_icon()
-	InputHelper.device_changed.connect(func(device, _idx):
-		Log.pr("jumbotron detected device change")
-		set_control_icon(device))
+	if not Engine.is_editor_hint():
+		InputHelper.device_changed.connect(func(device, _idx):
+			Log.pr("jumbotron detected device change")
+			set_control_icon(device))
 
 func set_control_icon(device=null):
-	dismiss_input_icon.set_icon_for_action("close", device)
+	dismiss_input_icon.set_icon_for_action("ui_accept", device)
 
 func _unhandled_input(event):
 	if Trolls.is_close(event) or Trolls.is_accept(event):
