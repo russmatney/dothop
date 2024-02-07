@@ -8,9 +8,8 @@ func _ready():
 
 func play_sound_opts(sounds, opts = {}):
 	var vary = opts.get("vary", 0.0)
-	var scale_range = opts.get("scale_range", 0.0)
+	var scale_range = opts.get("scale_range", 0)
 	var scale_note = opts.get("scale_note")
-	Log.pr("play sound opts", opts)
 
 	if sounds:
 		var i = randi() % sounds.size()
@@ -18,8 +17,7 @@ func play_sound_opts(sounds, opts = {}):
 		if not is_instance_valid(s):
 			return
 		if scale_range > 0 and scale_note != null:
-			var note = lerp(0.0, scale_range, scale_note)
-			Log.pr("note (pitch_scale)", note, scale_range, scale_note)
+			var note = lerp(0.0, 1.0, scale_note/scale_range)
 			s.pitch_scale = note
 		elif vary > 0.0:
 			s.pitch_scale = 1 - (randf() * vary)

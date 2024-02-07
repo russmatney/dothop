@@ -10,10 +10,7 @@ enum M {
 	detective_agency_theme,
 	evening_dogs,
 	funk_till_five_loop,
-	funkmachine_master_loop,
 	jazz_work,
-	jungle_groove,
-	killer_factory_retro_video_game,
 	}
 
 @onready var music = {
@@ -22,10 +19,7 @@ enum M {
 	M.detective_agency_theme: preload("res://assets/songs/sulosounds/detective-agency-theme.wav"),
 	M.evening_dogs: preload("res://assets/songs/sulosounds/evening-dogs.wav"),
 	M.funk_till_five_loop: preload("res://assets/songs/sulosounds/funk-till-five-loop.wav"),
-	M.funkmachine_master_loop: preload("res://assets/songs/sulosounds/funkmachine-master-loop.wav"),
 	M.jazz_work: preload("res://assets/songs/sulosounds/jazz-work.wav"),
-	M.jungle_groove: preload("res://assets/songs/sulosounds/jungle-groove.wav"),
-	M.killer_factory_retro_video_game: preload("res://assets/songs/sulosounds/killer-fatory-retro-video-game.wav"),
 	}
 
 @onready var level_music_tracks = [
@@ -34,8 +28,5 @@ enum M {
 	M.detective_agency_theme,
 	M.evening_dogs,
 	M.funk_till_five_loop,
-	M.funkmachine_master_loop,
 	M.jazz_work,
-	M.jungle_groove,
-	M.killer_factory_retro_video_game,
 	]
