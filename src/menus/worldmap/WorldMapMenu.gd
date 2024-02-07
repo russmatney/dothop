@@ -84,6 +84,9 @@ func show_puzzle_set(puzzle_set):
 	# var label = puzzle_label.instantiate()
 	# label.text = "[center]%s[/center]" % (puzzle.idx + 1)
 
+	# TODO support moving the player icon among the levels
+	# (maybe show a level-shape preview/popup?)
+
 	# list of puzzles
 	U.remove_children(puzzle_list)
 	for puzzle in puzzle_set.get_puzzles():
