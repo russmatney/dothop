@@ -111,11 +111,19 @@
 						"type": "string",
 						"value": "Dots"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/dots/assets/blue_ring1.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
 							"0": "res://src/themes/dots/Dot.tscn"
 						}
+					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/dots/assets/blue_ring2.png"
 					},
 					"goal_scenes": {
 						"type": "array",
@@ -126,6 +134,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/dots/dots_player.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -154,11 +166,19 @@
 						"type": "string",
 						"value": "Space"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/space/assets/asteroid_2.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
 							"0": "res://src/themes/space/Dot.tscn"
 						}
+					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/space/assets/asteroid_2-dotted.png"
 					},
 					"goal_scenes": {
 						"type": "array",
@@ -169,6 +189,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/space/assets/goal.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -197,6 +221,10 @@
 						"type": "string",
 						"value": "Fall"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/fall/assets/leaf_greenred.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
@@ -212,6 +240,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/fall/assets/leaf_goal.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -357,11 +389,19 @@
 						"type": "string",
 						"value": "Winter"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/winter/assets/dot.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
 							"0": "res://src/themes/winter/Dot.tscn"
 						}
+					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/winter/assets/dot-dotted.png"
 					},
 					"goal_scenes": {
 						"type": "array",
@@ -372,6 +412,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/winter/assets/player.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -400,11 +444,19 @@
 						"type": "string",
 						"value": "Spring"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/spring/assets/dot.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
 							"0": "res://src/themes/spring/Dot.tscn"
 						}
+					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/spring/assets/goal.png"
 					},
 					"goal_scenes": {
 						"type": "array",
@@ -415,6 +467,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/spring/assets/player.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -443,11 +499,19 @@
 						"type": "string",
 						"value": "Summer"
 					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/summer/assets/dot.png"
+					},
 					"dot_scenes": {
 						"type": "array",
 						"value": {
 							"0": "res://src/themes/summer/Dot.tscn"
 						}
+					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/summer/assets/dot-dotted.png"
 					},
 					"goal_scenes": {
 						"type": "array",
@@ -458,6 +522,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"player_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/summer/assets/player.png"
 					},
 					"player_scenes": {
 						"type": "array",
@@ -756,12 +824,33 @@
 				"_id": "50",
 				"_name": "background_music",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": "res://src/themes/dots/dots_player.png",
+				"_id": "51",
+				"_name": "player_icon_texture",
+				"_type": "resource"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": null,
+				"_id": "52",
+				"_name": "dot_icon_texture",
+				"_type": "resource"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": null,
+				"_id": "53",
+				"_name": "dotted_icon_texture",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 50
+			"default": 53
 		}
 	}
 }

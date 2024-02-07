@@ -38,6 +38,15 @@ func get_goal_scenes() -> Array[PackedScene]:
 func get_background_music() -> AudioStream:
 	return get_resource("background_music")
 
+func get_player_icon() -> Texture:
+	return get_resource("player_icon_texture")
+
+func get_dot_icon() -> Texture:
+	return get_resource("dot_icon_texture")
+
+func get_dotted_icon() -> Texture:
+	return get_resource("dotted_icon_texture")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
