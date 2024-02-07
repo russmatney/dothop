@@ -156,6 +156,9 @@ func get_credit_lines():
 ## ready #################################################
 
 func _ready():
+	if not Engine.is_editor_hint():
+		Music.play_song(Music.M.late_night_radio)
+
 	super._ready()
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())

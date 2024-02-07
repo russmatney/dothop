@@ -10,6 +10,9 @@ extends CanvasLayer
 @onready var credits_menu = preload("res://src/menus/Credits.tscn")
 
 func _ready():
+	if not Engine.is_editor_hint():
+		Music.play_song(Music.M.late_night_radio)
+
 	start_button.grab_focus.call_deferred()
 	start_button.visibility_changed.connect(func(): start_button.grab_focus())
 

@@ -35,6 +35,7 @@ func _ready():
 
 	# TODO add music controls and toasts
 	# TODO stop music when pausing or navigating away
+	Music.interrupt_song()
 	var song_key = U.rand_of(Music.level_music_tracks)
 	Music.play_song(song_key)
 

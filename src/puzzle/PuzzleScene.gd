@@ -161,7 +161,7 @@ func on_player_moved():
 	Sounds.play(Sounds.S.cure, {scale_range=total_dots, scale_note=dotted})
 
 func on_player_undo():
-	Sounds.play(Sounds.S.showjumbotron)
+	Sounds.play(Sounds.S.minimize)
 
 func on_move_attempted():
 	Sounds.play(Sounds.S.showjumbotron)
@@ -170,7 +170,7 @@ func on_move_blocked():
 	pass
 
 func on_rebuilt_nodes():
-	Sounds.play(Sounds.S.candleout)
+	Sounds.play(Sounds.S.maximize)
 
 
 ## input ##############################################################

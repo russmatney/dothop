@@ -5,6 +5,7 @@ extends DJSoundMap
 # music
 
 enum M {
+	late_night_radio,
 	chill_electric_background,
 	cool_kids_electronic_bass_groove,
 	detective_agency_theme,
@@ -14,6 +15,7 @@ enum M {
 	}
 
 @onready var music = {
+	M.late_night_radio: preload("res://assets/songs/Late Night Radio.mp3"),
 	M.chill_electric_background: preload("res://assets/songs/sulosounds/chill-electric-background.wav"),
 	M.cool_kids_electronic_bass_groove: preload("res://assets/songs/sulosounds/cool-kids-electronic-bass-groo.wav"),
 	M.detective_agency_theme: preload("res://assets/songs/sulosounds/detective-agency-theme.wav"),

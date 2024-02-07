@@ -17,6 +17,7 @@ var current_puzzle_set_idx = 0
 
 func _ready():
 	if not Engine.is_editor_hint():
+		Music.play_song(Music.M.late_night_radio)
 		reset_map()
 
 	set_puzzle_set()
