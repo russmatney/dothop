@@ -24,6 +24,13 @@ func _ready():
 
 	start_puzzle_set_button.pressed.connect(on_start_button_pressed)
 
+	# TODO resume music when naving back to here
+# 	visibility_changed.connect(on_visibility_changed)
+
+# func on_visibility_changed():
+# 	if not Engine.is_editor_hint() and get_children()[0].is_visible_in_tree():
+# 		SoundManager.play_music(Music.late_night_radio)
+
 func set_puzzle_set():
 	current_puzzle_set_idx = clamp(current_puzzle_set_idx, 0, len(puzzle_sets) - 1)
 	current_puzzle_set = puzzle_sets[current_puzzle_set_idx]
