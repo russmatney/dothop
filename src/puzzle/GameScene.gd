@@ -35,12 +35,14 @@ func _ready():
 
 	# TODO add music controls and toasts
 	# TODO stop music when pausing or navigating away
-	Music.interrupt_song()
-	var song_key = U.rand_of(Music.level_music_tracks)
-	Music.play_song(song_key)
+	SoundManager.stop_music(1.0)
+	if puzzle_theme != null:
+		var song = puzzle_theme.get_background_music()
+		if song != null:
+			SoundManager.play_music(song, 2.0)
 
 func _exit_tree():
-	Music.interrupt_song()
+	SoundManager.stop_music(2.0)
 
 func nav_to_world_map():
 	# TODO better navigation (string-less, path-less)

@@ -103,6 +103,10 @@
 				"_index": 0,
 				"_name": "Dots",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/chill-electric-background.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Dots"
@@ -142,6 +146,10 @@
 				"_index": 0,
 				"_name": "Space",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/detective-agency-theme.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Space"
@@ -181,6 +189,10 @@
 				"_index": 0,
 				"_name": "Fall",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/evening-dogs.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Fall"
@@ -337,6 +349,10 @@
 				"_index": 0,
 				"_name": "Winter",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/cool-kids-electronic-bass-groo.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Winter"
@@ -376,6 +392,10 @@
 				"_index": 0,
 				"_name": "Spring",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/jazz-work.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Spring"
@@ -415,6 +435,10 @@
 				"_index": 0,
 				"_name": "Summer",
 				"_property_overrides": {
+					"background_music": {
+						"type": "resource",
+						"value": "res://assets/songs/sulosounds/funk-till-five-loop.wav"
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Summer"
@@ -725,12 +749,19 @@
 				"_id": "49",
 				"_name": "goal_scenes",
 				"_type": "array"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": "res://assets/songs/Late Night Radio.mp3",
+				"_id": "50",
+				"_name": "background_music",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 49
+			"default": 50
 		}
 	}
 }

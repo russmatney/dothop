@@ -35,6 +35,9 @@ func get_goal_scenes() -> Array[PackedScene]:
 		ar.append(load(a))
 	return ar
 
+func get_background_music() -> AudioStream:
+	return get_resource("background_music")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
