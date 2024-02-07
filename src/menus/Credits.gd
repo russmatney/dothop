@@ -175,3 +175,6 @@ func _ready():
 	super._ready()
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
+	main_menu_button.grab_focus.call_deferred()
+	main_menu_button.visibility_changed.connect(func():
+		main_menu_button.grab_focus())

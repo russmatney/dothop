@@ -80,5 +80,8 @@ static func is_pause(event):
 static func is_close(event):
 	return is_event(event, "close")
 
+static func is_close_released(event):
+	return is_released(event, "close")
+
 static func is_debug_toggle(event):
 	return is_event(event, "debug_toggle")

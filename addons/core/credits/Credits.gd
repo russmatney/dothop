@@ -36,21 +36,22 @@ func _ready():
 
 ## input ############################################################
 
-var scroll_held = Vector2.ZERO
+var scroll_direction = Vector2.ZERO
 
 func _unhandled_input(event):
-	if Trolls.is_move_up(event):
-		scroll_held = Vector2.UP
-	elif Trolls.is_move_down(event):
-		scroll_held = Vector2.DOWN
-	if Trolls.is_move_released(event):
-		scroll_held = Vector2.ZERO
+	if Trolls.is_move_up(event) or Trolls.is_restart(event):
+		scroll_direction = Vector2.UP
+	elif Trolls.is_move_down(event) or Trolls.is_close(event):
+		scroll_direction = Vector2.DOWN
+	if Trolls.is_move_released(event) or Trolls.is_close_released(event) \
+		or Trolls.is_restart_released(event):
+		scroll_direction = Vector2.ZERO
 
 ## process ############################################################
 
 func _process(delta):
-	if scroll_held != Vector2.ZERO:
-		match scroll_held:
+	if scroll_direction != Vector2.ZERO:
+		match scroll_direction:
 			Vector2.UP: credits_scroll_container.scroll_vertical -= 30
 			Vector2.DOWN: credits_scroll_container.scroll_vertical += 30
 		return
