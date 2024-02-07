@@ -6,15 +6,22 @@ extends Node
 func _ready():
 	process_mode = PROCESS_MODE_ALWAYS
 
-func play_sound_rand(sounds, opts = {}):
+func play_sound_opts(sounds, opts = {}):
 	var vary = opts.get("vary", 0.0)
+	var scale_range = opts.get("scale_range", 0.0)
+	var scale_note = opts.get("scale_note")
+	Log.pr("play sound opts", opts)
 
 	if sounds:
 		var i = randi() % sounds.size()
 		var s = sounds[i]
 		if not is_instance_valid(s):
 			return
-		if vary > 0.0:
+		if scale_range > 0 and scale_note != null:
+			var note = lerp(0.0, scale_range, scale_note)
+			Log.pr("note (pitch_scale)", note, scale_range, scale_note)
+			s.pitch_scale = note
+		elif vary > 0.0:
 			s.pitch_scale = 1 - (randf() * vary)
 		s.play()
 
@@ -57,13 +64,14 @@ func setup_sound_map(sound_map, default_opts=defaults):
 			playables[k].append(playable)
 	return playables
 
-func play_sound(sound_map, name):
+func play_sound(sound_map, name, opts={}):
 	if muted_sound:
 		# Log.warn("Cannot play sound, sounds are muted")
 		return
 	if name in sound_map:
 		var sounds = sound_map[name]
-		play_sound_rand(sounds, {"vary": 0.4})
+		opts.merge({"vary": 0.4})
+		play_sound_opts(sounds, opts)
 	else:
 		Log.warn("no sound for name", name)
 

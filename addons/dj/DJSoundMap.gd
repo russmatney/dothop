@@ -16,8 +16,8 @@ func _ready():
 	var s = snds()
 	_sound_map = DJ.setup_sound_map(s)
 
-func play(nm):
-	DJ.play_sound(_sound_map, nm)
+func play(nm, opts={}):
+	DJ.play_sound(_sound_map, nm, opts)
 
 func interrupt(nm):
 	DJ.interrupt_sound(_sound_map, nm)

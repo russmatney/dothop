@@ -109,9 +109,9 @@ enum S {
 		],
 	S.coin:
 	[
-			preload("res://assets/sounds/coin1.sfxr"),
+			# preload("res://assets/sounds/coin1.sfxr"),
 			preload("res://assets/sounds/coin2.sfxr"),
-			preload("res://assets/sounds/coin3.sfxr"),
+			# preload("res://assets/sounds/coin3.sfxr"),
 		],
 	S.collectpowerup:
 	[

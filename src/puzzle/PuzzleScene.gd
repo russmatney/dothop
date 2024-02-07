@@ -155,7 +155,13 @@ func on_win():
 	Sounds.play(Sounds.S.cure)
 
 func on_player_moved():
-	Sounds.play(Sounds.S.coin)
+	var total_dots = float(dot_count() + 1)
+	var remaining = float(dot_count(true))
+	Log.pr("total dots", total_dots)
+	Log.pr("remaining", remaining)
+	var note = (total_dots-remaining)/(total_dots)
+	Log.pr("note", note)
+	Sounds.play(Sounds.S.coin, {scale_range=1.2, scale_note=note})
 
 func on_player_undo():
 	Sounds.play(Sounds.S.showjumbotron)
