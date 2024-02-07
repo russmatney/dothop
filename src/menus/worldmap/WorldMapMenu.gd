@@ -69,15 +69,25 @@ func show_puzzle_set(puzzle_set):
 	start_puzzle_set_button.text = puzzle_set.get_display_name()
 	start_puzzle_set_button.grab_focus.call_deferred()
 
+	var theme = puzzle_set.get_theme()
+
 	# icon
-	puzzle_set_icon.set_texture(puzzle_set.get_icon_texture())
+	puzzle_set_icon.set_texture(theme.get_player_icon())
+
+	# var label = puzzle_label.instantiate()
+	# label.text = "[center]%s[/center]" % (puzzle.idx + 1)
 
 	# list of puzzles
 	U.remove_children(puzzle_list)
 	for puzzle in puzzle_set.get_puzzles():
-		var label = puzzle_label.instantiate()
-		label.text = "[center]%s[/center]" % (puzzle.idx + 1)
-		puzzle_list.add_child(label)
+		var icon = TextureRect.new()
+		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
+		# TODO if complete/incomple, use get_dotted_icon()
+		if puzzle_set.is_completed():
+			icon.set_texture(theme.get_dotted_icon())
+		else:
+			icon.set_texture(theme.get_dot_icon())
+		puzzle_list.add_child(icon)
 
 func reset_map():
 	puzzle_map.current_marker = null
