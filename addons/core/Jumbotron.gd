@@ -72,7 +72,7 @@ func set_control_icon(device=null):
 	dismiss_input_icon.set_icon_for_action("close", device)
 
 func _unhandled_input(event):
-	if Trolls.is_close(event):
+	if Trolls.is_close(event) or Trolls.is_accept(event):
 		fade_out()
 
 func fade_in():
