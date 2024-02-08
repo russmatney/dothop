@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(832, 418)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@104661")
+current_marker = NodePath("@Marker2D@18076")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 

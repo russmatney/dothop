@@ -6,20 +6,39 @@ extends VBoxContainer
 @onready var mute_all_button = $%MuteAllButton
 @onready var unmute_all_button = $%UnmuteAllButton
 
+var old_music_volume
+
 func _ready():
 	render()
 
+
 	mute_music_button.pressed.connect(func():
 		DJ.toggle_mute_music()
+
+		if DJ.muted_music:
+			old_music_volume = SoundManager.get_music_volume()
+			SoundManager.set_music_volume(0);
+		else:
+			SoundManager.set_music_volume(old_music_volume);
 		render())
 	mute_sound_button.pressed.connect(func():
 		DJ.toggle_mute_sound()
 		render())
 	mute_all_button.pressed.connect(func():
 		DJ.mute_all(true)
+		if DJ.muted_music:
+			old_music_volume = SoundManager.get_music_volume()
+			SoundManager.set_music_volume(0);
+		else:
+			SoundManager.set_music_volume(old_music_volume);
 		render())
 	unmute_all_button.pressed.connect(func():
 		DJ.mute_all(false)
+		if DJ.muted_music:
+			old_music_volume = SoundManager.get_music_volume()
+			SoundManager.set_music_volume(0);
+		else:
+			SoundManager.set_music_volume(old_music_volume);
 		render())
 
 

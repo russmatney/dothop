@@ -12,4 +12,6 @@ extends Node
 @onready var jazz_work = preload("res://assets/songs/sulosounds/jazz-work.wav")
 
 func _ready():
-	SoundManager.set_music_volume(0.7)
+	if not Engine.is_editor_hint():
+		SoundManager.set_default_music_bus("Music")
+		SoundManager.set_music_volume(0.7)
