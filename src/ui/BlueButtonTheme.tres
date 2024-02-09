@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=5 format=3 uid="uid://cul4fuxbykddp"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://201uqddgbb42"]
 
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_snhp5"]
 [ext_resource type="Texture2D" uid="uid://dp0f63m68p5tx" path="res://assets/ui/green_button_full_4x.png" id="2_yacb7"]

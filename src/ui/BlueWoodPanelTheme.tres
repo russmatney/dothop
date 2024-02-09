@@ -1,6 +1,6 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://rv7rm10d10gc"]
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://dp8badsrf50pe"]
 
-[ext_resource type="StyleBox" uid="uid://i5t8fygrktcp" path="res://src/ui/BlueWoodPanelTexture.tres" id="1_1ocxo"]
+[ext_resource type="StyleBox" path="res://src/ui/BlueWoodPanelTexture.tres" id="1_1ocxo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_7yow8"]
 region_rect = Rect2(0, 0, 94, 90)

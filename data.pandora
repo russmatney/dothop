@@ -19,7 +19,7 @@
 				"_ids_generation_class": "PuzzleThemeIDs",
 				"_index": 0,
 				"_name": "PuzzleTheme",
-				"_script_path": "res://src/themes/DotHopTheme.gd"
+				"_script_path": "res://src/themes/PuzzleTheme.gd"
 			},
 			{
 				"_category_id": "",

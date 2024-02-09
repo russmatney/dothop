@@ -3,7 +3,7 @@ extends Object
 class_name GameState
 
 var puzzle_sets: Array[PuzzleSet] = []
-var themes: Array[DHTheme] = []
+var themes: Array[PuzzleTheme] = []
 
 ## new #######################################################
 
@@ -47,11 +47,11 @@ func initial_puzzle_sets() -> Array[PuzzleSet]:
 	ps.assign(pss)
 	return ps
 
-func initial_themes() -> Array[DHTheme]:
+func initial_themes() -> Array[PuzzleTheme]:
 	var ent = Pandora.get_entity(PuzzleThemeIDs.DEBUG)
 	var ths = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
 		.map(func(e): return e.instantiate())
-	var th: Array[DHTheme] = []
+	var th: Array[PuzzleTheme] = []
 	th.assign(ths)
 	return th
 
@@ -63,7 +63,7 @@ func find_puzzle_set(ps: PuzzleSet):
 		if puzz.get_entity_id() == ps.get_entity_id():
 			return puzz
 
-func find_theme(theme: DHTheme):
+func find_theme(theme: PuzzleTheme):
 	for th in themes:
 		# assumes puzzle_set instances and entities are 1:1, which seems fine
 		if th.get_entity_id() == theme.get_entity_id():

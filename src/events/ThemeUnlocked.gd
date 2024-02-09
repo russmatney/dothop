@@ -2,15 +2,15 @@
 extends Event
 class_name ThemeUnlocked
 
-func get_theme() -> DHTheme:
-	return Pandora.get_entity(get_string("theme_id")) as DHTheme
+func get_theme() -> PuzzleTheme:
+	return Pandora.get_entity(get_string("theme_id")) as PuzzleTheme
 
 func data():
 	var d = super.data()
 	d.merge({theme=get_theme()})
 	return d
 
-static func new_event(theme: DHTheme):
+static func new_event(theme: PuzzleTheme):
 	var event = Pandora.get_entity(EventIds.THEMEUNLOCKEDEVENT).instantiate()
 	event.set_string("theme_id", theme.get_entity_id())
 	event.set_event_data({

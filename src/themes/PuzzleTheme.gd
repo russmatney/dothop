@@ -1,6 +1,6 @@
 @tool
 extends PandoraEntity
-class_name DHTheme
+class_name PuzzleTheme
 
 ## properties ##########################################
 

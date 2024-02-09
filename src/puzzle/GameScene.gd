@@ -3,7 +3,7 @@ extends Node2D
 ## vars #####################################################################
 
 @export_file var game_def_path: String
-@export var puzzle_theme: DHTheme
+@export var puzzle_theme: PuzzleTheme
 @export var puzzle_set: PuzzleSet
 
 var game_def
