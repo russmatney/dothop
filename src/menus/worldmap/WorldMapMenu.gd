@@ -92,14 +92,20 @@ func show_puzzle_set(puzzle_set):
 
 	# list of puzzles
 	U.remove_children(puzzle_list)
-	for puzzle in puzzle_set.get_puzzles():
+	for i in range(len(puzzle_set.get_puzzles())):
+		var puzzle = puzzle_set.get_puzzle(i)
+		if not puzzle:
+			continue
 		var icon = TextureRect.new()
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
-		# TODO if complete/incomple, use get_dotted_icon()
-		if puzzle_set.is_completed():
+		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dotted_icon())
+		elif puzzle_set.can_play_puzzle(i):
+			# TODO animate/tween
+			icon.set_texture(theme.get_dot_icon())
 		else:
 			icon.set_texture(theme.get_dot_icon())
+			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 		puzzle_list.add_child(icon)
 
 func reset_map():

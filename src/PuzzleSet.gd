@@ -64,6 +64,13 @@ func get_game_def():
 func get_puzzles():
 	return get_game_def().levels.filter(func(puzz): return puzz.shape)
 
+func get_puzzle(idx: int):
+	var puzzs = get_puzzles()
+	if idx < len(puzzs):
+		return puzzs[idx]
+	else:
+		Log.warn("Requested out of range puzzle index", idx, self)
+
 # Attach an "analysis" to each level_def (game_def.levels[])
 # returns the game_def
 func get_analyzed_game_def():
@@ -93,6 +100,9 @@ func update_max_index(idx: int):
 		set_integer("max_completed_puzzle_idx", idx)
 
 ## public ############################################
+
+func completed_puzzle(idx: int):
+	return idx <=  get_max_completed_puzzle_index()
 
 # can play the puzzle number 1 greater than the max completed
 func can_play_puzzle(idx: int):
