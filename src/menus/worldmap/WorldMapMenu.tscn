@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(832, 418)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@18146")
+current_marker = NodePath("@Marker2D@36345")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -109,13 +109,6 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PuzzleSetIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-layout_mode = 2
-texture = ExtResource("6_afb7j")
-stretch_mode = 4
-
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
@@ -132,3 +125,14 @@ columns = 4
 custom_minimum_size = Vector2(30, 0)
 layout_mode = 2
 size_flags_vertical = 3
+
+[node name="PuzzleSetIcon" type="TextureRect" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(64, 64)
+offset_left = 302.0
+offset_top = 419.0
+offset_right = 366.0
+offset_bottom = 483.0
+pivot_offset = Vector2(32, 32)
+texture = ExtResource("6_afb7j")
+stretch_mode = 4

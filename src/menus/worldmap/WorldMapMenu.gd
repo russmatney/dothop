@@ -81,14 +81,13 @@ func show_puzzle_set(puzzle_set):
 
 	var theme = puzzle_set.get_theme()
 
-	# icon
-	puzzle_set_icon.set_texture(theme.get_player_icon())
-
 	# var label = puzzle_label.instantiate()
 	# label.text = "[center]%s[/center]" % (puzzle.idx + 1)
 
 	# TODO support moving the player icon among the levels
 	# (maybe show a level-shape preview/popup?)
+
+	var next_puzzle_icon
 
 	# list of puzzles
 	U.remove_children(puzzle_list)
@@ -103,10 +102,33 @@ func show_puzzle_set(puzzle_set):
 		elif puzzle_set.can_play_puzzle(i):
 			# TODO animate/tween
 			icon.set_texture(theme.get_dot_icon())
+			next_puzzle_icon = icon
 		else:
 			icon.set_texture(theme.get_dot_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 		puzzle_list.add_child(icon)
+
+	# player icon
+	puzzle_set_icon.set_texture(theme.get_player_icon())
+	puzzle_set_icon.modulate.a = 0.0
+
+	if next_puzzle_icon:
+		U.call_in(0.5, self, func():
+			Log.pr("changing positions", puzzle_set_icon.position, next_puzzle_icon.global_position,
+				is_instance_valid(next_puzzle_icon))
+			var time = 0.4
+			var t = create_tween()
+			t.tween_property(puzzle_set_icon, "modulate:a", 1.0, time)\
+				.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			t.parallel().tween_property(puzzle_set_icon, "position", next_puzzle_icon.global_position, time)\
+				.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+			var scale_tween = create_tween()
+			scale_tween.tween_property(puzzle_set_icon, "scale", 1.3*Vector2.ONE, time/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			scale_tween.tween_property(puzzle_set_icon, "scale", 0.8*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			scale_tween.tween_property(puzzle_set_icon, "scale", 1.0*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+			)
+
 
 func reset_map():
 	puzzle_map.current_marker = null

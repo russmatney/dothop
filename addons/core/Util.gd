@@ -235,8 +235,8 @@ static func _connect(sig, callable, flags=null):
 	if err:
 		Log.pr("[Error]: ", err, sig, callable)  # useless enum digit
 
-static func call_in(node, callable, s):
-	await node.get_tree().create_timer(1.0).timeout
+static func call_in(s, node, callable):
+	await node.get_tree().create_timer(s).timeout
 	callable.call()
 
 ## random ###########################################################
