@@ -28,6 +28,9 @@ func is_unlocked() -> bool:
 func get_next_puzzle_set() -> PuzzleSet:
 	return get_reference("next_set")
 
+func get_max_completed_puzzle_index() -> int:
+	return get_integer("max_completed_puzzle_idx")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
@@ -38,6 +41,7 @@ func data():
 		icon_texture=get_icon_texture(),
 		completed=is_completed(),
 		unlocked=is_unlocked(),
+		max_puzzle_idx=get_max_completed_puzzle_index(),
 		}
 
 ## computed ############################################
@@ -82,3 +86,14 @@ func unlock():
 
 func mark_complete():
 	set_bool("is_completed", true)
+
+func update_max_index(idx: int):
+	var current = get_max_completed_puzzle_index()
+	if idx > current:
+		set_integer("max_completed_puzzle_idx", idx)
+
+## public ############################################
+
+# can play the puzzle number 1 greater than the max completed
+func can_play_puzzle(idx: int):
+	return idx <= 1 + get_max_completed_puzzle_index()

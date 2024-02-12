@@ -15,7 +15,7 @@ func _init(events=[]):
 ## apply events #######################################################
 
 func apply_events(events):
-	Log.pr("applying %s events" % len(events), events.map(func(e): return e.get_display_name()))
+	Log.prn("applying %s events" % len(events), events.map(func(e): return e.get_display_name()))
 
 	for event in events:
 		apply_event(event)
@@ -26,6 +26,11 @@ func apply_event(event):
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
 		ps.mark_complete()
+	elif event is PuzzleCompleted:
+		var ps = find_puzzle_set(event.get_puzzle_set())
+		if not ps:
+			Log.warn("Could not apply event! No puzzle_set found.", event)
+		ps.update_max_index(event.get_puzzle_index())
 	elif event is PuzzleSetUnlocked:
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:
@@ -36,6 +41,8 @@ func apply_event(event):
 		if not th:
 			Log.warn("Could not apply event! No theme found.", event)
 		th.unlock()
+	else:
+		Log.warn("Could not apply unhandled event", event)
 
 ## initial states #######################################################
 

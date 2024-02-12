@@ -76,6 +76,13 @@
 					}
 				},
 				"_script_path": "res://src/events/ThemeUnlocked.gd"
+			},
+			{
+				"_category_id": "28",
+				"_icon_color": "ffffff00",
+				"_id": "55",
+				"_index": 0,
+				"_name": "PuzzleCompleted"
 			}
 		],
 		"_entities": [
@@ -669,6 +676,19 @@
 				"_id": "42",
 				"_index": 0,
 				"_name": "ThemeUnlockedEvent"
+			},
+			{
+				"_category_id": "55",
+				"_icon_color": "ffffff00",
+				"_id": "58",
+				"_index": 0,
+				"_name": "PuzzleCompletedEvent",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Puzzle Completed"
+					}
+				}
 			}
 		],
 		"_properties": [
@@ -845,12 +865,36 @@
 				"_id": "53",
 				"_name": "dotted_icon_texture",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": -1,
+				"_id": "54",
+				"_name": "max_completed_puzzle_idx",
+				"_setting_overrides": {
+					"Min Value": -1
+				},
+				"_type": "int"
+			},
+			{
+				"_category_id": "55",
+				"_default_value": "",
+				"_id": "56",
+				"_name": "puzzle_set_id",
+				"_type": "string"
+			},
+			{
+				"_category_id": "55",
+				"_default_value": 0,
+				"_id": "57",
+				"_name": "puzzle_idx",
+				"_type": "int"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 53
+			"default": 58
 		}
 	}
 }
