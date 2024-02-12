@@ -20,7 +20,7 @@ y = PlayerB and Dotted
 LEVELS
 =======
 
-message "Eat all the flowers. The red/orange must be last."
+message "Connect all the dots!"
 
 .......
 .xooot.
@@ -35,14 +35,12 @@ message "Eat all the flowers. The red/orange must be last."
 .t.o.o.
 .o...o.
 
-message "If you get stuck, remember z to undo"
-
 o..o.o.
 ox.o.ot
 ...o.o.
 .......
 
-message "Show me whatcha got!"
+message "Now for some tricky ones..."
 
 .o....o
 .x.ooo.

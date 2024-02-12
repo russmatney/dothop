@@ -289,7 +289,7 @@
 					"next_set": {
 						"type": "reference",
 						"value": {
-							"_entity_id": "17",
+							"_entity_id": "26",
 							"_type": 0
 						}
 					},
@@ -329,16 +329,13 @@
 						"type": "int",
 						"value": -1
 					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "18",
-							"_type": 0
-						}
-					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-two.txt"
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 6
 					},
 					"theme": {
 						"type": "reference",
@@ -375,13 +372,17 @@
 					"next_set": {
 						"type": "reference",
 						"value": {
-							"_entity_id": "25",
+							"_entity_id": "27",
 							"_type": 0
 						}
 					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-three.txt"
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 4
 					},
 					"theme": {
 						"type": "reference",
@@ -576,16 +577,24 @@
 						"type": "bool",
 						"value": false
 					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
 					"next_set": {
 						"type": "reference",
 						"value": {
-							"_entity_id": "26",
+							"_entity_id": "18",
 							"_type": 0
 						}
 					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-four.txt"
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 3
 					},
 					"theme": {
 						"type": "reference",
@@ -615,16 +624,24 @@
 						"type": "bool",
 						"value": false
 					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
 					"next_set": {
 						"type": "reference",
 						"value": {
-							"_entity_id": "27",
+							"_entity_id": "25",
 							"_type": 0
 						}
 					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-five.txt"
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 2
 					},
 					"theme": {
 						"type": "reference",
@@ -654,9 +671,24 @@
 						"type": "bool",
 						"value": false
 					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
+					"next_set": {
+						"type": "reference",
+						"value": {
+							"_entity_id": "17",
+							"_type": 0
+						}
+					},
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-six.txt"
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 5
 					},
 					"theme": {
 						"type": "reference",
@@ -911,12 +943,19 @@
 				"_id": "59",
 				"_name": "count",
 				"_type": "int"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": 1,
+				"_id": "60",
+				"_name": "sort_order",
+				"_type": "int"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 59
+			"default": 60
 		}
 	}
 }

@@ -61,7 +61,7 @@ ot..o.o
 ...t.oo.o
 .oooo..x.
 
-message "Don't forget the sunscreen!"
+message "Hope you brought your shades!"
 
 ...o.oo....
 ..o...o....

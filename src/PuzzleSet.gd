@@ -31,6 +31,9 @@ func get_next_puzzle_set() -> PuzzleSet:
 func get_max_completed_puzzle_index() -> int:
 	return get_integer("max_completed_puzzle_idx")
 
+func get_sort_order() -> int:
+	return get_integer("sort_order")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():

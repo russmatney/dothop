@@ -52,6 +52,7 @@ func initial_puzzle_sets() -> Array[PuzzleSet]:
 		.map(func(e): return e.instantiate())
 	var ps: Array[PuzzleSet] = []
 	ps.assign(pss)
+	ps.sort_custom(func(a, b): return a.get_sort_order() < b.get_sort_order())
 	return ps
 
 func initial_themes() -> Array[PuzzleTheme]:
