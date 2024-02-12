@@ -139,26 +139,26 @@ func on_puzzle_win():
 
 	var game_complete = puzzle_num + 1 >= len(game_def.levels)
 
+	var instance = scene.instantiate()
+	instance.puzzle_set = puzzle_set
+	instance.puzzle_num = puzzle_num
+
 	var header
 	var body
-	var instance
 	if game_complete:
 		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
-		body = "Your friends must think you're\npretty nerdy"
+		body = U.rand_of([
+			"Your friends must think you're\npretty nerdy",
+			"Be proud, for you are a nerd",
+			"Congratulations, nerd!",
+			"You're a real hop-dotter!",
+			])
 
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
-
-		instance = scene.instantiate()
-		instance.puzzle_set = puzzle_set
-		instance.puzzle_num = puzzle_num
 	else:
 		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
-
-		instance = scene.instantiate()
-		instance.puzzle_set = puzzle_set
-		instance.puzzle_num = puzzle_num
 
 	puzzle_num += 1
 
