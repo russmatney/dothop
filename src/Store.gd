@@ -56,6 +56,8 @@ func get_events() -> Array[Event]:
 
 ## events ###########################################
 
+# TODO how to deal with repeats/dupes ? ignore, update-count-in-place?
+
 func complete_puzzle_set(puz: PuzzleSet):
 	var event = PuzzleSetCompleted.new_event(puz)
 	state.apply_event(event)
