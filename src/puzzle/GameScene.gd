@@ -148,6 +148,10 @@ func on_puzzle_win():
 
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
+
+		instance = scene.instantiate()
+		instance.puzzle_set = puzzle_set
+		instance.puzzle_num = puzzle_num
 	else:
 		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
