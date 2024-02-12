@@ -65,6 +65,12 @@ func complete_puzzle_set(puz: PuzzleSet):
 	if puz.get_next_puzzle_set():
 		unlock_next_puzzle_set(puz)
 
+func complete_puzzle_index(puz: PuzzleSet, idx: int):
+	var event = PuzzleCompleted.new_event(puz, idx)
+	state.apply_event(event)
+	events.append(event)
+	save_game()
+
 func unlock_next_puzzle_set(puz: PuzzleSet):
 	var next = puz.get_next_puzzle_set()
 	if next:

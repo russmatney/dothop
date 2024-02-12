@@ -101,3 +101,30 @@ func test_unlocking_puzzle_set():
 	var third = Store.get_puzzle_sets().filter(func(e):
 		return e.get_entity_id() == next.get_next_puzzle_set().get_entity_id())[0]
 	assert_that(third.is_unlocked()).is_true()
+
+#########################################################################
+## completing puzzles
+
+func test_completing_a_puzzle(indexes, test_parameters=[[[0]], [[0, 1]], [[0, 1, 2]]]):
+	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
+
+	var sets = Store.get_puzzle_sets()
+	var puz_set = sets.filter(func(e): return not e.is_completed())[0]
+
+	var idx = indexes[-1]
+
+	for i in indexes:
+		Store.complete_puzzle_index(puz_set, i)
+
+	# get an unlocked puzzle
+	assert_that(puz_set.get_max_completed_puzzle_index()).is_equal(idx)
+
+	assert_that(len(Store.events)).is_equal(idx + 1)
+	var ev = Store.events[idx]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(puz_set.get_entity_id())
+	assert_that(ev.get_puzzle_index()).is_equal(idx)
+
+	assert_that(puz_set.can_play_puzzle(idx)).is_true()
+	assert_that(puz_set.can_play_puzzle(idx + 1)).is_true()
+	assert_that(puz_set.can_play_puzzle(idx + 2)).is_false()
