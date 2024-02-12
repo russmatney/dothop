@@ -54,31 +54,51 @@ func get_themes() -> Array[PuzzleTheme]:
 func get_events() -> Array[Event]:
 	return events
 
+func find_events(filter_fn) -> Array[Event]:
+	return events.filter(filter_fn)
+
+func find_event(filter_fn) -> Event:
+	var evs = find_events(filter_fn)
+	if len(evs) > 0:
+		return evs[0]
+	else:
+		return null
+
 ## events ###########################################
 
-# TODO how to deal with repeats/dupes ? ignore, update-count-in-place?
-
 func complete_puzzle_set(puz: PuzzleSet):
-	var event = PuzzleSetCompleted.new_event(puz)
-	state.apply_event(event)
-	events.append(event)
+	var event = find_event(func(ev): return PuzzleSetCompleted.is_matching_event(ev, puz))
+	if event:
+		event.inc_count()
+	elif not event:
+		event = PuzzleSetCompleted.new_event(puz)
+		state.apply_event(event)
+		events.append(event)
 	save_game()
 
 	if puz.get_next_puzzle_set():
 		unlock_next_puzzle_set(puz)
 
 func complete_puzzle_index(puz: PuzzleSet, idx: int):
-	var event = PuzzleCompleted.new_event(puz, idx)
-	state.apply_event(event)
-	events.append(event)
+	var event = find_event(func(ev): return PuzzleCompleted.is_matching_event(ev, puz, idx))
+	if event:
+		event.inc_count()
+	elif not event:
+		event = PuzzleCompleted.new_event(puz, idx)
+		state.apply_event(event)
+		events.append(event)
 	save_game()
 
 func unlock_next_puzzle_set(puz: PuzzleSet):
 	var next = puz.get_next_puzzle_set()
 	if next:
-		var event = PuzzleSetUnlocked.new_event(next)
-		state.apply_event(event)
-		events.append(event)
+		var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, next))
+		if event:
+			event.inc_count()
+		elif not event:
+			event = PuzzleSetUnlocked.new_event(next)
+			state.apply_event(event)
+			events.append(event)
 
 		# save update events for later reloading
 		save_game()
@@ -88,7 +108,10 @@ func unlock_next_puzzle_set(puz: PuzzleSet):
 func unlock_all_puzzle_sets():
 	Log.warn("Unlocking all puzzle sets!")
 	for ps in state.puzzle_sets:
-		var event = PuzzleSetUnlocked.new_event(ps)
+		var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, ps))
+		if event:
+			continue
+		event = PuzzleSetUnlocked.new_event(ps)
 		state.apply_event(event)
 		events.append(event)
-		save_game()
+	save_game()

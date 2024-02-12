@@ -128,3 +128,49 @@ func test_completing_a_puzzle(indexes, test_parameters=[[[0]], [[0, 1]], [[0, 1,
 	assert_that(puz_set.can_play_puzzle(idx)).is_true()
 	assert_that(puz_set.can_play_puzzle(idx + 1)).is_true()
 	assert_that(puz_set.can_play_puzzle(idx + 2)).is_false()
+
+#########################################################################
+## dupe events
+
+func test_complete_puzzle_idx_dupe_events_increment_count():
+	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
+
+	var sets = Store.get_puzzle_sets()
+	var puz_set = sets.filter(func(e): return not e.is_completed())[0]
+
+	Store.complete_puzzle_index(puz_set, 0)
+	Store.complete_puzzle_index(puz_set, 0)
+
+	assert_that(len(Store.events)).is_equal(1)
+	var ev = Store.events[0]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(puz_set.get_entity_id())
+	assert_that(ev.get_puzzle_index()).is_equal(0)
+	assert_that(ev.get_count()).is_equal(2)
+
+	assert_that(len(Store.events)).is_equal(1)
+
+	Store.complete_puzzle_index(puz_set, 0)
+	assert_that(ev.get_count()).is_equal(3)
+
+func test_puzzle_set_complete_and_unlock_dupe_events_increment_count():
+	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
+
+	var sets = Store.get_puzzle_sets()
+	var puz_set = sets.filter(func(e): return not e.is_completed())[0]
+
+	Store.complete_puzzle_set(puz_set)
+	Store.complete_puzzle_set(puz_set)
+	Store.complete_puzzle_set(puz_set)
+	Store.unlock_next_puzzle_set(puz_set)
+	Store.unlock_next_puzzle_set(puz_set)
+
+	assert_that(len(Store.events)).is_equal(2)
+	var ev = Store.events[0]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(puz_set.get_entity_id())
+	assert_that(ev.get_count()).is_equal(3)
+
+	ev = Store.events[1]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(puz_set.get_next_puzzle_set().get_entity_id())
+	assert_that(ev.get_count()).is_equal(5) # b/c the 'completed' event also unlocks these

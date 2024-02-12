@@ -904,12 +904,19 @@
 				"_id": "57",
 				"_name": "puzzle_idx",
 				"_type": "int"
+			},
+			{
+				"_category_id": "28",
+				"_default_value": 1,
+				"_id": "59",
+				"_name": "count",
+				"_type": "int"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 58
+			"default": 59
 		}
 	}
 }
