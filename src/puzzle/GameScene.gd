@@ -137,6 +137,7 @@ func on_puzzle_win():
 	# metrics like number of moves, time
 	# leaderboard via that wolf thing?
 
+	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 	puzzle_num += 1
 
 	var game_complete = puzzle_num >= len(game_def.levels)
