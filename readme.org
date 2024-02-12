@@ -51,22 +51,10 @@ and redistribute the game, the code, or the assets without explicit permission.
 I'm in the process of breaking the addons and reusable parts of this codebase
 out into properly licensed open source repos, so stay tuned!
 #+end_quote
-
-**** Note: Third-party assets in this repo must be purchased to use
-Dot Hop uses third-party assets that must be purchased before they can be used
-in your own projects!
-
-Font:
-
-- [[https://v3x3d.itch.io/arcade-cabinet][Arcade Cabinet by V3X3D]]
-
-These are available (after purchase) under the CC4 licence:
-https://creativecommons.org/licenses/by/4.0/legalcode
 * Credits
 TODO: much more to include here!
 
 ** Fonts
-- Vexed - Arcade Cabinent
 - at01
 - Born2BSporty
 - Adventure

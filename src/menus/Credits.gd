@@ -54,12 +54,6 @@ var dothop_credits = [
     [
 	"Fonts",
 	"",
-	"Arcade Cabinet",
-	"by V3X3D",
-	"https://v3x3d.itch.io/arcade-cabinet",
-	"Licensed under Creative Commons: By Attribution 4.0 License",
-	"http://creativecommons.org/licenses/by/4.0",
-	"",
 	"born2bsportyv2",
 	"by japanyoshi",
 	"http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=383",
