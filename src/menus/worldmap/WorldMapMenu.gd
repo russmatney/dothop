@@ -25,7 +25,14 @@ func _ready():
 		SoundManager.play_music(Music.late_night_radio)
 		reset_map()
 
-	attempt_move_to_puzzle_set(0)
+	var next_to_complete_puzzle_idx = 0
+	for i in len(puzzle_sets):
+		var ps = puzzle_sets[i]
+		if not ps.is_completed():
+			next_to_complete_puzzle_idx = i
+			break
+
+	attempt_move_to_puzzle_set(next_to_complete_puzzle_idx)
 
 	start_puzzle_set_button.pressed.connect(start_selected_puzzle)
 	next_puzzle_set_button.pressed.connect(show_next_puzzle_set)
