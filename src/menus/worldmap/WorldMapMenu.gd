@@ -52,6 +52,9 @@ func _unhandled_input(event):
 			if not get_tree().paused:
 				Navi.pause()
 				get_viewport().set_input_as_handled()
+
+		# handle moving around the UI
+
 		if Trolls.is_move_right(event):
 			current_puzzle_set_idx += 1
 			set_puzzle_set()
