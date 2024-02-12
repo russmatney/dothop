@@ -17,7 +17,7 @@ func data():
 	return d
 
 static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int):
-	var event = Pandora.get_entity(EventIds.PUZZLESETCOMPLETEDEVENT).instantiate()
+	var event = Pandora.get_entity(EventIds.PUZZLECOMPLETEDEVENT).instantiate()
 	event.set_string("puzzle_set_id", puzzle_set.get_entity_id())
 	event.set_integer("puzzle_idx", puzzle_idx)
 	event.set_event_data({

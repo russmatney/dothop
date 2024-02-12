@@ -79,10 +79,13 @@
 			},
 			{
 				"_category_id": "28",
+				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "55",
+				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "PuzzleCompleted"
+				"_name": "PuzzleCompleted",
+				"_script_path": "res://src/events/PuzzleCompleted.gd"
 			}
 		],
 		"_entities": [
@@ -279,6 +282,10 @@
 						"type": "bool",
 						"value": true
 					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
 					"next_set": {
 						"type": "reference",
 						"value": {
@@ -318,6 +325,10 @@
 						"type": "resource",
 						"value": "res://src/themes/space/assets/player.png"
 					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
 					"next_set": {
 						"type": "reference",
 						"value": {
@@ -356,6 +367,10 @@
 					"icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/fall/player.png"
+					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
 					},
 					"next_set": {
 						"type": "reference",
