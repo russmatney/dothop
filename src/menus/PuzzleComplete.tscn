@@ -73,6 +73,24 @@ scroll_active = false
 custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 
+[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Prizes" type="RichTextLabel" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer4"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(600, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_63db2")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]New puzzle Set unlocked!"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+
 [node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 

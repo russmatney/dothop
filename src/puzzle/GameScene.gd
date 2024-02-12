@@ -154,11 +154,20 @@ func on_puzzle_win():
 			"You're a real hop-dotter!",
 			])
 
+		instance.ready.connect(func():
+			var next_set = puzzle_set.get_next_puzzle_set()
+			if next_set:
+				instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
+			else:
+				instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
+
+
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
 	else:
 		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
+		instance.ready.connect(func(): instance.prizes.set_visible(false))
 
 	puzzle_num += 1
 

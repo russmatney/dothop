@@ -5,6 +5,7 @@ extends Jumbotron
 
 @onready var puzzle_list = $%PuzzleList
 @onready var puzzle_set_icon = $%PuzzleSetIcon
+@onready var prizes = $%Prizes
 var puzzle_set: PuzzleSet
 var puzzle_num: int
 
