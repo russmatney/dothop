@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://addons/core/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://d06oxhmw5eq58" path="res://addons/core/assets/fonts/vexed/Arcade_Cabinet.ttf" id="2_uspvf"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_1031q"]
-[ext_resource type="Texture2D" uid="uid://db11pg0l5l562" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_x.png" id="4_ahu6m"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="4_ssdlh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -36,9 +36,9 @@ unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_uspvf")
-theme_override_font_sizes/normal_font_size = 64
+theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center]Jump Discovered[/center]"
+text = "[center]Some really really wide text that barely fits on the screen[/center]"
 fit_content = true
 scroll_active = false
 
@@ -53,7 +53,7 @@ clip_contents = false
 custom_minimum_size = Vector2(1080, 0)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_uspvf")
-theme_override_font_sizes/normal_font_size = 48
+theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[center]Try it on wooden blocks![/center]"
 fit_content = true
@@ -72,5 +72,5 @@ unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("4_ahu6m")
-input_text = "X"
+texture = ExtResource("4_ssdlh")
+input_text = "Ctrl+Z"

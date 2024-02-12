@@ -132,37 +132,42 @@ func setup_theme(p_node):
 
 ## win #####################################################################
 
+var scene = preload("res://src/menus/PuzzleComplete.tscn")
+
 func on_puzzle_win():
-	# juicy win scene with button to advance
-	# metrics like number of moves, time
-	# leaderboard via that wolf thing?
-
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
-	puzzle_num += 1
 
-	var game_complete = puzzle_num >= len(game_def.levels)
+	var game_complete = puzzle_num + 1 >= len(game_def.levels)
 
 	var header
 	var body
+	var instance
 	if game_complete:
-		header = "All %s Puzzles Complete!" % puzzle_num
+		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
 		body = "Your friends must think you're\npretty nerdy"
+
+		Dino.notif("Puzzle Set complete!")
+		Store.complete_puzzle_set(puzzle_set)
 	else:
-		header = "Puzzle %s Complete!" % puzzle_num
+		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 
-	Jumbotron.jumbo_notif({
-		header=header, body=body, pause=false,
+		instance = scene.instantiate()
+		instance.puzzle_set = puzzle_set
+		instance.puzzle_num = puzzle_num
+
+	puzzle_num += 1
+
+	var opts = {header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
-			# TODO move to nice toast/notif components, maybe fire from the store?
-			Dino.notif("Puzzle Set complete!")
-
-			# function call, or emit event ?
-			Store.complete_puzzle_set(puzzle_set)
 			nav_to_world_map()
 		else:
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()
-			Dino.notif("Building next level!")
-			rebuild_puzzle()})
+			rebuild_puzzle()}
+
+	if instance:
+		opts["instance"] = instance
+
+	Jumbotron.jumbo_notif(opts)

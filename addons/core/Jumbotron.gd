@@ -7,7 +7,8 @@ class_name Jumbotron
 static var jumbotron_scene_path = "res://addons/core/Jumbotron.tscn"
 
 static func jumbo_notif(opts):
-	var jumbotron = load(jumbotron_scene_path).instantiate()
+	var scene = opts.get("scene", load(jumbotron_scene_path))
+	var jumbotron = opts.get("instance", scene.instantiate())
 	Navi.add_child(jumbotron)
 
 	var header = opts.get("header")
