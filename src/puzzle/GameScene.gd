@@ -78,7 +78,7 @@ func rebuild_puzzle():
 		return
 
 	puzzle_node.win.connect(on_puzzle_win)
-	puzzle_node.ready.connect(on_puzzle_ready)
+	puzzle_node.ready.connect(update_hud)
 
 	puzzle_node.player_moved.connect(update_hud)
 	puzzle_node.player_undo.connect(update_hud)
@@ -89,9 +89,6 @@ func rebuild_puzzle():
 	setup_theme(puzzle_node)
 
 	add_child.call_deferred(puzzle_node)
-
-func on_puzzle_ready():
-	update_hud()
 
 func update_hud():
 	if hud and puzzle_node:
@@ -108,8 +105,9 @@ func update_hud():
 		if message != null:
 			data["level_message"] = message
 		var total_levels = len(game_def.levels)
-		data["level_number"] = clamp(puzzle_num + 1, 1, total_levels)
-		data["level_number_total"] = total_levels
+		if not puzzle_node.state.win: # skip updates after we've won (i.e. wait until next puzzle load)
+			data["level_number"] = clamp(puzzle_num + 1, 1, total_levels)
+			data["level_number_total"] = total_levels
 		hud.update_state(data)
 
 ## load theme #####################################################################
@@ -169,13 +167,13 @@ func on_puzzle_win():
 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 		instance.ready.connect(func(): instance.prizes.set_visible(false))
 
-	puzzle_num += 1
 
 	var opts = {header=header, body=body, pause=false,
 		on_close=func():
 		if game_complete:
 			nav_to_world_map()
 		else:
+			puzzle_num += 1
 			if puzzle_node.has_method("animate_exit"):
 				await puzzle_node.animate_exit()
 			rebuild_puzzle()}
