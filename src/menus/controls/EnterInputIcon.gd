@@ -66,7 +66,7 @@ func axis_to_input_text(axis):
 
 func set_icon_for_action(action_name, device=null):
 	if Engine.is_editor_hint():
-		input_text = U.rand_of(["A Button", "Enter", "X", "Ctrl+Z"])
+		input_text = U.rand_of(["A Button", "Space", "X", "Ctrl+Z"])
 		return
 	if not device:
 		device = InputHelper.device
