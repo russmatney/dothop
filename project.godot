@@ -31,10 +31,9 @@ Sounds="*res://src/Sounds.gd"
 
 [display]
 
-window/size/viewport_width=1200
+window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="viewport"
-window/stretch/scale_mode="integer"
 
 [editor_plugins]
 

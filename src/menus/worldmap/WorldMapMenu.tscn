@@ -26,7 +26,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 
 [node name="PuzzleMap" parent="." node_paths=PackedStringArray("current_marker") instance=ExtResource("6_onobc")]
 unique_name_in_owner = true
-position = Vector2(832, 418)
+position = Vector2(925, 449)
 scale = Vector2(5, 5)
 current_marker = NodePath("@Marker2D@18131")
 zoom_scale_min = 5.0

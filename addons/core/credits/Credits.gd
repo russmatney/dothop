@@ -16,6 +16,7 @@ var added_lines = []
 ## ready ############################################################
 
 func _ready():
+	credits_scroll_container.scroll_vertical = 0
 	scroll_delay = pause_scroll_delay
 
 	# clear lines
