@@ -22,7 +22,7 @@ var current_puzzle_index = 0
 
 func _ready():
 	if not Engine.is_editor_hint():
-		SoundManager.play_music(Music.late_night_radio)
+		SoundManager.play_music(Music.late_night_radio, 2.0)
 		reset_map()
 
 	var next_to_complete_puzzle_idx = 0

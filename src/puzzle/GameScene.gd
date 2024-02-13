@@ -42,7 +42,11 @@ func _ready():
 			SoundManager.play_music(song, 2.0)
 
 func _exit_tree():
-	SoundManager.stop_music(2.0)
+	var song = puzzle_theme.get_background_music()
+	var songs = SoundManager.get_currently_playing_music()
+	if len(songs) == 1:
+		if songs[0] == song:
+			SoundManager.stop_music(2.0)
 
 func nav_to_world_map():
 	# TODO better navigation (string-less, path-less)
