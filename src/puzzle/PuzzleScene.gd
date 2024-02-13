@@ -289,7 +289,7 @@ func clear_nodes():
 		if ch.is_in_group("generated"):
 			if pcam != null:
 				pcam.erase_follow_group_node(ch)
-			ch.free()
+			ch.queue_free()
 
 var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
 var pcam

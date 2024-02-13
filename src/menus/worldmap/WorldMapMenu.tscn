@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@18131")
+current_marker = NodePath("@Marker2D@18711")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -98,7 +98,7 @@ text = "<"
 unique_name_in_owner = true
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-focus_neighbor_bottom = NodePath("/root/@EditorNode@17140/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@62/@VBoxContainer@63/@PanelContainer@110/MainScreen/@CanvasItemEditor@9462/@VSplitContainer@9281/@HSplitContainer@9283/@HSplitContainer@9285/@Control@9286/@SubViewportContainer@9287/@SubViewport@9288/WorldMapMenu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer3/PuzzleList/@TextureRect@18153")
+focus_neighbor_bottom = NodePath("/root/@EditorNode@17140/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@62/@VBoxContainer@63/@PanelContainer@110/MainScreen/@CanvasItemEditor@9462/@VSplitContainer@9281/@HSplitContainer@9283/@HSplitContainer@9285/@Control@9286/@SubViewportContainer@9287/@SubViewport@9288/WorldMapMenu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer3/PuzzleList/@TextureRect@18731")
 theme = ExtResource("11_hm0xn")
 text = "Them Dots"
 
@@ -107,6 +107,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("11_hm0xn")
+disabled = true
 text = ">"
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
@@ -136,7 +137,7 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme = ExtResource("14_vrel8")
 bbcode_enabled = true
-text = "[center]Start Puzzle 7"
+text = "[center]Start Puzzle 5"
 fit_content = true
 scroll_active = false
 
@@ -159,11 +160,10 @@ size_flags_vertical = 3
 
 [node name="PuzzleSetIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(64, 64)
-offset_left = 304.0
+offset_left = 168.0
 offset_top = 523.0
-offset_right = 368.0
+offset_right = 232.0
 offset_bottom = 587.0
 pivot_offset = Vector2(32, 32)
 texture = ExtResource("8_sq8hu")
