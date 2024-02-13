@@ -23,7 +23,7 @@ static func jumbo_notif(opts):
 	jumbotron.set_control_icon()
 
 	jumbotron.jumbo_closed.connect(func():
-		if on_close:
+		if on_close and is_instance_valid(on_close.get_object()):
 			on_close.call()
 		if pause:
 			Navi.get_tree().paused = false
