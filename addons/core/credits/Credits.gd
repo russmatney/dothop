@@ -3,6 +3,7 @@ extends CanvasLayer
 class_name Credits
 
 @export var credit_line_scene: PackedScene = preload("res://addons/core/credits/CreditLine.tscn")
+@export var credit_header_scene: PackedScene = preload("res://addons/core/credits/CreditHeader.tscn")
 @onready var credits_lines_container: VBoxContainer = $%CreditsLinesContainer
 @onready var credits_scroll_container: ScrollContainer = $%CreditsScrollContainer
 
@@ -27,13 +28,28 @@ func _ready():
 	added_lines = []
 
 	for lines in get_credit_lines():
-		var new_line = credit_line_scene.instantiate()
-		new_line.text = "[center]\n"
+		var header_lines = []
+		var body_lines = []
+		var first_line
+		for l in lines:
+			if l != "":
+				first_line = l
+				break
+
+		var line_label
+		if first_line.begins_with("# "):
+			line_label = credit_header_scene.instantiate()
+		else:
+			line_label = credit_line_scene.instantiate()
+
+		line_label.text = "[center]\n"
 		for line in lines:
-			new_line.text += line + "\n"
-		new_line.text += "[/center]"
-		added_lines.append(new_line)
-		credits_lines_container.add_child(new_line)
+			if line == first_line:
+				line = line.trim_prefix("# ")
+			line_label.text += line + "\n"
+		line_label.text += "[/center]"
+		added_lines.append(line_label)
+		credits_lines_container.add_child(line_label)
 
 ## input ############################################################
 

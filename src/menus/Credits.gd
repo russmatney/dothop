@@ -5,9 +5,10 @@ var dothop_credits = [
 	[
 		"",
 		"",
-		"Dot Hop",
+		"# Dot Hop",
 		"",
-		"",
+	], [
+		"by Russell Matney",
 	], [
 		"",
 		"",
@@ -16,7 +17,9 @@ var dothop_credits = [
 		"",
 	],
     [
-	"Music",
+	"",
+	"# Music",
+	], [
 	"",
 	"Late Night Radio",
 	"by Kevin MacLeod (incompetech.com)",
@@ -36,9 +39,12 @@ var dothop_credits = [
 	"https://sulosounds.itch.io/100-songs",
 	"CC0 - Public Domain",
 	"https://creativecommons.org/share-your-work/public-domain/cc0/",
+	"",
 	],
     [
-	"Sounds",
+	"",
+	"# Sounds",
+	], [
 	"",
 	"retro game weapon sound effects",
 	"happysoulmusic.com",
@@ -52,7 +58,9 @@ var dothop_credits = [
 	"",
 	],
     [
-	"Fonts",
+	"",
+	"# Fonts",
+	], [
 	"",
 	"born2bsportyv2",
 	"by japanyoshi",
@@ -73,7 +81,9 @@ var dothop_credits = [
 	"",
 	],
     [
-	"Color Palettes",
+	"",
+	"# Color Palettes",
+	], [
 	"",
 	"lospec 500",
 	"A collaboration, including Foxbutt, Rhoq, Dimi, Skeddles, MiggityMoogity,
@@ -87,7 +97,9 @@ var dothop_credits = [
 	"",
 	],
     [
-	"Art",
+	"",
+	"# Art",
+	], [
 	"",
 	"Treasure Hunters (Wood + Paper Panel UI)",
 	"By Pixel Frog",
@@ -100,9 +112,12 @@ var dothop_credits = [
 	"https://www.kenney.nl/assets/input-prompts",
 	"Public Domain",
 	"https://creativecommons.org/publicdomain/zero/1.0/",
+	"",
 	],
     [
-	"Godot Addons",
+	"",
+	"# Godot Addons",
+	], [
 	"",
 	"AsepriteWizard",
 	"https://github.com/viniciusgerevini/godot-aseprite-wizard",
@@ -131,12 +146,19 @@ var dothop_credits = [
 	"Sound Manager",
 	"https://github.com/nathanhoad/godot_sound_manager",
 	"MIT License",
+	"",
 	],
     [
-	"All other art, music, and sounds created with love by yours truly!",
+	"",
+	"# Other",
+	], [
+	"",
+	"All other art, music, and sounds created by Russell Matney",
+	"",
 	],
     [
-	"Patrons",
+	"# Patrons",
+	], [
 	"",
 	"Cameron Kingsbury",
 	"Duaa Osman",
@@ -145,11 +167,24 @@ var dothop_credits = [
 	"Aspen Smith",
 	"Jake Bartlam",
 	"Ellie Matney",
+	"",
 	],
     [
+	"",
+	"# Testers",
+	], [
+	"",
+	"tompsognathus",
+	"",
+	"",
 	"Many thanks to all the testers and brainstormers who listened and gave feedback!",
 	"",
-	"Thank you!",
+	"",
+	], [
+	"",
+	"# Thank you for playing!",
+	"",
+	"",
 	],
 ]
 
