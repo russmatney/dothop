@@ -50,14 +50,9 @@ func on_visibility_changed():
 	else: # show
 		match get_tree().current_scene.name:
 			"WorldMapMenu":
-				worldmap_button.set_disabled(true)
-				theme_button.set_disabled(true)
-			"DotHopGameScene":
-				worldmap_button.set_disabled(false)
-				theme_button.set_disabled(false)
+				[worldmap_button, theme_button].map(U.disable_button)
 			_:
-				worldmap_button.set_disabled(false)
-				theme_button.set_disabled(false)
+				[worldmap_button, theme_button].map(U.enable_button)
 		resume_button.visibility_changed.connect(func(): resume_button.grab_focus())
 
 ## input ###################################################################
