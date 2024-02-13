@@ -32,7 +32,7 @@ modulate_color = Color(1, 0.101285, 0.0843643, 1)
 [resource]
 AcceptDialog/styles/panel = ExtResource("1_hftyr")
 Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.141176, 1)
-Button/colors/font_hover_color = Color(0.949187, 0.949187, 0.141176, 1)
+Button/colors/font_hover_color = Color(0.803922, 0.803922, 0.0156863, 1)
 Button/colors/font_hover_pressed_color = Color(0.949187, 0.949187, 0.141176, 1)
 Button/font_sizes/font_size = 32
 Button/fonts/font = ExtResource("2_vaig3")
