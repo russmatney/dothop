@@ -15,7 +15,10 @@ func _init(events=[]):
 ## apply events #######################################################
 
 func apply_events(events):
-	Log.prn("applying %s events" % len(events), events.map(func(e): return e.get_display_name()))
+	Log.prn("applying %s events, including" % len(events),
+		events.filter(func(ev):
+			return not ev is PuzzleCompleted)\
+		.map(func(e): return e.get_display_name()))
 
 	for event in events:
 		apply_event(event)
