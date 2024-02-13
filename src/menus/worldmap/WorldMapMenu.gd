@@ -113,7 +113,6 @@ func show_puzzle_set(puzzle_set):
 	# title
 	puzzle_set_title.text = "[center]%s[/center]" % puzzle_set.get_display_name()
 	start_puzzle_set_button.text = puzzle_set.get_display_name()
-	start_puzzle_set_button.grab_focus.call_deferred()
 
 	next_puzzle_set_button.set_disabled(!next_puzzle_set_unlocked())
 	previous_puzzle_set_button.set_disabled(!previous_puzzle_set_unlocked())
@@ -154,17 +153,17 @@ func show_puzzle_set(puzzle_set):
 
 	if next_puzzle_icon:
 		start_puzzle_set_button.focus_neighbor_bottom = next_puzzle_icon.get_path()
-		U.call_in(0.4, self, func(): move_level_cursor(next_puzzle_icon, {no_show=true}))
+		U.call_in(0.4, self, func():
+			move_level_cursor(next_puzzle_icon, {no_move=true})
+			start_puzzle_set_button.grab_focus.call_deferred())
 
 func move_level_cursor(icon, opts={}):
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
 	start_puzzle_n_label.text = "[center]Start Puzzle %s" % str(idx + 1)
 
-	if opts.get("no_show", false):
-		puzzle_set_icon.modulate.a = 0.0
+	if opts.get("no_move", false):
 		puzzle_set_icon.position = icon.global_position
-		return
 
 	var time = 0.4
 	var t = create_tween()
