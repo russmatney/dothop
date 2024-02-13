@@ -16,6 +16,8 @@ var waiting_for_new_input = false
 var current_key_input
 var current_joy_input
 
+signal edit_pressed()
+
 ## ready ###############################################3
 
 func _ready():
@@ -68,12 +70,17 @@ func render_action_icons():
 
 func on_edit_pressed():
 	waiting_for_new_input = true
-	Log.pr("edit pressed, waiting for input!", action_name)
-	edit_button.text = "...press new key..."
+	edit_button.text = "...."
+	edit_pressed.emit()
+
+func clear_editing_unless(source_button):
+	if source_button != self:
+		accept_new_control()
 
 ## listening for new key ###############################################3
 
-func _unhandled_input(event) -> void:
+# NOTE not 'unhandled' here, we need to grab everything
+func _input(event) -> void:
 	if not waiting_for_new_input: return
 
 	var accepted = false
@@ -88,6 +95,9 @@ func _unhandled_input(event) -> void:
 		accepted = true
 
 	if accepted:
-		render_action_icons()
-		edit_button.text = "Edit"
-		waiting_for_new_input = false
+		accept_new_control()
+
+func accept_new_control():
+	render_action_icons()
+	edit_button.text = "Edit"
+	waiting_for_new_input = false

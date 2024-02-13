@@ -24,12 +24,20 @@ func render_action_rows():
 	U.remove_children(action_rows)
 	for action in displayed_actions:
 		var row = edit_action_scene.instantiate()
+		row.edit_pressed.connect(on_edit_pressed.bind(row))
 		row.action_name = action
 		action_rows.add_child(row)
 
 	for row in action_rows.get_children():
 		row.set_focus()
 		break
+
+## on edit
+
+func on_edit_pressed(row):
+	for r in action_rows.get_children():
+		if r != row:
+			r.clear_editing_unless(row)
 
 ## reset controls ###############################################3
 
