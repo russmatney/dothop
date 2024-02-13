@@ -10,6 +10,8 @@ static func jumbo_notif(opts):
 	var scene = opts.get("scene", load(jumbotron_scene_path))
 	var jumbotron = opts.get("instance", scene.instantiate())
 	Navi.add_child(jumbotron)
+	# this opt-in pattern might make more sense than 'Navi.menus'
+	Navi.navigating.connect(jumbotron.on_navigate)
 
 	var header = opts.get("header")
 	var body = opts.get("body", "")
@@ -88,3 +90,8 @@ func fade_out():
 	t.tween_property($PanelContainer, "modulate:a", 0, 0.4)
 	t.tween_callback(set_visible.bind(false))
 	t.tween_callback(func(): jumbo_closed.emit())
+
+func on_navigate():
+	# when navi is used to navigate elsewhere, kill the jumbotron
+	# NOTE that we skip the on_close, which usually navigates away anyway
+	queue_free()

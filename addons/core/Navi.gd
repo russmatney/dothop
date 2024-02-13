@@ -7,6 +7,9 @@ var first_scene
 var current_scene
 var last_scene_stack = []
 
+signal pause_toggled(paused)
+signal navigating()
+
 ## ready ###################################################################
 
 func _ready():
@@ -68,6 +71,8 @@ func nav_to(scene, opts={}):
 	_deferred_goto_scene.call_deferred(scene, opts)
 	# ensure unpaused
 	resume()
+	# emit to any listeners
+	navigating.emit()
 
 func _deferred_goto_scene(scene, opts={}):
 	if first_scene != null and is_instance_valid(first_scene):
@@ -127,8 +132,6 @@ func add_child_to_current(child, deferred=true):
 		current_scene.add_child(child)
 
 ## pause ###################################################################
-
-signal pause_toggled(paused)
 
 func toggle_pause():
 	if get_tree().paused:
