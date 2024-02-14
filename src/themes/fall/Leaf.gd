@@ -40,13 +40,9 @@ func render():
 				U.set_random_frame(anim)
 				animate_entry()
 			DHData.dotType.Dotted:
-				var t = 0.4
-				animate_exit(t)
-				await get_tree().create_timer(t).timeout
-				if type == DHData.dotType.Dotted: # if we're still dotted
-					anim.set_visible(false)
-				else:
-					render()
+				anim.set_visible(true)
+				anim.play("dotted")
+				U.set_random_frame(anim)
 			DHData.dotType.Goal:
 				hide_anims()
 				anim_goal.set_visible(true)

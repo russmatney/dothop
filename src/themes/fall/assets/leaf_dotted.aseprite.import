@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://doayo17k2jw6"
+path="res://.godot/imported/leaf_dotted.aseprite-288949588532ca063fb209ffeb613826.res"
+
+[deps]
+
+source_file="res://src/themes/fall/assets/leaf_dotted.aseprite"
+dest_files=["res://.godot/imported/leaf_dotted.aseprite-288949588532ca063fb209ffeb613826.res"]
+
+[params]
+
