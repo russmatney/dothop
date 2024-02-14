@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://src/PuzzleSet.gd" id="3_qrqrt"]
 [ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_2goo6"]
 
-[sub_resource type="Resource" id="Resource_4i8oq"]
+[sub_resource type="Resource" id="Resource_0kbbw"]
 script = ExtResource("2_00afq")
-_id = "23"
+_id = "13"
 
 [sub_resource type="Resource" id="Resource_2rd31"]
 script = ExtResource("3_qrqrt")
@@ -16,7 +16,8 @@ _id = "16"
 
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
-puzzle_theme = SubResource("Resource_4i8oq")
+game_def_path = "res://src/puzzles/dothop-one.txt"
+puzzle_theme = SubResource("Resource_0kbbw")
 puzzle_set = SubResource("Resource_2rd31")
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]

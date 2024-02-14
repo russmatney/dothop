@@ -13,9 +13,10 @@ script = ExtResource("1_n4qjr")
 theme = SubResource("Resource_5ckec")
 
 [node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -248.0
-offset_top = -180.0
-offset_right = 342.0
-offset_bottom = 406.0
+offset_left = -198.0
+offset_top = -204.0
+offset_right = 379.0
+offset_bottom = 172.0
+scale = Vector2(3, 3)
 texture = ExtResource("6_cwjxf")
-stretch_mode = 4
+stretch_mode = 1
