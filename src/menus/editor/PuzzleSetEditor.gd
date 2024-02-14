@@ -50,6 +50,7 @@ func select_puzzle_set(ps: PuzzleSet):
 		var dotted_texture = ps.get_theme().get_dotted_icon()
 		var player_texture = ps.get_theme().get_player_icon()
 		var texture = TextureButton.new()
+		texture.custom_minimum_size = Vector2(50, 50)
 
 		texture.set_texture_hover(player_texture)
 		texture.set_texture_normal(dot_texture)
@@ -71,22 +72,14 @@ func select_puzzle(ps: PuzzleSet, p):
 	current_puzzle_analysis_label.text = str(p)
 
 	if puzzle_node != null:
-		puzzle_container.remove_child.call_deferred(puzzle_node)
-		puzzle_node.queue_free()
-		# is this a race case? or is it impossible?
-		await puzzle_node.tree_exited
+		puzzle_node.free()
 
 	var theme = ps.get_theme()
-
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_scene=theme.get_puzzle_scene(),
 		game_def=ps.get_game_def(),
+		puzzle_theme=theme,
 		puzzle_num=p.get("idx"),
 		})
-	# TODO simply by passing theme in above?
-	puzzle_node.player_scenes = theme.get_player_scenes()
-	puzzle_node.dot_scenes = theme.get_dot_scenes()
-	puzzle_node.goal_scenes = theme.get_goal_scenes()
 	# puzzle_node.hide_background = true
 
 	puzzle_container.add_child(puzzle_node)

@@ -41,14 +41,24 @@ columns = 3
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+render_target_update_mode = 4
+
+[node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-z_index = -1
-layout_mode = 2
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport"]
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
