@@ -30,13 +30,13 @@ func render():
 		var icon = TextureRect.new()
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
 		if puzzle_set.completed_puzzle(i):
-			icon.set_texture(theme.get_dotted_icon())
+			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			icon.set_texture(theme.get_dot_icon())
+			icon.set_texture(theme.get_goal_icon())
 		else:
-			icon.set_texture(theme.get_dot_icon())
+			icon.set_texture(theme.get_dotted_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 
 		if i == puzzle_num:

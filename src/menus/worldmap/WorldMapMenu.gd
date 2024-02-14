@@ -128,16 +128,16 @@ func show_puzzle_set(puzzle_set):
 		icon.gui_input.connect(on_level_icon_gui_input)
 		icon.focus_entered.connect(move_level_cursor.bind(icon))
 		if puzzle_set.completed_puzzle(i):
-			icon.set_texture(theme.get_dotted_icon())
+			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			# should get overwritten if there's an incomplete, can-play puzzle
 			next_puzzle_icon = icon
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			icon.set_texture(theme.get_dot_icon())
+			icon.set_texture(theme.get_goal_icon())
 			next_puzzle_icon = icon
 		else:
-			icon.set_texture(theme.get_dot_icon())
+			icon.set_texture(theme.get_dotted_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 		puzzle_list.add_child(icon)
 
