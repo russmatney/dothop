@@ -241,6 +241,10 @@
 							"0": "res://src/themes/fall/Leaf.tscn"
 						}
 					},
+					"dotted_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/fall/assets/leaf_greenred_dotted.png"
+					},
 					"goal_scenes": {
 						"type": "array",
 						"value": {
