@@ -40,11 +40,9 @@ func data():
 	return {
 		puzzle_script_path=get_puzzle_script_path(),
 		name=get_display_name(),
-		theme=get_theme(),
-		icon_texture=get_icon_texture(),
+		theme=get_theme().get_display_name(),
 		completed=is_completed(),
 		unlocked=is_unlocked(),
-		max_puzzle_idx=get_max_completed_puzzle_index(),
 		}
 
 ## computed ############################################
