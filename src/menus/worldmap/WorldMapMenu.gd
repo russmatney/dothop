@@ -114,8 +114,8 @@ func show_puzzle_set(puzzle_set):
 	puzzle_set_title.text = "[center]%s[/center]" % puzzle_set.get_display_name()
 	start_puzzle_set_button.text = puzzle_set.get_display_name()
 
-	next_puzzle_set_button.set_disabled(!next_puzzle_set_unlocked())
-	previous_puzzle_set_button.set_disabled(!previous_puzzle_set_unlocked())
+	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_unlocked())
+	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_unlocked())
 
 	var theme = puzzle_set.get_theme()
 
@@ -138,6 +138,8 @@ func show_puzzle_set(puzzle_set):
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dotted_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
+			# should get overwritten if there's an incomplete, can-play puzzle
+			next_puzzle_icon = icon
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_texture(theme.get_dot_icon())
