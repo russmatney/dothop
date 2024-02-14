@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_eqjtf"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_0pp3x"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="3_63db2"]
-[ext_resource type="Texture2D" uid="uid://bxsr7k8mimuxn" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_enter.png" id="4_4ckkv"]
+[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_pqsqf"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="5_qceta"]
 [ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="6_w82ss"]
 [ext_resource type="Texture2D" uid="uid://dwim4t4tkxx10" path="res://src/themes/space/assets/goal.png" id="8_ne6s0"]
@@ -103,8 +103,8 @@ unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("4_4ckkv")
-input_text = "Enter"
+texture = ExtResource("5_pqsqf")
+input_text = "Space"
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2

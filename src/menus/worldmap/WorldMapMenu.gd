@@ -6,7 +6,6 @@ extends CanvasLayer
 @onready var puzzle_map = $%PuzzleMap
 @onready var puzzle_list = $%PuzzleList
 @onready var puzzle_set_icon = $%PuzzleSetIcon
-@onready var puzzle_set_title = $%PuzzleSetTitle
 @onready var start_puzzle_set_button = $%StartPuzzleSetButton
 @onready var start_puzzle_n_label = $%StartPuzzleNLabel
 
@@ -100,8 +99,6 @@ func on_level_icon_gui_input(event: InputEvent):
 
 ## show puzzle set ################################################
 
-var puzzle_label = preload("res://src/menus/worldmap/PuzzleLabel.tscn")
-
 func show_puzzle_set(puzzle_set):
 	# update puzzle map
 	var markers = puzzle_map.get_markers()
@@ -111,17 +108,12 @@ func show_puzzle_set(puzzle_set):
 			break
 
 	# title
-	puzzle_set_title.text = "[center]%s[/center]" % puzzle_set.get_display_name()
 	start_puzzle_set_button.text = puzzle_set.get_display_name()
 
 	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_unlocked())
 	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_unlocked())
 
 	var theme = puzzle_set.get_theme()
-
-	# var label = puzzle_label.instantiate()
-	# label.text = "[center]%s[/center]" % (puzzle.idx + 1)
-
 	var next_puzzle_icon
 
 	# list of puzzles
