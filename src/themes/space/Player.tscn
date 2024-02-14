@@ -1,44 +1,59 @@
-[gd_scene load_steps=8 format=3 uid="uid://csgpsdj4n3rfj"]
+[gd_scene load_steps=9 format=3 uid="uid://csgpsdj4n3rfj"]
 
 [ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
-[ext_resource type="Texture2D" uid="uid://br4lr3d2a7upy" path="res://src/themes/space/goal.png" id="2_ha0kb"]
+[ext_resource type="Texture2D" uid="uid://0kk2jf15j75s" path="res://src/themes/space/player2.png" id="2_8lvnh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vy1x6"]
-atlas = ExtResource("2_ha0kb")
+[sub_resource type="AtlasTexture" id="AtlasTexture_28fen"]
+atlas = ExtResource("2_8lvnh")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v2tbi"]
-atlas = ExtResource("2_ha0kb")
-region = Rect2(16, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_177lm"]
-atlas = ExtResource("2_ha0kb")
+[sub_resource type="AtlasTexture" id="AtlasTexture_g0crc"]
+atlas = ExtResource("2_8lvnh")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gapst"]
-atlas = ExtResource("2_ha0kb")
+[sub_resource type="AtlasTexture" id="AtlasTexture_vywny"]
+atlas = ExtResource("2_8lvnh")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_j1q8b"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qucd"]
+atlas = ExtResource("2_8lvnh")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rir2h"]
+atlas = ExtResource("2_8lvnh")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5epdi"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vy1x6")
+"texture": SubResource("AtlasTexture_28fen")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v2tbi")
+"texture": SubResource("AtlasTexture_g0crc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_177lm")
+"texture": SubResource("AtlasTexture_vywny")
+}],
+"loop": false,
+"name": &"moving",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28fen")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gapst")
+"texture": SubResource("AtlasTexture_0qucd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vy1x6")
+"texture": SubResource("AtlasTexture_rir2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_28fen")
 }],
 "loop": true,
-"name": &"goal",
+"name": &"shine",
 "speed": 10.0
 }]
 
@@ -49,8 +64,9 @@ script = ExtResource("1_j03dg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_j1q8b")
-animation = &"goal"
+sprite_frames = SubResource("SpriteFrames_5epdi")
+animation = &"moving"
+autoplay = "shine"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -58,5 +74,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/themes/space/assets/goal.aseprite"
+"source": "res://src/themes/space/assets/player2.aseprite"
 }

@@ -13,10 +13,11 @@ func _ready():
 	super._ready()
 	animate_entry()
 
-## process #########################################################
+	anim.animation_finished.connect(on_anim_finished)
 
-func _process(_delta):
-	pass
+func on_anim_finished():
+	if anim.animation == "moving":
+		anim.play("shine")
 
 ## set_initial_coord #########################################################
 
@@ -56,6 +57,7 @@ func animate_exit(t):
 ## move #########################################################
 
 func move_to_coord(coord):
+	anim.play("moving")
 	# first, reset position
 	position = current_position()
 
@@ -99,6 +101,7 @@ func undo_to_same_coord():
 ## move attempts #########################################################
 
 func move_attempt_stuck(move_dir:Vector2):
+	anim.play("moving")
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
@@ -112,6 +115,7 @@ func move_attempt_stuck(move_dir:Vector2):
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func move_attempt_away_from_edge(move_dir:Vector2):
+	anim.play("moving")
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
@@ -125,6 +129,7 @@ func move_attempt_away_from_edge(move_dir:Vector2):
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 func move_attempt_only_nulls(move_dir:Vector2):
+	anim.play("moving")
 	var dist = 20.0
 	var og_pos = current_position()
 	var pos = move_dir * dist + current_position()
