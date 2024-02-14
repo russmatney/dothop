@@ -3,7 +3,7 @@ extends Node
 
 ## _ready ###########################################
 
-func _ready():
+func _enter_tree():
 	load_game()
 
 ## data store ###########################################

@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=3 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
+[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 
 [node name="PuzzleSetEditor" type="CanvasLayer"]
 script = ExtResource("1_02h6s")
@@ -12,6 +13,28 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PuzzlesGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("2_4l1l2")
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
