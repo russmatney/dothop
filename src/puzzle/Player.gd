@@ -2,13 +2,6 @@
 extends Node2D
 class_name DotHopPlayer
 
-## config warnings ###########################################################
-
-func _get_configuration_warnings():
-	return U._config_warning(self, {
-		expected_nodes=["ObjectLabel", "ColorRect"]
-		})
-
 ## vars #########################################################
 
 @export var square_size = 32 :

@@ -18,12 +18,15 @@ func _ready():
 		DHData.dotType.Dot:
 			anim = U.rand_of([asteroid1, asteroid2])
 			anim.play("dot")
+			U.set_random_frame(anim)
 		DHData.dotType.Dotted:
 			anim = U.rand_of([asteroid1, asteroid2])
 			anim.play("dotted")
+			U.set_random_frame(anim)
 		DHData.dotType.Goal:
 			anim = star
 			anim.play("goal")
+			U.set_random_frame(anim)
 
 	for an in anims:
 		if anim != an:

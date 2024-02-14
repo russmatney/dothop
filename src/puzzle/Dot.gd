@@ -2,13 +2,6 @@
 extends Node2D
 class_name DotHopDot
 
-## config warnings ###########################################################
-
-func _get_configuration_warnings():
-	return U._config_warning(self, {
-		expected_nodes=["ObjectLabel", "ColorRect"]
-		})
-
 ## vars #########################################################
 
 @export var type: DHData.dotType

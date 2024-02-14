@@ -13,11 +13,6 @@ extends DotHopDot
 func all_anims() -> Array:
 	return [anim_green, anim_greenred, anim_purple, anim_redorange, anim_yellow]
 
-## config warnings ###########################################################
-
-func _get_configuration_warnings():
-	return super._get_configuration_warnings()
-
 ## ready ###########################################################
 
 var anim
@@ -42,6 +37,7 @@ func render():
 			DHData.dotType.Dot:
 				anim.set_visible(true)
 				anim.play("twist")
+				U.set_random_frame(anim)
 				animate_entry()
 			DHData.dotType.Dotted:
 				var t = 0.4

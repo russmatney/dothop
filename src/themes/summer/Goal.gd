@@ -3,11 +3,6 @@ extends DotHopDot
 
 @onready var anim = $AnimatedSprite2D
 
-## config warnings ###########################################################
-
-func _get_configuration_warnings():
-	return super._get_configuration_warnings()
-
 ## ready ###########################################################
 
 func _ready():
