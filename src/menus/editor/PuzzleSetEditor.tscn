@@ -24,17 +24,38 @@ size_flags_vertical = 3
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="PuzzlesGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+layout_mode = 2
+theme = ExtResource("2_4l1l2")
+
+[node name="PuzzlesGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_4l1l2")
+columns = 3
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="CurrentPuzzleLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="CurrentPuzzleAnalysisLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer2/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
