@@ -47,6 +47,9 @@ func get_dot_icon() -> Texture:
 func get_dotted_icon() -> Texture:
 	return get_resource("dotted_icon_texture")
 
+func get_goal_icon() -> Texture:
+	return get_resource("goal_icon_texture")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
