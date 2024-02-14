@@ -150,8 +150,7 @@ func on_puzzle_win():
 	if game_complete:
 		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
 		body = U.rand_of([
-			"Your friends must think you're\npretty nerdy",
-			"Be proud, for you are a nerd",
+			"Be proud! For you are a NERD",
 			"Congratulations, nerd!",
 			"You're a real hop-dotter!",
 			])
