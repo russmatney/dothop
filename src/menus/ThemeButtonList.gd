@@ -1,13 +1,9 @@
 @tool
 extends ButtonList
 
-var themes = []
+@onready var themes = Store.get_themes()
 
 func _ready():
-	var ent = Pandora.get_entity(PuzzleThemeIDs.DEBUG)
-	if ent:
-		themes = Pandora.get_all_entities(Pandora.get_category(ent._category_id))
-
 	for th in themes:
 		add_menu_item({
 			label=th.get_display_name(),
