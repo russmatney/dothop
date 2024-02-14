@@ -11,7 +11,7 @@ func _get_configuration_warnings():
 
 ## vars #########################################################
 
-@export var square_size = 16 :
+@export var square_size = 32 :
 	set(v):
 		square_size = v
 		render()

@@ -1,16 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://y6dvlkypc634"]
+[gd_scene load_steps=5 format=3 uid="uid://y6dvlkypc634"]
 
 [ext_resource type="Script" path="res://src/themes/fall/FallPuzzle.gd" id="1_m31km"]
 [ext_resource type="Texture2D" uid="uid://gs0bxiuifg0i" path="res://src/themes/fall/assets/fallbg-1_sheet.png" id="2_g10aw"]
-[ext_resource type="PackedScene" uid="uid://dpn7mqij5du3n" path="res://src/themes/fall/Player.tscn" id="2_twrbi"]
-[ext_resource type="PackedScene" uid="uid://di85piestdv0m" path="res://src/themes/fall/Leaf.tscn" id="4_30rss"]
-[ext_resource type="Script" path="res://src/themes/fall/Player.gd" id="4_xp4wa"]
-[ext_resource type="Script" path="res://src/themes/fall/Leaf.gd" id="6_8tlmh"]
+[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
 
-[node name="FallPuzzle" type="Node2D"]
+[sub_resource type="Resource" id="Resource_6arfg"]
+script = ExtResource("2_yfday")
+_id = "15"
+
+[node name="FallPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_m31km")
-game_def_path = "res://src/puzzles/dothop-one.txt"
-square_size = 32
+theme = SubResource("Resource_6arfg")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 modulate = Color(0.7481, 0.7481, 0.7481, 0.780392)
@@ -20,38 +20,3 @@ offset_right = 1458.0
 offset_bottom = 1156.0
 texture = ExtResource("2_g10aw")
 stretch_mode = 1
-
-[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("2_twrbi")]
-z_index = 5
-position = Vector2(32, 32)
-script = ExtResource("4_xp4wa")
-square_size = 32
-
-[node name="Leaf" type="Node2D" parent="." groups=["generated"] instance=ExtResource("4_30rss")]
-modulate = Color(1, 1, 1, 0)
-position = Vector2(22, 22)
-scale = Vector2(0.5, 0.5)
-script = ExtResource("6_8tlmh")
-type = 1
-square_size = 32
-
-[node name="@Node2D@91064" type="Node2D" parent="." groups=["generated"] instance=ExtResource("4_30rss")]
-position = Vector2(64, 32)
-script = ExtResource("6_8tlmh")
-square_size = 32
-
-[node name="@Node2D@91065" type="Node2D" parent="." groups=["generated"] instance=ExtResource("4_30rss")]
-position = Vector2(96, 32)
-script = ExtResource("6_8tlmh")
-square_size = 32
-
-[node name="@Node2D@91066" type="Node2D" parent="." groups=["generated"] instance=ExtResource("4_30rss")]
-position = Vector2(128, 32)
-script = ExtResource("6_8tlmh")
-square_size = 32
-
-[node name="@Node2D@91067" type="Node2D" parent="." groups=["generated"] instance=ExtResource("4_30rss")]
-position = Vector2(160, 32)
-script = ExtResource("6_8tlmh")
-type = 2
-square_size = 32

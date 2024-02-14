@@ -1,16 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://cggxk31fgnci7"]
+[gd_scene load_steps=5 format=3 uid="uid://cggxk31fgnci7"]
 
 [ext_resource type="Script" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
 [ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
-[ext_resource type="PackedScene" uid="uid://b6wwc8int7l4p" path="res://src/puzzle/Player.tscn" id="3_wbj3y"]
-[ext_resource type="Script" path="res://src/puzzle/Player.gd" id="4_x12wn"]
-[ext_resource type="PackedScene" uid="uid://bhwmpvb57mv06" path="res://src/puzzle/Dot.tscn" id="5_2f78u"]
-[ext_resource type="Script" path="res://src/puzzle/Dot.gd" id="6_dv8k7"]
+[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_fp1xt"]
+
+[sub_resource type="Resource" id="Resource_gytqd"]
+script = ExtResource("2_fp1xt")
+_id = "14"
 
 [node name="SpacePuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_biqou")
-game_def_path = "res://src/puzzles/dothop-one.txt"
-square_size = 32
+theme = SubResource("Resource_gytqd")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 anchors_preset = 15
@@ -24,36 +24,3 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_bjihu")
 stretch_mode = 1
-
-[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("3_wbj3y")]
-z_index = 5
-position = Vector2(32, 32)
-script = ExtResource("4_x12wn")
-square_size = 32
-
-[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("5_2f78u")]
-position = Vector2(32, 32)
-script = ExtResource("6_dv8k7")
-type = 1
-square_size = 32
-
-[node name="@Node2D@24744" type="Node2D" parent="." groups=["generated"] instance=ExtResource("5_2f78u")]
-position = Vector2(64, 32)
-script = ExtResource("6_dv8k7")
-square_size = 32
-
-[node name="@Node2D@24746" type="Node2D" parent="." groups=["generated"] instance=ExtResource("5_2f78u")]
-position = Vector2(96, 32)
-script = ExtResource("6_dv8k7")
-square_size = 32
-
-[node name="@Node2D@24748" type="Node2D" parent="." groups=["generated"] instance=ExtResource("5_2f78u")]
-position = Vector2(128, 32)
-script = ExtResource("6_dv8k7")
-square_size = 32
-
-[node name="@Node2D@24750" type="Node2D" parent="." groups=["generated"] instance=ExtResource("5_2f78u")]
-position = Vector2(160, 32)
-script = ExtResource("6_dv8k7")
-type = 2
-square_size = 32

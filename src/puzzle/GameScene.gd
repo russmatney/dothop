@@ -28,7 +28,6 @@ func _ready():
 		return
 
 	game_def = Puzz.parse_game_def(game_def_path)
-	load_theme()
 	rebuild_puzzle()
 
 	hud = get_node_or_null("HUD")
@@ -36,10 +35,9 @@ func _ready():
 	# TODO add music controls and toasts
 	# TODO stop music when pausing or navigating away
 	SoundManager.stop_music(1.0)
-	if puzzle_theme != null:
-		var song = puzzle_theme.get_background_music()
-		if song != null:
-			SoundManager.play_music(song, 2.0)
+	var song = puzzle_theme.get_background_music()
+	if song != null:
+		SoundManager.play_music(song, 2.0)
 
 func _exit_tree():
 	var song = puzzle_theme.get_background_music()
@@ -71,9 +69,10 @@ func rebuild_puzzle():
 
 	# load current level
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
+		# should we pass in the puzzle set here?
 		game_def=game_def,
 		puzzle_num=puzzle_num,
-		puzzle_scene=puzzle_scene
+		puzzle_theme=puzzle_theme,
 		})
 
 	if puzzle_node == null:
@@ -89,8 +88,6 @@ func rebuild_puzzle():
 	puzzle_node.move_attempted.connect(update_hud)
 	puzzle_node.rebuilt_nodes.connect(update_hud)
 	puzzle_node.move_blocked.connect(update_hud)
-
-	setup_theme(puzzle_node)
 
 	add_child.call_deferred(puzzle_node)
 
@@ -116,21 +113,10 @@ func update_hud():
 
 ## load theme #####################################################################
 
-func load_theme():
-	puzzle_scene = puzzle_theme.get_puzzle_scene()
-
 func change_theme(theme):
 	if puzzle_theme != theme:
 		puzzle_theme = theme
-		load_theme()
 		rebuild_puzzle()
-
-func setup_theme(p_node):
-	if not puzzle_theme:
-		return
-	p_node.player_scenes = puzzle_theme.get_player_scenes()
-	p_node.dot_scenes = puzzle_theme.get_dot_scenes()
-	p_node.goal_scenes = puzzle_theme.get_goal_scenes()
 
 ## win #####################################################################
 

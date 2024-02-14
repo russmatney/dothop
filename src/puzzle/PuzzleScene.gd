@@ -42,15 +42,17 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		Log.warn("Could not determine _level_def, cannot build_puzzle_node()")
 		return
 
-	# PackedScene, string, or use fallback
-	var scene = opts.get("puzzle_scene")
+	var _theme = opts.get("puzzle_theme")
+	var scene = opts.get("puzzle_scene", _theme.get_puzzle_scene() if _theme else null)
 	if scene is String:
 		scene = load(scene)
 	elif scene == null:
 		scene = load(fallback_puzzle_scene)
 
 	var node = scene.instantiate()
+
 	node.game_def = _game_def
+	node.theme = _theme
 	node.level_def = _level_def
 	return node
 
@@ -68,12 +70,15 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		if v == true:
 			clear_nodes()
 
+@export var debugging: bool = false
+
+@export var theme: PuzzleTheme
 var game_def
 var level_def :
 	set(ld):
 		level_def = ld
 		init_game_state()
-@export var square_size = 64
+@export var square_size = 32
 var state
 
 signal win
@@ -90,39 +95,6 @@ var obj_type = {
 	"Dotted": DHData.dotType.Dotted,
 	"Goal": DHData.dotType.Goal,
 	}
-
-## custom nodes ##############################################################
-
-var player_scenes = []
-var dot_scenes = []
-var goal_scenes = []
-
-func get_player_scene():
-	if len(player_scenes) > 0:
-		return U.rand_of(player_scenes)
-	return load("res://src/puzzle/Player.tscn")
-
-func get_dot_scene():
-	if len(dot_scenes) > 0:
-		return U.rand_of(dot_scenes)
-	return load("res://src/puzzle/Dot.tscn")
-
-func get_dotted_scene():
-	if len(dot_scenes) > 0:
-		return U.rand_of(dot_scenes)
-	return load("res://src/puzzle/Dot.tscn")
-
-func get_goal_scene():
-	if len(goal_scenes) > 0:
-		return U.rand_of(goal_scenes)
-	return load("res://src/puzzle/Dot.tscn")
-
-func get_scene_for(obj_name):
-	match obj_name:
-		"Player": return get_player_scene()
-		"Dot": return get_dot_scene()
-		"Dotted": return get_dotted_scene()
-		"Goal": return get_goal_scene()
 
 ## enter_tree ##############################################################
 
@@ -289,6 +261,8 @@ func clear_nodes():
 		if ch.is_in_group("generated"):
 			if pcam != null:
 				pcam.erase_follow_group_node(ch)
+			# hide flicker while we wait for queue_free
+			ch.set_visible(false)
 			ch.queue_free()
 
 var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
@@ -345,7 +319,8 @@ func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 		node.position = coord * square_size
 	node.add_to_group("generated", true)
 	add_child(node)
-	node.set_owner(self)
+	if debugging or not Engine.is_editor_hint():
+		node.set_owner(self)
 	return node
 
 func node_for_object_name(obj_name):
@@ -361,6 +336,35 @@ func node_for_object_name(obj_name):
 	elif obj_name not in ["Player"]:
 		Log.warn("no type for object?", obj_name)
 	return node
+
+## custom nodes ##############################################################
+
+func get_scene_for(obj_name):
+	match obj_name:
+		"Player": return get_player_scene()
+		"Dot": return get_dot_scene()
+		"Dotted": return get_dotted_scene()
+		"Goal": return get_goal_scene()
+
+func get_player_scene():
+	if theme and len(theme.get_player_scenes()) > 0:
+		return U.rand_of(theme.get_player_scenes())
+	return load("res://src/puzzle/Player.tscn")
+
+func get_dot_scene():
+	if theme and len(theme.get_dot_scenes()) > 0:
+		return U.rand_of(theme.get_dot_scenes())
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_dotted_scene():
+	if theme and len(theme.get_dot_scenes()) > 0:
+		return U.rand_of(theme.get_dot_scenes())
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_goal_scene():
+	if theme and len(theme.get_goal_scenes()) > 0:
+		return U.rand_of(theme.get_goal_scenes())
+	return load("res://src/puzzle/Dot.tscn")
 
 ## grid helpers ##############################################################
 

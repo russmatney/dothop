@@ -1,15 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://crq5eh3kjrx0s"]
+[gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
 
 [ext_resource type="Script" path="res://src/themes/summer/SummerPuzzle.gd" id="1_n4qjr"]
-[ext_resource type="PackedScene" uid="uid://bhwmpvb57mv06" path="res://src/puzzle/Dot.tscn" id="2_uuroe"]
-[ext_resource type="Script" path="res://src/puzzle/Dot.gd" id="3_bchdy"]
-[ext_resource type="PackedScene" uid="uid://b6wwc8int7l4p" path="res://src/puzzle/Player.tscn" id="4_ae74i"]
-[ext_resource type="Script" path="res://src/puzzle/Player.gd" id="5_nf3kt"]
+[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_lj7be"]
 [ext_resource type="Texture2D" uid="uid://bptlqqe3padky" path="res://src/themes/summer/assets/summerbg1_sheet.png" id="6_fobk3"]
+
+[sub_resource type="Resource" id="Resource_yarm8"]
+script = ExtResource("2_lj7be")
+_id = "24"
 
 [node name="SummerPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_n4qjr")
-square_size = 32
+theme = SubResource("Resource_yarm8")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -179.0
@@ -18,51 +19,3 @@ offset_right = 342.0
 offset_bottom = 355.0
 texture = ExtResource("6_fobk3")
 stretch_mode = 4
-
-[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(64, 0)
-script = ExtResource("3_bchdy")
-square_size = 32
-
-[node name="@Node2D@18192" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(96, 0)
-script = ExtResource("3_bchdy")
-square_size = 32
-
-[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_ae74i")]
-z_index = 5
-position = Vector2(32, 32)
-script = ExtResource("5_nf3kt")
-square_size = 32
-
-[node name="@Node2D@18195" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(32, 32)
-script = ExtResource("3_bchdy")
-type = 1
-square_size = 32
-
-[node name="@Node2D@18197" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(64, 32)
-script = ExtResource("3_bchdy")
-square_size = 32
-
-[node name="@Node2D@18199" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(128, 32)
-script = ExtResource("3_bchdy")
-square_size = 32
-
-[node name="@Node2D@18201" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(160, 32)
-script = ExtResource("3_bchdy")
-type = 2
-square_size = 32
-
-[node name="@Node2D@18203" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(96, 64)
-script = ExtResource("3_bchdy")
-square_size = 32
-
-[node name="@Node2D@18205" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_uuroe")]
-position = Vector2(128, 64)
-script = ExtResource("3_bchdy")
-square_size = 32

@@ -1,63 +1,16 @@
-[gd_scene load_steps=7 format=3 uid="uid://crq5eh3kjrx0s"]
+[gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
 
 [ext_resource type="Script" path="res://src/themes/spring/SpringPuzzle.gd" id="1_n4qjr"]
-[ext_resource type="PackedScene" uid="uid://bhwmpvb57mv06" path="res://src/puzzle/Dot.tscn" id="2_whh0a"]
-[ext_resource type="Script" path="res://src/puzzle/Dot.gd" id="3_i00ea"]
-[ext_resource type="PackedScene" uid="uid://b6wwc8int7l4p" path="res://src/puzzle/Player.tscn" id="4_khdbq"]
-[ext_resource type="Script" path="res://src/puzzle/Player.gd" id="5_i7skh"]
+[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_0jpcc"]
 [ext_resource type="Texture2D" uid="uid://ccp0c8ahlsvx5" path="res://src/themes/spring/assets/springbg1_sheet.png" id="6_cwjxf"]
+
+[sub_resource type="Resource" id="Resource_5ckec"]
+script = ExtResource("2_0jpcc")
+_id = "23"
 
 [node name="SpringPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_n4qjr")
-square_size = 32
-
-[node name="Dot" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(64, 0)
-script = ExtResource("3_i00ea")
-square_size = 32
-
-[node name="@Node2D@26160" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(96, 0)
-script = ExtResource("3_i00ea")
-square_size = 32
-
-[node name="Player" type="Node2D" parent="." groups=["generated", "player"] instance=ExtResource("4_khdbq")]
-z_index = 5
-position = Vector2(32, 32)
-script = ExtResource("5_i7skh")
-square_size = 32
-
-[node name="@Node2D@26163" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(32, 32)
-script = ExtResource("3_i00ea")
-type = 1
-square_size = 32
-
-[node name="@Node2D@26165" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(64, 32)
-script = ExtResource("3_i00ea")
-square_size = 32
-
-[node name="@Node2D@26167" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(128, 32)
-script = ExtResource("3_i00ea")
-square_size = 32
-
-[node name="@Node2D@26169" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(160, 32)
-script = ExtResource("3_i00ea")
-type = 2
-square_size = 32
-
-[node name="@Node2D@26171" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(96, 64)
-script = ExtResource("3_i00ea")
-square_size = 32
-
-[node name="@Node2D@26173" type="Node2D" parent="." groups=["generated"] instance=ExtResource("2_whh0a")]
-position = Vector2(128, 64)
-script = ExtResource("3_i00ea")
-square_size = 32
+theme = SubResource("Resource_5ckec")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 offset_left = -248.0
