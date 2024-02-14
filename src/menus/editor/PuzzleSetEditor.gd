@@ -61,7 +61,6 @@ func select_puzzle_set(ps: PuzzleSet):
 		puzzles_grid.add_child(texture)
 
 func select_puzzle(ps: PuzzleSet, p):
-	# TODO this feels like it should be a viewport, not a panel container
 	U.remove_children(puzzle_container)
 
 	Log.pr("puzzle selected", p)
@@ -72,7 +71,7 @@ func select_puzzle(ps: PuzzleSet, p):
 	current_puzzle_analysis_label.text = str(p)
 
 	if puzzle_node != null:
-		puzzle_node.free()
+		puzzle_node.queue_free()
 
 	var theme = ps.get_theme()
 	puzzle_node = DotHopPuzzle.build_puzzle_node({

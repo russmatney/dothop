@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=4 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
+[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_jhb7s"]
 
 [node name="PuzzleSetEditor" type="CanvasLayer"]
 script = ExtResource("1_02h6s")
@@ -48,6 +49,7 @@ size_flags_horizontal = 3
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
+size = Vector2i(882, 650)
 render_target_update_mode = 4
 
 [node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport"]
@@ -59,6 +61,9 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport"]
+
+[node name="PhantomCameraHost" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport/Camera2D"]
+script = ExtResource("3_jhb7s")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
