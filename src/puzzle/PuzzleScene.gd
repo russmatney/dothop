@@ -175,7 +175,11 @@ func _unhandled_input(event):
 	elif Trolls.is_restart_released(event):
 		cancel_reset_puzzle()
 	elif Trolls.is_debug_toggle(event):
-		Log.prn(state.grid)
+		# Log.pr(state.grid)
+		if pcam:
+			Log.pr(pcam)
+			for node in pcam.Properties.follow_group_nodes_2D:
+				Log.pr("following node:", node)
 
 var reset_tween
 func hold_to_reset_puzzle():
