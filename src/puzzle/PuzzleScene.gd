@@ -77,7 +77,8 @@ var game_def
 var level_def :
 	set(ld):
 		level_def = ld
-		init_game_state()
+		if Engine.is_editor_hint():
+			init_game_state()
 @export var square_size = 32
 var state
 
