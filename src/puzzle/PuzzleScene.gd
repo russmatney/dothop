@@ -302,9 +302,16 @@ func rebuild_nodes():
 					state.cell_nodes[coord].append(node)
 
 	if pcam != null:
-		pcam.append_follow_group_node_array(all_cell_nodes())
+		var nodes = all_cell_nodes({filter=func(node):
+			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
+		Log.prn("adding nodes to follow group", nodes)
+		pcam.append_follow_group_node_array(nodes)
 		for p in state.players:
+			Log.pr("adding node to follow group", p.node)
 			pcam.append_follow_group_node(p.node)
+
+		for node in pcam.Properties.follow_group_nodes_2D:
+			Log.pr("following node:", node)
 
 	# trigger HUD update
 	rebuilt_nodes.emit()
@@ -430,10 +437,12 @@ func all_players_at_goal() -> bool:
 			return true
 		).all(func(c): return "Player" in c)
 
-func all_cell_nodes() -> Array[Node2D]:
+func all_cell_nodes(opts={}) -> Array[Node2D]:
 	var ns = state.cell_nodes.values().reduce(func(agg, nodes):
+		if "filter" in opts:
+			nodes = nodes.filter(opts.get("filter"))
 		agg.append_array(nodes)
-		return agg)
+		return agg, []) # if we don't provide an initial val, the first node gets through FOR FREE
 	var t_nodes: Array[Node2D] = []
 	t_nodes.assign(ns)
 	return t_nodes
