@@ -272,14 +272,23 @@ func clear_nodes():
 
 var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
 var pcam
+var dhcam_scene = preload("res://src/DotHopCam.tscn")
+var dhcam
 func ensure_camera():
 	if len(state.grid) == 0:
 		return
 
-	pcam = get_node_or_null("PhantomCamera2D")
-	if pcam == null:
-		pcam = pcam_scene.instantiate()
-		add_child(pcam)
+	dhcam = get_node_or_null("DotHopCam")
+	if dhcam == null:
+		dhcam = get_parent().get_node_or_null("DotHopCam")
+	if dhcam == null:
+		dhcam = dhcam_scene.instantiate()
+		add_child(dhcam)
+
+	# pcam = get_node_or_null("PhantomCamera2D")
+	# if pcam == null:
+	# 	pcam = pcam_scene.instantiate()
+	# 	add_child(pcam)
 
 # Adds nodes for the object_names in each cell of the grid.
 # Tracks nodes (except for players) in a state.cell_nodes dict.
@@ -305,17 +314,21 @@ func rebuild_nodes():
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
 
-	if pcam != null:
+	if pcam != null or dhcam != null:
+		var cam_nodes = []
 		var nodes = all_cell_nodes({filter=func(node):
 			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
-		Log.prn("adding nodes to follow group", nodes)
-		pcam.append_follow_group_node_array(nodes)
+		cam_nodes.append_array(nodes)
+		# Log.prn("adding nodes to follow group", nodes)
+		# pcam.append_follow_group_node_array(nodes)
 		for p in state.players:
-			Log.pr("adding node to follow group", p.node)
-			pcam.append_follow_group_node(p.node)
+			# Log.pr("adding node to follow group", p.node)
+			# pcam.append_follow_group_node(p.node)
+			cam_nodes.append(p.node)
 
-		for node in pcam.Properties.follow_group_nodes_2D:
-			Log.pr("following node:", node)
+		# for node in pcam.Properties.follow_group_nodes_2D:
+		# 	Log.pr("following node:", node)
+		dhcam.center_on_nodes(cam_nodes)
 
 	# trigger HUD update
 	rebuilt_nodes.emit()
