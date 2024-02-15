@@ -21,14 +21,13 @@ animations = [{
 [node name="Goal" type="Node2D"]
 script = ExtResource("1_wbkvj")
 type = 2
-square_size = 32
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jomap")
 animation = &"goal"
-frame_progress = 0.284496
+frame_progress = 0.441305
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

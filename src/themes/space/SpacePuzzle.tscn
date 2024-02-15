@@ -12,14 +12,12 @@ _id = "14"
 script = ExtResource("1_biqou")
 theme = SubResource("Resource_gytqd")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -401.0
-offset_top = -285.0
-offset_right = 1565.0
-offset_bottom = 986.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_bjihu")

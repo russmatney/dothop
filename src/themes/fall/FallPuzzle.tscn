@@ -12,11 +12,14 @@ _id = "15"
 script = ExtResource("1_m31km")
 theme = SubResource("Resource_6arfg")
 
-[node name="TextureRect" type="TextureRect" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
 modulate = Color(0.7481, 0.7481, 0.7481, 0.780392)
-offset_left = -965.0
-offset_top = -646.0
-offset_right = 1458.0
-offset_bottom = 1156.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_g10aw")
-stretch_mode = 1
+stretch_mode = 6

@@ -10,16 +10,17 @@ transition = 4
 ease = 0
 
 [node name="PhantomCamera2D" type="Node2D"]
+position = Vector2(608, 328)
 script = ExtResource("1_mclm1")
 priority_override = false
 priority = 0
-zoom = Vector2(1, 1)
+zoom = Vector2(5, 5)
 follow_mode = 3
 follow_group = Array[NodePath]([])
 follow_parameters/auto_zoom = true
 follow_parameters/min_zoom = 2.0
-follow_parameters/max_zoom = 4.0
-follow_parameters/zoom_margin = Vector4(10, 10, 10, 10)
+follow_parameters/max_zoom = 3.6
+follow_parameters/zoom_margin = Vector4(0, 0, 0, 0)
 follow_parameters/target_offset = Vector2(0, 0)
 follow_parameters/damping = true
 follow_parameters/damping_value = 10.0

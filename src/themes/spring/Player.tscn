@@ -42,7 +42,6 @@ animations = [{
 [node name="SpringPlayer" type="Node2D" groups=["player"]]
 z_index = 5
 script = ExtResource("1_vvvex")
-square_size = 32
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

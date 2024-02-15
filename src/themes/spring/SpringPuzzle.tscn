@@ -12,11 +12,14 @@ _id = "23"
 script = ExtResource("1_n4qjr")
 theme = SubResource("Resource_5ckec")
 
-[node name="TextureRect" type="TextureRect" parent="."]
-offset_left = -198.0
-offset_top = -204.0
-offset_right = 379.0
-offset_bottom = 172.0
-scale = Vector2(3, 3)
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="TextureRect" type="TextureRect" parent="ParallaxBackground"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("6_cwjxf")
-stretch_mode = 1
+stretch_mode = 6
