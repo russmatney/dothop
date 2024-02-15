@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=3 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
-[ext_resource type="Script" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="3_jhb7s"]
 
 [node name="PuzzleSetEditor" type="CanvasLayer"]
 script = ExtResource("1_02h6s")
@@ -59,11 +58,6 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport"]
-
-[node name="PhantomCameraHost" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/SubViewportContainer/SubViewport/Camera2D"]
-script = ExtResource("3_jhb7s")
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2

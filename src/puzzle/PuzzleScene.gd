@@ -175,11 +175,7 @@ func _unhandled_input(event):
 	elif Trolls.is_restart_released(event):
 		cancel_reset_puzzle()
 	elif Trolls.is_debug_toggle(event):
-		# Log.pr(state.grid)
-		if pcam:
-			Log.pr(pcam)
-			for node in pcam.Properties.follow_group_nodes_2D:
-				Log.pr("following node:", node)
+		Log.pr(state.grid)
 
 var reset_tween
 func hold_to_reset_puzzle():
@@ -264,14 +260,10 @@ func init_player(coord, node) -> Dictionary:
 func clear_nodes():
 	for ch in get_children():
 		if ch.is_in_group("generated"):
-			if pcam != null:
-				pcam.erase_follow_group_node(ch)
 			# hide flicker while we wait for queue_free
 			ch.set_visible(false)
 			ch.queue_free()
 
-var pcam_scene = preload("res://src/PuzzlePhantomCamera.tscn")
-var pcam
 var dhcam_scene = preload("res://src/DotHopCam.tscn")
 var dhcam
 func ensure_camera():
@@ -284,11 +276,6 @@ func ensure_camera():
 	if dhcam == null:
 		dhcam = dhcam_scene.instantiate()
 		add_child(dhcam)
-
-	# pcam = get_node_or_null("PhantomCamera2D")
-	# if pcam == null:
-	# 	pcam = pcam_scene.instantiate()
-	# 	add_child(pcam)
 
 # Adds nodes for the object_names in each cell of the grid.
 # Tracks nodes (except for players) in a state.cell_nodes dict.
@@ -314,20 +301,13 @@ func rebuild_nodes():
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
 
-	if pcam != null or dhcam != null:
+	if dhcam != null:
 		var cam_nodes = []
 		var nodes = all_cell_nodes({filter=func(node):
 			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
 		cam_nodes.append_array(nodes)
-		# Log.prn("adding nodes to follow group", nodes)
-		# pcam.append_follow_group_node_array(nodes)
 		for p in state.players:
-			# Log.pr("adding node to follow group", p.node)
-			# pcam.append_follow_group_node(p.node)
 			cam_nodes.append(p.node)
-
-		# for node in pcam.Properties.follow_group_nodes_2D:
-		# 	Log.pr("following node:", node)
 		dhcam.center_on_nodes(cam_nodes)
 
 	# trigger HUD update
@@ -521,9 +501,6 @@ func mark_cell_dotted(cell):
 	state.grid[cell.coord.y][cell.coord.x].erase("Dot")
 	state.grid[cell.coord.y][cell.coord.x].append("Dotted")
 
-	if pcam != null:
-		pcam.erase_follow_group_node(node)
-
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
 func mark_cell_undotted(cell):
@@ -542,9 +519,6 @@ func mark_cell_undotted(cell):
 	# update game state
 	state.grid[cell.coord.y][cell.coord.x].erase("Dotted")
 	state.grid[cell.coord.y][cell.coord.x].append("Dot")
-
-	if pcam != null:
-		pcam.append_follow_group_node(node)
 
 ## move to dot ##############################################################
 
