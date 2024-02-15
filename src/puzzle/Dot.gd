@@ -15,6 +15,11 @@ var display_name = "dot"
 var label
 var color_rect
 
+## Log.pp #########################################################
+
+func data():
+	return {name=display_name, node=str(self), global_pos=self.get_global_position()}
+
 ## ready #########################################################
 
 func _ready():

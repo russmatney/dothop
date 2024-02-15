@@ -15,6 +15,11 @@ var label
 var color_rect
 var current_coord: Vector2
 
+## Log.pp #########################################################
+
+func data():
+	return {name=display_name, node=str(self), global_pos=self.get_global_position()}
+
 ## enter tree #########################################################
 
 func _enter_tree():
