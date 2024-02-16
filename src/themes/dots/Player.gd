@@ -72,6 +72,8 @@ func move_to_coord(coord):
 	scale_tween.tween_property(self, "scale", 0.8*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(self, "scale", 1.0*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+	return get_tree().create_timer(t).timeout
+
 ## undo #########################################################
 
 func undo_to_coord(coord):

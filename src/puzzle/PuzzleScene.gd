@@ -459,8 +459,9 @@ func previous_undo_coord(player, skip_coord, start_at=0):
 # NOTE updating move_history is done after all players move
 func move_player_to_cell(player, cell):
 	# move player node
+	var move_finished_sig
 	if player.node.has_method("move_to_coord"):
-		player.node.move_to_coord(cell.coord)
+		move_finished_sig = player.node.move_to_coord(cell.coord)
 	else:
 		player.node.position = cell.coord * square_size
 
@@ -482,9 +483,11 @@ func move_player_to_cell(player, cell):
 	# update to new coord
 	player.coord = cell.coord
 
+	return move_finished_sig
+
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell):
+func mark_cell_dotted(cell, state_only=false):
 	# support multiple nodes per cell?
 	var node = U.first(cell.nodes)
 	if node == null:
@@ -530,9 +533,11 @@ func move_to_dot(player, cell):
 ## move to goal ##############################################################
 
 func move_to_goal(player, cell):
-	move_player_to_cell(player, cell)
+	var move_finished = move_player_to_cell(player, cell)
 	if all_dotted() and all_players_at_goal():
 		state.win = true
+		if move_finished:
+			await move_finished
 		win.emit()
 	else:
 		player.stuck = true
