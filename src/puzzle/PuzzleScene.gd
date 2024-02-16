@@ -283,7 +283,7 @@ func ensure_camera():
 func rebuild_nodes():
 	clear_nodes()
 
-	if not Engine.is_editor_hint():
+	if not Engine.is_editor_hint() and is_inside_tree():
 		ensure_camera()
 
 	for y in len(state.grid):

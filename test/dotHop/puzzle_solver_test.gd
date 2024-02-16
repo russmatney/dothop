@@ -3,8 +3,10 @@ class_name PuzzleSolverTest
 
 
 func build_puzzle(puzzle):
-	return DotHopPuzzle.build_puzzle_node({puzzle=puzzle,
+	var puzzle_node = DotHopPuzzle.build_puzzle_node({puzzle=puzzle,
 		game_def_path="res://src/puzzles/dothop.txt"})
+	puzzle_node.init_game_state()
+	return puzzle_node
 
 ## test the solver ##################################################
 
@@ -103,6 +105,7 @@ func test_all_puzzles_solvable():
 				game_def=game_def,
 				puzzle_num=i,
 				})
+			puzz_node.init_game_state()
 
 			var solve = Solver.new(puzz_node).analyze()
 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), "num:", i,
