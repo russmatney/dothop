@@ -3,4 +3,5 @@
 [ext_resource type="Script" path="res://src/puzzle/DotHopCam.gd" id="1_nyqvw"]
 
 [node name="DotHopCam" type="Camera2D"]
+position_smoothing_enabled = true
 script = ExtResource("1_nyqvw")

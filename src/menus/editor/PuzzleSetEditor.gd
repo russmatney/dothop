@@ -54,7 +54,10 @@ func on_puzzle_button_pressed(ps: PuzzleSet, p):
 
 func select_puzzle_set(ps: PuzzleSet):
 	U.remove_children(puzzles_grid)
-	for p in ps.get_puzzles():
+	var first
+	for level_def in ps.get_puzzles():
+		if not first:
+			first = level_def
 		# var bg_music = ps.get_theme().get_background_music()
 		var dot_texture = ps.get_theme().get_dot_icon()
 		var dotted_texture = ps.get_theme().get_dotted_icon()
@@ -67,13 +70,13 @@ func select_puzzle_set(ps: PuzzleSet):
 		texture.set_texture_normal(dot_texture)
 		texture.set_texture_disabled(dotted_texture)
 
-		texture.pressed.connect(on_puzzle_button_pressed.bind(ps, p))
+		texture.pressed.connect(on_puzzle_button_pressed.bind(ps, level_def))
 
 		puzzles_grid.add_child(texture)
+	if first:
+		select_puzzle(ps, first)
 
 func select_puzzle(ps: PuzzleSet, level_def):
-	U.remove_children(puzzle_container)
-
 	Log.pr("puzzle selected", level_def)
 	var w = level_def.width
 	var h = level_def.height
@@ -88,7 +91,10 @@ func select_puzzle(ps: PuzzleSet, level_def):
 	current_puzzle_analysis_label.text = detail
 
 	if puzzle_node != null:
-		puzzle_node.queue_free()
+		var outro_complete = Anim.puzzle_animate_outro_to_point(puzzle_node)
+		outro_complete.connect(func():
+			Log.pr("freeing old puzzle node")
+			puzzle_node.queue_free())
 
 	var theme = ps.get_theme()
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
@@ -96,6 +102,6 @@ func select_puzzle(ps: PuzzleSet, level_def):
 		puzzle_theme=theme,
 		puzzle_num=level_def.get("idx"),
 		})
-	# puzzle_node.hide_background = true
+	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))
 
 	puzzle_container.add_child(puzzle_node)

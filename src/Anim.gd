@@ -129,9 +129,10 @@ static func puzzle_animate_intro_from_point(puzz_node):
 		node.modulate.a = 0.0
 
 	for node in nodes:
-		Anim.slide_from_point(node, U.rand_of(positions), t)
-		if U.rand_of([true, false, true, true]):
-			await puzz_node.get_tree().create_timer(0.05).timeout
+		var delays = []
+		if U.rand_of([true, false, false, false]):
+			delays.append(0.05)
+		Anim.slide_from_point(node, U.rand_of(positions), t, delays)
 
 	return puzz_node.get_tree().create_timer(t).timeout
 
@@ -149,8 +150,9 @@ static func puzzle_animate_outro_to_point(puzz_node):
 	nodes.append_array(puzz_node.all_cell_nodes())
 
 	for node in nodes:
-		Anim.slide_to_point(node, U.rand_of(positions), t)
+		var delays = []
 		if U.rand_of([true, false, false, false]):
-			await puzz_node.get_tree().create_timer(0.05).timeout
+			delays.append(0.05)
+		Anim.slide_to_point(node, U.rand_of(positions), t, delays)
 
 	return puzz_node.get_tree().create_timer(t).timeout

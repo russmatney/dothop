@@ -43,7 +43,7 @@ layout_mode = 2
 theme = ExtResource("2_gk83m")
 theme_override_font_sizes/normal_font_size = 32
 bbcode_enabled = true
-text = "some text"
+text = "[center]Them Dots # 1"
 fit_content = true
 scroll_active = false
 
@@ -59,7 +59,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_ify5j")
 bbcode_enabled = true
-text = "Some analysis"
+text = "w: 7, h: 3 msg: \"Connect all the dots!\""
 fit_content = true
 scroll_active = false
 
@@ -98,6 +98,7 @@ layout_mode = 2
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
+size = Vector2i(640, 420)
 render_target_update_mode = 4
 
 [node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
