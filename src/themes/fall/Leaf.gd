@@ -19,7 +19,6 @@ func _ready():
 	hide_anims()
 	anim = U.rand_of(all_anims())
 	super._ready()
-	Anim.slide_in(self)
 
 func hide_anims():
 	all_anims().map(func(a): a.set_visible(false))

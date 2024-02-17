@@ -5,18 +5,21 @@ var zoom_min = 0.5
 var zoom_max = 5.0
 var base_margin = 64
 
+func coord_pos(node):
+	return node.current_position()
+
 func center_on_nodes(nodes):
 	if len(nodes) == 0:
 		return
 
-	var rect = Rect2(nodes[0].get_global_position(), Vector2.ZERO)
+	var rect = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
 	for node in nodes:
 		if "square_size" in node:
 			# scale might also be a factor
-			rect = rect.expand(node.get_global_position() + node.square_size * Vector2.ONE * 1.0)
-			rect = rect.expand(node.get_global_position() - node.square_size * Vector2.ONE * 0.5)
+			rect = rect.expand(coord_pos(node) + node.square_size * Vector2.ONE * 1.0)
+			rect = rect.expand(coord_pos(node) - node.square_size * Vector2.ONE * 0.5)
 		else:
-			rect = rect.expand(node.get_global_position())
+			rect = rect.expand(coord_pos(node))
 
 	node_rect = rect
 

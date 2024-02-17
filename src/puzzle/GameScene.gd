@@ -167,9 +167,10 @@ func on_puzzle_win():
 			puzzle_num += 1
 
 		    # animate out
-			var exit_t = 0.8
-			puzzle_node.state.players.map(func(p): Anim.slide_out(p.node, exit_t))
-			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_out(node, exit_t))
+			var exit_t = 0.6
+			var puzzle_center = Vector2.ZERO
+			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node, puzzle_center, exit_t))
+			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node, puzzle_center, exit_t))
 			await get_tree().create_timer(exit_t).timeout
 
 			rebuild_puzzle()}
