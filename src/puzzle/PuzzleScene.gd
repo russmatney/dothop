@@ -277,6 +277,29 @@ func ensure_camera():
 		dhcam = dhcam_scene.instantiate()
 		add_child(dhcam)
 
+func coord_pos(node):
+	return node.current_position()
+
+func puzzle_rect(nodes):
+	var rect = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
+	for node in nodes:
+		if "square_size" in node:
+			# scale might also be a factor
+			rect = rect.expand(coord_pos(node) + node.square_size * Vector2.ONE * 1.0)
+			rect = rect.expand(coord_pos(node) - node.square_size * Vector2.ONE * 0.5)
+		else:
+			rect = rect.expand(coord_pos(node))
+	return rect
+
+func puzzle_cam_nodes():
+	var cam_nodes = []
+	var nodes = all_cell_nodes({filter=func(node):
+		return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
+	cam_nodes.append_array(nodes)
+	for p in state.players:
+		cam_nodes.append(p.node)
+	return cam_nodes
+
 # Adds nodes for the object_names in each cell of the grid.
 # Tracks nodes (except for players) in a state.cell_nodes dict.
 # Tracks players in state.players list.
@@ -302,13 +325,7 @@ func rebuild_nodes():
 					state.cell_nodes[coord].append(node)
 
 	if dhcam != null:
-		var cam_nodes = []
-		var nodes = all_cell_nodes({filter=func(node):
-			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
-		cam_nodes.append_array(nodes)
-		for p in state.players:
-			cam_nodes.append(p.node)
-		dhcam.center_on_nodes(cam_nodes)
+		dhcam.center_on_rect(puzzle_rect(puzzle_cam_nodes()))
 
 	# trigger HUD update
 	rebuilt_nodes.emit()
@@ -487,7 +504,7 @@ func move_player_to_cell(player, cell):
 
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell, state_only=false):
+func mark_cell_dotted(cell):
 	# support multiple nodes per cell?
 	var node = U.first(cell.nodes)
 	if node == null:
