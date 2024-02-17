@@ -11,8 +11,6 @@ func _ready():
 	if a:
 		anim = a
 	super._ready()
-	# Anim.slide_from_point(self, Vector2.ZERO,
-	# 	U.rand_of([0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8]))
 
 ## render ###########################################################
 

@@ -30,7 +30,6 @@ static func slide_out(node, t=0.6):
 static func slide_from_point(node, pos=Vector2.ZERO, t=0.6, delay_ts=[]):
 	var delay_t = U.rand_of(delay_ts)
 	var og_position = node.current_position() if node.has_method("current_position") else node.position
-	Log.pr("node sliding to og_pos", og_position, " from point", pos)
 	# jump + shrink to starting position :/
 	node.position = pos
 	node.scale = Vector2.ONE * 0.5

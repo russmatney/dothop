@@ -133,6 +133,8 @@ func on_puzzle_win():
 	# maybe show number of moves, new dots collected, some solver stats
 	# plus a hop-along the 'list of puzzle-icons board'
 
+	# TODO did this puzzle have an opening or closing slide?
+
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
