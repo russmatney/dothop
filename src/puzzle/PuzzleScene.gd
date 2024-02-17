@@ -70,6 +70,16 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		if v == true:
 			clear_nodes()
 
+@export var trigger_intro: bool = false:
+	set(v):
+		if v == true and Engine.is_editor_hint():
+			Anim.puzzle_animate_intro_from_point(self)
+
+@export var trigger_outro: bool = false:
+	set(v):
+		if v == true and Engine.is_editor_hint():
+			Anim.puzzle_animate_outro_to_point(self)
+
 @export var debugging: bool = false
 
 @export var theme: PuzzleTheme

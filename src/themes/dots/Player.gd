@@ -11,7 +11,7 @@ var scale_tween
 
 func _ready():
 	super._ready()
-	Anim.slide_in(self)
+	# Anim.slide_in(self)
 
 ## set_initial_coord #########################################################
 

@@ -30,6 +30,7 @@ func _ready():
 	game_def = Puzz.parse_game_def(game_def_path)
 	rebuild_puzzle()
 
+
 	hud = get_node_or_null("HUD")
 
 	# TODO add music controls and toasts
@@ -92,6 +93,7 @@ func rebuild_puzzle():
 	puzzle_node.move_blocked.connect(update_hud)
 
 	add_child.call_deferred(puzzle_node)
+	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))
 
 func update_hud():
 	if hud and puzzle_node:
@@ -120,6 +122,7 @@ func change_theme(theme):
 		puzzle_theme = theme
 		rebuild_puzzle()
 
+
 ## win #####################################################################
 
 var PuzzleCompleteScene = preload("res://src/menus/PuzzleComplete.tscn")
@@ -140,27 +143,8 @@ func on_puzzle_win():
 		nav_to_world_map()
 	else:
 		puzzle_num += 1
-
-		# animate out
-		var exit_t = 0.6
-		# var exit_pos = puzzle_node.puzzle_rect().get_center()
-		var puzz_rect = puzzle_node.puzzle_rect()
-		var exit_poses = [
-			puzz_rect.get_center(),
-			# puzz_rect.position,
-			# puzz_rect.end,
-			]
-		Log.pr(exit_poses)
-		puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
-			U.rand_of(exit_poses),
-			exit_t))
-		puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
-			U.rand_of(exit_poses),
-			exit_t))
-		# await get_tree().create_timer(exit_t/2).timeout
-
+		Anim.puzzle_animate_outro_to_point(puzzle_node)
 		rebuild_puzzle()
-
 
 # func on_puzzle_win():
 # 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
