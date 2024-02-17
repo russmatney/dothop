@@ -122,73 +122,111 @@ func change_theme(theme):
 
 ## win #####################################################################
 
-var scene = preload("res://src/menus/PuzzleComplete.tscn")
+var PuzzleCompleteScene = preload("res://src/menus/PuzzleComplete.tscn")
 
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-	var game_complete = puzzle_num + 1 >= len(game_def.levels)
+	var puzzles_complete = puzzle_num + 1 >= len(game_def.levels)
 
-	var instance = scene.instantiate()
-	instance.puzzle_set = puzzle_set
-	instance.puzzle_num = puzzle_num
+	# TODO popup puzzle-set progress panel per puzzle-complete
+	# maybe show number of moves, new dots collected, some solver stats
+	# plus a hop-along the 'list of puzzle-icons board'
 
-	var header
-	var body
-	if game_complete:
-		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
-		body = U.rand_of([
-			"Be proud! For you are a NERD",
-			"Congratulations, nerd!",
-			"You're a real hop-dotter!",
-			])
-
-		instance.ready.connect(func():
-			var next_set = puzzle_set.get_next_puzzle_set()
-			if next_set:
-				instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
-			else:
-				instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
-
-
+	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
+		# some kind of fade or transition?
+		nav_to_world_map()
 	else:
-		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
-		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
-		instance.ready.connect(func(): instance.prizes.set_visible(false))
+		puzzle_num += 1
+
+		# animate out
+		var exit_t = 0.6
+		# var exit_pos = puzzle_node.puzzle_rect().get_center()
+		var puzz_rect = puzzle_node.puzzle_rect()
+		var exit_poses = [
+			puzz_rect.get_center(),
+			# puzz_rect.position,
+			# puzz_rect.end,
+			]
+		Log.pr(exit_poses)
+		puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
+			U.rand_of(exit_poses),
+			exit_t))
+		puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
+			U.rand_of(exit_poses),
+			exit_t))
+		# await get_tree().create_timer(exit_t/2).timeout
+
+		rebuild_puzzle()
 
 
-	var opts = {header=header, body=body, pause=false,
-		on_close=func():
+# func on_puzzle_win():
+# 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-		if game_complete:
-			# some kind of fade or transition?
-			nav_to_world_map()
-		else:
-			puzzle_num += 1
+# 	var puzzles_complete = puzzle_num + 1 >= len(game_def.levels)
 
-		    # animate out
-			var exit_t = 0.6
-			# var exit_pos = puzzle_node.puzzle_rect().get_center()
-			var puzz_rect = puzzle_node.puzzle_rect()
-			var exit_poses = [
-				puzz_rect.get_center(),
-				# puzz_rect.position,
-				# puzz_rect.end,
-				]
-			Log.pr(exit_poses)
-			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
-				U.rand_of(exit_poses),
-				exit_t))
-			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
-				U.rand_of(exit_poses),
-				exit_t))
-			# await get_tree().create_timer(exit_t/2).timeout
+# 	var instance = PuzzleCompleteScene.instantiate()
+# 	instance.puzzle_set = puzzle_set
+# 	instance.puzzle_num = puzzle_num
 
-			rebuild_puzzle()}
+# 	var header
+# 	var body
+# 	if puzzles_complete:
+# 		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
+# 		body = U.rand_of([
+# 			"Be proud! For you are a NERD",
+# 			"Congratulations, nerd!",
+# 			"You're a real hop-dotter!",
+# 			])
 
-	if instance:
-		opts["instance"] = instance
+# 		instance.ready.connect(func():
+# 			var next_set = puzzle_set.get_next_puzzle_set()
+# 			if next_set:
+# 				instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
+# 			else:
+# 				instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
 
-	Jumbotron.jumbo_notif(opts)
+
+# 		Dino.notif("Puzzle Set complete!")
+# 		Store.complete_puzzle_set(puzzle_set)
+# 	else:
+# 		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
+# 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
+# 		instance.ready.connect(func(): instance.prizes.set_visible(false))
+
+
+# 	var opts = {header=header, body=body, pause=false,
+# 		on_close=func():
+
+# 		if puzzles_complete:
+# 			# some kind of fade or transition?
+# 			nav_to_world_map()
+# 		else:
+# 			puzzle_num += 1
+
+# 		    # animate out
+# 			var exit_t = 0.6
+# 			# var exit_pos = puzzle_node.puzzle_rect().get_center()
+# 			var puzz_rect = puzzle_node.puzzle_rect()
+# 			var exit_poses = [
+# 				puzz_rect.get_center(),
+# 				# puzz_rect.position,
+# 				# puzz_rect.end,
+# 				]
+# 			Log.pr(exit_poses)
+# 			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
+# 				U.rand_of(exit_poses),
+# 				exit_t))
+# 			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
+# 				U.rand_of(exit_poses),
+# 				exit_t))
+# 			# await get_tree().create_timer(exit_t/2).timeout
+
+# 			rebuild_puzzle()}
+
+# 	if instance:
+# 		opts["instance"] = instance
+
+# 	Jumbotron.jumbo_notif(opts)
