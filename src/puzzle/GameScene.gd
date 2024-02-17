@@ -159,12 +159,19 @@ func on_puzzle_win():
 
 	var opts = {header=header, body=body, pause=false,
 		on_close=func():
+
 		if game_complete:
+			# some kind of fade or transition?
 			nav_to_world_map()
 		else:
 			puzzle_num += 1
-			if puzzle_node.has_method("animate_exit"):
-				await puzzle_node.animate_exit()
+
+		    # animate out
+			var exit_t = 0.8
+			puzzle_node.state.players.map(func(p): Anim.slide_out(p.node, exit_t))
+			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_out(node, exit_t))
+			await get_tree().create_timer(exit_t).timeout
+
 			rebuild_puzzle()}
 
 	if instance:

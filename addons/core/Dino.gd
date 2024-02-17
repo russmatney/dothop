@@ -49,3 +49,5 @@ signal debug_toggled(debugging)
 
 func toggle_debug():
 	debug_toggled.emit(not debugging)
+
+## animations ##########################################################################
