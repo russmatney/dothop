@@ -57,15 +57,15 @@ static func tween_on_node(node, tween_name):
 
 # move
 
-static func move_to_coord(node, coord, t, trans=Tween.TRANS_QUAD, ease=Tween.EASE_IN):
+static func move_to_coord(node, coord, t, trans=Tween.TRANS_CUBIC, ease=Tween.EASE_OUT):
 	var target_pos = coord * node.square_size
 	var tween = tween_on_node(node, "move_tween")
 	tween.tween_property(node, "position", target_pos, t).set_trans(trans).set_ease(ease)
 
-static func move_attempt_pull_back(node, target_position, t):
+static func move_attempt_pull_back(node, og_position, target_position, t):
 	var tween = tween_on_node(node, "move_tween")
 	tween.tween_property(node, "position", target_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.tween_property(node, "position", node.position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(node, "position", og_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
 # Scales
 
@@ -96,5 +96,5 @@ static func hop_back(node, coord, t):
 	scale_down_up(node, t)
 
 static func hop_attempt_pull_back(node, og_position, target_position, t=0.4):
-	move_attempt_pull_back(node, target_position, t)
+	move_attempt_pull_back(node, og_position, target_position, t)
 	scale_up_down(node, t)
