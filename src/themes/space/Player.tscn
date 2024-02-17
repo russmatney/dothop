@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://csgpsdj4n3rfj"]
+[gd_scene load_steps=10 format=3 uid="uid://csgpsdj4n3rfj"]
 
 [ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
 [ext_resource type="Texture2D" uid="uid://0kk2jf15j75s" path="res://src/themes/space/player2.png" id="2_8lvnh"]
@@ -57,8 +57,15 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_ujrjk"]
+closed = false
+cull_mode = 1
+polygon = PackedVector2Array(0, -15, -15, -4, -7, 5, -10, 14, 0, 9, 11, 15, 8, 5, 15, -5)
+
 [node name="Player" type="Node2D" groups=["player"]]
 z_index = 5
+position = Vector2(-10, -10)
+scale = Vector2(0.5, 0.5)
 script = ExtResource("1_j03dg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -76,3 +83,6 @@ metadata/_aseprite_wizard_config_ = {
 "op_exp": false,
 "source": "res://src/themes/space/assets/player2.aseprite"
 }
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_ujrjk")

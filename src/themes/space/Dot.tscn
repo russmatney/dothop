@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://bmm1270drou5v"]
+[gd_scene load_steps=37 format=3 uid="uid://bmm1270drou5v"]
 
 [ext_resource type="Script" path="res://src/themes/space/Dot.gd" id="1_bmb34"]
 [ext_resource type="Texture2D" uid="uid://bnehigh2xb350" path="res://src/themes/space/asteroid.png" id="2_mqxg7"]
@@ -249,6 +249,10 @@ animations = [{
 "speed": 10.0
 }]
 
+[sub_resource type="OccluderPolygon2D" id="OccluderPolygon2D_4rthd"]
+closed = false
+polygon = PackedVector2Array(0, -16, -13, -10, -15, 0, -11, 11, 0, 16, 12, 12, 16, 0, 13, -11)
+
 [node name="Dot" type="Node2D"]
 script = ExtResource("1_bmb34")
 
@@ -256,6 +260,7 @@ script = ExtResource("1_bmb34")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
+frame_progress = 0.791524
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -297,3 +302,6 @@ metadata/_aseprite_wizard_config_ = {
 "op_exp": false,
 "source": "res://src/themes/space/assets/goal.aseprite"
 }
+
+[node name="LightOccluder2D" type="LightOccluder2D" parent="."]
+occluder = SubResource("OccluderPolygon2D_4rthd")
