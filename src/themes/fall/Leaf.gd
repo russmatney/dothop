@@ -1,5 +1,5 @@
 @tool
-extends DotHopDot
+extends DotsDot
 
 ## vars ###########################################################
 
@@ -14,8 +14,6 @@ func all_anims() -> Array:
 	return [anim_green, anim_greenred, anim_purple, anim_redorange, anim_yellow]
 
 ## ready ###########################################################
-
-var anim
 
 func _ready():
 	hide_anims()

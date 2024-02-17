@@ -1,11 +1,15 @@
 @tool
 extends DotHopDot
+class_name DotsDot
 
-@onready var anim = $AnimatedSprite2D
+var anim
 
 ## ready ###########################################################
 
 func _ready():
+	var a = get_node_or_null("AnimatedSprite2D")
+	if a:
+		anim = a
 	super._ready()
 	Anim.slide_in(self)
 
