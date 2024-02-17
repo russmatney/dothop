@@ -63,12 +63,9 @@ func _unhandled_input(event):
 
 func rebuild_puzzle():
 	if puzzle_node != null:
-		# we "cross-fade" the in/out anims, then remove things later
-		U.call_in(2.0, self, puzzle_node.queue_free)
-		# remove_child.call_deferred(puzzle_node)
-		# puzzle_node.queue_free.call_deferred()
-		# # is this a race case? or is it impossible?
-		# await puzzle_node.tree_exited
+		var outro_complete = Anim.puzzle_animate_outro_to_point(puzzle_node)
+		await outro_complete
+		puzzle_node.queue_free()
 
 	# load current level
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
@@ -132,7 +129,7 @@ func on_puzzle_win():
 
 	var puzzles_complete = puzzle_num + 1 >= len(game_def.levels)
 
-	# TODO popup puzzle-set progress panel per puzzle-complete
+	# TODO popup/toast puzzle-set progress panel per puzzle-complete
 	# maybe show number of moves, new dots collected, some solver stats
 	# plus a hop-along the 'list of puzzle-icons board'
 
@@ -143,7 +140,6 @@ func on_puzzle_win():
 		nav_to_world_map()
 	else:
 		puzzle_num += 1
-		Anim.puzzle_animate_outro_to_point(puzzle_node)
 		rebuild_puzzle()
 
 # func on_puzzle_win():
