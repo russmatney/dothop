@@ -11,8 +11,7 @@ var scale_tween
 
 func _ready():
 	super._ready()
-	animate_entry()
-
+	Anim.slide_in(self)
 	anim.animation_finished.connect(on_anim_finished)
 
 func on_anim_finished():
@@ -30,29 +29,6 @@ func current_position():
 		return current_coord * square_size
 	else:
 		return position
-
-## entry/exit anims ##########################################
-
-var entry_tween
-var entry_t = 0.6
-func animate_entry():
-	var og_position = position
-	position = position - Vector2.ONE * 10
-	scale = Vector2.ONE * 0.5
-	entry_tween = create_tween()
-	entry_tween.tween_property(self, "scale", Vector2.ONE, entry_t)\
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-	entry_tween.parallel().tween_property(self, "position", og_position, entry_t)\
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
-
-func animate_exit(t):
-	var tween = create_tween()
-	tween.tween_property(self, "scale", Vector2.ONE * 0.5, t)\
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self, "position", position - Vector2.ONE * 10, t)\
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-	tween.parallel().tween_property(self, "modulate:a", 0.0, t)\
-		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN_OUT)
 
 ## move #########################################################
 
