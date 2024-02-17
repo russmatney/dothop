@@ -26,8 +26,18 @@ func render():
 	for ps in puzzle_sets:
 		Log.pr("rendering puzzle set", ps.get_display_name())
 
-		var button = Button.new()
-		button.text = ps.get_display_name()
+		var dot_texture = ps.get_theme().get_dot_icon()
+		var dotted_texture = ps.get_theme().get_dotted_icon()
+		var player_texture = ps.get_theme().get_player_icon()
+		var button = TextureButton.new()
+		button.custom_minimum_size = Vector2(64, 64)
+		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
+
+		button.set_texture_normal(player_texture)
+		button.set_texture_hover(dot_texture)
+		button.set_texture_disabled(dotted_texture)
+
+		# button.text = ps.get_display_name()
 		button.pressed.connect(on_puzzle_set_button_pressed.bind(ps))
 		puzzle_set_grid.add_child(button)
 
@@ -50,7 +60,8 @@ func select_puzzle_set(ps: PuzzleSet):
 		var dotted_texture = ps.get_theme().get_dotted_icon()
 		var player_texture = ps.get_theme().get_player_icon()
 		var texture = TextureButton.new()
-		texture.custom_minimum_size = Vector2(50, 50)
+		texture.custom_minimum_size = Vector2(96, 96)
+		texture.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
 
 		texture.set_texture_hover(player_texture)
 		texture.set_texture_normal(dot_texture)
@@ -60,15 +71,21 @@ func select_puzzle_set(ps: PuzzleSet):
 
 		puzzles_grid.add_child(texture)
 
-func select_puzzle(ps: PuzzleSet, p):
+func select_puzzle(ps: PuzzleSet, level_def):
 	U.remove_children(puzzle_container)
 
-	Log.pr("puzzle selected", p)
+	Log.pr("puzzle selected", level_def)
+	var w = level_def.width
+	var h = level_def.height
+	var msg = level_def.get("message", false)
+	var idx = level_def.idx # not necessarily the order, which puzzle-sets can overwrite
 
-	# TODO pretty print whatever this type is
-	current_puzzle_label.text = str(p)
+	current_puzzle_label.text = "[center]%s # %s" % [ps.get_display_name(), idx + 1]
 	# TODO print puzzle solver data here
-	current_puzzle_analysis_label.text = str(p)
+	var detail = "w: %s, h: %s" % [w, h]
+	if msg:
+		detail += " msg: %s" % msg
+	current_puzzle_analysis_label.text = detail
 
 	if puzzle_node != null:
 		puzzle_node.queue_free()
@@ -77,7 +94,7 @@ func select_puzzle(ps: PuzzleSet, p):
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
 		game_def=ps.get_game_def(),
 		puzzle_theme=theme,
-		puzzle_num=p.get("idx"),
+		puzzle_num=level_def.get("idx"),
 		})
 	# puzzle_node.hide_background = true
 
