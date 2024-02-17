@@ -280,7 +280,8 @@ func ensure_camera():
 func coord_pos(node):
 	return node.current_position()
 
-func puzzle_rect(nodes):
+func puzzle_rect(opts={}):
+	var nodes = puzzle_cam_nodes(opts)
 	var rect = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
 	for node in nodes:
 		if "square_size" in node:
@@ -291,10 +292,14 @@ func puzzle_rect(nodes):
 			rect = rect.expand(coord_pos(node))
 	return rect
 
-func puzzle_cam_nodes():
+func puzzle_cam_nodes(opts={}):
 	var cam_nodes = []
-	var nodes = all_cell_nodes({filter=func(node):
-		return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
+	var nodes
+	if opts.get("dots_only"):
+		nodes = all_cell_nodes({filter=func(node):
+			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
+	else:
+		nodes = all_cell_nodes()
 	cam_nodes.append_array(nodes)
 	for p in state.players:
 		cam_nodes.append(p.node)
@@ -325,7 +330,7 @@ func rebuild_nodes():
 					state.cell_nodes[coord].append(node)
 
 	if dhcam != null:
-		dhcam.center_on_rect(puzzle_rect(puzzle_cam_nodes()))
+		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
 
 	# trigger HUD update
 	rebuilt_nodes.emit()

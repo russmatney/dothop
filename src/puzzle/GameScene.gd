@@ -62,10 +62,12 @@ func _unhandled_input(event):
 
 func rebuild_puzzle():
 	if puzzle_node != null:
-		remove_child.call_deferred(puzzle_node)
-		puzzle_node.queue_free()
-		# is this a race case? or is it impossible?
-		await puzzle_node.tree_exited
+		# we "cross-fade" the in/out anims, then remove things later
+		U.call_in(2.0, self, puzzle_node.queue_free)
+		# remove_child.call_deferred(puzzle_node)
+		# puzzle_node.queue_free.call_deferred()
+		# # is this a race case? or is it impossible?
+		# await puzzle_node.tree_exited
 
 	# load current level
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
@@ -168,10 +170,21 @@ func on_puzzle_win():
 
 		    # animate out
 			var exit_t = 0.6
-			var puzzle_center = Vector2.ZERO
-			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node, puzzle_center, exit_t))
-			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node, puzzle_center, exit_t))
-			await get_tree().create_timer(exit_t).timeout
+			# var exit_pos = puzzle_node.puzzle_rect().get_center()
+			var puzz_rect = puzzle_node.puzzle_rect()
+			var exit_poses = [
+				puzz_rect.get_center(),
+				# puzz_rect.position,
+				# puzz_rect.end,
+				]
+			Log.pr(exit_poses)
+			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
+				U.rand_of(exit_poses),
+				exit_t))
+			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
+				U.rand_of(exit_poses),
+				exit_t))
+			# await get_tree().create_timer(exit_t/2).timeout
 
 			rebuild_puzzle()}
 
