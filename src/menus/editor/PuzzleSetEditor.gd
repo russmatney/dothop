@@ -53,6 +53,7 @@ func on_puzzle_button_pressed(ps: PuzzleSet, p):
 ## select ######################################################
 
 func select_puzzle_set(ps: PuzzleSet):
+	ps.get_analyzed_game_def() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first
 	for level_def in ps.get_puzzles():
@@ -77,24 +78,33 @@ func select_puzzle_set(ps: PuzzleSet):
 		select_puzzle(ps, first)
 
 func select_puzzle(ps: PuzzleSet, level_def):
-	Log.pr("puzzle selected", level_def)
 	var w = level_def.width
 	var h = level_def.height
 	var msg = level_def.get("message", false)
 	var idx = level_def.idx # not necessarily the order, which puzzle-sets can overwrite
+	var analysis = level_def.get("analysis", false)
 
 	current_puzzle_label.text = "[center]%s # %s" % [ps.get_display_name(), idx + 1]
 	# TODO print puzzle solver data here
 	var detail = "w: %s, h: %s" % [w, h]
 	if msg:
 		detail += " msg: %s" % msg
+
+	if analysis:
+		detail += "\ndots: [color=dark_blue]%s[/color]" % analysis.get("dot_count")
+		detail += " paths: [color=forest_green]%s win[/color]/[color=crimson]%s stuck_dot[/color]/[color=crimson]%s stuck_goal[/color]/[color=peru]%s all[/color]" % [
+			analysis.get("winning_path_count"),
+			analysis.get("stuck_dot_path_count"),
+			analysis.get("stuck_goal_path_count"),
+			analysis.get("path_count"),
+			]
+
 	current_puzzle_analysis_label.text = detail
 
 	if puzzle_node != null:
 		var outro_complete = Anim.puzzle_animate_outro_to_point(puzzle_node)
-		outro_complete.connect(func():
-			Log.pr("freeing old puzzle node")
-			puzzle_node.queue_free())
+		await outro_complete
+		puzzle_node.queue_free()
 
 	var theme = ps.get_theme()
 	puzzle_node = DotHopPuzzle.build_puzzle_node({

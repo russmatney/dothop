@@ -59,7 +59,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_ify5j")
 bbcode_enabled = true
-text = "w: 7, h: 3 msg: \"Connect all the dots!\""
+text = "w: 7, h: 3 msg: \"Connect all the dots!\"
+dots: [color=dark_blue]5[/color] paths: [color=forest_green]1 win[/color]/[color=crimson]<null> stuck_dot[/color]/[color=crimson]<null> stuck_goal[/color]/[color=peru]1 all[/color]"
 fit_content = true
 scroll_active = false
 

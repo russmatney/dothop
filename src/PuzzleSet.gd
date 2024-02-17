@@ -82,6 +82,7 @@ func get_analyzed_game_def():
 	var level_count = len(game_def.levels)
 	for i in level_count:
 		var puzz_node = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
+		puzz_node.init_game_state()
 		game_def.levels[i]["analysis"] = Solver.new(puzz_node).analyze()
 
 	analyzed_game_def = game_def

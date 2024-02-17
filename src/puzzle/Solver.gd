@@ -4,7 +4,8 @@ class_name Solver
 ## vars ####################################
 
 const WIN = "WIN"
-const STUCK = "STUCK"
+const STUCK_GOAL = "STUCK_GOAL"
+const STUCK_DOT = "STUCK_DOT"
 
 var puzzle: DotHopPuzzle
 
@@ -33,10 +34,13 @@ func collect_move_tree(current_move_dict={}, last_move=null):
 		# we made a move, return this move-tree
 		return current_move_dict
 	else:
+		# TODO differentiate between stuck on 'goal' or non-goal
 		if puzzle.state.win:
 			return WIN
+		elif puzzle.all_players_at_goal():
+			return STUCK_GOAL
 		else:
-			return STUCK
+			return STUCK_DOT
 
 func collect_paths(move_tree, current_path=[], paths=[]):
 	if not move_tree is Dictionary:
@@ -53,7 +57,7 @@ func collect_paths(move_tree, current_path=[], paths=[]):
 		var node = move_tree[dir]
 		if node is Dictionary:
 			collect_paths(node, new_path, paths)
-		elif node == WIN or node == STUCK:
+		elif node == WIN or node == STUCK_DOT or node == STUCK_GOAL:
 			new_path.append(node)
 			paths.append(new_path)
 
@@ -64,6 +68,8 @@ func analyze():
 	var paths = collect_paths(move_tree)
 
 	var winning_paths = paths.filter(func(p): return p[-1] == WIN)
+	var stuck_dot_paths = paths.filter(func(p): return p[-1] == STUCK_DOT)
+	var stuck_goal_paths = paths.filter(func(p): return p[-1] == STUCK_GOAL)
 	var solvable = len(winning_paths) > 0
 	var dot_count = 0
 	if solvable:
@@ -81,5 +87,7 @@ func analyze():
 		dot_count=dot_count,
 		path_count=len(paths),
 		winning_path_count=len(winning_paths),
+		stuck_dot_path_count=len(stuck_dot_paths),
+		stuck_goal_path_count=len(stuck_goal_paths),
 		stuck_path_count=len(paths) - len(winning_paths),
 		}
