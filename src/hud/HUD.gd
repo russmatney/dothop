@@ -13,6 +13,7 @@ extends CanvasLayer
 @onready var undo_input_icon = $%UndoInputIcon
 @onready var reset_input_icon = $%ResetInputIcon
 
+var puzzle_def: PuzzleDef
 
 ## ready ########################################################
 
@@ -53,22 +54,23 @@ var last_puzzle_update
 func update_state(data):
 	last_puzzle_update = data
 
+	puzzle_def = data.puzzle_def
 	update_puzzle_number(data)
-	update_puzzle_message(data)
+	update_puzzle_message()
 	update_dots_remaining(data)
 
 ## puzzle number ########################################################
 
 func update_puzzle_number(entry):
-	if "puzzle_number" in entry and "puzzle_number_total" in entry:
+	if "puzzle_number_total" in entry:
 		puzzle_num_label.text = "[center]#%s/%s[/center]" %\
-			[entry.puzzle_number, entry.puzzle_number_total]
+			[puzzle_def.idx + 1, entry.puzzle_number_total]
 
 ## message ########################################################
 
-func update_puzzle_message(entry):
-	if "puzzle_message" in entry:
-		puzzle_message_label.text = "[center]%s[/center]" % entry.puzzle_message
+func update_puzzle_message():
+	if puzzle_def.get_message():
+		puzzle_message_label.text = "[center]%s[/center]" % puzzle_def.get_message()
 
 ## dots remaining ########################################################
 

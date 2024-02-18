@@ -26,6 +26,7 @@ oo.
 oxt
 
 message "A growing problem"
+show_progress
 
 o.o.o
 ..t.o
@@ -50,6 +51,7 @@ t.o.o.
 ..oo.o
 
 message "An apendage of a path. Apathdage?"
+show_progress
 
 o.o....
 o.o....
@@ -75,6 +77,7 @@ oo.o.o..
 ...o..o.
 
 message "But it's RIGHT. THERE."
+show_progress
 
 ooo..oo..
 ....oo.oo

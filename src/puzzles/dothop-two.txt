@@ -42,6 +42,7 @@ o....x
 .o.o..
 o...o.
 
+show_progress
 message "A taste of choice"
 
 oo.o.o.
@@ -56,6 +57,7 @@ o...oo..o
 x...ot..o
 ....o.o..
 
+show_progress
 message "Dancing around it"
 
 oo...o.o
@@ -75,6 +77,7 @@ o...oto.o
 ...o...o.
 
 message "Similar, but different"
+show_progress
 
 ..o.o.o..
 x.o.ooooo
@@ -94,6 +97,7 @@ o.o..to..
 .o..o....
 
 message "Don't leave me hanging!"
+show_progress
 
 oo...o..o
 o.oo.o...

@@ -35,6 +35,8 @@ message "Connect all the dots!"
 .t.o.o.
 .o...o.
 
+show_progress
+
 o..o.o.
 ox.o.ot
 ...o.o.

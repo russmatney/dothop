@@ -31,6 +31,8 @@ o......o
 .x.....
 .o.o.t.
 
+show_progress
+
 o..ooo.
 o...o.t
 ...o.o.
@@ -54,6 +56,8 @@ ot..o.o
 .o..o....
 ...x.oo.o
 .oo.o..t.
+
+show_progress
 
 .....ooo.
 ..oo....o

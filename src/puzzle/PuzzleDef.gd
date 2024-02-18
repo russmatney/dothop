@@ -32,3 +32,11 @@ func _init(raw: Dictionary):
 
 func data():
 	return {obj=str(self), meta=meta, width=width, height=height, idx=idx}
+
+## helper ########################################3333
+
+func get_message():
+	if message:
+		return message
+	else:
+		return meta.get("message")

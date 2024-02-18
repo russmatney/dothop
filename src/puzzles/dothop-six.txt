@@ -36,6 +36,8 @@ message "it be like BRRRRRR"
 .o...o.
 .x.o..t
 
+show_progress
+
 xo......
 .oo.....
 ..oo....
@@ -49,6 +51,8 @@ message "Better bundle up!"
 .......oo.
 .t.oo.....
 
+show_progress
+
 ...o..o.
 .o.oooo.
 o.o..t..
@@ -61,6 +65,8 @@ x...o.o.
 oo...xo.
 .....oo.
 oo......
+
+show_progress
 
 .oo.o.t.
 ..o.ooo.

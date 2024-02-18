@@ -92,25 +92,17 @@ func rebuild_puzzle():
 	add_child.call_deferred(puzzle_node)
 	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))
 
+## update hud #####################################################################
+
 func update_hud():
 	if hud and puzzle_node:
-		# TODO trace and consider/model the data sources here
 		# TODO unit test for getting this data at various times during gameplay
-		var pd = puzzle_node.puzzle_def
-		# TODO update this message usage to handle other metadata
-		var message
-		if pd != null and "message" in pd and pd.message != "":
-			message = pd.message
 		var data = {
+			puzzle_def=puzzle_node.puzzle_def,
+			puzzle_number_total=len(game_def.puzzles),
 			dots_total=puzzle_node.dot_count(),
 			dots_remaining=puzzle_node.dot_count(true),
 			}
-		if message != null:
-			data["puzzle_message"] = message
-		var total_puzzles = len(game_def.puzzles)
-		if not puzzle_node.state.win: # skip updates after we've won (i.e. wait until next puzzle load)
-			data["puzzle_number"] = clamp(puzzle_num + 1, 1, total_puzzles)
-			data["puzzle_number_total"] = total_puzzles
 		hud.update_state(data)
 
 ## load theme #####################################################################
@@ -119,7 +111,6 @@ func change_theme(theme):
 	if puzzle_theme != theme:
 		puzzle_theme = theme
 		rebuild_puzzle()
-
 
 ## win #####################################################################
 
@@ -134,82 +125,52 @@ func on_puzzle_win():
 	# maybe show number of moves, new dots collected, some solver stats
 	# plus a hop-along the 'list of puzzle-icons board'
 
-	# TODO did this puzzle have an opening or closing slide?
-
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
-		# some kind of fade or transition?
+		await show_unlock_jumbo()
 		nav_to_world_map()
 	else:
+		if puzzle_node.puzzle_def.meta.get("show_progress"):
+			await show_progress_jumbo()
+
 		puzzle_num += 1
 		rebuild_puzzle()
 
-# func on_puzzle_win():
-# 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
+## progress jumbo #####################################################################
 
-# 	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
+func show_progress_jumbo():
+	var header = "Puzzles 1-%s Complete!" % str(puzzle_num + 1)
+	var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
+	var instance = PuzzleCompleteScene.instantiate()
+	instance.puzzle_set = puzzle_set
+	instance.puzzle_num = puzzle_num
+	instance.ready.connect(func(): instance.prizes.set_visible(false))
 
-# 	var instance = PuzzleCompleteScene.instantiate()
-# 	instance.puzzle_set = puzzle_set
-# 	instance.puzzle_num = puzzle_num
+	var opts = {header=header, body=body, pause=false, instance=instance}
+	return Jumbotron.jumbo_notif(opts)
 
-# 	var header
-# 	var body
-# 	if puzzles_complete:
-# 		header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
-# 		body = U.rand_of([
-# 			"Be proud! For you are a NERD",
-# 			"Congratulations, nerd!",
-# 			"You're a real hop-dotter!",
-# 			])
+## unlock jumbo #####################################################################
 
-# 		instance.ready.connect(func():
-# 			var next_set = puzzle_set.get_next_puzzle_set()
-# 			if next_set:
-# 				instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
-# 			else:
-# 				instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
+func show_unlock_jumbo():
+	var header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
+	var body = U.rand_of([
+		"Be proud! For you are a NERD",
+		"Congratulations, nerd!",
+		"You're a real hop-dotter!",
+		])
 
+	var instance = PuzzleCompleteScene.instantiate()
+	instance.puzzle_set = puzzle_set
+	instance.puzzle_num = puzzle_num
 
-# 		Dino.notif("Puzzle Set complete!")
-# 		Store.complete_puzzle_set(puzzle_set)
-# 	else:
-# 		header = "Puzzle %s Complete!" % str(puzzle_num + 1)
-# 		body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
-# 		instance.ready.connect(func(): instance.prizes.set_visible(false))
+	instance.ready.connect(func():
+		var next_set = puzzle_set.get_next_puzzle_set()
+		if next_set:
+			instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
+		else:
+			instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
 
+	var opts = {header=header, body=body, pause=false, instance=instance}
 
-# 	var opts = {header=header, body=body, pause=false,
-# 		on_close=func():
-
-# 		if puzzles_complete:
-# 			# some kind of fade or transition?
-# 			nav_to_world_map()
-# 		else:
-# 			puzzle_num += 1
-
-# 		    # animate out
-# 			var exit_t = 0.6
-# 			# var exit_pos = puzzle_node.puzzle_rect().get_center()
-# 			var puzz_rect = puzzle_node.puzzle_rect()
-# 			var exit_poses = [
-# 				puzz_rect.get_center(),
-# 				# puzz_rect.position,
-# 				# puzz_rect.end,
-# 				]
-# 			Log.pr(exit_poses)
-# 			puzzle_node.state.players.map(func(p): Anim.slide_to_point(p.node,
-# 				U.rand_of(exit_poses),
-# 				exit_t))
-# 			puzzle_node.all_cell_nodes().map(func(node): Anim.slide_to_point(node,
-# 				U.rand_of(exit_poses),
-# 				exit_t))
-# 			# await get_tree().create_timer(exit_t/2).timeout
-
-# 			rebuild_puzzle()}
-
-# 	if instance:
-# 		opts["instance"] = instance
-
-# 	Jumbotron.jumbo_notif(opts)
+	return Jumbotron.jumbo_notif(opts)
