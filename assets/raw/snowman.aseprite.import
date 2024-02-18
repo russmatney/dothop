@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dgn0aulj0o3oa"
+path="res://.godot/imported/snowman.aseprite-d72dd4bc06ef7dad4f53c7cc78f48f63.res"
+
+[deps]
+
+source_file="res://assets/raw/snowman.aseprite"
+dest_files=["res://.godot/imported/snowman.aseprite-d72dd4bc06ef7dad4f53c7cc78f48f63.res"]
+
+[params]
+
