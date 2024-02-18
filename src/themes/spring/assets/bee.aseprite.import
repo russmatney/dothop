@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://de0mc2avkinag"
+path="res://.godot/imported/bee.aseprite-0e4ee713ee26996afe04628aac459ace.res"
+
+[deps]
+
+source_file="res://src/themes/spring/assets/bee.aseprite"
+dest_files=["res://.godot/imported/bee.aseprite-0e4ee713ee26996afe04628aac459ace.res"]
+
+[params]
+
