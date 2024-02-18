@@ -48,10 +48,8 @@ func data():
 ## computed ############################################
 
 # BEWARE OF CACHING!
-var game_def
-var analyzed_game_def
-
-# TODO create type for game_def, with level_def/analysis, etc?
+var game_def: GameDef
+var analyzed_game_def: GameDef
 
 # returns a cached game_def, or parses a new one
 func get_game_def():
@@ -63,7 +61,7 @@ func get_game_def():
 	return game_def
 
 func get_puzzles():
-	return get_game_def().levels.filter(func(puzz): return puzz.shape)
+	return get_game_def().puzzles.filter(func(puzz): return puzz.shape)
 
 func get_puzzle(idx: int):
 	var puzzs = get_puzzles()
@@ -72,18 +70,18 @@ func get_puzzle(idx: int):
 	else:
 		Log.warn("Requested out of range puzzle index", idx, self)
 
-# Attach an "analysis" to each level_def (game_def.levels[])
+# Attach an "analysis" to each level_def (game_def.puzzles[])
 # returns the game_def
 func get_analyzed_game_def():
 	if analyzed_game_def != null:
 		return analyzed_game_def
 
 	get_game_def() # ensure cache
-	var level_count = len(game_def.levels)
-	for i in level_count:
+	var puzzle_count = len(game_def.puzzles)
+	for i in puzzle_count:
 		var puzz_node = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
 		puzz_node.init_game_state()
-		game_def.levels[i]["analysis"] = Solver.new(puzz_node).analyze()
+		game_def.puzzles[i]["analysis"] = Solver.new(puzz_node).analyze()
 
 	analyzed_game_def = game_def
 	return analyzed_game_def

@@ -47,7 +47,7 @@ func on_puzzle_set_button_pressed(ps: PuzzleSet):
 	# Log.pr("puzzle_set button pressed", ps)
 	select_puzzle_set(ps)
 
-func on_puzzle_button_pressed(ps: PuzzleSet, p):
+func on_puzzle_button_pressed(ps: PuzzleSet, p: PuzzleDef):
 	select_puzzle(ps, p)
 
 ## select ######################################################
@@ -56,9 +56,9 @@ func select_puzzle_set(ps: PuzzleSet):
 	ps.get_analyzed_game_def() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first
-	for level_def in ps.get_puzzles():
+	for puzzle_def in ps.get_puzzles():
 		if not first:
-			first = level_def
+			first = puzzle_def
 		# var bg_music = ps.get_theme().get_background_music()
 		var dot_texture = ps.get_theme().get_dot_icon()
 		var dotted_texture = ps.get_theme().get_dotted_icon()
@@ -71,18 +71,19 @@ func select_puzzle_set(ps: PuzzleSet):
 		texture.set_texture_normal(dot_texture)
 		texture.set_texture_disabled(dotted_texture)
 
-		texture.pressed.connect(on_puzzle_button_pressed.bind(ps, level_def))
+		texture.pressed.connect(on_puzzle_button_pressed.bind(ps, puzzle_def))
 
 		puzzles_grid.add_child(texture)
 	if first:
 		select_puzzle(ps, first)
 
-func select_puzzle(ps: PuzzleSet, level_def):
-	var w = level_def.width
-	var h = level_def.height
-	var msg = level_def.get("message", false)
-	var idx = level_def.idx # not necessarily the order, which puzzle-sets can overwrite
-	var analysis = level_def.get("analysis", false)
+func select_puzzle(ps: PuzzleSet, puzzle_def: PuzzleDef):
+	Log.pr("Puzzle selected", puzzle_def)
+	var w = puzzle_def.width
+	var h = puzzle_def.height
+	var msg = puzzle_def.message
+	var idx = puzzle_def.idx # not necessarily the order, which puzzle-sets can overwrite
+	var analysis = puzzle_def.analysis
 
 	current_puzzle_label.text = "[center]%s # %s" % [ps.get_display_name(), idx + 1]
 	# TODO print puzzle solver data here
@@ -110,7 +111,7 @@ func select_puzzle(ps: PuzzleSet, level_def):
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
 		game_def=ps.get_game_def(),
 		puzzle_theme=theme,
-		puzzle_num=level_def.get("idx"),
+		puzzle_num=puzzle_def.idx,
 		})
 	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))
 

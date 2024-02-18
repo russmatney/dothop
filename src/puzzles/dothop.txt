@@ -151,7 +151,7 @@ No Dot
 All Player on Goal
 
 =======
-LEVELS
+PUZZLES
 =======
 
 message "Eat all the flowers. The red/orange must be last."

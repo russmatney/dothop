@@ -16,7 +16,7 @@ x = PlayerA and Dotted
 y = PlayerB and Dotted
 
 =======
-LEVELS
+PUZZLES
 =======
 
 message "it be like BRRRRRR"

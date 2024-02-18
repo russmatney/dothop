@@ -50,9 +50,9 @@ func render():
 	puzzle_set_icon.modulate.a = 0.0
 
 	if completed_puzzle_icon and next_puzzle_icon:
-		U.call_in(0.5, self, func(): move_level_cursor(next_puzzle_icon, {from=completed_puzzle_icon}))
+		U.call_in(0.5, self, func(): move_puzzle_cursor(next_puzzle_icon, {from=completed_puzzle_icon}))
 
-func move_level_cursor(icon, opts={}):
+func move_puzzle_cursor(icon, opts={}):
 	if opts.get("no_show", false):
 		puzzle_set_icon.modulate.a = 0.0
 		puzzle_set_icon.position = icon.global_position

@@ -126,7 +126,7 @@ func show_puzzle_set(puzzle_set):
 		var icon = TextureRect.new()
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
 		icon.gui_input.connect(on_level_icon_gui_input)
-		icon.focus_entered.connect(move_level_cursor.bind(icon))
+		icon.focus_entered.connect(move_puzzle_cursor.bind(icon))
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
@@ -148,10 +148,10 @@ func show_puzzle_set(puzzle_set):
 	if next_puzzle_icon:
 		start_puzzle_set_button.focus_neighbor_bottom = next_puzzle_icon.get_path()
 		U.call_in(0.4, self, func():
-			move_level_cursor(next_puzzle_icon, {no_move=true})
+			move_puzzle_cursor(next_puzzle_icon, {no_move=true})
 			start_puzzle_set_button.grab_focus.call_deferred())
 
-func move_level_cursor(icon, opts={}):
+func move_puzzle_cursor(icon, opts={}):
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
 	start_puzzle_n_label.text = "[center]Start Puzzle %s" % str(idx + 1)

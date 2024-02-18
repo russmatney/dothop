@@ -67,7 +67,7 @@ func rebuild_puzzle():
 		await outro_complete
 		puzzle_node.queue_free()
 
-	# load current level
+	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
 		# should we pass in the puzzle set here?
 		game_def=game_def,
@@ -96,20 +96,21 @@ func update_hud():
 	if hud and puzzle_node:
 		# TODO trace and consider/model the data sources here
 		# TODO unit test for getting this data at various times during gameplay
-		var ld = puzzle_node.level_def
+		var pd = puzzle_node.puzzle_def
+		# TODO update this message usage to handle other metadata
 		var message
-		if ld != null and "message" in ld and ld.message != "":
-			message = ld.message
+		if pd != null and "message" in pd and pd.message != "":
+			message = pd.message
 		var data = {
 			dots_total=puzzle_node.dot_count(),
 			dots_remaining=puzzle_node.dot_count(true),
 			}
 		if message != null:
-			data["level_message"] = message
-		var total_levels = len(game_def.levels)
+			data["puzzle_message"] = message
+		var total_puzzles = len(game_def.puzzles)
 		if not puzzle_node.state.win: # skip updates after we've won (i.e. wait until next puzzle load)
-			data["level_number"] = clamp(puzzle_num + 1, 1, total_levels)
-			data["level_number_total"] = total_levels
+			data["puzzle_number"] = clamp(puzzle_num + 1, 1, total_puzzles)
+			data["puzzle_number_total"] = total_puzzles
 		hud.update_state(data)
 
 ## load theme #####################################################################
@@ -127,7 +128,7 @@ var PuzzleCompleteScene = preload("res://src/menus/PuzzleComplete.tscn")
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-	var puzzles_complete = puzzle_num + 1 >= len(game_def.levels)
+	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
 	# TODO popup/toast puzzle-set progress panel per puzzle-complete
 	# maybe show number of moves, new dots collected, some solver stats
@@ -147,7 +148,7 @@ func on_puzzle_win():
 # func on_puzzle_win():
 # 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-# 	var puzzles_complete = puzzle_num + 1 >= len(game_def.levels)
+# 	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
 # 	var instance = PuzzleCompleteScene.instantiate()
 # 	instance.puzzle_set = puzzle_set

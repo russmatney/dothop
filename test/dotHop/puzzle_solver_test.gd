@@ -96,9 +96,9 @@ func test_all_puzzles_solvable():
 
 	for puzzle_set in sets:
 		var game_def = Puzz.parse_game_def(puzzle_set.get_puzzle_script_path())
-		var level_count = len(game_def.levels)
-		assert_int(level_count).is_greater(0)
-		for i in level_count:
+		var puzzle_count = len(game_def.puzzles)
+		assert_int(puzzle_count).is_greater(0)
+		for i in puzzle_count:
 			# requiring a node that is added to the scene to analyze is a damn shame here
 			# (can the analysis be run without the node's _ready()?
 			var puzz_node = DotHopPuzzle.build_puzzle_node({

@@ -6,10 +6,10 @@ class_name DotHopPuzzle
 
 static var fallback_puzzle_scene = "res://src/puzzle/PuzzleScene.tscn"
 
-# Builds and returns a "puzzle_scene" node, with a game_def and level_def set
+# Builds and returns a "puzzle_scene" node, with a game_def and puzzle_def set
 # Accepts several input options, but only 'game_def' or 'game_def_path' are required.
 #
-# A raw puzzle or puzzle_num can be specified to load/pick a level for a particular game_def.
+# A raw puzzle or puzzle_num can be specified to load/pick a puzzle for a particular game_def.
 # `puzzle_scene` should be set according to the current theme.
 #
 # This func could live on the DotHopGame script, but a function like this is useful
@@ -27,19 +27,19 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 
 	# parse/pick the puzzle to load
 	var puzzle = opts.get("puzzle")
-	# default to loading the first level
+	# default to loading the first puzzle
 	var puzzle_num = opts.get("puzzle_num", 0)
-	var _level_def
+	var _puzzle_def: PuzzleDef
 
 	if puzzle != null:
-		_level_def = Puzz.parse_level_def(puzzle, opts.get("puzzle_message"))
+		_puzzle_def = Puzz.parse_puzzle_def(puzzle)
 	elif puzzle_num != null:
-		_level_def = _game_def.levels[puzzle_num]
+		_puzzle_def = _game_def.puzzles[puzzle_num]
 	else:
 		pass
 
-	if _level_def == null or _level_def.shape == null:
-		Log.warn("Could not determine _level_def, cannot build_puzzle_node()")
+	if _puzzle_def == null or _puzzle_def.shape == null:
+		Log.warn("Could not determine _puzzle_def, cannot build_puzzle_node()")
 		return
 
 	var _theme = opts.get("puzzle_theme")
@@ -53,7 +53,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 
 	node.game_def = _game_def
 	node.theme = _theme
-	node.level_def = _level_def
+	node.puzzle_def = _puzzle_def
 	return node
 
 ## vars ##############################################################
@@ -63,7 +63,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		game_def_path = gdp
 		if gdp != "":
 			game_def = Puzz.parse_game_def(gdp)
-			level_def = game_def.levels[0]
+			puzzle_def = game_def.puzzles[0]
 
 @export var clear: bool = false:
 	set(v):
@@ -83,10 +83,10 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 @export var debugging: bool = false
 
 @export var theme: PuzzleTheme
-var game_def
-var level_def :
+var game_def : GameDef
+var puzzle_def : PuzzleDef :
 	set(ld):
-		level_def = ld
+		puzzle_def = ld
 		if Engine.is_editor_hint():
 			init_game_state()
 @export var square_size = 32
@@ -115,11 +115,11 @@ func _init():
 ## ready ##############################################################
 
 func _ready():
-	if level_def == null:
-		Log.pr("no level_def, trying backups!", name)
+	if puzzle_def == null:
+		Log.pr("no puzzle_def, trying backups!", name)
 		if game_def_path != "":
 			game_def = Puzz.parse_game_def(game_def_path)
-			level_def = game_def.levels[0]
+			puzzle_def = game_def.puzzles[0]
 			init_game_state()
 		else:
 			Log.err("no game_def_path!!")
@@ -231,20 +231,20 @@ func restart_block_move_timer(t=0.2):
 
 ## state/grid ##############################################################
 
-# sets up the state grid and some initial data based on the assigned level_def
+# sets up the state grid and some initial data based on the assigned puzzle_def
 func init_game_state():
-	if len(level_def.shape) == 0:
-		Log.warn("init_game_state() called without level_def.shape", level_def)
+	if len(puzzle_def.shape) == 0:
+		Log.warn("init_game_state() called without puzzle_def.shape", puzzle_def)
 		return
 
 	var grid = []
 	var players = []
-	for y in len(level_def.shape):
-		var row = level_def.shape[y]
+	for y in len(puzzle_def.shape):
+		var row = puzzle_def.shape[y]
 		var r = []
 		for x in len(row):
-			var cell = level_def.shape[y][x]
-			var objs = get_cell_objs(cell)
+			var cell = puzzle_def.shape[y][x]
+			var objs = game_def.get_cell_objects(cell)
 			r.append(objs)
 		grid.append(r)
 
@@ -252,15 +252,6 @@ func init_game_state():
 
 	rebuild_nodes()
 
-func get_cell_objs(cell):
-	var objs = Puzz.get_cell_objects(game_def, cell)
-	if objs != null and len(objs) > 0:
-		objs = objs.map(func(n):
-			if n in ["PlayerA", "PlayerB"]:
-				return "Player"
-			else:
-				return n)
-	return objs
 
 ## setup level ##############################################################
 
@@ -288,7 +279,10 @@ func ensure_camera():
 		add_child(dhcam)
 
 func coord_pos(node):
-	return node.current_position()
+	if node.has_method("current_position"):
+		return node.current_position()
+	else:
+		return node.position
 
 func puzzle_rect(opts={}):
 	var nodes = puzzle_cam_nodes(opts)

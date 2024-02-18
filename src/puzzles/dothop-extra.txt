@@ -1,4 +1,4 @@
-title Misc other levels
+title Misc other puzzles
 
 =======
 LEGEND
@@ -16,7 +16,7 @@ x = PlayerA and Dotted
 y = PlayerB and Dotted
 
 =======
-LEVELS
+PUZZLES
 =======
 
 symmetry

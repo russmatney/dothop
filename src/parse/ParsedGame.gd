@@ -10,7 +10,7 @@ var section_parsers = {
 	"collisionlayers": parse_collision_layers,
 	"rules": parse_rules,
 	"winconditions": parse_win_conditions,
-	"levels": parse_levels,
+	"puzzles": parse_puzzles,
 	}
 
 func parse(contents):
@@ -33,6 +33,20 @@ func parse(contents):
 				).filter(func(chunk): return len(chunk) > 0)
 			parsed[header.to_lower()] = parser.call(chunks)
 	return parsed
+
+func parse_metadata(lines):
+	var data = {}
+	for l in lines:
+		if l == "":
+			continue
+		var parts = l.split(" ", false, 1)
+		var key = parts[0]
+		parts.remove_at(0)
+		var val = true
+		if parts.size() > 0:
+			val = " ".join(parts)
+		data[key] = val
+	return data
 
 ## prelude #########################################################
 
@@ -68,13 +82,13 @@ func parse_objects(chunks):
 		if lines.size() > 2:
 			lines.remove_at(0)
 			lines.remove_at(0)
-			obj.shape = parse_shape(lines)
+			obj.shape = parse_shape(lines, true)
 
 		objs[obj.name] = obj
 
 	return objs
 
-func parse_shape(lines, parse_int=true):
+func parse_shape(lines, parse_int=false):
 	var shape = []
 	for l in lines:
 		var row = []
@@ -181,34 +195,48 @@ func parse_win_conditions(chunks):
 			conds.append(Array(parts))
 	return conds
 
-## levels #########################################################
+## puzzles #########################################################
 
-func parse_level(lines, msg=null):
-	var lvl = {}
-	if msg != null:
-		lvl["message"] = msg
-	lvl["shape"] = parse_shape(lines, false)
-	lvl["height"] = len(lines)
-	if len(lines) > 0:
-		lvl["width"] = len(lines[0])
-	return lvl
+func parse_puzzle(shape_lines, raw_meta=[]):
+	var meta = parse_metadata(raw_meta)
+	var raw_shape
+	if shape_lines:
+		raw_shape = parse_shape(shape_lines)
+	var line_count = 0
+	if shape_lines:
+		line_count = len(shape_lines)
 
-# TODO rename `levels` to `puzzles`
-# TODO write unit test for including `idx`
-func parse_levels(chunks):
-	var levels = []
-	var msg
-	for lines in chunks:
-		lines = (lines as Array).filter(func(l): return not l == "")
-		if lines.size() == 1:
-			var parts = lines[0].split(" ", true, 1)
-			msg = parts[1]
+	var puzzle = {
+		meta=meta,
+		shape=raw_shape,
+		height=line_count,
+		}
+
+	if line_count > 0:
+		puzzle["width"] = len(shape_lines[0])
+	else:
+		puzzle["width"] = 0
+	# maybe want to optimize away from this?
+	return puzzle.duplicate(true)
+
+func parse_puzzles(chunks):
+	var puzzles = []
+	var skip = false
+	for i in len(chunks):
+		if skip:
+			skip = false
+			continue
+		# NOTE this is precarious and weird!!
+		if chunks[i][0][0] in [".", "#", "a", "b", "o", "t", "x", "y"]:
+			puzzles.append(parse_puzzle(chunks[i]))
+			skip = false
 		else:
-			levels.append(parse_level(lines, msg))
-			msg = null
-	if msg != null:
-		# add final message as new level?
-		levels.append({message=msg, shape=null})
-	for i in len(levels):
-		levels[i].merge({idx=i})
-	return levels
+			var raw_meta = chunks[i]
+			var shape_lines
+			if i + 1 < len(chunks):
+				shape_lines = chunks[i+1]
+			puzzles.append(parse_puzzle(shape_lines, raw_meta))
+			skip = true
+	for i in len(puzzles):
+		puzzles[i].idx = i
+	return puzzles

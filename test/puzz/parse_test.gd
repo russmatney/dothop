@@ -7,7 +7,7 @@ extends GdUnitTestSuite
 
 func parse():
 	var path = "res://test/puzz/simple_block_pushing_game.ps"
-	return Puzz.parse_game_def(path)
+	return Puzz.parse_game_def(path).raw
 
 var parsed
 
@@ -129,12 +129,12 @@ func test_winconditions():
 	assert_that(parsed.winconditions).is_equal([["all", "Target", "on", "Crate"]])
 
 
-func test_levels():
-	assert_that(parsed).contains_keys(["levels"])
-	assert_that(len(parsed.levels)).is_equal(3)
+func test_puzzles():
+	assert_that(parsed).contains_keys(["puzzles"])
+	assert_that(len(parsed.puzzles)).is_equal(3)
 
 func test_level_first():
-	assert_that(parsed.levels[0].shape).is_equal([
+	assert_that(parsed.puzzles[0].shape).is_equal([
 		["#", "#", "#", "#", null, null],
 		["#", null, "O", "#", null, null],
 		["#", null, null, "#", "#", "#"],
@@ -145,8 +145,8 @@ func test_level_first():
 		])
 
 func test_level_second():
-	assert_that(parsed.levels[1].message).is_equal("level 2 begins")
-	assert_that(parsed.levels[1].shape).is_equal([
+	assert_that(parsed.puzzles[1].meta.message).is_equal("level 2 begins")
+	assert_that(parsed.puzzles[1].shape).is_equal([
 		["#", "#", "#", "#", "#", "#"],
 		["#", null, null, null, null, "#"],
 		["#", null, "#", "P", null, "#"],
@@ -157,5 +157,5 @@ func test_level_second():
 		])
 
 func test_level_final():
-	assert_that(parsed.levels[2].message).is_equal("game complete!")
-	assert_that(parsed.levels[2].shape).is_null()
+	assert_that(parsed.puzzles[2].meta.message).is_equal("game complete!")
+	assert_that(parsed.puzzles[2].shape).is_null()

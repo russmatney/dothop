@@ -2,8 +2,8 @@ extends CanvasLayer
 
 ## vars ########################################################
 
-@onready var level_num_label = $%LevelNum
-@onready var level_message_label = $%LevelMessage
+@onready var puzzle_num_label = $%LevelNum
+@onready var puzzle_message_label = $%LevelMessage
 @onready var dots_remaining_label = $%DotsRemaining
 
 @onready var undo_control_hint = $%UndoControlHint
@@ -53,22 +53,22 @@ var last_puzzle_update
 func update_state(data):
 	last_puzzle_update = data
 
-	update_level_number(data)
-	update_level_message(data)
+	update_puzzle_number(data)
+	update_puzzle_message(data)
 	update_dots_remaining(data)
 
-## level number ########################################################
+## puzzle number ########################################################
 
-func update_level_number(entry):
-	if "level_number" in entry and "level_number_total" in entry:
-		level_num_label.text = "[center]#%s/%s[/center]" %\
-			[entry.level_number, entry.level_number_total]
+func update_puzzle_number(entry):
+	if "puzzle_number" in entry and "puzzle_number_total" in entry:
+		puzzle_num_label.text = "[center]#%s/%s[/center]" %\
+			[entry.puzzle_number, entry.puzzle_number_total]
 
 ## message ########################################################
 
-func update_level_message(entry):
-	if "level_message" in entry:
-		level_message_label.text = "[center]%s[/center]" % entry.level_message
+func update_puzzle_message(entry):
+	if "puzzle_message" in entry:
+		puzzle_message_label.text = "[center]%s[/center]" % entry.puzzle_message
 
 ## dots remaining ########################################################
 

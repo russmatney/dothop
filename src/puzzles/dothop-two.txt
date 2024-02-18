@@ -17,7 +17,7 @@ x = PlayerA and Dotted
 y = PlayerB and Dotted
 
 =======
-LEVELS
+PUZZLES
 =======
 
 message "Back For More, are you? Time for a warm up"

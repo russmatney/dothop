@@ -1,7 +1,7 @@
 extends Node
 class_name Puzz
 
-static func parse_game_def(path, opts={}):
+static func parse_game_def(path, opts={}) -> GameDef:
 	var contents = opts.get("contents")
 	if path != null:
 		if not FileAccess.file_exists(path):
@@ -11,20 +11,9 @@ static func parse_game_def(path, opts={}):
 		var file = FileAccess.open(path, FileAccess.READ)
 		contents = file.get_as_text()
 
-	return ParsedGame.new().parse(contents)
+	var parsed = ParsedGame.new().parse(contents)
+	return GameDef.new(path, parsed)
 
-static func parse_level_def(lines, msg=null):
-	return ParsedGame.new().parse_level(lines, msg)
-
-static func get_cell_objects(parsed, cell):
-	if cell == null:
-		return
-
-	var objs = parsed.legend.get(cell)
-	if objs != null:
-		# duplicate, so the returned array doesn't share state with every other cell
-		# (we mutate the returned state in level.gd as the game state)
-		objs = objs.duplicate()
-
-	# if or/and in objs, lookup again
-	return objs
+# helpful for supporting some tests
+static func parse_puzzle_def(lines) -> PuzzleDef:
+	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines))
