@@ -62,6 +62,10 @@ message Good luck out there | You got this!
 xooot
 .....
 
+o.o...
+oxo.t.
+......
+
 post_message Puzzle complete!
 post_message_body That was an easy one | Congrats, Nerd.
 
@@ -69,8 +73,17 @@ o..o.o.
 ox.o.ot
 ...o.o.
 .......
+"})
+	assert_int(len(parsed.puzzles)).is_equal(3)
+	var puzz_one = parsed.puzzles[0]
+	var puzz_two = parsed.puzzles[1]
+	var puzz_three = parsed.puzzles[2]
 
-"}) # note the extra empty line! ^
+	assert_that(puzz_one.meta.first).is_true()
+	assert_that(puzz_one.meta.name).is_equal("First puzzle")
+	assert_that(puzz_one.meta.message).is_equal("Good luck out there | You got this!")
 
-	# TODO rewrite these tests
-	assert_int(len(parsed.puzzles)).is_equal(2)
+	assert_that(puzz_two.meta).is_equal({})
+
+	assert_that(puzz_three.meta.post_message).is_equal("Puzzle complete!")
+	assert_that(puzz_three.meta.post_message_body).is_equal("That was an easy one | Congrats, Nerd.")
