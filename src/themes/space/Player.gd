@@ -20,7 +20,7 @@ func on_anim_finished():
 
 func move_to_coord(coord):
 	anim.play("moving")
-	super.move_to_coord(coord)
+	return super.move_to_coord(coord)
 
 ## move attempts #########################################################
 
