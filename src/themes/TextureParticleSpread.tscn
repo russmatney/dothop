@@ -1,0 +1,40 @@
+[gd_scene load_steps=7 format=3 uid="uid://badx45ireomo8"]
+
+[ext_resource type="Texture2D" uid="uid://bkf534ft2csh5" path="res://src/themes/winter/assets/player.png" id="1_iprmh"]
+
+[sub_resource type="Curve" id="Curve_fcq07"]
+_data = [Vector2(0.162469, 0.771589), 0.0, 0.0, 0, 0, Vector2(0.530227, 0.426542), 0.0, 0.0, 0, 0, Vector2(0.835013, 0.922243), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_0ialc"]
+curve = SubResource("Curve_fcq07")
+
+[sub_resource type="Curve" id="Curve_he2rh"]
+_data = [Vector2(0, 0.72785), 0.0, 0.0, 0, 0, Vector2(0.127204, 1), 0.0, 0.0, 0, 0, Vector2(0.356423, 1), 0.0, 0.0, 0, 0, Vector2(1, 0.640374), 0.0, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_rjd7r"]
+curve = SubResource("Curve_he2rh")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ic3xi"]
+lifetime_randomness = 0.14
+particle_flag_disable_z = true
+particle_flag_damping_as_friction = true
+emission_shape = 1
+emission_sphere_radius = 10.48
+spread = 60.0
+radial_velocity_min = 83.33
+radial_velocity_max = 120.37
+radial_velocity_curve = SubResource("CurveTexture_0ialc")
+gravity = Vector3(0, 30, 0)
+damping_min = 6.481
+damping_max = 18.518
+attractor_interaction_enabled = false
+scale_min = 0.0
+scale_curve = SubResource("CurveTexture_rjd7r")
+turbulence_enabled = true
+
+[node name="TextureParticleSpread" type="GPUParticles2D"]
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_ic3xi")
+texture = ExtResource("1_iprmh")
