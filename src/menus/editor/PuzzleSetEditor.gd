@@ -86,7 +86,6 @@ func select_puzzle(ps: PuzzleSet, puzzle_def: PuzzleDef):
 	var analysis = puzzle_def.analysis
 
 	current_puzzle_label.text = "[center]%s # %s" % [ps.get_display_name(), idx + 1]
-	# TODO print puzzle solver data here
 	var detail = "w: %s, h: %s" % [w, h]
 	if msg:
 		detail += " msg: %s" % msg

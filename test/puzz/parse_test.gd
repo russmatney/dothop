@@ -1,10 +1,5 @@
 extends GdUnitTestSuite
 
-# TODO how to assert that there was an error?
-# func test_missing_file():
-# 	var path = "res://test/some-made-up-path.txt"
-# 	var parsed = Puzz.parse_game_def(path)
-
 func parse():
 	var path = "res://test/puzz/simple_block_pushing_game.ps"
 	return Puzz.parse_game_def(path).raw

@@ -191,7 +191,6 @@ func clear_menus():
 
 ## main menu ###################################################################
 
-# TODO handle menus elsewhere?
 var main_menu_path = "res://src/menus/MainMenu.tscn"
 
 func set_main_menu(path):
@@ -210,7 +209,6 @@ func nav_to_main_menu():
 
 ## pause menu ###################################################################
 
-# TODO handle menus elsewhere?
 var pause_menu_path = "res://src/menus/PauseMenu.tscn"
 var pause_menu
 

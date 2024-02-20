@@ -34,7 +34,6 @@ func _ready():
 	hud = get_node_or_null("HUD")
 
 	# TODO add music controls and toasts
-	# TODO stop music when pausing or navigating away
 	SoundManager.stop_music(1.0)
 	var song = puzzle_theme.get_background_music()
 	if song != null:
@@ -48,7 +47,7 @@ func _exit_tree():
 			SoundManager.stop_music(2.0)
 
 func nav_to_world_map():
-	# TODO better navigation (string-less, path-less)
+	# TODO navigation via enum (string-less, path-less)
 	Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
 
 ## input ###################################################################
@@ -96,7 +95,6 @@ func rebuild_puzzle():
 
 func update_hud():
 	if hud and puzzle_node:
-		# TODO unit test for getting this data at various times during gameplay
 		var data = {
 			puzzle_def=puzzle_node.puzzle_def,
 			puzzle_number_total=len(game_def.puzzles),
@@ -121,9 +119,8 @@ func on_puzzle_win():
 
 	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
-	# TODO popup/toast puzzle-set progress panel per puzzle-complete
-	# maybe show number of moves, new dots collected, some solver stats
-	# plus a hop-along the 'list of puzzle-icons board'
+	# TODO popup/toast puzzle-set progress panel
+	# show hop-along the progress panel
 
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")

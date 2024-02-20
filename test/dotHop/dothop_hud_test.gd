@@ -1,6 +1,6 @@
 extends GdUnitTestSuite
 
-# TODO restore/rewrite dothop tests
+# TODO restore dothop hud tests
 
 var game
 

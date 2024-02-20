@@ -17,7 +17,7 @@ func save_game():
 		events=events.map(Pandora.serialize),
 		})
 
-# TODO validation and basic recovery from crashes on loaded data?
+# validation and basic recovery from crashes on loaded data?
 # i.e. missing puzzle_sets, at least set the initial ones and get to playable state
 func load_game():
 	var data = SaveGame.load_game(get_tree())

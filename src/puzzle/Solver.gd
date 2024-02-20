@@ -34,7 +34,6 @@ func collect_move_tree(current_move_dict={}, last_move=null):
 		# we made a move, return this move-tree
 		return current_move_dict
 	else:
-		# TODO differentiate between stuck on 'goal' or non-goal
 		if puzzle.state.win:
 			return WIN
 		elif puzzle.all_players_at_goal():

@@ -480,7 +480,7 @@ static func add_child_to_level(node, child):
 # returns the first parent node that impls add_child_to_level (i.e. the level root)
 # otherwise returns the root's current_scene
 static func find_level_root(node):
-	# TODO consider faster impls - like getting nodes in a group
+	# consider faster impls - like getting nodes in a group
 	# in that case, just be sure it's actually an ancestor of the passed node
 	var parent = node.get_parent()
 	if parent == null:

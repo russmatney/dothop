@@ -43,13 +43,6 @@ func show_next_puzzle_set():
 func show_previous_puzzle_set():
 	attempt_move_to_puzzle_set(-1)
 
-	# TODO resume music when naving back to here
-# 	visibility_changed.connect(on_visibility_changed)
-
-# func on_visibility_changed():
-# 	if not Engine.is_editor_hint() and get_children()[0].is_visible_in_tree():
-# 		SoundManager.play_music(Music.late_night_radio)
-
 func attempt_move_to_puzzle_set(delta: int):
 	var next_puzzle_set_idx = current_puzzle_set_idx + delta
 	next_puzzle_set_idx = clamp(next_puzzle_set_idx, 0, len(puzzle_sets) - 1)

@@ -43,7 +43,6 @@ func render_action_icons():
 	action_inputs.add_child(icon)
 
 	# show all option
-	# TODO if no action icon is found, we ought to remove the icon
 	# var keyboard_inputs = InputHelper.get_keyboard_inputs_for_action(action_name)
 	# var joypad_inputs = InputHelper.get_joypad_inputs_for_action(action_name)
 
