@@ -28,13 +28,13 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 	# parse/pick the puzzle to load
 	var puzzle = opts.get("puzzle")
 	# default to loading the first puzzle
-	var puzzle_num = opts.get("puzzle_num", 0)
+	var _puzzle_num = opts.get("puzzle_num", 0)
 	var _puzzle_def: PuzzleDef
 
 	if puzzle != null:
 		_puzzle_def = Puzz.parse_puzzle_def(puzzle)
-	elif puzzle_num != null:
-		_puzzle_def = _game_def.puzzles[puzzle_num]
+	elif _puzzle_num != null:
+		_puzzle_def = _game_def.puzzles[_puzzle_num]
 	else:
 		pass
 
@@ -54,6 +54,7 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 	node.game_def = _game_def
 	node.theme = _theme
 	node.puzzle_def = _puzzle_def
+	node.puzzle_num = _puzzle_num
 	return node
 
 ## vars ##############################################################
@@ -90,6 +91,15 @@ var puzzle_def : PuzzleDef :
 		if Engine.is_editor_hint():
 			init_game_state()
 @export var square_size = 32
+
+@export var puzzle_num : int :
+	set(pn):
+		puzzle_num = pn
+		if Engine.is_editor_hint():
+			if game_def:
+				puzzle_def = game_def.puzzles[pn]
+
+
 var state
 
 signal win
