@@ -10,6 +10,7 @@ _id = "22"
 
 [node name="WinterPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_n4qjr")
+game_def_path = "res://src/puzzles/dothop-six.txt"
 theme = SubResource("Resource_ap3d0")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
