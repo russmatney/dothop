@@ -267,6 +267,12 @@
 						"type": "bool",
 						"value": true
 					},
+					"music_tracks": {
+						"type": "array",
+						"value": {
+							"0": "res://assets/songs/sulosounds/funk-till-five-loop-doesntexist.wav"
+						}
+					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/fall/assets/player.png"
@@ -985,12 +991,21 @@
 				"_id": "61",
 				"_name": "goal_icon_texture",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": {
+
+				},
+				"_id": "62",
+				"_name": "music_tracks",
+				"_type": "array"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 61
+			"default": 62
 		}
 	}
 }

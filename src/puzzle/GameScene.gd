@@ -30,21 +30,20 @@ func _ready():
 	game_def = Puzz.parse_game_def(game_def_path)
 	rebuild_puzzle()
 
-
 	hud = get_node_or_null("HUD")
 
 	# TODO add music controls and toasts
 	SoundManager.stop_music(1.0)
-	var song = puzzle_theme.get_background_music()
-	if song != null:
-		SoundManager.play_music(song, 2.0)
+	var songs = puzzle_theme.get_music_tracks()
+	if len(songs) > 0:
+		SoundManager.play_music(songs[0], 2.0)
 
 func _exit_tree():
-	var song = puzzle_theme.get_background_music()
-	var songs = SoundManager.get_currently_playing_music()
-	if len(songs) == 1:
-		if songs[0] == song:
-			SoundManager.stop_music(2.0)
+	var playing_songs = SoundManager.get_currently_playing_music()
+	if len(playing_songs) == 1:
+		# if only one song is playing, stop it
+		# otherwise, assume the cross-fade is working
+		SoundManager.stop_music(2.0)
 
 func nav_to_world_map():
 	# TODO navigation via enum (string-less, path-less)

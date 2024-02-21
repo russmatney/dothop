@@ -50,6 +50,21 @@ func get_dotted_icon() -> Texture:
 func get_goal_icon() -> Texture:
 	return get_resource("goal_icon_texture")
 
+func get_music_tracks() -> Array[AudioStream]:
+	var track_strs = get_array("music_tracks")
+	var tracks: Array[AudioStream] = []
+	for t in track_strs:
+		if ResourceLoader.exists(t, "AudioStream"):
+			var track = ResourceLoader.load(t, "AudioStream")
+			tracks.append(track)
+		else:
+			Log.warn("theme music track does not exist!", t)
+	if len(tracks) == 0:
+		var bg = get_background_music()
+		if bg:
+			tracks.append(bg)
+	return tracks
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
