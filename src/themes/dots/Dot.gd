@@ -15,8 +15,6 @@ func _ready():
 ## render ###########################################################
 
 func render():
-	super.render()
-
 	if anim != null:
 		match type:
 			DHData.dotType.Dot:

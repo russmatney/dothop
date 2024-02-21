@@ -27,8 +27,6 @@ func hide_anims():
 ## render ###########################################################
 
 func render():
-	super.render()
-
 	if anim != null:
 		match type:
 			DHData.dotType.Dot:
