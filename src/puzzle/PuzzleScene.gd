@@ -149,9 +149,11 @@ func on_win():
 func on_player_moved():
 	var total_dots = float(dot_count() + 1)
 	var dotted = total_dots - float(dot_count(true)) - 1
+	# ensure some minimum
+	dotted = clamp(dotted, total_dots/4, total_dots)
 	if state.win:
 		dotted += 1
-	Sounds.play(Sounds.S.cure, {scale_range=total_dots, scale_note=dotted})
+	Sounds.play(Sounds.S.dot_collected, {scale_range=total_dots, scale_note=dotted})
 
 func on_player_undo():
 	Sounds.play(Sounds.S.minimize)

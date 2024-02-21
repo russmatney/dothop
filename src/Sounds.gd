@@ -13,6 +13,7 @@ enum S {
 	showjumbotron,
 	step,
 	ui_dading,
+	dot_collected,
 	}
 
 ###########################################################################
@@ -40,6 +41,9 @@ enum S {
 		],
 	S.cure: [
 		preload("res://assets/sounds/Retro Game Weapons Sound Effects - cure.ogg")
+		],
+	S.dot_collected: [
+		preload("res://assets/sounds/Retro Game Weapons Sound Effects - cure.ogg"),
 		],
 	S.laser:
 	[
