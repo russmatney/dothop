@@ -25,17 +25,20 @@ var dothop_credits = [
 	"by Kevin MacLeod (incompetech.com)",
 	"Licensed under Creative Commons: By Attribution 4.0 License",
 	"http://creativecommons.org/licenses/by/4.0",
-	"MIT License",
+	"",
+	"",
+	"Giving Up",
+	"Is this Mood",
+	"Lounge Groove",
+	"Verdant Grove",
+	"by Ben Burnes - Abstraction",
+	"Licensed under Creative Commons: By Attribution 4.0 License",
+	"http://creativecommons.org/licenses/by/4.0",
+	"",
 	"",
 	"chill-electric-background",
-	"cool-kids-electronic-bass-groove",
-	"detective-agency-theme",
 	"funk-till-five-loop",
-	"funkmachine-master-loop",
-	"jazz-work",
-	"jungle-groove",
-	"killer-factory-retro-video-game",
-	"All by SuloSounds",
+	"by SuloSounds",
 	# "https://sulosounds.itch.io/100-songs",
 	"CC0 - Public Domain",
 	"https://creativecommons.org/share-your-work/public-domain/cc0/",
@@ -56,8 +59,7 @@ var dothop_credits = [
 	"Most sounds generated via gdfxr (a godot sfxr addon)",
 	"https://github.com/timothyqiu/gdfxr",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Fonts",
 	], [
@@ -79,8 +81,7 @@ var dothop_credits = [
 	"http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=195",
 	"Creative Commons Attribution",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Color Palettes",
 	], [
@@ -95,8 +96,7 @@ var dothop_credits = [
 	"by sonnenstein",
 	"https://lospec.com/palette-list/autumn-glow",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Art",
 	], [
@@ -167,10 +167,11 @@ var dothop_credits = [
 	],
     [
 	"",
-	"# Testers",
+	"# Play Testers",
 	], [
 	"",
 	"tompsognathus",
+	"Cameron Kingsbury",
 	"",
 	"",
 	"Many thanks to all the testers and brainstormers who listened and gave feedback!",

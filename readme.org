@@ -52,15 +52,58 @@ I'm in the process of breaking the addons and reusable parts of this codebase
 out into properly licensed open source repos, so stay tuned!
 #+end_quote
 * Credits
-TODO: much more to include here!
-
 ** Fonts
-- at01
-- Born2BSporty
-- Adventure
+- born2bsportyv2 by japanyoshi
+http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=383
+Public Domain
+https://creativecommons.org/publicdomain/zero/1.0/
+
+- at10 by grafxkid
+https://grafxkid.itch.io/at01
+Public Domain
+https://creativecommons.org/publicdomain/zero/1.0/
+
+- Adventurer by Brain J Smith
+http://www.pentacom.jp/pentacom/bitfontmaker2/gallery/?id=195
+Creative Commons Attribution
 ** Art
 - Pixel Frog - Treasure Hunters (Wood and Paper Panel UI)
 https://pixelfrog-assets.itch.io/treasure-hunters
 
 - Input Prompts - Kenney
 https://www.kenney.nl/assets/input-prompts
+** Music
+Kevin MacLeod (https://incompetech.com/)
+- Late Night Radio
+  Licensed under Creative Commons: By Attribution 4.0 License
+  http://creativecommons.org/licenses/by/4.0
+
+Ben Burnes - Abstraction (https://abstractionmusic.com/)
+- Verdant Grove
+- Giving Up
+- Is this Mood
+- Lounge Groove
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0
+
+SuloSounds (https://sulosounds.itch.io/100-songs)
+- chill-electric-background
+- funk-till-five-loop
+CC0 - Public Domain
+https://creativecommons.org/share-your-work/public-domain/cc0/
+** Sounds
+retro game weapon sound effects
+happysoulmusic.com
+https://happysoulmusic.com/retro-game-weapons-sound-effects/
+CC0
+https://creativecommons.org/publicdomain/zero/1.0/
+
+Most sounds generated via gdfxr (a godot sfxr addon)
+https://github.com/timothyqiu/gdfxr
+** Godot Addons
+- AsepriteWizard: https://github.com/viniciusgerevini/godot-aseprite-wizard
+- gdfxr: https://github.com/timothyqiu/gdfxr
+- GDUnit4: https://github.com/MikeSchulze/gdUnit4
+- Input Helper: https://github.com/nathanhoad/godot_input_helper
+- Pandora: https://github.com/bitbrain/pandora
+- Sound Manager: https://github.com/nathanhoad/godot_sound_manager

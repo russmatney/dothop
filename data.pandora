@@ -172,10 +172,6 @@
 				"_index": 0,
 				"_name": "Space",
 				"_property_overrides": {
-					"background_music": {
-						"type": "resource",
-						"value": "res://assets/songs/sulosounds/detective-agency-theme.wav"
-					},
 					"display_name": {
 						"type": "string",
 						"value": "Space"
@@ -208,6 +204,12 @@
 						"type": "bool",
 						"value": true
 					},
+					"music_tracks": {
+						"type": "array",
+						"value": {
+							"0": "res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"
+						}
+					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/space/assets/player2.png"
@@ -231,10 +233,6 @@
 				"_index": 0,
 				"_name": "Fall",
 				"_property_overrides": {
-					"background_music": {
-						"type": "resource",
-						"value": "res://assets/songs/sulosounds/evening-dogs.wav"
-					},
 					"display_name": {
 						"type": "string",
 						"value": "Fall"
@@ -270,7 +268,7 @@
 					"music_tracks": {
 						"type": "array",
 						"value": {
-							"0": "res://assets/songs/sulosounds/funk-till-five-loop-doesntexist.wav"
+							"0": "res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"
 						}
 					},
 					"player_icon_texture": {
@@ -426,10 +424,6 @@
 				"_index": 0,
 				"_name": "Winter",
 				"_property_overrides": {
-					"background_music": {
-						"type": "resource",
-						"value": "res://assets/songs/sulosounds/cool-kids-electronic-bass-groo.wav"
-					},
 					"display_name": {
 						"type": "string",
 						"value": "Winter"
@@ -462,6 +456,12 @@
 						"type": "bool",
 						"value": true
 					},
+					"music_tracks": {
+						"type": "array",
+						"value": {
+							"0": "res://assets/songs/benburnes/Abstraction - Lounge Groove LOOP.ogg"
+						}
+					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/winter/assets/player.png"
@@ -487,7 +487,7 @@
 				"_property_overrides": {
 					"background_music": {
 						"type": "resource",
-						"value": "res://assets/songs/sulosounds/jazz-work.wav"
+						"value": "res://assets/songs/sulosounds/chill-electric-background.wav"
 					},
 					"display_name": {
 						"type": "string",
@@ -520,6 +520,12 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"music_tracks": {
+						"type": "array",
+						"value": {
+							"0": "res://assets/songs/benburnes/The Verdant Grove LOOP.wav"
+						}
 					},
 					"player_icon_texture": {
 						"type": "resource",
@@ -921,7 +927,7 @@
 			},
 			{
 				"_category_id": "3",
-				"_default_value": "res://assets/songs/Late Night Radio.mp3",
+				"_default_value": "res://assets/songs/sulosounds/chill-electric-background.wav",
 				"_id": "50",
 				"_name": "background_music",
 				"_type": "resource"

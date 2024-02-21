@@ -253,10 +253,11 @@ animations = [{
 script = ExtResource("1_bmb34")
 
 [node name="Asteroid1" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
-frame_progress = 0.31781
+frame_progress = 0.301741
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -268,11 +269,11 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="Asteroid2" type="AnimatedSprite2D" parent="."]
-visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3tt12")
 animation = &"dot"
+frame_progress = 0.267973
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
