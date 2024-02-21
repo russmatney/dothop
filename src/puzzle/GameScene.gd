@@ -169,4 +169,6 @@ func show_unlock_jumbo():
 
 	var opts = {header=header, body=body, pause=false, instance=instance}
 
+	Sounds.play(Sounds.S.gong)
+
 	return Jumbotron.jumbo_notif(opts)

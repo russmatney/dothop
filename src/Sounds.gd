@@ -7,13 +7,14 @@ enum S {
 	coin,
 	complete,
 	cure,
+	dot_collected,
+	gong,
 	laser,
 	maximize,
 	minimize,
 	showjumbotron,
 	step,
 	ui_dading,
-	dot_collected,
 	}
 
 ###########################################################################
@@ -44,6 +45,9 @@ enum S {
 		],
 	S.dot_collected: [
 		preload("res://assets/sounds/Retro Game Weapons Sound Effects - cure.ogg"),
+		],
+	S.gong: [
+		preload("res://assets/sounds/266566__gowlermusic__gong-hit.wav"),
 		],
 	S.laser:
 	[

@@ -98,6 +98,9 @@ https://happysoulmusic.com/retro-game-weapons-sound-effects/
 CC0
 https://creativecommons.org/publicdomain/zero/1.0/
 
+Growler Music
+https://freesound.org/people/GowlerMusic/sounds/266566/
+
 Most sounds generated via gdfxr (a godot sfxr addon)
 https://github.com/timothyqiu/gdfxr
 ** Godot Addons
