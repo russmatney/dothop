@@ -27,6 +27,13 @@ func play_sound_opts(sounds, opts = {}):
 # sound map api
 
 func setup_sound(sound, opts = {}):
+	var s_str
+	if sound is String:
+		s_str = sound
+		sound = load(sound)
+	if not sound:
+		Log.warn("Could not load sound", s_str)
+		return
 	var asp = AudioStreamPlayer.new()
 	asp.set_stream(sound)
 	asp.name = sound.resource_path.get_file()
@@ -59,7 +66,8 @@ func setup_sound_map(sound_map, default_opts=defaults):
 				opts = s[1]
 			opts.merge(default_opts)
 			var playable = setup_sound(sound, opts)
-			playables[k].append(playable)
+			if playable:
+				playables[k].append(playable)
 	return playables
 
 func play_sound(sound_map, name, opts={}):
