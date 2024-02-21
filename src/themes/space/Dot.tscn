@@ -185,7 +185,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"dot",
-"speed": 10.0
+"speed": 4.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -256,6 +256,7 @@ script = ExtResource("1_bmb34")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
+frame_progress = 0.31781
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -271,7 +272,7 @@ visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3tt12")
-animation = &"plain"
+animation = &"dot"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
