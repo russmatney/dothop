@@ -83,7 +83,7 @@ func _input(event) -> void:
 	if not waiting_for_new_input: return
 
 	var accepted = false
-	if (event is InputEventKey or event is InputEventMouseButton) and event.is_pressed():
+	if event is InputEventKey and event.is_pressed():
 		accept_event()
 		InputHelper.replace_keyboard_input_for_action(action_name, current_key_input, event, true)
 		accepted = true
