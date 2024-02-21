@@ -141,10 +141,13 @@ func show_puzzle_set(puzzle_set):
 	if next_puzzle_icon:
 		start_puzzle_set_button.focus_neighbor_bottom = next_puzzle_icon.get_path()
 		U.call_in(0.4, self, func():
-			move_puzzle_cursor(next_puzzle_icon, {no_move=true})
-			start_puzzle_set_button.grab_focus.call_deferred())
+			if next_puzzle_icon:
+				move_puzzle_cursor(next_puzzle_icon, {no_move=true})
+				start_puzzle_set_button.grab_focus.call_deferred())
 
 func move_puzzle_cursor(icon, opts={}):
+	if not icon:
+		return
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
 	start_puzzle_n_label.text = "[center]Start Puzzle %s" % str(idx + 1)
