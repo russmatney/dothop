@@ -14,7 +14,7 @@ var dothop_credits = [
 		"",
 		"Made with Godot, Aseprite, and Emacs",
 		"",
-		"",
+		"Source available: https://github.com/russmatney/dothop",
 	],
     [
 	"",
