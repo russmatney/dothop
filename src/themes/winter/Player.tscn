@@ -40,7 +40,7 @@ animations = [{
 }]
 
 [node name="WinterPlayer" type="Node2D" groups=["player"]]
-z_index = 5
+y_sort_enabled = true
 script = ExtResource("1_vvvex")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

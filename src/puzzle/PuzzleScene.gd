@@ -330,6 +330,7 @@ func rebuild_nodes():
 	if not Engine.is_editor_hint() and is_inside_tree():
 		ensure_camera()
 
+	var players = []
 	for y in len(state.grid):
 		for x in len(state.grid[y]):
 			var objs = state.grid[y][x]
@@ -340,10 +341,15 @@ func rebuild_nodes():
 				var node = create_node_at_coord(obj_name, coord)
 				if obj_name == "Player":
 					state.players.append(init_player(coord, node))
+					players.append(node)
 				else:
+					add_child(node)
 					if not coord in state.cell_nodes:
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
+
+	for p in players:
+		add_child(p)
 
 	if dhcam != null:
 		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
@@ -361,9 +367,9 @@ func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 	else:
 		node.position = coord * square_size
 	node.add_to_group("generated", true)
-	add_child(node)
 	if debugging or not Engine.is_editor_hint():
-		node.set_owner(self)
+		node.ready.connect(func():
+			node.set_owner(self))
 	return node
 
 func node_for_object_name(obj_name):

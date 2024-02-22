@@ -31,6 +31,7 @@ animations = [{
 }]
 
 [node name="Dot" type="Node2D"]
+y_sort_enabled = true
 script = ExtResource("1_jnnoi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -38,6 +39,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qopwr")
 animation = &"dot"
+frame_progress = 0.743257
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
