@@ -112,6 +112,7 @@ func change_theme(theme):
 ## win #####################################################################
 
 var PuzzleCompleteScene = preload("res://src/menus/PuzzleComplete.tscn")
+var ProgressPanelScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
@@ -129,6 +130,19 @@ func on_puzzle_win():
 	else:
 		if puzzle_node.puzzle_def.meta.get("show_progress"):
 			await show_progress_jumbo()
+		else:
+			var panel = ProgressPanelScene.instantiate()
+			panel.ready.connect(func():
+				Log.pr("showing progress with puzzle_set", puzzle_set)
+				panel.render({
+					puzzle_set=puzzle_set,
+					start_puzzle_num=puzzle_num,
+					end_puzzle_num=puzzle_num + 1,
+					}))
+			hud.add_child.call_deferred(panel)
+			await panel.rendered
+			# TODO clean up panel afterwards
+			Anim.toast(panel, {in_t=0.7, out_t=0.7, delay=1.0, margin=48})
 
 		puzzle_num += 1
 		rebuild_puzzle()
