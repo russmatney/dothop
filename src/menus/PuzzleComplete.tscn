@@ -1,13 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://wbyqneb7x2vr"]
+[gd_scene load_steps=9 format=3 uid="uid://wbyqneb7x2vr"]
 
 [ext_resource type="Script" path="res://src/menus/PuzzleComplete.gd" id="1_diif0"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_eqjtf"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_0pp3x"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="3_63db2"]
 [ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_pqsqf"]
-[ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="5_qceta"]
-[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="6_w82ss"]
-[ext_resource type="Texture2D" uid="uid://dwim4t4tkxx10" path="res://src/themes/space/assets/goal.png" id="8_ne6s0"]
+[ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_gk64i"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyat3"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -110,26 +108,6 @@ input_text = "Space"
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/HBoxContainer/CenterContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("5_qceta")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/CenterContainer/PanelContainer"]
-custom_minimum_size = Vector2(200, 64)
-layout_mode = 2
-script = ExtResource("6_w82ss")
-
-[node name="PuzzleList" type="GridContainer" parent="PanelContainer/HBoxContainer/CenterContainer/PanelContainer/VBoxContainer"]
+[node name="PuzzleProgressPanel" parent="PanelContainer/HBoxContainer/CenterContainer" instance=ExtResource("6_gk64i")]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 4
-
-[node name="PuzzleSetIcon" type="TextureRect" parent="."]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
-pivot_offset = Vector2(32, 32)
-texture = ExtResource("8_ne6s0")
-stretch_mode = 4

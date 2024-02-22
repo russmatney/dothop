@@ -135,12 +135,16 @@ func on_puzzle_win():
 
 ## progress jumbo #####################################################################
 
+var last_puzzle_num = 0
+
 func show_progress_jumbo():
 	var header = "Puzzles 1-%s Complete!" % str(puzzle_num + 1)
 	var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var instance = PuzzleCompleteScene.instantiate()
 	instance.puzzle_set = puzzle_set
-	instance.puzzle_num = puzzle_num
+	instance.start_puzzle_num = last_puzzle_num
+	last_puzzle_num = puzzle_num + 1
+	instance.end_puzzle_num = puzzle_num + 1
 	instance.ready.connect(func(): instance.prizes.set_visible(false))
 
 	var opts = {header=header, body=body, pause=false, instance=instance}
@@ -158,7 +162,9 @@ func show_unlock_jumbo():
 
 	var instance = PuzzleCompleteScene.instantiate()
 	instance.puzzle_set = puzzle_set
-	instance.puzzle_num = puzzle_num
+	instance.start_puzzle_num = last_puzzle_num
+	last_puzzle_num = 0
+	instance.end_puzzle_num = puzzle_num
 
 	instance.ready.connect(func():
 		var next_set = puzzle_set.get_next_puzzle_set()
