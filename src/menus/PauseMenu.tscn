@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cvb2xnd1kbtbc"]
+[gd_scene load_steps=14 format=3 uid="uid://cvb2xnd1kbtbc"]
 
 [ext_resource type="Script" path="res://src/menus/PauseMenu.gd" id="1_538kc"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="1_dntsj"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/controls/ControlsPanel.tscn" id="5_en8a8"]
 [ext_resource type="PackedScene" uid="uid://g1pmttsyued2" path="res://src/ui/GreenButton.tscn" id="7_jr1jd"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="11_jr36v"]
+[ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="12_vwqlh"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1tngc"]
 bg_color = Color(0.180392, 0.180392, 0.180392, 0.227451)
@@ -112,7 +113,6 @@ text = "Main Menu"
 
 [node name="SecondaryMenuMargin" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
-visible = false
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
@@ -152,4 +152,8 @@ layout_mode = 2
 theme = ExtResource("2_2yx0j")
 
 [node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/SoundPanel" instance=ExtResource("5_2ebfx")]
+layout_mode = 2
+
+[node name="PuzzleProgressPanel" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer" instance=ExtResource("12_vwqlh")]
+unique_name_in_owner = true
 layout_mode = 2

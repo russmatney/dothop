@@ -15,8 +15,9 @@ extends CanvasLayer
 @onready var controls_panel = $%ControlsPanel
 @onready var theme_panel = $%ThemePanel
 @onready var sound_panel = $%SoundPanel
+@onready var puzzle_progress_panel = $%PuzzleProgressPanel
 
-@onready var all_panels = [controls_panel, theme_panel, sound_panel]
+@onready var all_panels = [controls_panel, theme_panel, sound_panel, puzzle_progress_panel]
 
 @onready var worldmap = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 
@@ -51,8 +52,16 @@ func on_visibility_changed():
 		match get_tree().current_scene.name:
 			"WorldMapMenu":
 				[worldmap_button, theme_button].map(U.disable_button)
+				secondary_margin.hide()
+				puzzle_progress_panel.hide()
 			_:
 				[worldmap_button, theme_button].map(U.enable_button)
+				if "puzzle_set" in get_tree().current_scene:
+					var ps = get_tree().current_scene.puzzle_set
+					var pn = get_tree().current_scene.puzzle_num
+					secondary_margin.show()
+					puzzle_progress_panel.show()
+					puzzle_progress_panel.render({puzzle_set=ps, start_puzzle_num=pn})
 		resume_button.visibility_changed.connect(func(): resume_button.grab_focus())
 
 ## input ###################################################################

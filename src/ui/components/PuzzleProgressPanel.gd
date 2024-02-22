@@ -24,7 +24,7 @@ func _ready():
 func render(opts):
 	puzzle_set = opts.get("puzzle_set")
 	start_puzzle_num = opts.get("start_puzzle_num", 0)
-	end_puzzle_num = opts.get("end_puzzle_num", 0)
+	end_puzzle_num = opts.get("end_puzzle_num", start_puzzle_num)
 	if not puzzle_set:
 		Log.warn("No puzzle set found in PuzzleProgressPanel")
 		return
@@ -36,7 +36,6 @@ func render(opts):
 
 	U.remove_children(puzzle_list)
 	for i in range(len(puzzle_set.get_puzzles())):
-		Log.pr("creating puzzle icon")
 		var icon = TextureRect.new()
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
 		if puzzle_set.completed_puzzle(i):
