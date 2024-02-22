@@ -43,30 +43,30 @@ func collect_move_tree(current_move_dict={}, last_move=null):
 
 ## collect_paths ####################################
 
-func collect_paths(move_tree, current_path=[], paths=[]) -> Array:
-	if not move_tree is Dictionary:
+func collect_paths(_move_tree, current_path=[], _paths=[]) -> Array:
+	if not _move_tree is Dictionary:
 		# this is a test-only edge case, but if we can't make moves from the start...
 		var new_path = current_path.duplicate()
-		new_path.append(move_tree)
-		paths.append(new_path)
-		return paths
+		new_path.append(_move_tree)
+		_paths.append(new_path)
+		return _paths
 
-	for dir in move_tree.keys():
+	for dir in _move_tree.keys():
 		var new_path = current_path.duplicate() # new path for each move
 		new_path.append(dir)
 
-		var node = move_tree[dir]
+		var node = _move_tree[dir]
 		if node is Dictionary:
-			collect_paths(node, new_path, paths)
+			collect_paths(node, new_path, _paths)
 		elif node == WIN or node == STUCK_DOT or node == STUCK_GOAL:
 			new_path.append(node)
-			paths.append(new_path)
+			_paths.append(new_path)
 
-	return paths
+	return _paths
 
 ## analyze ####################################
 
-var move_tree: Dictionary
+var move_tree #: Dictionary | String
 var paths: Array
 
 var winning_paths: Array
