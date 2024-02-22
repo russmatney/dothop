@@ -155,3 +155,26 @@ static func puzzle_animate_outro_to_point(puzz_node):
 		Anim.slide_to_point(node, U.rand_of(positions), t, delays)
 
 	return puzz_node.get_tree().create_timer(t).timeout
+
+## toast ###########################################################
+
+static func toast(node, opts={}):
+	var screen_rect = node.get_viewport_rect()
+	Log.pr("screen rect", screen_rect, "node size", node.get_size())
+	var margin = opts.get("margin", 20)
+	var target_pos = screen_rect.end - node.get_size() - Vector2.ONE * margin
+	var initial_pos = Vector2(target_pos.x, screen_rect.size.y)
+	var in_t = opts.get("in_t", 0.7)
+	var out_t = opts.get("out_t", 0.7)
+	var delay_t = opts.get("delay_t", 1.0)
+	Log.pr("toasting the progress panel!", node, target_pos, initial_pos)
+
+	node.global_position = initial_pos
+
+	var t = node.create_tween()
+	t.tween_property(node, "global_position", target_pos, in_t)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+
+	t.tween_property(node, "global_position", initial_pos, out_t)\
+		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)\
+		.set_delay(delay_t)
