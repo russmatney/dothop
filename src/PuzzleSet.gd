@@ -81,7 +81,7 @@ func get_analyzed_game_def():
 	for i in puzzle_count:
 		var puzz_node = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
 		puzz_node.init_game_state()
-		game_def.puzzles[i]["analysis"] = Solver.new(puzz_node).analyze()
+		game_def.puzzles[i].analysis = PuzzleAnalysis.new(puzz_node).analyze()
 
 	analyzed_game_def = game_def
 	return analyzed_game_def

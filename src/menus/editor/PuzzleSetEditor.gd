@@ -91,12 +91,12 @@ func select_puzzle(ps: PuzzleSet, puzzle_def: PuzzleDef):
 		detail += " msg: %s" % msg
 
 	if analysis:
-		detail += "\ndots: [color=dark_blue]%s[/color]" % analysis.get("dot_count")
+		detail += "\ndots: [color=dark_blue]%s[/color]" % analysis.dot_count
 		detail += " paths: [color=forest_green]%s win[/color]/[color=crimson]%s stuck_dot[/color]/[color=crimson]%s stuck_goal[/color]/[color=peru]%s all[/color]" % [
-			analysis.get("winning_path_count"),
-			analysis.get("stuck_dot_path_count"),
-			analysis.get("stuck_goal_path_count"),
-			analysis.get("path_count"),
+			analysis.winning_path_count,
+			analysis.stuck_dot_path_count,
+			analysis.stuck_goal_path_count,
+			analysis.path_count,
 			]
 
 	current_puzzle_analysis_label.text = detail

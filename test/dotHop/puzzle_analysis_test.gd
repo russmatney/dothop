@@ -1,5 +1,5 @@
 extends GdUnitTestSuite
-class_name PuzzleSolverTest
+class_name PuzzleAnalysisTest
 
 
 func build_puzzle(puzzle):
@@ -33,7 +33,7 @@ func test_puzzle_solver_basic(puzz, solvable, test_parameters=[
 			], true],
 	]):
 	var puzzle = build_puzzle(puzz)
-	var result = Solver.new(puzzle).analyze()
+	var result = PuzzleAnalysis.new(puzzle).analyze()
 	assert_bool(result.solvable).is_equal(solvable)
 
 	puzzle.free()
@@ -81,10 +81,10 @@ func test_puzzle_solver_analysis(puzz, expected_result, test_parameters=[
 	]):
 	var puzzle = build_puzzle(puzz)
 
-	var result = Solver.new(puzzle).analyze()
+	var result = PuzzleAnalysis.new(puzzle).analyze()
 
 	for k in expected_result:
-		assert_that(expected_result[k]).is_equal(result[k])
+		assert_that(expected_result[k]).is_equal(result.get(k))
 
 	puzzle.free()
 
@@ -107,7 +107,7 @@ func test_all_puzzles_solvable():
 				})
 			puzz_node.init_game_state()
 
-			var solve = Solver.new(puzz_node).analyze()
+			var solve = PuzzleAnalysis.new(puzz_node).analyze()
 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), "num:", i,
 				"solvable?", solve.solvable,
 				"dot count", solve.dot_count,

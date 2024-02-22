@@ -10,9 +10,7 @@ var height: int
 var idx: int
 var meta: Dictionary
 var message: String
-
-# TODO analysis data/type
-var analysis: Dictionary
+var analysis: PuzzleAnalysis
 
 
 ## init ########################################3333
