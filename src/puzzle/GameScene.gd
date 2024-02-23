@@ -132,17 +132,18 @@ func on_puzzle_win():
 			await show_progress_jumbo()
 		else:
 			var panel = ProgressPanelScene.instantiate()
+			panel.disable_resize_animation()
+			var lock_puzz_num = puzzle_num
 			panel.ready.connect(func():
-				Log.pr("showing progress with puzzle_set", puzzle_set)
 				panel.render({
 					puzzle_set=puzzle_set,
-					start_puzzle_num=puzzle_num,
-					end_puzzle_num=puzzle_num + 1,
+					start_puzzle_num=lock_puzz_num,
+					end_puzzle_num=lock_puzz_num + 1,
 					}))
+			panel.rendered.connect(func():
+				# wait for panel to finish resizing
+				Anim.toast(panel, {wait_frame=true, in_t=0.7, out_t=0.7, delay=1.0, margin=48}))
 			hud.add_child.call_deferred(panel)
-			await panel.rendered
-			# TODO clean up panel afterwards
-			Anim.toast(panel, {in_t=0.7, out_t=0.7, delay=1.0, margin=48})
 
 		puzzle_num += 1
 		rebuild_puzzle()

@@ -5,6 +5,10 @@ class_name AnimatedVBoxContainer
 @export var child_size = Vector2(200, 64)
 @export var anim_duration: float = 0.3
 
+@export var disable_animations = false
+
+@export var margin = Vector2()
+
 var og_size
 var chs = []
 
@@ -13,10 +17,11 @@ func _ready():
 	og_size = custom_minimum_size
 	chs = get_children()
 
-	hide_and_animate_in()
+	if not disable_animations:
+		hide_and_animate_in()
 
 func on_visibility_changed():
-	if is_visible_in_tree():
+	if is_visible_in_tree() and not disable_animations:
 		hide_and_animate_in()
 
 func hide_and_animate_in():
@@ -30,8 +35,8 @@ func animate_opening():
 	set_custom_minimum_size(Vector2.ZERO)
 	var t = create_tween()
 	t.tween_property(self, "custom_minimum_size",
-		Vector2.RIGHT*(max(og_size.x, child_size.x))
-		+ (Vector2.DOWN * child_size.y * len(chs)),
+		(Vector2.RIGHT * (max(og_size.x, child_size.x) + margin.x))
+		+ (Vector2.DOWN * (child_size.y * len(chs) + margin.y)),
 		anim_duration).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(anim_duration).timeout
 

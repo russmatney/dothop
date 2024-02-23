@@ -6,6 +6,7 @@ extends Control
 @onready var puzzle_list = $%PuzzleList
 @onready var panel_container = $%PuzzlePanelContainer
 @onready var puzzle_set_icon = $%PuzzleSetIcon
+@onready var animated_container = $%AnimatedVBoxContainer
 var puzzle_set: PuzzleSet
 var start_puzzle_num: int
 var end_puzzle_num: int
@@ -15,13 +16,19 @@ signal rendered
 ## ready ############################################################
 
 func _ready():
-	Log.pr("prog panel ready")
-	panel_container.minimum_size_changed.connect(func():
-		set_custom_minimum_size(panel_container.get_size())
-		set_size(panel_container.get_size()))
+	if not Engine.is_editor_hint():
+		panel_container.minimum_size_changed.connect(func():
+			set_custom_minimum_size(panel_container.get_size())
+			set_size(panel_container.get_size()))
 
 	if Engine.is_editor_hint():
 		render({puzzle_set=Store.get_puzzle_sets()[0]})
+
+## disable animations ##################################################
+
+func disable_resize_animation():
+	var cont = get_node("%AnimatedVBoxContainer")
+	cont.disable_animations = true
 
 ## build puzzle list ############################################################
 
@@ -32,8 +39,6 @@ func render(opts):
 	if not puzzle_set:
 		Log.warn("No puzzle set found in PuzzleProgressPanel")
 		return
-
-	Log.pr("prog panel rendering", opts)
 
 	var ps_theme = puzzle_set.get_theme()
 
@@ -65,10 +70,12 @@ func render(opts):
 	puzzle_set_icon.set_texture(ps_theme.get_player_icon())
 	puzzle_set_icon.modulate.a = 0.0
 
-	rendered.emit()
-
 	if start_puzzle_icon and end_puzzle_icon:
-		U.call_in(0.5, self, func(): move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}))
+		# ugh, this hard-coded time is gross....
+		# needs to let the resizing and toasting run first
+		U.call_in(0.8, self, func(): move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}))
+
+	rendered.emit()
 
 func move_puzzle_cursor(icon, opts={}):
 	if opts.get("no_show", false):

@@ -11,6 +11,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -0.000244141
+offset_top = -0.000247955
+offset_right = -884.0
+offset_bottom = -460.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_mt4fd")
@@ -21,12 +25,15 @@ layout_mode = 0
 size_flags_horizontal = 3
 theme = ExtResource("1_tufv2")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PuzzlePanelContainer"]
-custom_minimum_size = Vector2(200, 64)
+[node name="AnimatedVBoxContainer" type="VBoxContainer" parent="PuzzlePanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(158, 154)
 layout_mode = 2
 script = ExtResource("2_6lh1w")
+child_size = Vector2(64, 64)
+margin = Vector2(94, 90)
 
-[node name="PuzzleList" type="GridContainer" parent="PuzzlePanelContainer/VBoxContainer"]
+[node name="PuzzleList" type="GridContainer" parent="PuzzlePanelContainer/AnimatedVBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 columns = 4

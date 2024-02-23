@@ -19,7 +19,6 @@ script = ExtResource("1_ak4mv")
 game_def_path = "res://src/puzzles/dothop-one.txt"
 puzzle_theme = SubResource("Resource_hnxo3")
 puzzle_set = SubResource("Resource_d5xou")
-puzzle_num = 6
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 
