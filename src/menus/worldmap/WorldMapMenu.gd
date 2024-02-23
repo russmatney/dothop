@@ -107,6 +107,7 @@ func show_puzzle_set(puzzle_set):
 	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_unlocked())
 
 	var theme = puzzle_set.get_theme()
+	var first_puzzle_icon
 	var next_puzzle_icon
 
 	# list of puzzles
@@ -120,11 +121,11 @@ func show_puzzle_set(puzzle_set):
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
 		icon.gui_input.connect(on_level_icon_gui_input)
 		icon.focus_entered.connect(move_puzzle_cursor.bind(icon))
+		if not first_puzzle_icon:
+			first_puzzle_icon = icon
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			# should get overwritten if there's an incomplete, can-play puzzle
-			next_puzzle_icon = icon
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_texture(theme.get_goal_icon())
@@ -138,12 +139,15 @@ func show_puzzle_set(puzzle_set):
 	puzzle_set_icon.set_texture(theme.get_player_icon())
 	puzzle_set_icon.modulate.a = 0.0
 
+	if not next_puzzle_icon:
+		next_puzzle_icon = first_puzzle_icon
+
 	if next_puzzle_icon:
 		start_puzzle_set_button.focus_neighbor_bottom = next_puzzle_icon.get_path()
+		start_puzzle_set_button.grab_focus.call_deferred()
 		U.call_in(0.4, self, func():
 			if next_puzzle_icon:
-				move_puzzle_cursor(next_puzzle_icon, {no_move=true})
-				start_puzzle_set_button.grab_focus.call_deferred())
+				move_puzzle_cursor(next_puzzle_icon, {no_move=true}))
 
 func move_puzzle_cursor(icon, opts={}):
 	if not icon:
