@@ -119,9 +119,6 @@ func on_puzzle_win():
 
 	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
-	# TODO popup/toast puzzle-set progress panel
-	# show hop-along the progress panel
-
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)

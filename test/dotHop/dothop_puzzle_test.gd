@@ -2,11 +2,13 @@ extends GdUnitTestSuite
 class_name DotHopTest
 
 func build_puzzle(puzzle):
-	return DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/puzzles/dothop.txt"})
+	var puz_node = DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/puzzles/dothop.txt"})
+	puz_node.randomize_layout = false
+	puz_node.init_game_state()
+	return puz_node
 
 func test_basic_puzzle_one_win():
 	var puzzle = build_puzzle(["xoot"])
-	add_child(puzzle)
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -29,7 +31,6 @@ func test_basic_puzzle_one_win():
 func test_basic_puzzle_one_undo():
 
 	var puzzle = build_puzzle(["xoot"])
-	add_child(puzzle)
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -55,7 +56,6 @@ func test_basic_puzzle_one_undo():
 
 func test_two_player_puzzle_one_win():
 	var puzzle = build_puzzle(["xoot", "xoot"])
-	add_child(puzzle)
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -84,7 +84,6 @@ func test_two_player_puzzle_one_win():
 
 func test_two_player_puzzle_one_undo():
 	var puzzle = build_puzzle(["xoot", "xoot"])
-	add_child(puzzle)
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -124,7 +123,6 @@ func test_undo_obj_is_not_duplicated():
 			"..oo",
 			"txoo",
 			])
-	add_child(puzzle)
 
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.UP)
@@ -154,7 +152,6 @@ func test_undo_obj_is_not_added_to_other_non_moving_player():
 			"oo.o.x.",
 			"t......",
 			])
-	add_child(puzzle)
 
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.LEFT)
@@ -206,7 +203,6 @@ func test_can_finish_puzzle_10():
 			"oo.o.x.",
 			"oo.o..o",
 			])
-	add_child(puzzle)
 
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.LEFT)
@@ -231,7 +227,6 @@ func test_can_undo_across_dotted_cells():
 			"oxoot",
 			"..oo.",
 			])
-	add_child(puzzle)
 
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.RIGHT)
