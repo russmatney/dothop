@@ -13,15 +13,17 @@ static func jumbo_notif(opts):
 	# this opt-in pattern might make more sense than 'Navi.menus'
 	Navi.navigating.connect(jumbotron.on_navigate)
 
-	var header = opts.get("header")
+	var header = opts.get("header", "")
 	var body = opts.get("body", "")
 	var action_label_text = opts.get("action_label_text")
 	var on_close = opts.get("on_close")
 	var pause = opts.get("pause", true)
 
 	# reset data
-	jumbotron.header_text = header
-	jumbotron.body_text = body
+	if header:
+		jumbotron.header_text = header
+	if body:
+		jumbotron.body_text = body
 	jumbotron.set_control_icon()
 
 	jumbotron.jumbo_closed.connect(func():
@@ -39,13 +41,14 @@ static func jumbo_notif(opts):
 
 	return jumbotron.jumbo_closed
 
+######################################################################################
 ## instance ##########################################################################
 
 signal jumbo_closed
 
-@onready var header = $%Header
-@onready var body = $%Body
-@onready var dismiss_input_icon = $%DismissInputIcon
+var header
+var body
+var dismiss_input_icon
 
 @export var header_text: String :
 	set(v):
@@ -65,7 +68,14 @@ signal jumbo_closed
 			else:
 				body.text = "[center]%s[/center]" % v
 
+## ready ##########################################################################
+
 func _ready():
+	U.set_optional_nodes(self, {
+			header="%Header",
+			body="%Body",
+			dismiss_input_icon="%DismissInputIcon",
+			})
 	set_control_icon()
 	if not Engine.is_editor_hint():
 		InputHelper.device_changed.connect(func(device, _idx):
@@ -73,11 +83,21 @@ func _ready():
 			set_control_icon(device))
 
 func set_control_icon(device=null):
-	dismiss_input_icon.set_icon_for_action("ui_accept", device)
+	if dismiss_input_icon:
+		dismiss_input_icon.set_icon_for_action("ui_accept", device)
+
+func on_navigate():
+	# when navi is used to navigate elsewhere, kill the jumbotron
+	# NOTE that we skip the on_close, which usually navigates away anyway
+	queue_free()
+
+## input ##########################################################################
 
 func _unhandled_input(event):
 	if Trolls.is_close(event) or Trolls.is_accept(event):
 		fade_out()
+
+## fade ##########################################################################
 
 func fade_in():
 	$PanelContainer.modulate.a = 0
@@ -90,8 +110,3 @@ func fade_out():
 	t.tween_property($PanelContainer, "modulate:a", 0, 0.4)
 	t.tween_callback(set_visible.bind(false))
 	t.tween_callback(func(): jumbo_closed.emit())
-
-func on_navigate():
-	# when navi is used to navigate elsewhere, kill the jumbotron
-	# NOTE that we skip the on_close, which usually navigates away anyway
-	queue_free()

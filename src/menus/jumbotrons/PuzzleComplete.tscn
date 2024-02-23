@@ -1,11 +1,11 @@
 [gd_scene load_steps=9 format=3 uid="uid://wbyqneb7x2vr"]
 
-[ext_resource type="Script" path="res://src/menus/PuzzleComplete.gd" id="1_diif0"]
-[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_eqjtf"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_0pp3x"]
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="3_63db2"]
-[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_pqsqf"]
-[ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_gk64i"]
+[ext_resource type="Script" path="res://src/menus/jumbotrons/PuzzleComplete.gd" id="1_su8xp"]
+[ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_ybq7j"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="3_7lcnl"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="4_m6plc"]
+[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_hn0bi"]
+[ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_6i7hg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyat3"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -14,7 +14,7 @@ bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
 
 [node name="PuzzleComplete" type="CanvasLayer"]
 layer = 5
-script = ExtResource("1_diif0")
+script = ExtResource("1_su8xp")
 header_text = "Some Header"
 body_text = "Some Body"
 
@@ -45,7 +45,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
-theme = ExtResource("2_eqjtf")
+theme = ExtResource("2_ybq7j")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Puzzle 12 Complete!"
@@ -63,29 +63,10 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
-theme_override_fonts/normal_font = ExtResource("3_63db2")
+theme_override_fonts/normal_font = ExtResource("3_7lcnl")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
 text = "[center]Congratulations, nerd!"
-fit_content = true
-scroll_active = false
-
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
-layout_mode = 2
-
-[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="Prizes" type="RichTextLabel" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer4"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(600, 0)
-layout_mode = 2
-theme_override_colors/default_color = Color(0.94902, 0.94902, 0.141176, 1)
-theme_override_fonts/normal_font = ExtResource("3_63db2")
-theme_override_font_sizes/normal_font_size = 48
-bbcode_enabled = true
-text = "[center]New puzzle Set unlocked!"
 fit_content = true
 scroll_active = false
 
@@ -96,18 +77,18 @@ layout_mode = 2
 [node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="DismissInputIcon" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer3" instance=ExtResource("3_0pp3x")]
+[node name="DismissInputIcon" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer3" instance=ExtResource("4_m6plc")]
 unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("5_pqsqf")
+texture = ExtResource("5_hn0bi")
 input_text = "Space"
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="PuzzleProgressPanel" parent="PanelContainer/HBoxContainer/CenterContainer" instance=ExtResource("6_gk64i")]
+[node name="PuzzleProgressPanel" parent="PanelContainer/HBoxContainer/CenterContainer" instance=ExtResource("6_6i7hg")]
 unique_name_in_owner = true
 layout_mode = 2

@@ -1,0 +1,9 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://biwc2va0xo5y6"]
+
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_n8cdt"]
+
+[resource]
+RichTextLabel/colors/font_outline_color = Color(0.00392157, 0.00392157, 0.00392157, 1)
+RichTextLabel/constants/outline_size = 32
+RichTextLabel/font_sizes/normal_font_size = 96
+RichTextLabel/fonts/normal_font = ExtResource("1_n8cdt")

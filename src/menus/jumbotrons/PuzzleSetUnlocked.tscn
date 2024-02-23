@@ -1,0 +1,123 @@
+[gd_scene load_steps=11 format=3 uid="uid://bfc3jr7ui6wjt"]
+
+[ext_resource type="Script" path="res://src/menus/jumbotrons/PuzzleSetUnlocked.gd" id="1_g7qf8"]
+[ext_resource type="Texture2D" uid="uid://wxbj5t4skm3w" path="res://assets/ui/sunburst_bg1.png" id="2_4mpuk"]
+[ext_resource type="Texture2D" uid="uid://ddfkl01xwxiym" path="res://assets/ui/sunburst_bg2.png" id="3_wootb"]
+[ext_resource type="Texture2D" uid="uid://dqyug4lfrx6l3" path="res://src/themes/spring/assets/player.png" id="4_6fx46"]
+[ext_resource type="Theme" uid="uid://biwc2va0xo5y6" path="res://src/ui/SunburstHeaderText.tres" id="4_kr6yf"]
+[ext_resource type="Theme" uid="uid://csu2vx7hyhrig" path="res://src/ui/SunburstBodyText.tres" id="5_8b3k6"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="7_0hoq7"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="8_4yivn"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvqjg"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_qdvcd"]
+frames = 2
+frame_0/texture = ExtResource("2_4mpuk")
+frame_1/texture = ExtResource("3_wootb")
+frame_1/duration = 1.0
+
+[node name="PuzzleSetUnlocked" type="CanvasLayer"]
+script = ExtResource("1_g7qf8")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/CenterContainer"]
+custom_minimum_size = Vector2(1000, 720)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxEmpty_nvqjg")
+
+[node name="BackgroundTexture" type="TextureRect" parent="PanelContainer/CenterContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+texture = SubResource("AnimatedTexture_qdvcd")
+
+[node name="IconContainer" type="Control" parent="PanelContainer/CenterContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="NextPuzzleIcon" type="TextureRect" parent="PanelContainer/CenterContainer/PanelContainer/IconContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 788.0
+offset_top = 238.0
+offset_right = 1044.0
+offset_bottom = 494.0
+rotation = 0.174533
+pivot_offset = Vector2(128, 128)
+texture = ExtResource("4_6fx46")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 720)
+layout_mode = 2
+alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Header" type="RichTextLabel" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+theme = ExtResource("4_kr6yf")
+bbcode_enabled = true
+text = "[center]Dang, that was the [color=crimson]last puzzle[/color]!"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="Body" type="RichTextLabel" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(0, 160)
+layout_mode = 2
+theme = ExtResource("5_8b3k6")
+bbcode_enabled = true
+text = "[center]Congrations,
+and thanks for playing!"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DismissInputIcon" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer/CenterContainer3" instance=ExtResource("7_0hoq7")]
+unique_name_in_owner = true
+visible = true
+custom_minimum_size = Vector2(150, 150)
+layout_mode = 2
+texture = ExtResource("8_4yivn")
+input_text = "Ctrl+Z"
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(256, 0)
+layout_mode = 2
+size_flags_horizontal = 3

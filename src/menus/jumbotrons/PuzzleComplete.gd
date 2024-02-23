@@ -4,7 +4,6 @@ extends Jumbotron
 ## vars ############################################################
 
 @onready var puzzle_progress_panel = $%PuzzleProgressPanel
-@onready var prizes = $%Prizes
 var puzzle_set: PuzzleSet
 var start_puzzle_num: int
 var end_puzzle_num: int

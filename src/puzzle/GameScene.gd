@@ -111,7 +111,8 @@ func change_theme(theme):
 
 ## win #####################################################################
 
-var PuzzleCompleteScene = preload("res://src/menus/PuzzleComplete.tscn")
+var PuzzleCompleteScene = preload("res://src/menus/jumbotrons/PuzzleComplete.tscn")
+var PuzzleSetUnlockedScene = preload("res://src/menus/jumbotrons/PuzzleSetUnlocked.tscn")
 var ProgressPanelScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
 func on_puzzle_win():
@@ -122,6 +123,7 @@ func on_puzzle_win():
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
+		await show_all_puzzles_jumbo()
 		await show_unlock_jumbo()
 		nav_to_world_map()
 	else:
@@ -159,14 +161,13 @@ func show_progress_jumbo():
 	instance.start_puzzle_num = last_puzzle_num
 	last_puzzle_num = puzzle_num + 1
 	instance.end_puzzle_num = puzzle_num + 1
-	instance.ready.connect(func(): instance.prizes.set_visible(false))
 
 	var opts = {header=header, body=body, pause=false, instance=instance}
 	return Jumbotron.jumbo_notif(opts)
 
-## unlock jumbo #####################################################################
+## all puzzles jumbo #####################################################################
 
-func show_unlock_jumbo():
+func show_all_puzzles_jumbo():
 	var header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
 	var body = U.rand_of([
 		"Be proud! For you are a NERD",
@@ -180,15 +181,15 @@ func show_unlock_jumbo():
 	last_puzzle_num = 0
 	instance.end_puzzle_num = puzzle_num
 
-	instance.ready.connect(func():
-		var next_set = puzzle_set.get_next_puzzle_set()
-		if next_set:
-			instance.prizes.text = "[center]'%s' unlocked!" % next_set.get_display_name()
-		else:
-			instance.prizes.text = "[center]Dang, that was the last puzzle! You rock the house!")
-
 	var opts = {header=header, body=body, pause=false, instance=instance}
 
-	Sounds.play(Sounds.S.gong)
-
 	return Jumbotron.jumbo_notif(opts)
+
+## unlock jumbo #####################################################################
+
+func show_unlock_jumbo():
+	var instance = PuzzleSetUnlockedScene.instantiate()
+	var next = puzzle_set.get_next_puzzle_set()
+	if next:
+		instance.puzzle_set = next
+	return Jumbotron.jumbo_notif({pause=false, instance=instance})
