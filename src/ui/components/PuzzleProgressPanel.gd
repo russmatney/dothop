@@ -11,11 +11,24 @@ var puzzle_set: PuzzleSet
 var start_puzzle_num: int
 var end_puzzle_num: int
 
+@export var icon_size = 64.0
+@export var grid_columns = 4
+
 signal rendered
 
 ## ready ############################################################
 
 func _ready():
+	if not icon_size:
+		icon_size = 64
+	if not grid_columns:
+		grid_columns = 4
+	puzzle_set_icon.set_custom_minimum_size(icon_size * Vector2.ONE)
+	puzzle_set_icon.set_size(icon_size * Vector2.ONE)
+	puzzle_set_icon.set_pivot_offset(puzzle_set_icon.size / 2)
+	animated_container.child_size = icon_size * Vector2.ONE
+	puzzle_list.set_columns(grid_columns)
+
 	if not Engine.is_editor_hint():
 		panel_container.minimum_size_changed.connect(func():
 			set_custom_minimum_size(panel_container.get_size())
@@ -33,6 +46,7 @@ func disable_resize_animation():
 ## build puzzle list ############################################################
 
 func render(opts):
+	animated_container.set_custom_minimum_size(Vector2.ZERO)
 	puzzle_set = opts.get("puzzle_set")
 	start_puzzle_num = opts.get("start_puzzle_num", 0)
 	end_puzzle_num = opts.get("end_puzzle_num", start_puzzle_num)
@@ -48,7 +62,7 @@ func render(opts):
 	U.remove_children(puzzle_list)
 	for i in range(len(puzzle_set.get_puzzles())):
 		var icon = TextureRect.new()
-		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
+		icon.set_custom_minimum_size(icon_size * Vector2.ONE)
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(ps_theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)

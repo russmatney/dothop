@@ -129,6 +129,8 @@ func on_puzzle_win():
 			await show_progress_jumbo()
 		else:
 			var panel = ProgressPanelScene.instantiate()
+			panel.icon_size = 48.0
+			panel.grid_columns = 6
 			panel.disable_resize_animation()
 			var lock_puzz_num = puzzle_num
 			panel.ready.connect(func():
