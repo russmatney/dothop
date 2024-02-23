@@ -124,16 +124,30 @@ func _init():
 
 ## ready ##############################################################
 
+@export var randomize_level = true
+var reverse_ys = false
+var reverse_xs = false
+
 func _ready():
+	if randomize_level:
+		reverse_ys = U.rand_of([true, false])
+		reverse_xs = U.rand_of([true, false])
+		# a rotation (switching xs and ys) would be interesting, but more complicated to impl
+
 	if puzzle_def == null:
 		Log.pr("no puzzle_def, trying backups!", name)
 		if game_def_path != "":
 			game_def = Puzz.parse_game_def(game_def_path)
 			puzzle_def = game_def.puzzles[0]
-			init_game_state()
 		else:
 			Log.err("no game_def_path!!")
-	else:
+
+	if puzzle_def:
+		if reverse_ys:
+			puzzle_def.shape.reverse()
+		if reverse_xs:
+			for row in puzzle_def.shape:
+				row.reverse()
 		init_game_state()
 
 	win.connect(on_win)
