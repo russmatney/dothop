@@ -294,6 +294,10 @@
 				"_index": 0,
 				"_name": "One",
 				"_property_overrides": {
+					"allowed_in_demo": {
+						"type": "bool",
+						"value": true
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Them Dots"
@@ -337,6 +341,10 @@
 				"_index": 0,
 				"_name": "Two",
 				"_property_overrides": {
+					"allowed_in_demo": {
+						"type": "bool",
+						"value": false
+					},
 					"display_name": {
 						"type": "string",
 						"value": "Get Outer Here"
@@ -656,6 +664,10 @@
 				"_index": 0,
 				"_name": "Five",
 				"_property_overrides": {
+					"allowed_in_demo": {
+						"type": "bool",
+						"value": true
+					},
 					"display_name": {
 						"type": "string",
 						"value": "A Spring in your Hop"
@@ -1006,12 +1018,19 @@
 				"_id": "62",
 				"_name": "music_tracks",
 				"_type": "array"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": false,
+				"_id": "63",
+				"_name": "allowed_in_demo",
+				"_type": "bool"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 62
+			"default": 63
 		}
 	}
 }

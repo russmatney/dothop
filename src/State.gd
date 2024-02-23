@@ -52,7 +52,11 @@ func apply_event(event):
 func initial_puzzle_sets() -> Array[PuzzleSet]:
 	var ent = Pandora.get_entity(PuzzleSetIDs.ONE)
 	var pss = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
-		.map(func(e): return e.instantiate())
+		.map(func(e): return e.instantiate())\
+		.filter(func(e):
+			if OS.has_feature("demo"):
+				return e.allowed_in_demo()
+			return true)
 	var ps: Array[PuzzleSet] = []
 	ps.assign(pss)
 	ps.sort_custom(func(a, b): return a.get_sort_order() < b.get_sort_order())
