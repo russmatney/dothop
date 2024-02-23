@@ -1,3 +1,4 @@
+@tool
 extends CanvasLayer
 
 @onready var start_button = $%StartButton
@@ -20,3 +21,23 @@ func _ready():
 	options_button.pressed.connect(func(): Navi.nav_to(options_menu))
 	credits_button.pressed.connect(func(): Navi.nav_to(credits_menu))
 	quit_button.pressed.connect(func(): get_tree().quit())
+
+	var puzzles_completed = 0
+	var puzzles_available = 0
+	for ps in Store.get_puzzle_sets():
+		Log.pr("is ps completed?", ps)
+		for p in ps.get_puzzles():
+			# TODO check the puzzle, not the puzzle set
+			if ps.is_completed():
+				Log.pr("is p completed?", p)
+				puzzles_completed += 1
+			if ps.is_unlocked():
+				puzzles_available += 1
+
+	Log.pr("Puzzle stats!", {
+		events=len(Store.get_events()),
+		puzzle_sets=len(Store.get_puzzle_sets()),
+		puzzles_completed=puzzles_completed,
+		puzzles_available=puzzles_available,
+		themes=len(Store.get_themes()),
+		})

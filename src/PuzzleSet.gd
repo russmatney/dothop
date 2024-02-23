@@ -56,11 +56,15 @@ var analyzed_game_def: GameDef
 
 # returns a cached game_def, or parses a new one
 func get_game_def():
+	# TODO enrich game_def puzzle_defs with complete/incomplete flags and other player stats
+
 	if analyzed_game_def != null:
 		return analyzed_game_def
 	if game_def != null:
 		return game_def
+
 	game_def = Puzz.parse_game_def(get_puzzle_script_path())
+
 	return game_def
 
 func get_puzzles():
