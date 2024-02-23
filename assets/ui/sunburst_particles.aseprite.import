@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bdckk08a3y6yk"
+path="res://.godot/imported/sunburst_particles.aseprite-c16b740c8e740919bde35c684be82faf.res"
+
+[deps]
+
+source_file="res://assets/ui/sunburst_particles.aseprite"
+dest_files=["res://.godot/imported/sunburst_particles.aseprite-c16b740c8e740919bde35c684be82faf.res"]
+
+[params]
+
