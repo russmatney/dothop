@@ -49,6 +49,9 @@ func nav_to_world_map():
 	# TODO navigation via enum (string-less, path-less)
 	Navi.nav_to("res://src/menus/worldmap/WorldMapMenu.tscn")
 
+func nav_to_credits():
+	Navi.nav_to("res://src/menus/Credits.tscn")
+
 ## input ###################################################################
 
 func _unhandled_input(event):
@@ -125,7 +128,11 @@ func on_puzzle_win():
 		Store.complete_puzzle_set(puzzle_set)
 		await show_all_puzzles_jumbo()
 		await show_unlock_jumbo()
-		nav_to_world_map()
+
+		if puzzle_set.get_next_puzzle_set():
+			nav_to_world_map()
+		else:
+			nav_to_credits()
 	else:
 		if puzzle_node.puzzle_def.meta.get("show_progress"):
 			await show_progress_jumbo()
