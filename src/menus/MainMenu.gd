@@ -23,14 +23,16 @@ func _ready():
 	quit_button.pressed.connect(func(): get_tree().quit())
 
 	var puzzles_completed = 0
+	var puzzles_skipped = 0
 	var puzzles_available = 0
+
 	for ps in Store.get_puzzle_sets():
-		Log.pr("is ps completed?", ps)
 		for p in ps.get_puzzles():
-			# TODO check the puzzle, not the puzzle set
-			if ps.is_completed():
-				Log.pr("is p completed?", p)
+			if p.is_completed:
 				puzzles_completed += 1
+			if p.is_skipped:
+				puzzles_skipped += 1
+			# TODO check the puzzle, not the puzzle set
 			if ps.is_unlocked():
 				puzzles_available += 1
 
@@ -38,6 +40,7 @@ func _ready():
 		events=len(Store.get_events()),
 		puzzle_sets=len(Store.get_puzzle_sets()),
 		puzzles_completed=puzzles_completed,
+		puzzles_skipped=puzzles_skipped,
 		puzzles_available=puzzles_available,
 		themes=len(Store.get_themes()),
 		})

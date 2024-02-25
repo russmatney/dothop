@@ -12,6 +12,8 @@ var meta: Dictionary
 var message: String
 var analysis: PuzzleAnalysis
 
+var is_completed: bool
+var is_skipped: bool
 
 ## init ########################################3333
 

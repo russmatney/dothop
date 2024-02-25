@@ -23,15 +23,16 @@
 			},
 			{
 				"_category_id": "",
+				"_generate_ids": true,
 				"_icon_color": "49e5caff",
 				"_id": "28",
+				"_ids_generation_class": "EventIds",
 				"_index": 0,
 				"_name": "Event",
 				"_script_path": "res://src/events/Event.gd"
 			},
 			{
 				"_category_id": "28",
-				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "32",
 				"_ids_generation_class": "EventIds",
@@ -47,7 +48,6 @@
 			},
 			{
 				"_category_id": "28",
-				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "33",
 				"_ids_generation_class": "EventIds",
@@ -63,7 +63,6 @@
 			},
 			{
 				"_category_id": "28",
-				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "34",
 				"_ids_generation_class": "EventIds",
@@ -79,13 +78,19 @@
 			},
 			{
 				"_category_id": "28",
-				"_generate_ids": true,
 				"_icon_color": "ffffff00",
 				"_id": "55",
 				"_ids_generation_class": "EventIds",
 				"_index": 0,
 				"_name": "PuzzleCompleted",
 				"_script_path": "res://src/events/PuzzleCompleted.gd"
+			},
+			{
+				"_category_id": "28",
+				"_icon_color": "ffffff00",
+				"_id": "64",
+				"_index": 0,
+				"_name": "PuzzleSkipped"
 			}
 		],
 		"_entities": [
@@ -788,6 +793,19 @@
 						"value": "Puzzle Completed"
 					}
 				}
+			},
+			{
+				"_category_id": "64",
+				"_icon_color": "ffffff00",
+				"_id": "67",
+				"_index": 0,
+				"_name": "PuzzleSkippedEvent",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Puzzle Skipped"
+					}
+				}
 			}
 		],
 		"_properties": [
@@ -1025,12 +1043,26 @@
 				"_id": "63",
 				"_name": "allowed_in_demo",
 				"_type": "bool"
+			},
+			{
+				"_category_id": "64",
+				"_default_value": "",
+				"_id": "65",
+				"_name": "puzzle_set_id",
+				"_type": "string"
+			},
+			{
+				"_category_id": "64",
+				"_default_value": 0,
+				"_id": "66",
+				"_name": "puzzle_idx",
+				"_type": "int"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 63
+			"default": 67
 		}
 	}
 }

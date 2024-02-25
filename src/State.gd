@@ -12,6 +12,8 @@ func _init(events=[]):
 	themes = initial_themes()
 	apply_events(events)
 
+	compute_stats()
+
 ## apply events #######################################################
 
 func apply_events(events):
@@ -33,7 +35,13 @@ func apply_event(event):
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
+		ps.mark_puzzle_complete(event.get_puzzle_index())
 		ps.update_max_index(event.get_puzzle_index())
+	elif event is PuzzleSkipped:
+		var ps = find_puzzle_set(event.get_puzzle_set())
+		if not ps:
+			Log.warn("Could not apply event! No puzzle_set found.", event)
+		ps.mark_puzzle_skipped(event.get_puzzle_index())
 	elif event is PuzzleSetUnlocked:
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:
@@ -83,3 +91,9 @@ func find_theme(theme: PuzzleTheme):
 		# assumes puzzle_set instances and entities are 1:1, which seems fine
 		if th.get_entity_id() == theme.get_entity_id():
 			return th
+
+## stats ###########################################################
+
+func compute_stats():
+	for ps in puzzle_sets:
+		ps.attach_game_def_stats()

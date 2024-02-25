@@ -53,7 +53,7 @@ func on_puzzle_button_pressed(ps: PuzzleSet, p: PuzzleDef):
 ## select ######################################################
 
 func select_puzzle_set(ps: PuzzleSet):
-	ps.get_analyzed_game_def() # trigger solver analysis for whole puzzle set
+	ps.analyze_game_def() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first
 	for puzzle_def in ps.get_puzzles():

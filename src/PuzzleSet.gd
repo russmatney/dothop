@@ -52,19 +52,13 @@ func data():
 
 # BEWARE OF CACHING!
 var game_def: GameDef
-var analyzed_game_def: GameDef
 
 # returns a cached game_def, or parses a new one
 func get_game_def():
-	# TODO enrich game_def puzzle_defs with complete/incomplete flags and other player stats
-
-	if analyzed_game_def != null:
-		return analyzed_game_def
 	if game_def != null:
 		return game_def
 
 	game_def = Puzz.parse_game_def(get_puzzle_script_path())
-
 	return game_def
 
 func get_puzzles():
@@ -79,19 +73,23 @@ func get_puzzle(idx: int):
 
 # Attach an "analysis" to each level_def (game_def.puzzles[])
 # returns the game_def
-func get_analyzed_game_def():
-	if analyzed_game_def != null:
-		return analyzed_game_def
-
+func analyze_game_def():
 	get_game_def() # ensure cache
 	var puzzle_count = len(game_def.puzzles)
 	for i in puzzle_count:
 		var puzz_node = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
 		puzz_node.init_game_state()
 		game_def.puzzles[i].analysis = PuzzleAnalysis.new(puzz_node).analyze()
+	return game_def
 
-	analyzed_game_def = game_def
-	return analyzed_game_def
+func attach_game_def_stats():
+	get_game_def() # ensure cache
+	var puzzle_count = len(game_def.puzzles)
+	for i in puzzle_count:
+		var puzzle_def = game_def.puzzles[i]
+		puzzle_def.is_completed = completed_puzzle(i)
+		puzzle_def.is_skipped = skipped_puzzle(i)
+	return game_def
 
 ## actions ############################################
 
@@ -101,16 +99,27 @@ func unlock():
 func mark_complete():
 	set_bool("is_completed", true)
 
-func update_max_index(idx: int):
+var completed_puzzle_map = {}
+func mark_puzzle_complete(puzzle_idx: int):
+	completed_puzzle_map[puzzle_idx] = true
+
+var skipped_puzzle_map = {}
+func mark_puzzle_skipped(puzzle_idx: int):
+	skipped_puzzle_map[puzzle_idx] = true
+
+func update_max_index(puzzle_idx: int):
 	var current = get_max_completed_puzzle_index()
-	if idx > current:
-		set_integer("max_completed_puzzle_idx", idx)
+	if puzzle_idx > current:
+		set_integer("max_completed_puzzle_idx", puzzle_idx)
 
 ## public ############################################
 
-func completed_puzzle(idx: int):
-	return idx <=  get_max_completed_puzzle_index()
+func completed_puzzle(puzzle_idx: int):
+	return completed_puzzle_map.get(puzzle_idx, false)
+
+func skipped_puzzle(puzzle_idx: int):
+	return skipped_puzzle_map.get(puzzle_idx, false)
 
 # can play the puzzle number 1 greater than the max completed
-func can_play_puzzle(idx: int):
-	return idx <= 1 + get_max_completed_puzzle_index()
+func can_play_puzzle(puzzle_idx: int):
+	return puzzle_idx <= 1 + get_max_completed_puzzle_index()
