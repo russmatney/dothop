@@ -17,9 +17,17 @@ var current_puzzle_set_idx = 0
 var current_puzzle_index = 0
 @onready var puzzle_sets = Store.get_puzzle_sets()
 
-func is_something_focused():
-	var ctrls = [next_puzzle_set_button, previous_puzzle_set_button]
+func set_focus():
+	var ctrls = []
 	ctrls.append_array(puzzle_list.get_children())
+	ctrls.append_array([next_puzzle_set_button, previous_puzzle_set_button])
+	var btn = ctrls[0]
+	btn.grab_focus()
+
+func is_something_focused():
+	var ctrls = []
+	ctrls.append_array(puzzle_list.get_children())
+	ctrls.append_array([next_puzzle_set_button, previous_puzzle_set_button])
 
 	for c in ctrls:
 		if c.has_focus():
