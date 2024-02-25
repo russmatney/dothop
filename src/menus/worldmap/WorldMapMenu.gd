@@ -17,6 +17,16 @@ var current_puzzle_set_idx = 0
 var current_puzzle_index = 0
 @onready var puzzle_sets = Store.get_puzzle_sets()
 
+func is_something_focused():
+	var ctrls = [next_puzzle_set_button, previous_puzzle_set_button]
+	ctrls.append_array(puzzle_list.get_children())
+
+	for c in ctrls:
+		if c.has_focus():
+			return true
+
+	return false
+
 ## ready ################################################
 
 func _ready():
@@ -162,11 +172,13 @@ func show_puzzle_set(puzzle_set):
 	if next_puzzle_icon:
 		U.call_in(0.4, self, func():
 			if next_puzzle_icon:
-				move_puzzle_cursor(next_puzzle_icon, {no_move=true}))
+				move_puzzle_cursor(next_puzzle_icon, {no_move=true})
+			# if nothing has focus, grab it here
+			if not is_something_focused():
+				next_puzzle_icon.grab_focus.call_deferred())
 		# wait a frame in an attempt to quickly grab focus
 		await get_tree().process_frame
 		next_puzzle_icon.grab_focus.call_deferred()
-
 
 ## puzzle cursor ################################################
 

@@ -69,7 +69,9 @@ func find_focus(scene=null):
 	else:
 		# there are things besides buttons to focus on...
 		var btns = scene.find_children("*", "BaseButton", true, false)
+		btns = btns.filter(func(b): return not b.is_disabled())
 		if len(btns) > 0:
+			Log.pr("btn grabbing focus", btns[0])
 			btns[0].grab_focus()
 
 ## nav_to ###################################################################
