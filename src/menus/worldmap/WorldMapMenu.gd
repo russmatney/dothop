@@ -6,8 +6,8 @@ extends CanvasLayer
 @onready var puzzle_map = $%PuzzleMap
 @onready var puzzle_list = $%PuzzleList
 @onready var puzzle_set_icon = $%PuzzleSetIcon
-@onready var start_puzzle_set_button = $%StartPuzzleSetButton
-@onready var start_puzzle_n_label = $%StartPuzzleNLabel
+@onready var start_game_button = $%StartGameButton
+@onready var puzzle_set_label = $%PuzzleSetLabel
 
 @onready var next_puzzle_set_button = $%NextPuzzleSetButton
 @onready var previous_puzzle_set_button = $%PreviousPuzzleSetButton
@@ -33,9 +33,24 @@ func _ready():
 
 	attempt_move_to_puzzle_set(next_to_complete_puzzle_idx)
 
-	start_puzzle_set_button.pressed.connect(start_selected_puzzle)
+	start_game_button.pressed.connect(start_selected_puzzle)
 	next_puzzle_set_button.pressed.connect(show_next_puzzle_set)
 	previous_puzzle_set_button.pressed.connect(show_previous_puzzle_set)
+
+	next_puzzle_set_button.focus_entered.connect(unfocus_puzzles)
+	previous_puzzle_set_button.focus_entered.connect(unfocus_puzzles)
+	next_puzzle_set_button.mouse_entered.connect(unfocus_puzzles)
+	previous_puzzle_set_button.mouse_entered.connect(unfocus_puzzles)
+
+	next_puzzle_set_button.mouse_exited.connect(refocus_puzzles)
+	previous_puzzle_set_button.mouse_exited.connect(refocus_puzzles)
+
+func unfocus_puzzles():
+	hide_puzzle_cursor()
+	fade_start_button()
+
+func refocus_puzzles():
+	update_start_game_button()
 
 func show_next_puzzle_set():
 	attempt_move_to_puzzle_set(1)
@@ -101,7 +116,7 @@ func show_puzzle_set(puzzle_set):
 			break
 
 	# title
-	start_puzzle_set_button.text = puzzle_set.get_display_name()
+	update_puzzle_label(puzzle_set.get_display_name())
 
 	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_unlocked())
 	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_unlocked())
@@ -126,10 +141,12 @@ func show_puzzle_set(puzzle_set):
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
+			icon.mouse_entered.connect(move_puzzle_cursor.bind(icon))
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_texture(theme.get_goal_icon())
 			next_puzzle_icon = icon
+			icon.mouse_entered.connect(move_puzzle_cursor.bind(icon))
 		else:
 			icon.set_texture(theme.get_dotted_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
@@ -143,18 +160,23 @@ func show_puzzle_set(puzzle_set):
 		next_puzzle_icon = first_puzzle_icon
 
 	if next_puzzle_icon:
-		start_puzzle_set_button.focus_neighbor_bottom = next_puzzle_icon.get_path()
-		start_puzzle_set_button.grab_focus.call_deferred()
 		U.call_in(0.4, self, func():
 			if next_puzzle_icon:
 				move_puzzle_cursor(next_puzzle_icon, {no_move=true}))
+		# wait a frame in an attempt to quickly grab focus
+		await get_tree().process_frame
+		next_puzzle_icon.grab_focus.call_deferred()
+
+
+## puzzle cursor ################################################
 
 func move_puzzle_cursor(icon, opts={}):
 	if not icon:
 		return
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
-	start_puzzle_n_label.text = "[center]Start Puzzle %s" % str(idx + 1)
+
+	update_start_game_button("Start Puzzle %s" % str(idx + 1))
 
 	if opts.get("no_move", false):
 		puzzle_set_icon.position = icon.global_position
@@ -171,8 +193,53 @@ func move_puzzle_cursor(icon, opts={}):
 	scale_tween.tween_property(puzzle_set_icon, "scale", 0.8*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(puzzle_set_icon, "scale", 1.0*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+func hide_puzzle_cursor():
+	var time = 0.4
+	var t = create_tween()
+	t.tween_property(puzzle_set_icon, "modulate:a", 0.0, time)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+## update labels/buttons ################################################
+
+func update_puzzle_label(text):
+	puzzle_set_label.text = "[center]%s" % text
+	puzzle_set_label.set_pivot_offset(puzzle_set_label.size/2)
+
+	var time = 0.4
+	var t = create_tween()
+	t.tween_property(puzzle_set_label, "scale", 1.3*Vector2.ONE, time/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(puzzle_set_label, "scale", 0.8*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	t.tween_property(puzzle_set_label, "scale", 1.0*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+var button_scale_tween
+var start_button_text
+
+func update_start_game_button(text=null):
+	if not text:
+		if start_button_text:
+			text = start_button_text
+		else:
+			text = ""
+	start_button_text = text
+	start_game_button.text = text
+	start_game_button.set_pivot_offset(start_game_button.size/2)
+
+	start_game_button.set_disabled(false)
+
+	var time = 0.4
+	if button_scale_tween and button_scale_tween.is_running():
+		return
+	button_scale_tween = create_tween()
+	button_scale_tween.tween_property(start_game_button, "scale", 1.1*Vector2.ONE, time/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	button_scale_tween.tween_property(start_game_button, "scale", 0.8*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	button_scale_tween.tween_property(start_game_button, "scale", 1.0*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+func fade_start_button():
+	start_game_button.set_disabled(true)
+
+## reset map ################################################
+
+# intended for 'zooming out' from a focal point on a map
 func reset_map():
 	puzzle_map.current_marker = null
 	U.remove_children(puzzle_list)
-	start_puzzle_set_button.release_focus.call_deferred()

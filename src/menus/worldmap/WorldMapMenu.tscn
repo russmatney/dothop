@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@50310")
+current_marker = NodePath("@Marker2D@18766")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -78,9 +78,23 @@ layout_mode = 2
 theme = ExtResource("11_2vnax")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer"]
-custom_minimum_size = Vector2(200, 384)
+custom_minimum_size = Vector2(200, 320)
 layout_mode = 2
 script = ExtResource("8_fspbp")
+
+[node name="PuzzleSetLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+theme = ExtResource("14_vrel8")
+bbcode_enabled = true
+text = "[center]A Spring in your Hop"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 layout_mode = 2
@@ -93,13 +107,21 @@ layout_mode = 2
 theme = ExtResource("11_hm0xn")
 text = "<"
 
-[node name="StartPuzzleSetButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(300, 0)
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
 layout_mode = 2
-focus_neighbor_bottom = NodePath("/root/@EditorNode@17140/@Panel@13/@VBoxContainer@14/@HSplitContainer@17/@HSplitContainer@25/@HSplitContainer@33/@VBoxContainer@34/@VSplitContainer@36/@VSplitContainer@62/@VBoxContainer@63/@PanelContainer@110/MainScreen/@CanvasItemEditor@9462/@VSplitContainer@9281/@HSplitContainer@9283/@HSplitContainer@9285/@Control@9286/@SubViewportContainer@9287/@SubViewport@9288/WorldMapMenu/PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer3/PuzzleList/@TextureRect@50327")
-theme = ExtResource("11_hm0xn")
-text = "A Spring in your Hop"
+
+[node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="PuzzleList" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer/CenterContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 4
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
 
 [node name="NextPuzzleSetButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -118,27 +140,13 @@ layout_mode = 2
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="StartPuzzleNLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer"]
+[node name="StartGameButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 0)
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
-theme = ExtResource("14_vrel8")
-bbcode_enabled = true
-text = "[center]Start Puzzle 5"
-fit_content = true
-scroll_active = false
-
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="PuzzleList" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/CenterContainer3"]
-unique_name_in_owner = true
-layout_mode = 2
-columns = 4
+focus_mode = 0
+theme = ExtResource("11_hm0xn")
+text = "Start Puzzle 4"
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -148,10 +156,10 @@ size_flags_vertical = 3
 [node name="PuzzleSetIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
-offset_left = 168.0
-offset_top = 521.0
-offset_right = 232.0
-offset_bottom = 585.0
+offset_left = 380.0
+offset_top = 359.0
+offset_right = 444.0
+offset_bottom = 423.0
 pivot_offset = Vector2(32, 32)
 texture = ExtResource("8_mehyl")
 stretch_mode = 4
