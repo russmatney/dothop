@@ -107,7 +107,7 @@ signal win
 # hud updates
 signal player_moved
 signal player_undo
-signal move_attempted
+signal move_rejected
 signal move_blocked
 signal rebuilt_nodes
 
@@ -153,7 +153,7 @@ func _ready():
 	win.connect(on_win)
 	player_moved.connect(on_player_moved)
 	player_undo.connect(on_player_undo)
-	move_attempted.connect(on_move_attempted)
+	move_rejected.connect(on_move_rejected)
 	move_blocked.connect(on_move_blocked)
 	rebuilt_nodes.connect(on_rebuilt_nodes)
 
@@ -172,8 +172,7 @@ func on_player_moved():
 func on_player_undo():
 	Sounds.play(Sounds.S.minimize)
 
-func on_move_attempted():
-	# more like move rejected!
+func on_move_rejected():
 	Sounds.play(Sounds.S.showjumbotron)
 
 func on_move_blocked():
@@ -729,6 +728,7 @@ func move(move_dir):
 		for m in moves_to_make:
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
+			return
 
 	# trigger HUD update
-	move_attempted.emit()
+	move_rejected.emit()

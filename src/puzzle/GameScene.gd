@@ -84,9 +84,16 @@ func rebuild_puzzle():
 	puzzle_node.win.connect(on_puzzle_win)
 	puzzle_node.ready.connect(update_hud)
 
-	puzzle_node.player_moved.connect(update_hud)
-	puzzle_node.player_undo.connect(update_hud)
-	puzzle_node.move_attempted.connect(update_hud)
+	puzzle_node.player_moved.connect(func():
+		update_hud()
+		hud.restart_fade_in_controls_tween())
+	puzzle_node.player_undo.connect(func():
+		update_hud()
+		hud.animate_undo()
+		hud.restart_fade_in_controls_tween())
+	puzzle_node.move_rejected.connect(func():
+		update_hud()
+		hud.show_controls(true))
 	puzzle_node.rebuilt_nodes.connect(update_hud)
 	puzzle_node.move_blocked.connect(update_hud)
 

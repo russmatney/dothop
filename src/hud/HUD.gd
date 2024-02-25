@@ -31,16 +31,8 @@ func set_control_icons():
 ## unhandled_input ########################################################
 
 func _unhandled_input(event):
-	var is_undo = Trolls.is_undo(event)
-	var is_move = Trolls.is_move(event)
 	var is_restart_held = Trolls.is_restart_held(event)
 	var is_restart_released = Trolls.is_restart_released(event)
-
-	if is_undo:
-		animate_undo()
-
-	if is_move:
-		restart_fade_in_controls_tween()
 
 	if is_restart_held:
 		show_resetting()
@@ -96,16 +88,18 @@ func fade_controls():
 	# wait a bit before fading
 	fade_controls_tween.tween_interval(0.8)
 	controls().map(func(c):
-		fade_controls_tween.parallel().tween_property(c, "modulate:a", 0.1, 0.8))
+		fade_controls_tween.parallel().tween_property(c, "modulate:a", 0.5, 0.8))
 
 var show_controls_tween
-func show_controls():
-	if fade_controls_tween != null and fade_controls_tween.is_running():
-		fade_controls_tween.kill()
-		return
+func show_controls(force=false):
+	Log.pr("showing controls (force: ", force, ")")
+	if show_controls_tween != null and show_controls_tween.is_running():
+		show_controls_tween.kill()
+		if not force:
+			return
 	show_controls_tween = create_tween()
 	controls().map(func(c):
-		show_controls_tween.parallel().tween_property(c, "modulate:a", 0.9, 0.6))
+		show_controls_tween.parallel().tween_property(c, "modulate:a", 1.0, 0.6))
 
 # could probably just use a timer, but meh
 var controls_tween
