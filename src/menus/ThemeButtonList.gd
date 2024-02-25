@@ -12,6 +12,8 @@ func _ready():
 			Log.pr("current_scene (game)", game)
 			if game.name == "DotHopGame":
 				game.change_theme(th)
+				if get_tree().paused:
+					Navi.resume()
 			else:
 				Log.warn("Current scene is not DotHopGame, cannot change theme", game)
 			})
