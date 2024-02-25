@@ -30,6 +30,12 @@ message "Connect all the dots!"
 .x...o.
 ...o.o.
 
+message "You can't reach the final dot until you've dotted all the others."
+
+o.o..o
+o.xt.o
+......
+
 .o.o...
 .x.....
 .t.o.o.
