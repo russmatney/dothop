@@ -171,7 +171,8 @@ func on_puzzle_win():
 var last_puzzle_num = 0
 
 func show_progress_jumbo():
-	var header = "Puzzles 1-%s Complete!" % str(puzzle_num + 1)
+	var ct = puzzle_num + 1 - last_puzzle_num
+	var header = "%s Puzzles Complete!" % str(ct)
 	var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var instance = PuzzleCompleteScene.instantiate()
 	instance.puzzle_set = puzzle_set
