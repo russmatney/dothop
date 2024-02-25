@@ -173,6 +173,7 @@ func on_player_undo():
 	Sounds.play(Sounds.S.minimize)
 
 func on_move_attempted():
+	# more like move rejected!
 	Sounds.play(Sounds.S.showjumbotron)
 
 func on_move_blocked():

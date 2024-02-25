@@ -176,6 +176,8 @@ func move_puzzle_cursor(icon, opts={}):
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
 
+	Sounds.play(Sounds.S.step)
+
 	update_start_game_button("Start Puzzle %s" % str(idx + 1))
 
 	if opts.get("no_move", false):
