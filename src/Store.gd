@@ -94,6 +94,23 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int):
 		skip_event.mark_inactive()
 		# TODO maybe emit a signal for a skip-recovered popup?
 
+	# recompute completes/skips on puzzle_defs
+	puz.attach_game_def_stats()
+
+	save_game()
+
+func skip_puzzle(puz: PuzzleSet, idx: int):
+	var event = find_event(func(ev): return PuzzleSkipped.is_matching_event(ev, puz, idx))
+	if event:
+		event.inc_count()
+	elif not event:
+		event = PuzzleSkipped.new_event(puz, idx)
+		state.apply_event(event)
+		events.append(event)
+
+	# recompute completes/skips on puzzle_defs
+	puz.attach_game_def_stats()
+
 	save_game()
 
 func unlock_next_puzzle_set(puz: PuzzleSet):

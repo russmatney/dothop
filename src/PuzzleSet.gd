@@ -106,6 +106,8 @@ func mark_puzzle_complete(puzzle_idx: int):
 var skipped_puzzle_map = {}
 func mark_puzzle_skipped(puzzle_idx: int):
 	skipped_puzzle_map[puzzle_idx] = true
+func mark_puzzle_not_skipped(puzzle_idx: int):
+	skipped_puzzle_map.erase(puzzle_idx)
 
 func update_max_index(puzzle_idx: int):
 	var current = get_max_completed_puzzle_index()
