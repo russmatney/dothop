@@ -11,9 +11,13 @@ func get_puzzle_set_id() -> String:
 func get_puzzle_index() -> int:
 	return get_integer("puzzle_idx")
 
+func is_active() -> bool:
+	return get_bool("is_active")
+
 func data():
 	var d = super.data()
 	d.merge({
+		is_active=is_active(),
 		puzzle_set=get_puzzle_set(),
 		puzzle_index=get_puzzle_index(),
 		})
@@ -34,3 +38,6 @@ static func is_matching_event(event, puzzle_set: PuzzleSet, idx: int):
 		return false
 	return event.get_puzzle_set_id() == puzzle_set.get_entity_id() and \
 		event.get_puzzle_index() == idx
+
+func mark_inactive():
+	set_bool("is_active", false)

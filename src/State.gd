@@ -41,7 +41,8 @@ func apply_event(event):
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
-		ps.mark_puzzle_skipped(event.get_puzzle_index())
+		if event.is_active():
+			ps.mark_puzzle_skipped(event.get_puzzle_index())
 	elif event is PuzzleSetUnlocked:
 		var ps = find_puzzle_set(event.get_puzzle_set())
 		if not ps:

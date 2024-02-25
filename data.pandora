@@ -1057,12 +1057,19 @@
 				"_id": "66",
 				"_name": "puzzle_idx",
 				"_type": "int"
+			},
+			{
+				"_category_id": "64",
+				"_default_value": true,
+				"_id": "68",
+				"_name": "is_active",
+				"_type": "bool"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 67
+			"default": 68
 		}
 	}
 }

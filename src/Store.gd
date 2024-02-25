@@ -87,6 +87,13 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int):
 		event = PuzzleCompleted.new_event(puz, idx)
 		state.apply_event(event)
 		events.append(event)
+
+	var skip_event = find_event(func(ev):
+		return PuzzleSkipped.is_matching_event(ev, puz, idx) and ev.is_active())
+	if skip_event:
+		skip_event.mark_inactive()
+		# TODO maybe emit a signal for a skip-recovered popup?
+
 	save_game()
 
 func unlock_next_puzzle_set(puz: PuzzleSet):
