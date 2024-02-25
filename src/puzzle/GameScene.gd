@@ -94,8 +94,11 @@ func rebuild_puzzle():
 	puzzle_node.move_rejected.connect(func():
 		update_hud()
 		hud.show_controls(true))
-	puzzle_node.rebuilt_nodes.connect(update_hud)
 	puzzle_node.move_blocked.connect(update_hud)
+	puzzle_node.rebuilt_nodes.connect(func():
+		update_hud()
+		Anim.puzzle_animate_intro_from_point(puzzle_node)
+		)
 
 	add_child.call_deferred(puzzle_node)
 	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))

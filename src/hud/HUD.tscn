@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://cmj60xakurhk0"]
+[gd_scene load_steps=8 format=3 uid="uid://cmj60xakurhk0"]
 
 [ext_resource type="Script" path="res://src/hud/HUD.gd" id="1_5wqol"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_1a27s"]
 [ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://addons/core/notifications/Notifications.tscn" id="3_fxnlu"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="3_ocg6b"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="4_bq2ar"]
+[ext_resource type="Texture2D" uid="uid://cthfejrkt0eh7" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_r.png" id="5_eiimu"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_li620"]
 bg_color = Color(0.0627451, 0.0627451, 0.0627451, 0)
@@ -95,22 +97,13 @@ layout_mode = 2
 layout_mode = 2
 alignment = 2
 
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+visible = false
+layout_mode = 2
+
 [node name="UndoControlHint" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="UndoLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint"]
-unique_name_in_owner = true
-clip_contents = false
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/normal_font = ExtResource("2_1a27s")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "Undo:"
-fit_content = true
-scroll_active = false
 
 [node name="UndoInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
@@ -119,35 +112,55 @@ custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
-text = "z"
+texture = ExtResource("4_bq2ar")
 input_text = "Z"
+
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint"]
+layout_mode = 2
+
+[node name="UndoLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("2_1a27s")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Undo"
+fit_content = true
+scroll_active = false
 
 [node name="ResetControlHint" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-
-[node name="ResetLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint"]
-unique_name_in_owner = true
-clip_contents = false
-custom_minimum_size = Vector2(70, 0)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/normal_font = ExtResource("2_1a27s")
-theme_override_font_sizes/normal_font_size = 32
-bbcode_enabled = true
-text = "Reset:"
-fit_content = true
-scroll_active = false
 
 [node name="ResetInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+texture = ExtResource("5_eiimu")
 input_text = "R"
 
+[node name="CenterContainer" type="CenterContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint"]
+layout_mode = 2
+
+[node name="ResetLabel" type="RichTextLabel" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("2_1a27s")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Reset"
+fit_content = true
+scroll_active = false
+
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer"]

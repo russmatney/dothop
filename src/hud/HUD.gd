@@ -117,6 +117,9 @@ var undo_tween
 var undo_t = 0.3
 func animate_undo():
 	undoing = true
+
+	undo_control_hint.set_pivot_offset(undo_control_hint.size/2)
+
 	if undo_tween != null and undo_tween.is_running():
 		return
 	show_controls()
@@ -135,6 +138,8 @@ func show_resetting():
 	resetting = true
 	reset_label.text = "Hold..."
 
+	reset_control_hint.set_pivot_offset(reset_control_hint.size/2)
+
 	if reset_tween != null and reset_tween.is_running():
 		return
 	reset_tween = create_tween()
@@ -148,5 +153,5 @@ func hide_resetting():
 	if reset_tween != null:
 		reset_tween.kill()
 
-	reset_label.text = "Reset:"
+	reset_label.text = "Reset"
 	reset_control_hint.scale = Vector2.ONE
