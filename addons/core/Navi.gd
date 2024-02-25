@@ -26,6 +26,18 @@ func _ready():
 
 	pause_menu = add_menu(load(pause_menu_path))
 
+	ensure_current_scene.call_deferred()
+
+func ensure_current_scene(wait_a_frame=true):
+	if wait_a_frame:
+		await get_tree().process_frame
+	if current_scene == null:
+		var root = get_tree().get_root()
+		current_scene = root.get_children()[-1]
+		get_tree().set_current_scene(current_scene)
+
+	Log.pr("Current scene:", current_scene)
+
 ## process ###################################################################
 
 var focused_node
@@ -111,9 +123,7 @@ func _deferred_goto_scene(scene, opts={}):
 
 func current_scene_path():
 	if current_scene == null:
-		var root = get_tree().get_root()
-		current_scene = root.get_children()[-1]
-		get_tree().set_current_scene(current_scene)
+		ensure_current_scene(false)
 	return current_scene.scene_file_path
 
 ## add child ###################################################################
