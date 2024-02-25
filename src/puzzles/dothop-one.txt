@@ -35,13 +35,13 @@ message "Connect all the dots!"
 .t.o.o.
 .o...o.
 
-show_progress
-
 message "You can hop over dots you've already dotted."
 
 o.o....
 .......
 o.o.x.t
+
+show_progress
 
 o..o.o.
 ox.o.ot
