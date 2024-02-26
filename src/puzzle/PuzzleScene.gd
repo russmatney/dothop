@@ -728,7 +728,7 @@ func move(move_dir):
 		for m in moves_to_make:
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
-			return
+		return
 
 	# trigger HUD update
 	move_rejected.emit()
