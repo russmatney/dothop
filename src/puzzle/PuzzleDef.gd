@@ -31,7 +31,7 @@ func _init(raw: Dictionary):
 ## log.data() ########################################3333
 
 func data():
-	return {obj=str(self), meta=meta, width=width, height=height, idx=idx}
+	return {meta=meta, idx=idx, is_skipped=is_skipped, is_completed=is_completed,}
 
 ## helper ########################################3333
 

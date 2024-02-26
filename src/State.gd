@@ -11,7 +11,6 @@ func _init(events=[]):
 	puzzle_sets = initial_puzzle_sets()
 	themes = initial_themes()
 	apply_events(events)
-
 	compute_stats()
 
 ## apply events #######################################################

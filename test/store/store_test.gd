@@ -129,6 +129,69 @@ func test_completing_a_puzzle(indexes, test_parameters=[[[0]], [[0, 1]], [[0, 1,
 	assert_that(puz_set.can_play_puzzle(idx + 2)).is_false()
 
 #########################################################################
+## skipping puzzles
+
+func test_skipping_a_puzzle():
+	Store.reset_game_data()
+	assert_that(len(Store.events)).is_equal(0)
+
+	var puz_set = Store.get_puzzle_sets().filter(func(e): return not e.is_completed())[0]
+
+	Store.complete_puzzle_index(puz_set, 0)
+	Store.complete_puzzle_index(puz_set, 1)
+	Store.skip_puzzle(puz_set, 2)
+	Store.complete_puzzle_index(puz_set, 3)
+
+	assert_that(len(Store.events)).is_equal(4)
+
+	assert_that(puz_set.completed_puzzle_count()).is_equal(3)
+	assert_that(puz_set.skipped_puzzle_count()).is_equal(1)
+
+	var puz_defs = puz_set.get_puzzles()
+	assert_that(puz_defs[0].is_completed).is_true()
+	assert_that(puz_defs[1].is_completed).is_true()
+	assert_that(puz_defs[1].is_skipped).is_false()
+	assert_that(puz_defs[2].is_completed).is_false()
+	assert_that(puz_defs[2].is_skipped).is_true()
+	assert_that(puz_defs[3].is_completed).is_true()
+
+	# repeat after reloading
+	Store.load_game()
+	assert_that(puz_set.completed_puzzle_count()).is_equal(3)
+	assert_that(puz_set.skipped_puzzle_count()).is_equal(1)
+
+	puz_defs = puz_set.get_puzzles()
+	assert_that(puz_defs[0].is_completed).is_true()
+	assert_that(puz_defs[1].is_completed).is_true()
+	assert_that(puz_defs[1].is_skipped).is_false()
+	assert_that(puz_defs[2].is_completed).is_false()
+	assert_that(puz_defs[2].is_skipped).is_true()
+	assert_that(puz_defs[3].is_completed).is_true()
+
+	# now complete the puzzle
+	Store.complete_puzzle_index(puz_set, 2)
+
+	# refetching from the store to get the updated data
+	puz_set = Store.get_puzzle_sets().filter(func(e): return not e.is_completed())[0]
+	puz_defs = puz_set.get_puzzles()
+
+	assert_that(puz_defs[0].is_completed).is_true()
+	assert_that(puz_defs[1].is_completed).is_true()
+	assert_that(puz_defs[1].is_skipped).is_false()
+	assert_that(puz_defs[2].is_completed).is_true()
+	assert_that(puz_defs[2].is_skipped).is_false()
+	assert_that(puz_defs[3].is_completed).is_true()
+
+	Store.load_game()
+
+	assert_that(puz_defs[0].is_completed).is_true()
+	assert_that(puz_defs[1].is_completed).is_true()
+	assert_that(puz_defs[1].is_skipped).is_false()
+	assert_that(puz_defs[2].is_completed).is_true()
+	assert_that(puz_defs[2].is_skipped).is_false()
+	assert_that(puz_defs[3].is_completed).is_true()
+
+#########################################################################
 ## dupe events
 
 func test_complete_puzzle_idx_dupe_events_increment_count():

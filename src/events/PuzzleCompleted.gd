@@ -14,7 +14,7 @@ func get_puzzle_index() -> int:
 func data():
 	var d = super.data()
 	d.merge({
-		puzzle_set=get_puzzle_set(),
+		puzzle_set=get_puzzle_set().get_display_name(),
 		puzzle_index=get_puzzle_index(),
 		})
 	return d

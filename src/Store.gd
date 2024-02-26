@@ -92,10 +92,12 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int):
 		return PuzzleSkipped.is_matching_event(ev, puz, idx) and ev.is_active())
 	if skip_event:
 		skip_event.mark_inactive()
+		# NOTE the in-place (passed) puzzle set is not updated
+		state.apply_event(skip_event)
 		# TODO maybe emit a signal for a skip-recovered popup?
 
-	# recompute completes/skips on puzzle_defs
-	puz.attach_game_def_stats()
+	var p = state.find_puzzle_set(event.get_puzzle_set())
+	p.attach_game_def_stats()
 
 	save_game()
 

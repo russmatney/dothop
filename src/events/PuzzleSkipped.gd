@@ -18,7 +18,7 @@ func data():
 	var d = super.data()
 	d.merge({
 		is_active=is_active(),
-		puzzle_set=get_puzzle_set(),
+		puzzle_set=get_puzzle_set().get_display_name(),
 		puzzle_index=get_puzzle_index(),
 		})
 	return d

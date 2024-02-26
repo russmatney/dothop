@@ -90,7 +90,8 @@
 				"_icon_color": "ffffff00",
 				"_id": "64",
 				"_index": 0,
-				"_name": "PuzzleSkipped"
+				"_name": "PuzzleSkipped",
+				"_script_path": "res://src/events/PuzzleSkipped.gd"
 			}
 		],
 		"_entities": [
