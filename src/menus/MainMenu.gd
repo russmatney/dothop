@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var options_button = $%OptionsButton
 @onready var credits_button = $%CreditsButton
 @onready var quit_button = $%QuitButton
+@onready var puzzle_stats_label = $%PuzzleStatsLabel
 
 @onready var world_map = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 @onready var options_menu = preload("res://src/menus/OptionsPanel.tscn")
@@ -22,25 +23,37 @@ func _ready():
 	credits_button.pressed.connect(func(): Navi.nav_to(credits_menu))
 	quit_button.pressed.connect(func(): get_tree().quit())
 
+	render_puzzle_stats()
+
+func render_puzzle_stats():
 	var puzzles_completed = 0
 	var puzzles_skipped = 0
-	var puzzles_available = 0
+	var total_puzzles = 0
+	var total_dots = 0
+	var dots_collected = 0
 
 	for ps in Store.get_puzzle_sets():
 		for p in ps.get_puzzles():
+			total_puzzles += 1
+			total_dots += p.dot_count()
 			if p.is_completed:
 				puzzles_completed += 1
+				dots_collected += p.dot_count()
 			if p.is_skipped:
 				puzzles_skipped += 1
-			# TODO check the puzzle, not the puzzle set
-			if ps.is_unlocked():
-				puzzles_available += 1
 
 	Log.pr("Puzzle stats!", {
 		events=len(Store.get_events()),
 		puzzle_sets=len(Store.get_puzzle_sets()),
 		puzzles_completed=puzzles_completed,
 		puzzles_skipped=puzzles_skipped,
-		puzzles_available=puzzles_available,
-		themes=len(Store.get_themes()),
+		total_puzzles=total_puzzles,
 		})
+
+	puzzle_stats_label.text = (
+		"[center][color=forest_green]%s[/color] " +
+		"/ [color=dark_slate_blue]%s[/color] puzzles complete" +
+		"\n" +
+		"[color=forest_green]%s[/color] " +
+		"/ [color=dark_slate_blue]%s[/color] dots collected"
+		) % [puzzles_completed, total_puzzles, dots_collected, total_dots]

@@ -40,3 +40,17 @@ func get_message():
 		return message
 	else:
 		return meta.get("message")
+
+## dot count ########################################3333
+
+var _dot_count
+func dot_count():
+	if _dot_count:
+		return _dot_count
+	var ct = 0
+	for x in len(shape):
+		for y in len(shape[x]):
+			if shape[x][y] in ["x", "o", "t"]: # NOT IDEAL!
+				ct += 1
+	_dot_count = ct
+	return _dot_count
