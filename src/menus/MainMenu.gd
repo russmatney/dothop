@@ -14,6 +14,7 @@ extends CanvasLayer
 func _ready():
 	if not Engine.is_editor_hint():
 		SoundManager.play_music(Music.late_night_radio)
+		U.call_in(2.0, self, func(): GodotSteam.set_test_achievement())
 
 	start_button.grab_focus.call_deferred()
 	start_button.visibility_changed.connect(func(): start_button.grab_focus())

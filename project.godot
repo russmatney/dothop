@@ -28,6 +28,7 @@ Store="*res://src/Store.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Music="*res://src/Music.gd"
 Sounds="*res://src/Sounds.gd"
+GodotSteam="*res://src/GodotSteam.gd"
 
 [display]
 

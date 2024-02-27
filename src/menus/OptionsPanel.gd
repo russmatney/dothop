@@ -16,9 +16,13 @@ func _ready():
 	reset_save_data_button.pressed.connect(func(): data_reset_conf.show())
 	unlock_all_button.pressed.connect(func(): data_unlock_conf.show())
 	data_reset_conf.confirmed.connect(func():
-		Store.reset_game_data())
+		Store.reset_game_data()
+		GodotSteam.clear_test_achievements()
+		)
 	data_unlock_conf.confirmed.connect(func():
-		Store.unlock_all_puzzle_sets())
+		Store.unlock_all_puzzle_sets()
+		# TODO add cheater-skeeter pumpkin eater achievement
+		)
 
 	main_menu_button.pressed.connect(func():
 		Navi.nav_to_main_menu())
