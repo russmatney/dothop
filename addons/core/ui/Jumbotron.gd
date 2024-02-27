@@ -53,6 +53,9 @@ var dismiss_input_icon
 @export var header_text: String :
 	set(v):
 		header_text = v
+		if not header:
+			header = get_node_or_null("%Header")
+
 		if header:
 			if len(v) == 0:
 				header.text = ""
@@ -62,6 +65,9 @@ var dismiss_input_icon
 @export var body_text: String :
 	set(v):
 		body_text = v
+		if not body:
+			body = get_node_or_null("%Body")
+
 		if body:
 			if len(v) == 0:
 				body.text = ""

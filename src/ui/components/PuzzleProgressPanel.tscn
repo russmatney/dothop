@@ -3,18 +3,17 @@
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="1_tufv2"]
 [ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="2_6lh1w"]
 [ext_resource type="Script" path="res://src/ui/components/PuzzleProgressPanel.gd" id="2_mt4fd"]
-[ext_resource type="Texture2D" uid="uid://dqyug4lfrx6l3" path="res://src/themes/spring/assets/player.png" id="4_aaeht"]
+[ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="4_130o0"]
 
 [node name="PuzzleProgressPanel" type="Control"]
-custom_minimum_size = Vector2(396, 260)
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_left = -0.000244141
 offset_top = -0.000247955
-offset_right = -884.0
-offset_bottom = -460.0
+offset_right = -1280.0
+offset_bottom = -720.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_mt4fd")
@@ -22,12 +21,14 @@ script = ExtResource("2_mt4fd")
 [node name="PuzzlePanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
+offset_right = 396.0
+offset_bottom = 328.0
 size_flags_horizontal = 3
 theme = ExtResource("1_tufv2")
 
 [node name="AnimatedVBoxContainer" type="VBoxContainer" parent="PuzzlePanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(252, 154)
+custom_minimum_size = Vector2(158, 154)
 layout_mode = 2
 script = ExtResource("2_6lh1w")
 child_size = Vector2(64, 64)
@@ -40,15 +41,14 @@ columns = 4
 
 [node name="PuzzleSetIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
-offset_left = -0.000244141
-offset_top = -0.000247955
-offset_right = 63.9998
-offset_bottom = 63.9998
+offset_left = 64.0
+offset_top = 64.0
+offset_right = 128.0
+offset_bottom = 128.0
 pivot_offset = Vector2(32, 32)
 size_flags_horizontal = 0
 size_flags_vertical = 0
-texture = ExtResource("4_aaeht")
+texture = ExtResource("4_130o0")
 stretch_mode = 4

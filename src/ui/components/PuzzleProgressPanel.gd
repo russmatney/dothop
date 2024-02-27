@@ -19,6 +19,7 @@ signal rendered
 ## ready ############################################################
 
 func _ready():
+	animated_container.set_custom_minimum_size(Vector2.ZERO)
 	if not icon_size:
 		icon_size = 64
 	if not grid_columns:
