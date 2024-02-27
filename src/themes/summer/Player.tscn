@@ -3,43 +3,43 @@
 [ext_resource type="Script" path="res://src/themes/summer/Player.gd" id="1_vvvex"]
 [ext_resource type="Texture2D" uid="uid://kpd43nkqpb6y" path="res://src/themes/summer/player.png" id="2_a7pxc"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lnqsx"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_4jdk7"]
 atlas = ExtResource("2_a7pxc")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_6en2n"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0bhti"]
 atlas = ExtResource("2_a7pxc")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mhwyo"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w2b5k"]
 atlas = ExtResource("2_a7pxc")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_78w6a"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_n2co5"]
 atlas = ExtResource("2_a7pxc")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tngf1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_afbb1"]
 atlas = ExtResource("2_a7pxc")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vcpat"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_rstrp"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lnqsx")
+"texture": SubResource("AtlasTexture_4jdk7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_6en2n")
+"texture": SubResource("AtlasTexture_0bhti")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mhwyo")
+"texture": SubResource("AtlasTexture_w2b5k")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_78w6a")
+"texture": SubResource("AtlasTexture_n2co5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tngf1")
+"texture": SubResource("AtlasTexture_afbb1")
 }],
 "loop": true,
 "name": &"idle",
@@ -49,12 +49,11 @@ animations = [{
 [node name="Player" type="Node2D" groups=["player"]]
 z_index = 5
 script = ExtResource("1_vvvex")
-square_size = 32
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_vcpat")
+sprite_frames = SubResource("SpriteFrames_rstrp")
 animation = &"idle"
 autoplay = "idle"
 metadata/_aseprite_wizard_config_ = {

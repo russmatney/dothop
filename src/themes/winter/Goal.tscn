@@ -3,15 +3,15 @@
 [ext_resource type="Script" path="res://src/themes/winter/Goal.gd" id="1_wbkvj"]
 [ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/winter/goal.png" id="2_t8468"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4nmop"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vpjte"]
 atlas = ExtResource("2_t8468")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_87m6j"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_6055a"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4nmop")
+"texture": SubResource("AtlasTexture_vpjte")
 }],
 "loop": true,
 "name": &"goal",
@@ -21,12 +21,11 @@ animations = [{
 [node name="Goal" type="Node2D"]
 script = ExtResource("1_wbkvj")
 type = 2
-square_size = 32
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_87m6j")
+sprite_frames = SubResource("SpriteFrames_6055a")
 animation = &"goal"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",

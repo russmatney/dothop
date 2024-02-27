@@ -3,15 +3,15 @@
 [ext_resource type="Script" path="res://src/themes/spring/Goal.gd" id="1_wbkvj"]
 [ext_resource type="Texture2D" uid="uid://cl13dx20d40gr" path="res://src/themes/spring/goal.png" id="2_f4hur"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ymtdy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3n84u"]
 atlas = ExtResource("2_f4hur")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_jomap"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_j3utu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ymtdy")
+"texture": SubResource("AtlasTexture_3n84u")
 }],
 "loop": true,
 "name": &"goal",
@@ -25,9 +25,8 @@ type = 2
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_jomap")
+sprite_frames = SubResource("SpriteFrames_j3utu")
 animation = &"goal"
-frame_progress = 0.441305
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

@@ -3,63 +3,64 @@
 [ext_resource type="Script" path="res://src/themes/spring/Dot.gd" id="1_jnnoi"]
 [ext_resource type="Texture2D" uid="uid://cjef0ur1vupio" path="res://src/themes/spring/dot.png" id="2_l15b5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qajgi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lcrox"]
 atlas = ExtResource("2_l15b5")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_t3yne"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_etkxh"]
 atlas = ExtResource("2_l15b5")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dy0ys"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_eao64"]
 atlas = ExtResource("2_l15b5")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_lwbvs"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hyamk"]
 atlas = ExtResource("2_l15b5")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tpr41"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_li06s"]
 atlas = ExtResource("2_l15b5")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_cp2eu"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_2plvb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qajgi")
+"texture": SubResource("AtlasTexture_lcrox")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_t3yne")
+"texture": SubResource("AtlasTexture_etkxh")
 }],
 "loop": true,
 "name": &"dot",
-"speed": 4.0
+"speed": 3.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dy0ys")
+"texture": SubResource("AtlasTexture_eao64")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lwbvs")
+"texture": SubResource("AtlasTexture_hyamk")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tpr41")
+"texture": SubResource("AtlasTexture_li06s")
 }],
-"loop": true,
+"loop": false,
 "name": &"dotted",
-"speed": 2.0
+"speed": 10.0
 }]
 
 [node name="Dot" type="Node2D"]
+z_index = 1
 script = ExtResource("1_jnnoi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_cp2eu")
+sprite_frames = SubResource("SpriteFrames_2plvb")
 animation = &"dot"
-frame_progress = 0.810624
+autoplay = "dot"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

@@ -3,36 +3,36 @@
 [ext_resource type="Script" path="res://src/themes/spring/Player.gd" id="1_vvvex"]
 [ext_resource type="Texture2D" uid="uid://dgvja5cuiwlxk" path="res://src/themes/spring/player.png" id="2_27wb2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1p220"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0fva4"]
 atlas = ExtResource("2_27wb2")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_nauik"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_8x21m"]
 atlas = ExtResource("2_27wb2")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bh2hf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_00teo"]
 atlas = ExtResource("2_27wb2")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_c0bfm"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmfpi"]
 atlas = ExtResource("2_27wb2")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_xddi2"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_26f08"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1p220")
+"texture": SubResource("AtlasTexture_0fva4")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_nauik")
+"texture": SubResource("AtlasTexture_8x21m")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bh2hf")
+"texture": SubResource("AtlasTexture_00teo")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_c0bfm")
+"texture": SubResource("AtlasTexture_rmfpi")
 }],
 "loop": true,
 "name": &"idle",
@@ -46,7 +46,7 @@ script = ExtResource("1_vvvex")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_xddi2")
+sprite_frames = SubResource("SpriteFrames_26f08")
 animation = &"idle"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
