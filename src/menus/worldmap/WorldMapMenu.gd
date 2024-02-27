@@ -105,9 +105,11 @@ func previous_puzzle_set_unlocked():
 @onready var game_scene = preload("res://src/puzzle/GameScene.tscn")
 
 func start_selected_puzzle():
+	var ps = current_puzzle_set
+	var idx = current_puzzle_index
 	Navi.nav_to(game_scene, {setup=func(g):
-		g.puzzle_set = current_puzzle_set
-		g.puzzle_num = current_puzzle_index
+		g.puzzle_set = ps
+		g.puzzle_num = idx
 		})
 
 ## input ###################################################################

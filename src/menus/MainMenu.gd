@@ -48,6 +48,8 @@ func render_puzzle_stats():
 		puzzles_completed=puzzles_completed,
 		puzzles_skipped=puzzles_skipped,
 		total_puzzles=total_puzzles,
+		dots_collected=dots_collected,
+		total_dots=total_dots,
 		})
 
 	puzzle_stats_label.text = (
