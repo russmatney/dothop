@@ -210,39 +210,39 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vidy4"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xlt68"]
 atlas = ExtResource("3_6klux")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3ulqc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3c6j"]
 atlas = ExtResource("3_6klux")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_1q3j2"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pub51"]
 atlas = ExtResource("3_6klux")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_f3ogh"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pgclb"]
 atlas = ExtResource("3_6klux")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_n1hxc"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_21nnb"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vidy4")
+"texture": SubResource("AtlasTexture_xlt68")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3ulqc")
+"texture": SubResource("AtlasTexture_w3c6j")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_1q3j2")
+"texture": SubResource("AtlasTexture_pub51")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_f3ogh")
+"texture": SubResource("AtlasTexture_pgclb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vidy4")
+"texture": SubResource("AtlasTexture_xlt68")
 }],
 "loop": true,
 "name": &"goal",
@@ -253,11 +253,10 @@ animations = [{
 script = ExtResource("1_bmb34")
 
 [node name="Asteroid1" type="AnimatedSprite2D" parent="."]
-visible = false
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
-frame_progress = 0.301741
+frame_progress = 0.301925
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -269,6 +268,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 
 [node name="Asteroid2" type="AnimatedSprite2D" parent="."]
+visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_3tt12")
@@ -288,7 +288,7 @@ metadata/_aseprite_wizard_config_ = {
 visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_n1hxc")
+sprite_frames = SubResource("SpriteFrames_21nnb")
 animation = &"goal"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",

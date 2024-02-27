@@ -3,37 +3,37 @@
 [ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
 [ext_resource type="Texture2D" uid="uid://0kk2jf15j75s" path="res://src/themes/space/player2.png" id="2_8lvnh"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_28fen"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_utydy"]
 atlas = ExtResource("2_8lvnh")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g0crc"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgfwd"]
 atlas = ExtResource("2_8lvnh")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vywny"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_lehv6"]
 atlas = ExtResource("2_8lvnh")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_0qucd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_81hsb"]
 atlas = ExtResource("2_8lvnh")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_rir2h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ega2l"]
 atlas = ExtResource("2_8lvnh")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_5epdi"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_n5vb0"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_28fen")
+"texture": SubResource("AtlasTexture_utydy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g0crc")
+"texture": SubResource("AtlasTexture_bgfwd")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vywny")
+"texture": SubResource("AtlasTexture_lehv6")
 }],
 "loop": false,
 "name": &"moving",
@@ -41,16 +41,16 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_28fen")
+"texture": SubResource("AtlasTexture_utydy")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_0qucd")
+"texture": SubResource("AtlasTexture_81hsb")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_rir2h")
+"texture": SubResource("AtlasTexture_ega2l")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_28fen")
+"texture": SubResource("AtlasTexture_utydy")
 }],
 "loop": true,
 "name": &"shine",
@@ -64,7 +64,7 @@ script = ExtResource("1_j03dg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_5epdi")
+sprite_frames = SubResource("SpriteFrames_n5vb0")
 animation = &"moving"
 autoplay = "shine"
 metadata/_aseprite_wizard_config_ = {
