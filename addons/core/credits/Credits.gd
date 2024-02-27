@@ -56,11 +56,12 @@ func _ready():
 var scroll_direction = Vector2.ZERO
 
 func _unhandled_input(event):
-	if Trolls.is_move_up(event) or Trolls.is_restart(event):
+	var move_vec = Trolls.move_vector()
+	if Trolls.is_move_up(event) or move_vec.y < -0.2 or Trolls.is_restart(event):
 		scroll_direction = Vector2.UP
-	elif Trolls.is_move_down(event) or Trolls.is_close(event):
+	elif Trolls.is_move_down(event) or move_vec.y > 0.2 or Trolls.is_close(event):
 		scroll_direction = Vector2.DOWN
-	if Trolls.is_move_released(event) or Trolls.is_close_released(event) \
+	elif Trolls.is_move_released(event) or Trolls.is_close_released(event) \
 		or Trolls.is_restart_released(event):
 		scroll_direction = Vector2.ZERO
 
