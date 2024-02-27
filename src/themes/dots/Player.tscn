@@ -4,15 +4,15 @@
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_vp205"]
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="3_pr0kn"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_frj44"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkaxu"]
 atlas = ExtResource("3_pr0kn")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_8kfl8"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_wjrc6"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_frj44")
+"texture": SubResource("AtlasTexture_vkaxu")
 }],
 "loop": true,
 "name": &"default",
@@ -27,14 +27,14 @@ script = ExtResource("1_ufxo6")
 visible = false
 offset_left = -8.0
 offset_top = -8.0
-offset_right = 8.0
-offset_bottom = 8.0
+offset_right = 24.0
+offset_bottom = 24.0
 color = Color(0, 0, 1, 1)
 
 [node name="ObjectLabel" type="RichTextLabel" parent="."]
 visible = false
 clip_contents = false
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(32, 32)
 offset_left = -19.0
 offset_top = -17.0
 offset_right = 21.0
@@ -48,7 +48,8 @@ scroll_active = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_8kfl8")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_wjrc6")
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

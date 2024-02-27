@@ -6,9 +6,9 @@
 [ext_resource type="Script" path="res://src/PuzzleSet.gd" id="3_qrqrt"]
 [ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/DotHopCam.tscn" id="6_76inj"]
 
-[sub_resource type="Resource" id="Resource_jedac"]
+[sub_resource type="Resource" id="Resource_ygcuv"]
 script = ExtResource("2_00afq")
-_id = "14"
+_id = "13"
 
 [sub_resource type="Resource" id="Resource_ffmfa"]
 script = ExtResource("3_qrqrt")
@@ -17,9 +17,8 @@ _id = "17"
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
 game_def_path = "res://src/puzzles/dothop-one.txt"
-puzzle_theme = SubResource("Resource_jedac")
+puzzle_theme = SubResource("Resource_ygcuv")
 puzzle_set = SubResource("Resource_ffmfa")
-puzzle_num = 11
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 

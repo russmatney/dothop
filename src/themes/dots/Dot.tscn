@@ -4,23 +4,23 @@
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_4n18a"]
 [ext_resource type="Texture2D" uid="uid://mqp6x6wpgjc8" path="res://src/themes/dots/blue_ring.png" id="3_gt0f5"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_363vi"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pshfs"]
 atlas = ExtResource("3_gt0f5")
-region = Rect2(0, 0, 32, 32)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_7xb84"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_wg26d"]
 atlas = ExtResource("3_gt0f5")
-region = Rect2(32, 0, 32, 32)
+region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_uqgbf"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_awjx1"]
 atlas = ExtResource("3_gt0f5")
-region = Rect2(0, 32, 32, 32)
+region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_velks"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_jxtuu"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_363vi")
+"texture": SubResource("AtlasTexture_pshfs")
 }],
 "loop": true,
 "name": &"dot",
@@ -28,7 +28,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_7xb84")
+"texture": SubResource("AtlasTexture_wg26d")
 }],
 "loop": true,
 "name": &"dotted",
@@ -36,7 +36,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_uqgbf")
+"texture": SubResource("AtlasTexture_awjx1")
 }],
 "loop": true,
 "name": &"goal",
@@ -44,6 +44,7 @@ animations = [{
 }]
 
 [node name="Dot" type="Node2D"]
+z_index = 1
 script = ExtResource("1_pofn5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -71,9 +72,10 @@ scroll_active = false
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_velks")
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_jxtuu")
 animation = &"dot"
-frame_progress = 0.773314
+frame_progress = 0.0701985
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
