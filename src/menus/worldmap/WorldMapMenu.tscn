@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@18712")
+current_marker = NodePath("@Marker2D@37192")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -127,10 +127,7 @@ layout_mode = 2
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-focus_mode = 0
-mouse_filter = 2
 theme = ExtResource("11_hm0xn")
-disabled = true
 text = ">"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer"]
@@ -146,7 +143,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("11_hm0xn")
-text = "Start Puzzle 1"
+text = "Start Puzzle 2"
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -155,10 +152,11 @@ size_flags_vertical = 3
 
 [node name="PuzzleSetIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(64, 64)
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = 244.0
+offset_top = 361.0
+offset_right = 308.0
+offset_bottom = 425.0
 pivot_offset = Vector2(32, 32)
 texture = ExtResource("8_mehyl")
 stretch_mode = 4
