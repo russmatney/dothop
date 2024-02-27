@@ -66,6 +66,11 @@ func render(opts):
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(ps_theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
+		elif puzzle_set.skipped_puzzle(i):
+			# TODO differentiate skipped puzzle!
+			icon.set_texture(ps_theme.get_dot_icon()) # TODO use skipped icon
+			icon.set_focus_mode(Control.FOCUS_ALL)
+			icon.set_modulate(Color(0.8, 0.8, 0.8, 0.8))
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_texture(ps_theme.get_goal_icon())
