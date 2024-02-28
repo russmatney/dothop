@@ -162,18 +162,16 @@ func show_puzzle_set(puzzle_set):
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(theme.get_dot_icon())
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			# icon.mouse_entered.connect(move_puzzle_cursor.bind(icon))
 		elif puzzle_set.skipped_puzzle(i):
 			# TODO differentiate skipped puzzle!
 			icon.set_texture(theme.get_dot_icon()) # TODO use skipped icon
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			# icon.mouse_entered.connect(move_puzzle_cursor.bind(icon))
 			icon.set_modulate(Color(0.8, 0.8, 0.8, 0.8))
 		elif puzzle_set.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_texture(theme.get_goal_icon())
-			next_puzzle_icon = icon
-			# icon.mouse_entered.connect(move_puzzle_cursor.bind(icon))
+			if not next_puzzle_icon:
+				next_puzzle_icon = icon
 		else:
 			icon.set_texture(theme.get_dotted_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
