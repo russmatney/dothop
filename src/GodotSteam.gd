@@ -77,15 +77,6 @@ func clear_achievement(achv):
 		steam.clearAchievement(achv)
 		steam.storeStats()
 
-func clear_test_achievements():
-	clear_achievement(TEST_ACHIEVEMENT)
-	clear_achievement(FIRST_HOP)
-
-const TEST_ACHIEVEMENT="TEST_ACHIEVEMENT"
-
-func set_test_achievement():
-	set_achievement(TEST_ACHIEVEMENT)
-
 ## game-load achievements
 
 const FIRST_HOP="FIRST_HOP"
