@@ -367,6 +367,10 @@
 						"type": "string",
 						"value": "res://src/puzzles/dothop-two.txt"
 					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 45
+					},
 					"sort_order": {
 						"type": "int",
 						"value": 6
@@ -413,6 +417,10 @@
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-three.txt"
+					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 22
 					},
 					"sort_order": {
 						"type": "int",
@@ -646,6 +654,10 @@
 						"type": "string",
 						"value": "res://src/puzzles/dothop-four.txt"
 					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 14
+					},
 					"sort_order": {
 						"type": "int",
 						"value": 3
@@ -697,6 +709,10 @@
 						"type": "string",
 						"value": "res://src/puzzles/dothop-five.txt"
 					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 6
+					},
 					"sort_order": {
 						"type": "int",
 						"value": 2
@@ -743,6 +759,10 @@
 					"puzzle_script_path": {
 						"type": "string",
 						"value": "res://src/puzzles/dothop-six.txt"
+					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 30
 					},
 					"sort_order": {
 						"type": "int",
@@ -1065,12 +1085,22 @@
 				"_id": "68",
 				"_name": "is_active",
 				"_type": "bool"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": 0,
+				"_id": "69",
+				"_name": "puzzles_to_unlock",
+				"_setting_overrides": {
+					"Min Value": 0
+				},
+				"_type": "int"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 68
+			"default": 69
 		}
 	}
 }

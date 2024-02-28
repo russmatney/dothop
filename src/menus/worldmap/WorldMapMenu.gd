@@ -176,6 +176,8 @@ func show_puzzle_set(puzzle_set):
 				icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 		puzzle_list.add_child(icon)
 
+	# TODO if not unlocked, add 'N-more puzzles to unlock this world' label
+
 	# player icon
 	puzzle_set_icon.set_texture(theme.get_player_icon())
 	puzzle_set_icon.modulate.a = 0.0

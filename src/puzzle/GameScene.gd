@@ -133,6 +133,8 @@ func on_puzzle_win():
 
 	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
+	# TODO refactor to unlock puzzles with 'puzzles_to_unlock' count
+
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
