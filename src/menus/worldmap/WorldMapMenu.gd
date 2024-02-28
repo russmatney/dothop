@@ -68,8 +68,11 @@ func unfocus_puzzles():
 	fade_start_button()
 
 func refocus_puzzles():
-	update_start_game_button()
-	move_puzzle_cursor(last_puzzle_cursor)
+	if current_puzzle_set.is_unlocked():
+		update_start_game_button()
+		move_puzzle_cursor(last_puzzle_cursor)
+	else:
+		Log.pr("current puzzle not unlocked, not refocusing")
 
 func show_next_puzzle_set():
 	attempt_move_to_puzzle_set(1)
@@ -82,26 +85,21 @@ func attempt_move_to_puzzle_set(delta: int):
 	next_puzzle_set_idx = clamp(next_puzzle_set_idx, 0, len(puzzle_sets) - 1)
 	var next_puzzle_set = puzzle_sets[next_puzzle_set_idx]
 
-	if next_puzzle_set.is_unlocked():
-		current_puzzle_set_idx = next_puzzle_set_idx
-		current_puzzle_set = next_puzzle_set
-		show_puzzle_set(current_puzzle_set)
-	else:
-		Log.pr("Cannot move to puzzle_set until it is unlocked")
+	current_puzzle_set_idx = next_puzzle_set_idx
+	current_puzzle_set = next_puzzle_set
+	show_puzzle_set(current_puzzle_set)
 
-func next_puzzle_set_unlocked():
+func next_puzzle_set_exists():
 	var next_puzzle_set_idx = clamp(current_puzzle_set_idx + 1, 0, len(puzzle_sets) - 1)
 	if next_puzzle_set_idx == current_puzzle_set_idx:
 		return false
-	var next_puzzle_set = puzzle_sets[next_puzzle_set_idx]
-	return next_puzzle_set.is_unlocked()
+	return true
 
-func previous_puzzle_set_unlocked():
+func previous_puzzle_set_exists():
 	var prev_puzzle_set_idx = clamp(current_puzzle_set_idx - 1, 0, len(puzzle_sets) - 1)
 	if prev_puzzle_set_idx == current_puzzle_set_idx:
 		return false
-	var prev_puzzle_set = puzzle_sets[prev_puzzle_set_idx]
-	return prev_puzzle_set.is_unlocked()
+	return true
 
 @onready var game_scene = preload("res://src/puzzle/GameScene.tscn")
 
@@ -139,11 +137,10 @@ func show_puzzle_set(puzzle_set):
 	# title
 	update_puzzle_label(puzzle_set.get_display_name())
 
-	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_unlocked())
-	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_unlocked())
+	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_exists())
+	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_exists())
 
 	var theme = puzzle_set.get_theme()
-	var first_puzzle_icon
 	var next_puzzle_icon
 
 	# list of puzzles
@@ -155,34 +152,33 @@ func show_puzzle_set(puzzle_set):
 			continue
 		var icon = TextureRect.new()
 		icon.set_custom_minimum_size(64.0 * Vector2.ONE)
-		icon.gui_input.connect(on_level_icon_gui_input)
-		icon.focus_entered.connect(move_puzzle_cursor.bind(icon))
-		if not first_puzzle_icon:
-			first_puzzle_icon = icon
-		if puzzle_set.completed_puzzle(i):
-			icon.set_texture(theme.get_dot_icon())
-			icon.set_focus_mode(Control.FOCUS_ALL)
-		elif puzzle_set.skipped_puzzle(i):
-			# TODO differentiate skipped puzzle!
-			icon.set_texture(theme.get_dot_icon()) # TODO use skipped icon
-			icon.set_focus_mode(Control.FOCUS_ALL)
-			icon.set_modulate(Color(0.8, 0.8, 0.8, 0.8))
-		elif puzzle_set.can_play_puzzle(i):
-			icon.set_focus_mode(Control.FOCUS_ALL)
-			icon.set_texture(theme.get_goal_icon())
-			if not next_puzzle_icon:
-				next_puzzle_icon = icon
-		else:
+		if not puzzle_set.is_unlocked():
 			icon.set_texture(theme.get_dotted_icon())
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
+		else:
+			icon.gui_input.connect(on_level_icon_gui_input)
+			icon.focus_entered.connect(move_puzzle_cursor.bind(icon))
+			if puzzle_set.completed_puzzle(i):
+				icon.set_texture(theme.get_dot_icon())
+				icon.set_focus_mode(Control.FOCUS_ALL)
+			elif puzzle_set.skipped_puzzle(i):
+				# TODO differentiate skipped puzzle!
+				icon.set_texture(theme.get_dot_icon()) # TODO use skipped icon
+				icon.set_focus_mode(Control.FOCUS_ALL)
+				icon.set_modulate(Color(0.8, 0.8, 0.8, 0.8))
+			elif puzzle_set.can_play_puzzle(i):
+				icon.set_focus_mode(Control.FOCUS_ALL)
+				icon.set_texture(theme.get_goal_icon())
+				if not next_puzzle_icon:
+					next_puzzle_icon = icon
+			else:
+				icon.set_texture(theme.get_dotted_icon())
+				icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 		puzzle_list.add_child(icon)
 
 	# player icon
 	puzzle_set_icon.set_texture(theme.get_player_icon())
 	puzzle_set_icon.modulate.a = 0.0
-
-	if not next_puzzle_icon:
-		next_puzzle_icon = first_puzzle_icon
 
 	if next_puzzle_icon:
 		U.call_in(0.4, self, func():
@@ -194,6 +190,11 @@ func show_puzzle_set(puzzle_set):
 		# wait a frame in an attempt to quickly grab focus
 		await get_tree().process_frame
 		next_puzzle_icon.grab_focus.call_deferred()
+	else:
+		if not next_puzzle_set_button.is_disabled():
+			next_puzzle_set_button.grab_focus()
+		elif not previous_puzzle_set_button.is_disabled():
+			previous_puzzle_set_button.grab_focus()
 
 ## puzzle cursor ################################################
 
