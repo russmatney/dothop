@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://dqnqb2rpo60wm"
+path="res://.godot/imported/achievements.aseprite-e7100b5ed0c7371af7170d0b4ab165af.res"
+
+[deps]
+
+source_file="res://assets/icons/achievements.aseprite"
+dest_files=["res://.godot/imported/achievements.aseprite-e7100b5ed0c7371af7170d0b4ab165af.res"]
+
+[params]
+
