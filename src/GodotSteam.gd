@@ -79,6 +79,7 @@ func clear_achievement(achv):
 
 func clear_test_achievements():
 	clear_achievement(TEST_ACHIEVEMENT)
+	clear_achievement(FIRST_HOP)
 
 const TEST_ACHIEVEMENT="TEST_ACHIEVEMENT"
 
