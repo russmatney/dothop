@@ -5,10 +5,10 @@ var dothop_credits = [
 	[
 		"",
 		"",
-		"# Dot Hop",
+		"# [color=crimson]Dot Hop[/color]",
 		"",
 	], [
-		"by Russell Matney",
+		"# by [color=forest_green]Russell Matney[/color]",
 	], [
 		"",
 		"",

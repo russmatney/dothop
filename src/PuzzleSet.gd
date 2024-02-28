@@ -37,6 +37,9 @@ func get_max_completed_puzzle_index() -> int:
 func get_sort_order() -> int:
 	return get_integer("sort_order")
 
+func get_puzzles_to_unlock() -> int:
+	return get_integer("puzzles_to_unlock")
+
 ## all properties (consumed by Log.gd) #################
 
 func data():
@@ -124,7 +127,7 @@ func skipped_puzzle(puzzle_idx: int):
 
 # can play the puzzle number 1 greater than the max completed
 func can_play_puzzle(puzzle_idx: int):
-	return puzzle_idx <= 1 + get_max_completed_puzzle_index()
+	return puzzle_idx <= 3 + get_max_completed_puzzle_index()
 
 func completed_puzzle_count():
 	var ct = 0

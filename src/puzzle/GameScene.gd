@@ -131,24 +131,54 @@ var ProgressPanelScene = preload("res://src/ui/components/PuzzleProgressPanel.ts
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
+	var stats = calc_stats()
 
-	# TODO refactor to unlock puzzles with 'puzzles_to_unlock' count
+	if stats.dots_hopped > 10:
+		GodotSteam.set_ten_dots()
+	if stats.dots_hopped > 50:
+		GodotSteam.set_fifty_dots()
+	if stats.dots_hopped > 100:
+		GodotSteam.set_one_hundred_dots()
+	if stats.dots_hopped > 500:
+		GodotSteam.set_five_hundred_dots()
+	if stats.dots_hopped > 1 and stats.dots_hopped == stats.total_dots:
+		GodotSteam.set_all_the_dots()
+
+	var puzz_sets = Store.get_puzzle_sets()
+	var to_unlock = []
+	for puzz_set in puzz_sets:
+		if not puzz_set.is_unlocked() and puzz_set.get_puzzles_to_unlock() <= stats.puzzles_complete:
+			to_unlock.append(puzz_set)
+
+	for ps in to_unlock:
+		Store.unlock_puzzle_set(ps)
+
+	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
 	if puzzles_complete:
 		Dino.notif("Puzzle Set complete!")
 		Store.complete_puzzle_set(puzzle_set)
-		await show_all_puzzles_jumbo()
-		await show_unlock_jumbo()
 
-		if puzzle_set.get_next_puzzle_set():
-			nav_to_world_map()
-		else:
+		await show_all_puzzles_jumbo()
+
+		for ps in to_unlock:
+			await show_unlock_jumbo(ps)
+
+		if stats.puzzles_complete == stats.total_puzzles:
+			await show_no_more_puzzles_jumbo()
 			nav_to_credits()
+		else:
+			nav_to_world_map()
 	else:
 		if puzzle_node.puzzle_def.meta.get("show_progress"):
 			await show_progress_jumbo()
+
+			for ps in to_unlock:
+				await show_unlock_jumbo(ps)
 		else:
+			for ps in to_unlock:
+				await show_unlock_jumbo(ps)
+
 			var panel = ProgressPanelScene.instantiate()
 			panel.icon_size = 48.0
 			panel.grid_columns = 6
@@ -167,6 +197,26 @@ func on_puzzle_win():
 
 		puzzle_num += 1
 		rebuild_puzzle()
+
+# TODO DRY up count against the main menu stat calc
+func calc_stats():
+	var total_puzzles = 0
+	var puzzles_complete = 0
+	var total_dots = 0
+	var _dots_hopped = 0
+
+	for ps in Store.get_puzzle_sets():
+		for p in ps.get_puzzles():
+			total_dots += p.dot_count()
+			total_puzzles += 1
+			if p.is_completed:
+				puzzles_complete += 1
+				_dots_hopped += p.dot_count()
+
+	return {
+		total_dots=total_dots, dots_hopped=_dots_hopped,
+		total_puzzles=total_puzzles, puzzles_complete=puzzles_complete,
+		}
 
 ## progress jumbo #####################################################################
 
@@ -207,9 +257,13 @@ func show_all_puzzles_jumbo():
 
 ## unlock jumbo #####################################################################
 
-func show_unlock_jumbo():
+func show_unlock_jumbo(puzz_set):
 	var instance = PuzzleSetUnlockedScene.instantiate()
-	var next = puzzle_set.get_next_puzzle_set()
-	if next:
-		instance.puzzle_set = next
+	instance.puzzle_set = puzz_set
+	return Jumbotron.jumbo_notif({pause=false, instance=instance})
+
+## no more puzzles jumbo #####################################################################
+
+func show_no_more_puzzles_jumbo():
+	var instance = PuzzleSetUnlockedScene.instantiate()
 	return Jumbotron.jumbo_notif({pause=false, instance=instance})

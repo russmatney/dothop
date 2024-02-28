@@ -76,7 +76,6 @@ func complete_puzzle_set(puz: PuzzleSet):
 		events.append(event)
 	save_game()
 
-	# TODO abstract out achievements
 	match (puz.get_entity_id()):
 		PuzzleSetIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
 		PuzzleSetIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
@@ -85,12 +84,11 @@ func complete_puzzle_set(puz: PuzzleSet):
 		PuzzleSetIDs.SNOWWAY: GodotSteam.set_snow_way_complete()
 		PuzzleSetIDs.GETOUTERHERE:
 			GodotSteam.set_get_outer_here_complete()
-			# TODO this may not be true if they've 'unlocked' and then come straight here
-			GodotSteam.set_all_puzzles_complete()
 
-	# TODO remove b/c this will be independent of puzzle-set-complete now
-	if puz.get_next_puzzle_set():
-		unlock_next_puzzle_set(puz)
+	var puzzle_sets = Store.get_puzzle_sets()
+	var all_complete = puzzle_sets.all(func(ps): return ps.is_completed())
+	if all_complete:
+		GodotSteam.set_all_puzzles_complete()
 
 func complete_puzzle_index(puz: PuzzleSet, idx: int):
 	var event = find_event(func(ev): return PuzzleCompleted.is_matching_event(ev, puz, idx))
@@ -113,32 +111,6 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int):
 
 	save_game()
 
-	var dot_counts = dots_hopped()
-	if dot_counts.dots_hopped > 10:
-		GodotSteam.set_ten_dots()
-	if dot_counts.dots_hopped > 50:
-		GodotSteam.set_fifty_dots()
-	if dot_counts.dots_hopped > 100:
-		GodotSteam.set_one_hundred_dots()
-	if dot_counts.dots_hopped > 500:
-		GodotSteam.set_five_hundred_dots()
-	if dot_counts.dots_hopped > 1 and dot_counts.dots_hopped == dot_counts.total_dots:
-		GodotSteam.set_all_the_dots()
-
-# TODO DRY up count against the main menu stat calc
-func dots_hopped():
-	var total_dots = 0
-	var _dots_hopped = 0
-
-	for ps in Store.get_puzzle_sets():
-		for p in ps.get_puzzles():
-			total_dots += p.dot_count()
-			if p.is_completed:
-				_dots_hopped += p.dot_count()
-
-	return {total_dots=total_dots, dots_hopped=_dots_hopped}
-
-
 func skip_puzzle(puz: PuzzleSet, idx: int):
 	var event = find_event(func(ev): return PuzzleSkipped.is_matching_event(ev, puz, idx))
 	if event:
@@ -153,19 +125,23 @@ func skip_puzzle(puz: PuzzleSet, idx: int):
 
 	save_game()
 
+func unlock_puzzle_set(puz: PuzzleSet):
+	var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, puz))
+	if event:
+		event.inc_count()
+	elif not event:
+		event = PuzzleSetUnlocked.new_event(puz)
+		state.apply_event(event)
+		events.append(event)
+
+	# save update events for later reloading
+	save_game()
+
+# Deprecated
 func unlock_next_puzzle_set(puz: PuzzleSet):
 	var next = puz.get_next_puzzle_set()
 	if next:
-		var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, next))
-		if event:
-			event.inc_count()
-		elif not event:
-			event = PuzzleSetUnlocked.new_event(next)
-			state.apply_event(event)
-			events.append(event)
-
-		# save update events for later reloading
-		save_game()
+		unlock_puzzle_set(next)
 	else:
 		Log.warn("No next puzzle to unlock!", puz)
 
