@@ -81,9 +81,9 @@ func complete_puzzle_set(puz: PuzzleSet):
 		PuzzleSetIDs.ONE: GodotSteam.set_them_dots_complete()
 		PuzzleSetIDs.FIVE: GodotSteam.set_spring_in_your_hop_complete()
 		PuzzleSetIDs.FOUR: GodotSteam.set_thats_just_beachy_complete()
-		PuzzleSetIDs.TWO: GodotSteam.set_leaf_me_alone_complete()
+		PuzzleSetIDs.THREE: GodotSteam.set_leaf_me_alone_complete()
 		PuzzleSetIDs.SIX: GodotSteam.set_snow_way_complete()
-		PuzzleSetIDs.THREE:
+		PuzzleSetIDs.TWO:
 			GodotSteam.set_get_outer_here_complete()
 			# TODO this may not be true if they've 'unlocked' and then come straight here
 			GodotSteam.set_all_puzzles_complete()
