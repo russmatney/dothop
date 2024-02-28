@@ -2,9 +2,9 @@
 class_name PuzzleSetIDs
 
 
-const ONE = "16"
-const TWO = "17"
-const THREE = "18"
-const FOUR = "25"
-const FIVE = "26"
-const SIX = "27"
+const THEMDOTS = "16"
+const GETOUTERHERE = "17"
+const LEAFMEALONE = "18"
+const THATSJUSTBEACHY = "25"
+const SPRINGINYOURHOP = "26"
+const SNOWWAY = "27"

@@ -8,7 +8,7 @@ extends GdUnitTestSuite
 func test_initial_store_puzzle_data():
 	Store.reset_game_data()
 
-	var p_ent = Pandora.get_entity(PuzzleSetIDs.ONE)
+	var p_ent = Pandora.get_entity(PuzzleSetIDs.THEMDOTS)
 	var puzzle_ents = Pandora.get_all_entities(Pandora.get_category(p_ent._category_id))
 	assert_that(len(puzzle_ents)).is_greater(2)
 

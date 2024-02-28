@@ -60,7 +60,7 @@ func apply_event(event):
 ## initial states #######################################################
 
 func initial_puzzle_sets() -> Array[PuzzleSet]:
-	var ent = Pandora.get_entity(PuzzleSetIDs.ONE)
+	var ent = Pandora.get_entity(PuzzleSetIDs.THEMDOTS)
 	var pss = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
 		.map(func(e): return e.instantiate())\
 		.filter(func(e):

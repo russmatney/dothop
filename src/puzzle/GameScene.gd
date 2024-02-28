@@ -17,7 +17,7 @@ var hud
 
 func _ready():
 	if puzzle_set == null:
-		puzzle_set = Pandora.get_entity(PuzzleSetIDs.ONE)
+		puzzle_set = Store.get_puzzle_sets()[0]
 
 	if puzzle_set != null:
 		game_def_path = puzzle_set.get_puzzle_script_path()
