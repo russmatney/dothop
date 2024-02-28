@@ -78,6 +78,13 @@ enum S {
 	],
 }
 
+func _ready():
+	if not Engine.is_editor_hint():
+		SoundManager.set_default_sound_bus("Sound")
+		SoundManager.set_default_ui_sound_bus("UI Sound")
+		SoundManager.set_sound_volume(0.3)
+
+	super._ready()
 
 ####################################################################
 

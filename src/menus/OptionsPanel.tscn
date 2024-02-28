@@ -64,7 +64,6 @@ layout_mode = 2
 theme = ExtResource("3_io088")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer"]
-custom_minimum_size = Vector2(244, 384)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -74,6 +73,8 @@ anim_duration = 0.5
 
 [node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../../../../../MainMenuButton")
@@ -82,16 +83,22 @@ text = "Reset Save Data"
 
 [node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
+visible = false
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_06n2g")
 text = "Unlock All Puzzles"
 
 [node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
+visible = false
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
 [node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
+visible = false
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]

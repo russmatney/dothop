@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://cpxj4aeuv006l"]
+[gd_scene load_steps=4 format=3 uid="uid://cpxj4aeuv006l"]
 
 [ext_resource type="Script" path="res://addons/dj/MuteButtonList.gd" id="1_hivsh"]
 [ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="2_k4kf0"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="3_xcll7"]
 
 [node name="MuteButtonList" type="VBoxContainer"]
 anchors_preset = 15
@@ -10,6 +11,86 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_hivsh")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer/CenterContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_xcll7")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Music Volume"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="MusicVolumeSlider" type="HSlider" parent="HBoxContainer/CenterContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+custom_minimum_size = Vector2(0, 40)
+layout_mode = 2
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="HBoxContainer2"]
+layout_mode = 2
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer2/CenterContainer"]
+clip_contents = false
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("3_xcll7")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Sound Volume"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
+
+[node name="CenterContainer2" type="CenterContainer" parent="HBoxContainer2"]
+layout_mode = 2
+
+[node name="SoundVolumeSlider" type="HSlider" parent="HBoxContainer2/CenterContainer2"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+max_value = 1.0
+step = 0.05
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer2"]
+visible = false
+custom_minimum_size = Vector2(20, 0)
+layout_mode = 2
 
 [node name="MuteMusicButton" type="Button" parent="."]
 unique_name_in_owner = true

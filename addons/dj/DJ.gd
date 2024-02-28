@@ -16,15 +16,15 @@ func play_sound_opts(sounds, opts = {}):
 		var s = sounds[i]
 		if not is_instance_valid(s):
 			return
+		var pitch = 1.0
 		if scale_range > 0 and scale_note != null:
 			var note = lerp(0.0, 1.0, scale_note/scale_range)
-			s.pitch_scale = note
+			pitch = note
 		elif vary > 0.0:
-			s.pitch_scale = 1 - (randf() * vary)
-		s.play()
+			pitch = 1 - (randf() * vary)
+		SoundManager.play_sound_with_pitch(s, pitch)
 
-##########################################################
-# sound map api
+## sound map api ####################################################
 
 func setup_sound(sound, opts = {}):
 	var s_str
@@ -34,25 +34,9 @@ func setup_sound(sound, opts = {}):
 	if not sound:
 		Log.warn("Could not load sound", s_str)
 		return
-	var asp = AudioStreamPlayer.new()
-	asp.set_stream(sound)
-	asp.name = sound.resource_path.get_file()
-	add_child(asp, true)
-	if "is_sound" in opts and opts["is_sound"]:
-		# how to force no looping for sounds? it's determined by the input rn
-		asp.set_volume_db(default_sound_vol_db)
+	return sound
 
-	if "vol_db" in opts:
-		asp.set_volume_db(opts["vol_db"])
-
-	return asp
-
-var default_sound_vol_db = -12
-var defaults = {
-	"is_sound": true
-	}
-
-func setup_sound_map(sound_map, default_opts=defaults):
+func setup_sound_map(sound_map):
 	var playables = {}
 	for k in sound_map.keys():
 		playables[k] = []
@@ -64,7 +48,6 @@ func setup_sound_map(sound_map, default_opts=defaults):
 			if typeof(s) == TYPE_ARRAY:
 				sound = s[0]
 				opts = s[1]
-			opts.merge(default_opts)
 			var playable = setup_sound(sound, opts)
 			if playable:
 				playables[k].append(playable)
@@ -91,64 +74,10 @@ func interrupt_sound(sound_map, name):
 	else:
 		Log.warn("no sound for name", name)
 
-
-#################################################
-# music map api
-
-var playing_game_songs = []
-var paused_game_songs = []
-
-func play_song(sound_map, name):
-	if muted_music:
-		# Log.warn("Cannot play song, music is muted")
-		return
-	if name in sound_map:
-		var songs = sound_map[name]
-		var i = randi() % songs.size()
-		var s = songs[i]
-		# if already playing, do nothing
-		if not s.playing:
-			s.play()
-			playing_game_songs.append(s)
-	else:
-		Log.warn("no song for name", name)
-
-func interrupt_song(sound_map, name=null):
-	var song
-	if not name == null:
-		song = interrupt_sound(sound_map, name)
-	elif len(playing_game_songs) > 0:
-		song = playing_game_songs[0]
-		song.stop()
-
-	if song:
-		playing_game_songs.erase(song)
-	else:
-		Log.warn("Could not find song to interrupt!", sound_map)
-
-func pause_game_song():
-	paused_game_songs = []
-	for song in playing_game_songs:
-		if song.playing:
-			song.stop()
-			paused_game_songs.append([song, song.get_playback_position()])
-
-func resume_game_song():
-	if muted_music:
-		# Log.warn("Cannot resume game song, music is muted")
-		return
-	# could store and resume at same playback_position
-	for song_and_pos in paused_game_songs:
-		var song = song_and_pos[0]
-		var pos = song_and_pos[1]
-		song.play(pos)
-
-
 ## mute ######################################################################
 
 var muted_sound = false
 var muted_music = false
-signal mute_toggle
 
 func mute_all(should_mute=true):
 	toggle_mute_music(should_mute)
@@ -160,16 +89,8 @@ func toggle_mute_music(should_mute=null):
 	else:
 		muted_music = should_mute
 
-	if muted_music:
-		pause_game_song()
-	else:
-		resume_game_song()
-
-	mute_toggle.emit()
-
 func toggle_mute_sound(should_mute=null):
 	if should_mute == null:
 		muted_sound = not muted_sound
 	else:
 		muted_sound = should_mute
-	mute_toggle.emit()

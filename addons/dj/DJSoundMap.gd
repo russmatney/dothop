@@ -21,9 +21,3 @@ func play(nm, opts={}):
 
 func interrupt(nm):
 	DJ.interrupt_sound(_sound_map, nm)
-
-func play_song(nm):
-	DJ.play_song(_sound_map, nm)
-
-func interrupt_song(nm=null):
-	DJ.interrupt_song(_sound_map, nm)
