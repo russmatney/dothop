@@ -22,7 +22,12 @@ func play_sound_opts(sounds, opts = {}):
 			pitch = note
 		elif vary > 0.0:
 			pitch = 1 - (randf() * vary)
-		SoundManager.play_sound_with_pitch(s, pitch)
+
+		if opts.get("interrupt"):
+			SoundManager.stop_sound(s)
+
+		if not Engine.is_editor_hint():
+			SoundManager.play_sound_with_pitch(s, pitch)
 
 ## sound map api ####################################################
 
