@@ -15,8 +15,7 @@ var dothop_credits = [
 		"Made with Godot, Aseprite, and Emacs",
 		"",
 		"Source available: https://github.com/russmatney/dothop",
-	],
-    [
+	], [
 	"",
 	"# Music",
 	], [
@@ -43,8 +42,7 @@ var dothop_credits = [
 	"CC0 - Public Domain",
 	"https://creativecommons.org/share-your-work/public-domain/cc0/",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Sounds",
 	], [
@@ -118,8 +116,7 @@ var dothop_credits = [
 	"Public Domain",
 	"https://creativecommons.org/publicdomain/zero/1.0/",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Godot Addons",
 	], [
@@ -152,16 +149,14 @@ var dothop_credits = [
 	"https://github.com/CoaguCo-Industries/GodotSteam",
 	"MIT License",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Other",
 	], [
 	"",
 	"All other art, music, and sounds created by Russell Matney",
 	"",
-	],
-    [
+	], [
 	"# Patrons",
 	], [
 	"",

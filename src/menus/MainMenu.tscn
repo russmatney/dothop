@@ -118,8 +118,8 @@ layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]13[/color] / [color=dark_slate_blue]61[/color] puzzles complete
-[color=forest_green]124[/color] / [color=dark_slate_blue]866[/color] dots collected"
+text = "[center][color=forest_green]36[/color] / [color=dark_slate_blue]61[/color] puzzles complete
+[color=forest_green]465[/color] / [color=dark_slate_blue]866[/color] dots hopped"
 fit_content = true
 scroll_active = false
 

@@ -19,7 +19,7 @@ modulate_color = Color(0.847059, 1, 0.847059, 1)
 [sub_resource type="CompressedTexture2D" id="CompressedTexture2D_tpxkj"]
 load_path = "res://.godot/imported/green_button_full_4x.png-41c79dcdc44932a5b51000d95ca31c99.ctex"
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_l3iix"]
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vmg2f"]
 texture = SubResource("CompressedTexture2D_tpxkj")
 texture_margin_left = 16.0
 texture_margin_top = 16.0
@@ -27,7 +27,7 @@ texture_margin_right = 16.0
 texture_margin_bottom = 16.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-modulate_color = Color(0.788235, 0.788235, 0.788235, 1)
+modulate_color = Color(0.788235, 0.788235, 0.788235, 0.67451)
 
 [resource]
 Button/colors/font_focus_color = Color(0.94902, 0.94902, 0.141176, 1)
@@ -37,4 +37,4 @@ Button/fonts/font = ExtResource("1_2jo36")
 Button/styles/disabled = SubResource("StyleBoxFlat_2u45o")
 Button/styles/focus = SubResource("StyleBoxTexture_qxhb7")
 Button/styles/hover = SubResource("StyleBoxTexture_qxhb7")
-Button/styles/normal = SubResource("StyleBoxTexture_l3iix")
+Button/styles/normal = SubResource("StyleBoxTexture_vmg2f")
