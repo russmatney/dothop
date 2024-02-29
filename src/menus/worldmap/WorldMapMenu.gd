@@ -138,7 +138,7 @@ func show_puzzle_set(puzzle_set):
 			break
 
 	# title
-	update_puzzle_label(puzzle_set.get_display_name())
+	update_puzzle_label(puzzle_set)
 
 	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_exists())
 	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_exists())
@@ -247,8 +247,13 @@ func hide_puzzle_cursor():
 
 ## update labels/buttons ################################################
 
-func update_puzzle_label(text):
-	puzzle_set_label.text = "[center]%s" % text
+func update_puzzle_label(puzzle_set):
+	var puzzles = puzzle_set.get_puzzles()
+	var total = len(puzzles)
+	var complete = len(puzzles.filter(func(p): return p.is_completed))
+	puzzle_set_label.text = "[center]%s (%s/%s)" % [
+		puzzle_set.get_display_name(), complete, total
+		]
 	puzzle_set_label.set_pivot_offset(puzzle_set_label.size/2)
 
 	var time = 0.4

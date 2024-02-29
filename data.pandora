@@ -129,7 +129,7 @@
 					},
 					"dot_icon_texture": {
 						"type": "resource",
-						"value": "res://src/themes/dots/assets/blue_ring1.png"
+						"value": "res://src/themes/dots/assets/blue_ring3.png"
 					},
 					"dot_scenes": {
 						"type": "array",
@@ -143,7 +143,7 @@
 					},
 					"goal_icon_texture": {
 						"type": "resource",
-						"value": "res://src/themes/dots/assets/blue_ring3.png"
+						"value": "res://src/themes/dots/assets/blue_ring1.png"
 					},
 					"goal_scenes": {
 						"type": "array",
