@@ -78,6 +78,17 @@ static func move_attempt_pull_back(node, og_position, target_position, t):
 	tween.tween_property(node, "position", target_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "position", og_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
+static func float_a_bit(node, og_position, t=0.8, trans=Tween.TRANS_CUBIC, _ease=Tween.EASE_OUT):
+	var tween = tween_on_node(node, "float_tween")
+	var dist = 3
+	var dir = Vector2(randfn(0.0, 1.0), randfn(0.0, 1.0)).normalized()
+	var offset = dir * dist
+	tween.tween_property(node, "position", og_position + offset, t).set_trans(trans).set_ease(_ease)
+	tween.tween_interval(t/2)
+	tween.tween_property(node, "position", og_position, t).set_trans(trans).set_ease(_ease)
+	tween.tween_interval(t/3)
+	tween.tween_callback(Anim.float_a_bit.bind(node, og_position, t, trans, _ease))
+
 # Scales
 
 static func scale_up_down_up(node, t):
