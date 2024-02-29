@@ -148,6 +148,10 @@ var dothop_credits = [
 	"https://github.com/nathanhoad/godot_sound_manager",
 	"MIT License",
 	"",
+	"GodotSteam",
+	"https://github.com/CoaguCo-Industries/GodotSteam",
+	"MIT License",
+	"",
 	],
     [
 	"",
@@ -169,8 +173,7 @@ var dothop_credits = [
 	"Jake Bartlam",
 	"Ellie Matney",
 	"",
-	],
-    [
+	], [
 	"",
 	"# Play Testers",
 	], [
@@ -190,9 +193,22 @@ var dothop_credits = [
 	"Ryan Matney",
 	"Ellie Matney",
 	"A bunch of folks at Strangeloop",
+	"The IGA check-in/show-and-tell crew",
 	"",
-	"Many thanks to all the testers and brainstormers who listened and gave feedback!",
+	], [
 	"",
+	"# Special Thanks",
+	], [
+	"",
+	"For constant support and feedback across DotHop's entire developement,",
+	"and for happily playing the game in all its forms,",
+	"both with and without my constant nagging.",
+	"",
+	"Duaa Osman",
+	"tompsognathus",
+	"Cameron Kingsbury",
+	"",
+	"Thank you all so freaking much!",
 	"",
 	], [
 	"",
