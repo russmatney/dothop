@@ -31,8 +31,6 @@ o......o
 .x.....
 .o.o.t.
 
-show_progress
-
 o..ooo.
 o...o.t
 ...o.o.
@@ -51,13 +49,11 @@ ot..o.o
 ...x....o
 .oo.o..t.
 
-.....oo..
-..oo....o
 .o..o....
+..oo....o
+.....oo..
 ...x.oo.o
 .oo.o..t.
-
-show_progress
 
 .....ooo.
 ..oo....o
@@ -65,7 +61,7 @@ show_progress
 ...t.oo.o
 .oooo..x.
 
-message "Hope you brought your shades!"
+message "Life is a beach!"
 
 ...o.oo....
 ..o...o....
@@ -81,10 +77,23 @@ message "Hope you brought your shades!"
 ..o...o....
 ...o.oo....
 
-..............
-..oo.ooo.o....
-....ooo.o.t...
-....oo..oo....
-..o.......o.o.
-.oxo........o.
-.oo...........
+message "Hope you brought your shades!"
+
+.oo.ooo.o...
+...ooo.o.t..
+...oo..oo...
+.o.......o.o
+oxo........o
+oo..........
+
+....oo..o.
+o....o..o.
+.oo.oo.to.
+oox....o.o
+o.o.....oo
+
+oo....o.o.
+.o.o..oo..
+.t..o.o...
+ox.oo.ooo.
+oo........
