@@ -127,7 +127,16 @@ func skipped_puzzle(puzzle_idx: int):
 
 # can play the puzzle number 1 greater than the max completed
 func can_play_puzzle(puzzle_idx: int):
-	return puzzle_idx <= 3 + get_max_completed_puzzle_index()
+	var _max = get_max_completed_puzzle_index()
+	if puzzle_idx < _max:
+		return true
+
+	var puzzles_ahead = 3 + _max # farthest possible
+	for i in range(_max):
+		if not completed_puzzle(i):
+			puzzles_ahead -= 1 # subtract for incomplete levels
+
+	return puzzle_idx <= puzzles_ahead
 
 func completed_puzzle_count():
 	var ct = 0
