@@ -14,7 +14,7 @@ func _ready():
 
 func on_anim_finished():
 	if anim.animation == "moving":
-		anim.play("shine")
+		anim.play("floating")
 
 ## move #########################################################
 

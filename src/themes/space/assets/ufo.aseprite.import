@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://2ykqsswyukl7"
+path="res://.godot/imported/ufo.aseprite-8fd7365342fc7c37c8daf813402cd72a.res"
+
+[deps]
+
+source_file="res://src/themes/space/assets/ufo.aseprite"
+dest_files=["res://.godot/imported/ufo.aseprite-8fd7365342fc7c37c8daf813402cd72a.res"]
+
+[params]
+

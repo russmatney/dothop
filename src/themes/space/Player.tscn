@@ -1,60 +1,60 @@
 [gd_scene load_steps=9 format=3 uid="uid://csgpsdj4n3rfj"]
 
 [ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
-[ext_resource type="Texture2D" uid="uid://0kk2jf15j75s" path="res://src/themes/space/player2.png" id="2_8lvnh"]
+[ext_resource type="Texture2D" uid="uid://df2eaco1ps67w" path="res://src/themes/space/ufo.png" id="2_28spo"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_utydy"]
-atlas = ExtResource("2_8lvnh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmbye"]
+atlas = ExtResource("2_28spo")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_bgfwd"]
-atlas = ExtResource("2_8lvnh")
-region = Rect2(0, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lehv6"]
-atlas = ExtResource("2_8lvnh")
-region = Rect2(16, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_81hsb"]
-atlas = ExtResource("2_8lvnh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljfib"]
+atlas = ExtResource("2_28spo")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ega2l"]
-atlas = ExtResource("2_8lvnh")
+[sub_resource type="AtlasTexture" id="AtlasTexture_neqqh"]
+atlas = ExtResource("2_28spo")
 region = Rect2(32, 0, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_n5vb0"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2dm3"]
+atlas = ExtResource("2_28spo")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_te1h0"]
+atlas = ExtResource("2_28spo")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ydb4a"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_utydy")
+"texture": SubResource("AtlasTexture_nmbye")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_bgfwd")
+"texture": SubResource("AtlasTexture_ljfib")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_lehv6")
+"texture": SubResource("AtlasTexture_nmbye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_neqqh")
 }],
-"loop": false,
-"name": &"moving",
-"speed": 10.0
+"loop": true,
+"name": &"floating",
+"speed": 7.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_utydy")
+"texture": SubResource("AtlasTexture_nmbye")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_81hsb")
+"texture": SubResource("AtlasTexture_y2dm3")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ega2l")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_utydy")
+"texture": SubResource("AtlasTexture_te1h0")
 }],
-"loop": true,
-"name": &"shine",
-"speed": 10.0
+"loop": false,
+"name": &"moving",
+"speed": 7.0
 }]
 
 [node name="Player" type="Node2D" groups=["player"]]
@@ -64,9 +64,9 @@ script = ExtResource("1_j03dg")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_n5vb0")
-animation = &"moving"
-autoplay = "shine"
+sprite_frames = SubResource("SpriteFrames_ydb4a")
+animation = &"floating"
+autoplay = "floating"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -74,5 +74,5 @@ metadata/_aseprite_wizard_config_ = {
 "o_name": "",
 "only_visible": false,
 "op_exp": false,
-"source": "res://src/themes/space/assets/player2.aseprite"
+"source": "res://src/themes/space/assets/ufo.aseprite"
 }

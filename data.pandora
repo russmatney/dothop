@@ -218,7 +218,7 @@
 					},
 					"player_icon_texture": {
 						"type": "resource",
-						"value": "res://src/themes/space/assets/player2.png"
+						"value": "res://src/themes/space/assets/ufo.png"
 					},
 					"player_scenes": {
 						"type": "array",

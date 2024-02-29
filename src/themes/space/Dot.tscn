@@ -210,39 +210,39 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xlt68"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbgfa"]
 atlas = ExtResource("3_6klux")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_w3c6j"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a320y"]
 atlas = ExtResource("3_6klux")
 region = Rect2(16, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pub51"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_a18bt"]
 atlas = ExtResource("3_6klux")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_pgclb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_11aox"]
 atlas = ExtResource("3_6klux")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_21nnb"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_gjawf"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xlt68")
+"texture": SubResource("AtlasTexture_xbgfa")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_w3c6j")
+"texture": SubResource("AtlasTexture_a320y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pub51")
+"texture": SubResource("AtlasTexture_a18bt")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_pgclb")
+"texture": SubResource("AtlasTexture_11aox")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xlt68")
+"texture": SubResource("AtlasTexture_xbgfa")
 }],
 "loop": true,
 "name": &"goal",
@@ -256,7 +256,7 @@ script = ExtResource("1_bmb34")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
-frame_progress = 0.301925
+frame_progress = 0.880811
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -288,7 +288,7 @@ metadata/_aseprite_wizard_config_ = {
 visible = false
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_21nnb")
+sprite_frames = SubResource("SpriteFrames_gjawf")
 animation = &"goal"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
