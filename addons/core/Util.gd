@@ -237,7 +237,8 @@ static func _connect(sig, callable, flags=null):
 
 static func call_in(s, node, callable):
 	await node.get_tree().create_timer(s).timeout
-	callable.call()
+	if is_instance_valid(node):
+		callable.call()
 
 ## random ###########################################################
 
