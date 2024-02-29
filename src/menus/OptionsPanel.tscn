@@ -56,14 +56,19 @@ custom_minimum_size = Vector2(0, 100)
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2"]
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
 layout_mode = 2
 theme = ExtResource("3_io088")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+follow_focus = true
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer"]
+custom_minimum_size = Vector2(244, 480)
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 0
@@ -71,34 +76,33 @@ script = ExtResource("4_gdi4a")
 child_size = Vector2(244, 96)
 anim_duration = 0.5
 
-[node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
+[node name="ResetSaveDataButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 focus_neighbor_top = NodePath("../../../../../../../../MainMenuButton")
 theme = ExtResource("4_06n2g")
 text = "Reset Save Data"
 
-[node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
+[node name="UnlockAllButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 unique_name_in_owner = true
-visible = false
-modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
 theme = ExtResource("4_06n2g")
 text = "Unlock All Puzzles"
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer"]
-visible = false
-modulate = Color(1, 1, 1, 0)
+[node name="ClearAchievementsButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("4_06n2g")
+text = "Clear All Achievements"
+
+[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer"]
 custom_minimum_size = Vector2(20, 20)
 layout_mode = 2
 
-[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
-visible = false
-modulate = Color(1, 1, 1, 0)
+[node name="MuteButtonList" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer" instance=ExtResource("5_bdku5")]
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
@@ -139,6 +143,16 @@ dialog_text = "Are you sure you want to unlock everything? Your current playthro
 dialog_autowrap = true
 cancel_button_text = "Nevermind!"
 
+[node name="ClearAchievementsConfirmationDialog" type="ConfirmationDialog" parent="."]
+unique_name_in_owner = true
+initial_position = 2
+size = Vector2i(700, 360)
+theme = ExtResource("8_pvanl")
+ok_button_text = "DELETE THEM ALL"
+dialog_text = "Are you sure you want to clear all your hard-earned steam achievements?"
+dialog_autowrap = true
+cancel_button_text = "Nevermind!"
+
 [node name="MainMenuButton" type="Button" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(200, 0)
@@ -146,7 +160,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 208.0
 offset_bottom = 72.0
-focus_neighbor_bottom = NodePath("../PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/VBoxContainer2/PanelContainer/VBoxContainer/ResetSaveDataButton")
+focus_neighbor_bottom = NodePath("../PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PanelContainer/ScrollContainer/VBoxContainer/ResetSaveDataButton")
 theme = ExtResource("4_06n2g")
 text = "< Main Menu"
 

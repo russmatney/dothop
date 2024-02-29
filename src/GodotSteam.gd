@@ -77,6 +77,25 @@ func clear_achievement(achv):
 		steam.clearAchievement(achv)
 		steam.storeStats()
 
+func clear_all_achievements():
+	if enabled:
+		steam.clearAchievement(FIRST_HOP)
+		steam.clearAchievement(THEM_DOTS_COMPLETE)
+		steam.clearAchievement(SPRING_IN_YOUR_HOP_COMPLETE)
+		steam.clearAchievement(THATS_JUST_BEACHY_COMPLETE)
+		steam.clearAchievement(LEAF_ME_ALONE_COMPLETE)
+		steam.clearAchievement(SNOW_WAY_COMPLETE)
+		steam.clearAchievement(GET_OUTER_HERE_COMPLETE)
+		steam.clearAchievement(ALL_PUZZLES_COMPLETE)
+		steam.clearAchievement(CHEATER_CHEATER_PUMPKIN_EATER)
+		steam.clearAchievement(FROM_THE_TOP)
+		steam.clearAchievement(TEN_DOTS)
+		steam.clearAchievement(FIFTY_DOTS)
+		steam.clearAchievement(ONE_HUNDRED_DOTS)
+		steam.clearAchievement(FIVE_HUNDRED_DOTS)
+		steam.clearAchievement(ALL_THE_DOTS)
+		steam.storeStats()
+
 ## game-load achievements
 
 const FIRST_HOP="FIRST_HOP"
