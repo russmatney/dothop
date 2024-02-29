@@ -131,21 +131,24 @@ var ProgressPanelScene = preload("res://src/ui/components/PuzzleProgressPanel.ts
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-	var puzzle_set = Store.find_puzzle_set(puzzle_set)
+	# refresh puzzle_set data
+	puzzle_set = Store.find_puzzle_set(puzzle_set)
 	var completed_puzzle_set = puzzle_set.get_puzzles().all(func(ps): return ps.is_completed)
 
-	var stats = calc_stats()
+	var puzz_sets = Store.get_puzzle_sets()
+	var stats = DHData.calc_stats(puzz_sets)
 	var opts = {stats=stats}
 	if completed_puzzle_set:
 		Store.complete_puzzle_set(puzzle_set)
 		opts["complete_puzzle_set"] = puzzle_set
 	# fires achievement update (dot counts, completed puzzle set)
-	update_achivements(opts)
+	update_achievements(opts)
 
-	var puzz_sets = Store.get_puzzle_sets()
+	# fetch again after completing puzzle sets
+	puzz_sets = Store.get_puzzle_sets()
 	var to_unlock = []
 	for puzz_set in puzz_sets:
-		if not puzz_set.is_unlocked() and puzz_set.get_puzzles_to_unlock() <= stats.puzzles_complete:
+		if not puzz_set.is_unlocked() and puzz_set.get_puzzles_to_unlock() <= stats.puzzles_completed:
 			to_unlock.append(puzz_set)
 
 	for ps in to_unlock:
@@ -161,7 +164,7 @@ func on_puzzle_win():
 		for ps in to_unlock:
 			await show_unlock_jumbo(ps)
 
-		if stats.puzzles_complete == stats.total_puzzles:
+		if stats.puzzles_completed == stats.total_puzzles:
 			await show_no_more_puzzles_jumbo()
 			nav_to_credits()
 		else:
@@ -175,31 +178,9 @@ func on_puzzle_win():
 		puzzle_num += 1
 		rebuild_puzzle()
 
-## stats ################################################################333
-
-# TODO DRY up count against the main menu stat calc
-func calc_stats():
-	var total_puzzles = 0
-	var puzzles_complete = 0
-	var total_dots = 0
-	var _dots_hopped = 0
-
-	for ps in Store.get_puzzle_sets():
-		for p in ps.get_puzzles():
-			total_dots += p.dot_count()
-			total_puzzles += 1
-			if p.is_completed:
-				puzzles_complete += 1
-				_dots_hopped += p.dot_count()
-
-	return {
-		total_dots=total_dots, dots_hopped=_dots_hopped,
-		total_puzzles=total_puzzles, puzzles_complete=puzzles_complete,
-		}
-
 ## achievements ################################################################333
 
-func update_achivements(opts={}):
+func update_achievements(opts={}):
 	var complete_puzzle_set = opts.get("complete_puzzle_set")
 
 	if complete_puzzle_set:

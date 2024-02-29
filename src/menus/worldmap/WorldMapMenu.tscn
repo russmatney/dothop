@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="3_7do1c"]
 [ext_resource type="PackedScene" uid="uid://drnps7gh2v4en" path="res://src/menus/worldmap/PuzzleMap.tscn" id="6_onobc"]
 [ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="8_fspbp"]
-[ext_resource type="Texture2D" uid="uid://dqyug4lfrx6l3" path="res://src/themes/spring/assets/player.png" id="8_mehyl"]
+[ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="8_oed4u"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="11_2vnax"]
 [ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="11_hm0xn"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="14_vrel8"]
@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@18712")
+current_marker = NodePath("@Marker2D@45277")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -88,7 +88,7 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme = ExtResource("14_vrel8")
 bbcode_enabled = true
-text = "[center]A Spring in your Hop"
+text = "[center]Them Dots"
 fit_content = true
 scroll_active = false
 
@@ -104,7 +104,10 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
 theme = ExtResource("11_hm0xn")
+disabled = true
 text = "<"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]
@@ -143,7 +146,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("11_hm0xn")
-text = "Start Puzzle 3"
+text = "Start Puzzle 1"
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
@@ -153,10 +156,27 @@ size_flags_vertical = 3
 [node name="PuzzleSetIcon" type="TextureRect" parent="."]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(64, 64)
-offset_left = 312.0
+offset_left = 176.0
 offset_top = 361.0
-offset_right = 376.0
+offset_right = 240.0
 offset_bottom = 425.0
 pivot_offset = Vector2(32, 32)
-texture = ExtResource("8_mehyl")
+texture = ExtResource("8_oed4u")
 stretch_mode = 4
+
+[node name="LockedPuzzleLabel" type="RichTextLabel" parent="."]
+unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
+clip_contents = false
+custom_minimum_size = Vector2(200, 130)
+offset_left = 189.0
+offset_top = 398.0
+offset_right = 430.0
+offset_bottom = 530.0
+theme = ExtResource("14_vrel8")
+bbcode_enabled = true
+text = "[center]Complete [color=crimson]9[/color]
+more puzzles
+to unlock!"
+fit_content = true
+scroll_active = false

@@ -8,6 +8,7 @@ extends CanvasLayer
 @onready var puzzle_set_icon = $%PuzzleSetIcon
 @onready var start_game_button = $%StartGameButton
 @onready var puzzle_set_label = $%PuzzleSetLabel
+@onready var locked_puzzle_label = $%LockedPuzzleLabel
 
 @onready var next_puzzle_set_button = $%NextPuzzleSetButton
 @onready var previous_puzzle_set_button = $%PreviousPuzzleSetButton
@@ -16,6 +17,7 @@ var current_puzzle_set: PuzzleSet
 var current_puzzle_set_idx = 0
 var current_puzzle_index = 0
 @onready var puzzle_sets = Store.get_puzzle_sets()
+var stats
 
 func set_focus():
 	var ctrls = []
@@ -38,6 +40,7 @@ func is_something_focused():
 ## ready ################################################
 
 func _ready():
+	stats = DHData.calc_stats(puzzle_sets)
 	if not Engine.is_editor_hint():
 		SoundManager.play_music(Music.late_night_radio, 2.0)
 		reset_map()
@@ -139,6 +142,15 @@ func show_puzzle_set(puzzle_set):
 
 	U.set_button_disabled(next_puzzle_set_button, !next_puzzle_set_exists())
 	U.set_button_disabled(previous_puzzle_set_button, !previous_puzzle_set_exists())
+
+	if puzzle_set.is_unlocked():
+		Anim.fade_out(locked_puzzle_label)
+	else:
+		var to_unlock = puzzle_set.get_puzzles_to_unlock()
+		var completed = stats.puzzles_completed
+		var remaining = to_unlock - completed
+		locked_puzzle_label.text = "Complete [color=crimson]%s[/color]\nmore puzzles\nto unlock!" % str(remaining)
+		Anim.fade_in(locked_puzzle_label)
 
 	var theme = puzzle_set.get_theme()
 	var next_puzzle_icon

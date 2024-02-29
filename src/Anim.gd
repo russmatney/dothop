@@ -110,6 +110,16 @@ static func hop_attempt_pull_back(node, og_position, target_position, t=0.4):
 	move_attempt_pull_back(node, og_position, target_position, t)
 	scale_up_down(node, t)
 
+# fade
+
+static func fade_in(node, t=0.5):
+	var tween = tween_on_node(node, "fade_tween")
+	tween.tween_property(node, "modulate:a", 1.0, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
+static func fade_out(node, t=0.5):
+	var tween = tween_on_node(node, "fade_tween")
+	tween.tween_property(node, "modulate:a", 0.0, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+
 ## puzzle_node ###########################################################
 
 static func puzzle_animate_intro_from_point(puzz_node):
