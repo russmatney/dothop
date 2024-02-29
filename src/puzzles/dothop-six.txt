@@ -32,50 +32,58 @@ message "it be like BRRRRRR"
 .o...o.
 ...t...
 
-.o.o.oo
-.o...o.
-.x.o..t
-
-show_progress
-
 xo......
 .oo.....
 ..oo....
 ...oooot
 
+.o.o.oo
+.o...o.
+.x.o..t
+
 message "Better bundle up!"
 
-.oo..o..o.
-...o.o.oo.
-..o.o..xo.
-.......oo.
-.t.oo.....
+oo..o.o
+..o.ooo
+.o.o.xo
+.....oo
+t.oo...
 
-show_progress
+...o..o
+.o.oooo
+o.o..t.
+x...o.o
+.oo.o.o
 
-...o..o.
-.o.oooo.
-o.o..t..
-x...o.o.
-.oo.o.o.
+....o.o...
+..o.o....o
+oo...oo...
+....o.to..
+ox.....o.o
+..o.o.....
 
-.oo.o.o.
-..o.ooo.
-.o.t.o..
-oo...xo.
-.....oo.
-oo......
+.oo.o.o
+..o.ooo
+.o.t.o.
+oo...xo
+.....oo
+oo.....
 
-show_progress
-
-.oo.o.t.
-..o.ooo.
-.o...o..
-oo.o.xo.
-.o.o.oo.
-oo......
+.oo.o.t
+..o.ooo
+.o...o.
+oo.o.xo
+.o.o.oo
+oo.....
 
 message "Now, the deep freeze!"
+
+...o.o.o...
+...t.o..o..
+..o..oo...o
+..oo..o....
+ox......o.o
+oo.o...o...
 
 o.o........
 ..x........
