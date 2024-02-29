@@ -54,9 +54,12 @@ func update_state(data):
 ## puzzle number ########################################################
 
 func update_puzzle_number(entry):
-	if "puzzle_number_total" in entry:
-		puzzle_num_label.text = "[center]#%s/%s[/center]" %\
-			[puzzle_def.idx + 1, entry.puzzle_number_total]
+	if "puzzles_remaining" in entry:
+		var rem = entry.puzzles_remaining
+		if rem == 1:
+			puzzle_num_label.text = "[center]1 puzzle left![/center]"
+		else:
+			puzzle_num_label.text = "[center]%s puzzles left[/center]" % entry.puzzles_remaining
 
 ## message ########################################################
 

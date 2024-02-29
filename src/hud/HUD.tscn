@@ -36,12 +36,12 @@ layout_mode = 2
 [node name="LevelNum" type="RichTextLabel" parent="VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 clip_contents = false
-custom_minimum_size = Vector2(180, 0)
+custom_minimum_size = Vector2(260, 0)
 layout_mode = 2
 theme_override_fonts/normal_font = ExtResource("2_1a27s")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
-text = "[center]#3/12[/center]"
+text = "[center]12 puzzles left[/center]"
 fit_content = true
 scroll_active = false
 

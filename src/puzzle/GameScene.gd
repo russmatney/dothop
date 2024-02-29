@@ -97,8 +97,7 @@ func rebuild_puzzle():
 	puzzle_node.move_blocked.connect(update_hud)
 	puzzle_node.rebuilt_nodes.connect(func():
 		update_hud()
-		Anim.puzzle_animate_intro_from_point(puzzle_node)
-		)
+		Anim.puzzle_animate_intro_from_point(puzzle_node))
 
 	add_child.call_deferred(puzzle_node)
 	puzzle_node.ready.connect(func(): Anim.puzzle_animate_intro_from_point(puzzle_node))
@@ -107,9 +106,10 @@ func rebuild_puzzle():
 
 func update_hud():
 	if hud and puzzle_node:
+		var rem = len(puzzle_set.get_puzzles().filter(func(p): return not p.is_completed))
 		var data = {
 			puzzle_def=puzzle_node.puzzle_def,
-			puzzle_number_total=len(game_def.puzzles),
+			puzzles_remaining=rem,
 			dots_total=puzzle_node.dot_count(),
 			dots_remaining=puzzle_node.dot_count(true),
 			}
@@ -153,6 +153,7 @@ func on_puzzle_win():
 
 	for ps in to_unlock:
 		Store.unlock_puzzle_set(ps)
+		await show_unlock_jumbo(ps)
 
 	var end_of_puzzle_set = puzzle_num + 1 >= len(game_def.puzzles)
 
@@ -160,22 +161,22 @@ func on_puzzle_win():
 		Dino.notif("All puzzles complete!")
 		await show_no_more_puzzles_jumbo()
 		nav_to_credits()
-	elif end_of_puzzle_set:
-		Dino.notif("Last puzzle in set complete!")
-
-		await show_last_puzzle_jumbo()
-
-		for ps in to_unlock:
-			await show_unlock_jumbo(ps)
-
+	elif completed_puzzle_set:
+		Dino.notif("Completed puzzle set!")
+		await show_puzzle_set_complete_jumbo()
 		nav_to_world_map()
 	else:
-		for ps in to_unlock:
-			await show_unlock_jumbo(ps)
+		var puzzles = puzzle_set.get_puzzles()
+		var next_puzzle_num
+		for i in range(puzzle_num, len(puzzles) + puzzle_num):
+			i = i % len(puzzles)
+			var puzz = puzzles[i]
+			if not puzz.is_completed:
+				next_puzzle_num = i
+				break
 
-		show_progress_toast()
-
-		puzzle_num += 1
+		show_progress_toast(next_puzzle_num)
+		puzzle_num = next_puzzle_num
 		rebuild_puzzle()
 
 ## achievements ################################################################333
@@ -227,7 +228,7 @@ func update_achievements(opts={}):
 # 	var opts = {header=header, body=body, pause=false, instance=instance}
 # 	return Jumbotron.jumbo_notif(opts)
 
-func show_progress_toast():
+func show_progress_toast(next_puzzle_num):
 	var panel = ProgressPanelScene.instantiate()
 	panel.icon_size = 48.0
 	panel.grid_columns = 6
@@ -237,7 +238,7 @@ func show_progress_toast():
 		panel.render({
 			puzzle_set=puzzle_set,
 			start_puzzle_num=lock_puzz_num,
-			end_puzzle_num=lock_puzz_num + 1,
+			end_puzzle_num=next_puzzle_num
 			}))
 	panel.rendered.connect(func():
 		# wait for panel to finish resizing
@@ -247,8 +248,8 @@ func show_progress_toast():
 
 ## all puzzles jumbo #####################################################################
 
-func show_last_puzzle_jumbo():
-	var header = "Last [color=crimson]%s[/color] Puzzle Complete!" % puzzle_set.get_display_name()
+func show_puzzle_set_complete_jumbo():
+	var header = "[color=crimson]%s[/color] Complete!" % puzzle_set.get_display_name()
 	# var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var body = U.rand_of([
 		"Be proud! For you are a NERD",
