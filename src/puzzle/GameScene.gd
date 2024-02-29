@@ -220,8 +220,20 @@ func update_achievements(opts={}):
 		GodotSteam.set_fifty_dots()
 	if stats.dots_hopped > 100:
 		GodotSteam.set_one_hundred_dots()
+	if stats.dots_hopped > 200:
+		GodotSteam.set_two_hundred_dots()
+	if stats.dots_hopped > 300:
+		GodotSteam.set_three_hundred_dots()
+	if stats.dots_hopped > 400:
+		GodotSteam.set_four_hundred_dots()
 	if stats.dots_hopped > 500:
 		GodotSteam.set_five_hundred_dots()
+	if stats.dots_hopped > 600:
+		GodotSteam.set_six_hundred_dots()
+	if stats.dots_hopped > 700:
+		GodotSteam.set_seven_hundred_dots()
+	if stats.dots_hopped > 800:
+		GodotSteam.set_eight_hundred_dots()
 	if stats.dots_hopped > 1 and stats.dots_hopped == stats.total_dots:
 		GodotSteam.set_all_the_dots()
 
