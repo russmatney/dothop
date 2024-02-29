@@ -1,4 +1,4 @@
-title DotHopThree
+title Leaf Me Alone
 author Russell Matney
 
 =======
@@ -26,7 +26,6 @@ oo.
 oxt
 
 message "A growing problem"
-show_progress
 
 o.o.o
 ..t.o
@@ -41,6 +40,14 @@ t.o.o
 ..xo.
 ..oo.
 
+message "A roundabout."
+
+.o.o...
+..o.o..
+xo.o.ot
+...oo..
+..o..o.
+
 message "More paths? Or Fewer?"
 
 o.o...
@@ -50,8 +57,13 @@ t.o.o.
 ..xo..
 ..oo.o
 
-message "An apendage of a path. Apathdage?"
-show_progress
+.o...oo.
+o..o..o.
+o.oxoto.
+..oo....
+oo..o.o.
+
+message "There are 173 unique solutions to this one. (Really.)"
 
 o.o....
 o.o....
@@ -59,14 +71,6 @@ o..oooo
 t.o.ooo
 ..xo.oo
 ..oo.oo
-
-message "A roundabout."
-
-.o.o...
-..o.o..
-xo.o.ot
-...oo..
-..o..o.
 
 message "Neither here nor over there."
 
@@ -77,22 +81,12 @@ oo.o.o..
 ...o..o.
 
 message "But it's RIGHT. THERE."
-show_progress
 
 ooo..oo..
 ....oo.oo
 o...xto.o
 o.o.oo.o.
 ooo...o..
-
-
-message "You can't get there from here"
-
-.o..o....
-ootoo...o
-.o.oo.o..
-...ooxo..
-oo.o..o.o
 
 message "But why? And also how?"
 
@@ -102,3 +96,17 @@ message "But why? And also how?"
 ..o..o...
 .o..ooo.x
 
+message "You can't get there from here!"
+
+.o..o....
+ootoo...o
+.o.oo.o..
+...ooxo..
+oo.o..o.o
+
+.o...oo
+o..o..o
+..oo...
+.o.oo.o
+o.oxoto
+oo..o.o
