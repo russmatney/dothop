@@ -221,10 +221,11 @@ func move_puzzle_cursor(icon, opts={}):
 	last_puzzle_cursor = icon
 	var idx = puzzle_list.get_children().find(icon)
 	current_puzzle_index = idx
+	var puzzle = current_puzzle_set.get_puzzles()[idx]
 
 	Sounds.play(Sounds.S.step)
 
-	update_start_game_button("Start Puzzle %s" % str(idx + 1))
+	update_start_game_button("%s Puzzle %s" % ["Start" if not puzzle.is_completed else "Replay", str(idx + 1)])
 
 	if opts.get("no_move", false):
 		puzzle_set_icon.position = icon.global_position
