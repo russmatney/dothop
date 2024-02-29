@@ -127,6 +127,7 @@ func _init():
 @export var randomize_layout = true
 var reverse_ys = false
 var reverse_xs = false
+var rotate = false
 
 func _ready():
 	if puzzle_def == null:
@@ -140,7 +141,7 @@ func _ready():
 	if randomize_layout:
 		reverse_ys = U.rand_of([true, false])
 		reverse_xs = U.rand_of([true, false])
-		# a rotation (switching xs and ys) would be interesting, but more complicated to impl
+		rotate = U.rand_of([true, false, false, false])
 
 	if puzzle_def:
 		if reverse_ys:
@@ -148,6 +149,8 @@ func _ready():
 		if reverse_xs:
 			for row in puzzle_def.shape:
 				row.reverse()
+		if rotate:
+			puzzle_def.rotate()
 		init_game_state()
 
 	win.connect(on_win)

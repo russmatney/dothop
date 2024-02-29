@@ -28,6 +28,19 @@ func _init(raw: Dictionary):
 	if "idx" in raw:
 		idx = raw.idx
 
+func rotate():
+	var new_shape = []
+	for row in shape:
+		for i in len(row):
+			if i > len(new_shape) - 1:
+				new_shape.append([])
+			new_shape[i].append(row[i])
+	shape = new_shape
+	var w = width
+	var h = height
+	width = h
+	height = w
+
 ## log.data() ########################################3333
 
 func data():
