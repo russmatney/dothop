@@ -22,52 +22,27 @@ PUZZLES
 
 message "Back For More, are you? Time for a warm up"
 
-..oo...
-.xo.ot.
-...oo..
+.oo..
+xo.ot
+..oo.
 
-message "Don't get dizzy now!"
-
-o....t
-.o..o.
-..xo..
-.o.o..
-o...o.
-
-message "And, reverse!"
-
-o....x
-.o..o.
-..to..
-.o.o..
-o...o.
-
-show_progress
-message "A taste of choice"
-
-oo.o.o.
-o..o...
-.oto.x.
-...o.o.
-
-message "No wrong move?"
-
-o.....o..
-o...oo..o
-x...ot..o
-....o.o..
-
-show_progress
-message "Dancing around it"
+.ooo.
+xooot
+..oo.
 
 oo...o.o
-o.o....o
-.o.o.x.o
+o.......
+.o...x.o
 o.o..o..
 .t.ooo..
-o.o.....
 
-message "Something larger"
+.x.o.t.
+..o.oo.
+.o.o..o
+..oo.o.
+.o.oo.o
+
+message "Thank you sir, may I have another!"
 
 .o..o.o..
 x.o......
@@ -76,18 +51,12 @@ oo..ooooo
 o...oto.o
 ...o...o.
 
-message "Similar, but different"
-show_progress
-
 ..o.o.o..
 x.o.ooooo
 ..oo.....
 o...oto.o
 ...o...o.
 .....oo..
-
-
-message "Thank you sir, may I have another"
 
 ..o....o.
 xoo...oo.
@@ -96,8 +65,12 @@ o.o..to..
 ..oo.oo..
 .o..o....
 
-message "Don't leave me hanging!"
-show_progress
+oo...o.o
+o.o....o
+.o.o.x.o
+o.o..o..
+.t.ooo..
+o.o.....
 
 oo...o..o
 o.oo.o...
@@ -106,8 +79,6 @@ o.oo.o...
 ...oto...
 ...oo...o
 
-message "You can't be serious."
-
 o..o....
 o..x.oo.
 ...o..oo
@@ -115,7 +86,7 @@ ooo..o..
 .ooo.t..
 o.o..o.o
 
-message "I recommend the buddy system."
+message "Out of this world!"
 
 o.....o..
 o...oo..o
@@ -124,3 +95,10 @@ o...ot..o
 ox.o..o.o
 .o.o..o.o
 
+..o.oo.
+.o..o.o
+.o.o..o
+o.o.oo.
+..oo.o.
+ox.o.t.
+.o.oo.o
