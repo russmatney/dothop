@@ -47,14 +47,29 @@ o.o....
 .......
 o.o.x.t
 
-show_progress
-
 o..o.o.
 ox.o.ot
 ...o.o.
 .......
 
+message "You're getting the hang of it!"
+
+x.ooo
+.....
+o.ooo
+t....
+
+...oo
+x.o..
+o.ooo
+t....
+
 message "Now for some tricky ones..."
+
+oo..o.o
+ox.oto.
+.......
+.o.o.oo
 
 .o....o
 .x.ooo.
@@ -65,6 +80,8 @@ oo..o.o
 ox.ooo.
 .o.....
 .t.oooo
+
+message "'...didn't I just do this one?'"
 
 oo..o.o
 ox.ooo.
