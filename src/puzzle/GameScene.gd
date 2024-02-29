@@ -154,21 +154,21 @@ func on_puzzle_win():
 	for ps in to_unlock:
 		Store.unlock_puzzle_set(ps)
 
-	var last_puzzle_complete = puzzle_num + 1 >= len(game_def.puzzles)
+	var end_of_puzzle_set = puzzle_num + 1 >= len(game_def.puzzles)
 
-	if last_puzzle_complete:
-		Dino.notif("Last Puzzle in set complete!")
+	if stats.puzzles_completed == stats.total_puzzles:
+		Dino.notif("All puzzles complete!")
+		await show_no_more_puzzles_jumbo()
+		nav_to_credits()
+	elif end_of_puzzle_set:
+		Dino.notif("Last puzzle in set complete!")
 
 		await show_last_puzzle_jumbo()
 
 		for ps in to_unlock:
 			await show_unlock_jumbo(ps)
 
-		if stats.puzzles_completed == stats.total_puzzles:
-			await show_no_more_puzzles_jumbo()
-			nav_to_credits()
-		else:
-			nav_to_world_map()
+		nav_to_world_map()
 	else:
 		for ps in to_unlock:
 			await show_unlock_jumbo(ps)
