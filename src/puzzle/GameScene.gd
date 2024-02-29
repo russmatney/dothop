@@ -131,18 +131,16 @@ var ProgressPanelScene = preload("res://src/ui/components/PuzzleProgressPanel.ts
 func on_puzzle_win():
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
-	var stats = calc_stats()
+	var puzzle_set = Store.find_puzzle_set(puzzle_set)
+	var completed_puzzle_set = puzzle_set.get_puzzles().all(func(ps): return ps.is_completed)
 
-	if stats.dots_hopped > 10:
-		GodotSteam.set_ten_dots()
-	if stats.dots_hopped > 50:
-		GodotSteam.set_fifty_dots()
-	if stats.dots_hopped > 100:
-		GodotSteam.set_one_hundred_dots()
-	if stats.dots_hopped > 500:
-		GodotSteam.set_five_hundred_dots()
-	if stats.dots_hopped > 1 and stats.dots_hopped == stats.total_dots:
-		GodotSteam.set_all_the_dots()
+	var stats = calc_stats()
+	var opts = {stats=stats}
+	if completed_puzzle_set:
+		Store.complete_puzzle_set(puzzle_set)
+		opts["complete_puzzle_set"] = puzzle_set
+	# fires achievement update (dot counts, completed puzzle set)
+	update_achivements(opts)
 
 	var puzz_sets = Store.get_puzzle_sets()
 	var to_unlock = []
@@ -153,13 +151,12 @@ func on_puzzle_win():
 	for ps in to_unlock:
 		Store.unlock_puzzle_set(ps)
 
-	var puzzles_complete = puzzle_num + 1 >= len(game_def.puzzles)
+	var last_puzzle_complete = puzzle_num + 1 >= len(game_def.puzzles)
 
-	if puzzles_complete:
-		Dino.notif("Puzzle Set complete!")
-		Store.complete_puzzle_set(puzzle_set)
+	if last_puzzle_complete:
+		Dino.notif("Last Puzzle in set complete!")
 
-		await show_all_puzzles_jumbo()
+		await show_last_puzzle_jumbo()
 
 		for ps in to_unlock:
 			await show_unlock_jumbo(ps)
@@ -170,33 +167,15 @@ func on_puzzle_win():
 		else:
 			nav_to_world_map()
 	else:
-		if puzzle_node.puzzle_def.meta.get("show_progress"):
-			await show_progress_jumbo()
+		for ps in to_unlock:
+			await show_unlock_jumbo(ps)
 
-			for ps in to_unlock:
-				await show_unlock_jumbo(ps)
-		else:
-			for ps in to_unlock:
-				await show_unlock_jumbo(ps)
-
-			var panel = ProgressPanelScene.instantiate()
-			panel.icon_size = 48.0
-			panel.grid_columns = 6
-			panel.disable_resize_animation()
-			var lock_puzz_num = puzzle_num
-			panel.ready.connect(func():
-				panel.render({
-					puzzle_set=puzzle_set,
-					start_puzzle_num=lock_puzz_num,
-					end_puzzle_num=lock_puzz_num + 1,
-					}))
-			panel.rendered.connect(func():
-				# wait for panel to finish resizing
-				Anim.toast(panel, {wait_frame=true, in_t=0.7, out_t=0.7, delay=1.0, margin=48}))
-			hud.add_child.call_deferred(panel)
+		show_progress_toast()
 
 		puzzle_num += 1
 		rebuild_puzzle()
+
+## stats ################################################################333
 
 # TODO DRY up count against the main menu stat calc
 func calc_stats():
@@ -218,27 +197,78 @@ func calc_stats():
 		total_puzzles=total_puzzles, puzzles_complete=puzzles_complete,
 		}
 
+## achievements ################################################################333
+
+func update_achivements(opts={}):
+	var complete_puzzle_set = opts.get("complete_puzzle_set")
+
+	if complete_puzzle_set:
+		match (complete_puzzle_set.get_entity_id()):
+			PuzzleSetIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
+			PuzzleSetIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
+			PuzzleSetIDs.THATSJUSTBEACHY: GodotSteam.set_thats_just_beachy_complete()
+			PuzzleSetIDs.LEAFMEALONE: GodotSteam.set_leaf_me_alone_complete()
+			PuzzleSetIDs.SNOWWAY: GodotSteam.set_snow_way_complete()
+			PuzzleSetIDs.GETOUTERHERE:
+				GodotSteam.set_get_outer_here_complete()
+
+	var puzzle_sets = Store.get_puzzle_sets()
+	var all_complete = puzzle_sets.all(func(ps): return ps.is_completed())
+	if all_complete:
+		GodotSteam.set_all_puzzles_complete()
+
+	var stats = opts.get("stats")
+	if not stats:
+		return
+
+	if stats.dots_hopped > 10:
+		GodotSteam.set_ten_dots()
+	if stats.dots_hopped > 50:
+		GodotSteam.set_fifty_dots()
+	if stats.dots_hopped > 100:
+		GodotSteam.set_one_hundred_dots()
+	if stats.dots_hopped > 500:
+		GodotSteam.set_five_hundred_dots()
+	if stats.dots_hopped > 1 and stats.dots_hopped == stats.total_dots:
+		GodotSteam.set_all_the_dots()
+
 ## progress jumbo #####################################################################
 
-var last_puzzle_num = 0
+# func show_progress_jumbo():
+# 	var ct = puzzle_num + 1 - last_puzzle_num
+# 	var header = "%s Puzzles Complete!" % str(ct)
+# 	var instance = PuzzleCompleteScene.instantiate()
+# 	instance.puzzle_set = puzzle_set
+# 	instance.start_puzzle_num = last_puzzle_num
+# 	last_puzzle_num = puzzle_num + 1
+# 	instance.end_puzzle_num = puzzle_num + 1
 
-func show_progress_jumbo():
-	var ct = puzzle_num + 1 - last_puzzle_num
-	var header = "%s Puzzles Complete!" % str(ct)
-	var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
-	var instance = PuzzleCompleteScene.instantiate()
-	instance.puzzle_set = puzzle_set
-	instance.start_puzzle_num = last_puzzle_num
-	last_puzzle_num = puzzle_num + 1
-	instance.end_puzzle_num = puzzle_num + 1
+# 	var opts = {header=header, body=body, pause=false, instance=instance}
+# 	return Jumbotron.jumbo_notif(opts)
 
-	var opts = {header=header, body=body, pause=false, instance=instance}
-	return Jumbotron.jumbo_notif(opts)
+func show_progress_toast():
+	var panel = ProgressPanelScene.instantiate()
+	panel.icon_size = 48.0
+	panel.grid_columns = 6
+	panel.disable_resize_animation()
+	var lock_puzz_num = puzzle_num
+	panel.ready.connect(func():
+		panel.render({
+			puzzle_set=puzzle_set,
+			start_puzzle_num=lock_puzz_num,
+			end_puzzle_num=lock_puzz_num + 1,
+			}))
+	panel.rendered.connect(func():
+		# wait for panel to finish resizing
+		Anim.toast(panel, {wait_frame=true, in_t=0.7, out_t=0.7, delay=1.0, margin=48}))
+	hud.add_child.call_deferred(panel)
+
 
 ## all puzzles jumbo #####################################################################
 
-func show_all_puzzles_jumbo():
-	var header = "All %s Puzzles Complete!" % str(puzzle_num + 1)
+func show_last_puzzle_jumbo():
+	var header = "Last [color=crimson]%s[/color] Puzzle Complete!" % puzzle_set.get_display_name()
+	# var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var body = U.rand_of([
 		"Be proud! For you are a NERD",
 		"Congratulations, nerd!",
@@ -247,8 +277,7 @@ func show_all_puzzles_jumbo():
 
 	var instance = PuzzleCompleteScene.instantiate()
 	instance.puzzle_set = puzzle_set
-	instance.start_puzzle_num = last_puzzle_num
-	last_puzzle_num = 0
+	instance.start_puzzle_num = puzzle_num - 1
 	instance.end_puzzle_num = puzzle_num
 
 	var opts = {header=header, body=body, pause=false, instance=instance}

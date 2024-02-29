@@ -48,6 +48,9 @@ func initial_events() -> Array[Event]:
 func get_puzzle_sets() -> Array[PuzzleSet]:
 	return state.puzzle_sets
 
+func find_puzzle_set(ps: PuzzleSet):
+	return state.find_puzzle_set(ps)
+
 func get_themes() -> Array[PuzzleTheme]:
 	return state.themes
 
@@ -75,20 +78,6 @@ func complete_puzzle_set(puz: PuzzleSet):
 		state.apply_event(event)
 		events.append(event)
 	save_game()
-
-	match (puz.get_entity_id()):
-		PuzzleSetIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
-		PuzzleSetIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
-		PuzzleSetIDs.THATSJUSTBEACHY: GodotSteam.set_thats_just_beachy_complete()
-		PuzzleSetIDs.LEAFMEALONE: GodotSteam.set_leaf_me_alone_complete()
-		PuzzleSetIDs.SNOWWAY: GodotSteam.set_snow_way_complete()
-		PuzzleSetIDs.GETOUTERHERE:
-			GodotSteam.set_get_outer_here_complete()
-
-	var puzzle_sets = Store.get_puzzle_sets()
-	var all_complete = puzzle_sets.all(func(ps): return ps.is_completed())
-	if all_complete:
-		GodotSteam.set_all_puzzles_complete()
 
 func complete_puzzle_index(puz: PuzzleSet, idx: int):
 	var event = find_event(func(ev): return PuzzleCompleted.is_matching_event(ev, puz, idx))
