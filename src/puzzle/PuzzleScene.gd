@@ -150,7 +150,9 @@ func _ready():
 			for row in puzzle_def.shape:
 				row.reverse()
 		if rotate_shape:
-			puzzle_def.rotate()
+			# don't rotate very wide puzzles
+			if puzzle_def.width <= 6:
+				puzzle_def.rotate()
 		init_game_state()
 
 	win.connect(on_win)
