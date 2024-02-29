@@ -55,7 +55,7 @@ func test_completing_puzzle_set():
 
 	assert_that(first.is_completed()).is_true()
 
-	assert_that(len(Store.events)).is_equal(2) # includes 'unlocking' event
+	assert_that(len(Store.events)).is_equal(1)
 	var ev = Store.events[0]
 	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(first.get_entity_id())
 
@@ -64,42 +64,34 @@ func test_unlocking_puzzle_set():
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
-	# get an unlocked puzzle and it's 'next' puzzle
+	# get an locked puzzle and it's 'next' puzzle
 	var sets = Store.get_puzzle_sets()
-	var first = sets.filter(func(e): return e.is_unlocked())[0]
-	var next_id = first.get_next_puzzle_set().get_entity_id()
-	var next = sets.filter(func(e): return e.get_entity_id() == next_id)[0]
+	var first = sets.filter(func(e): return not e.is_unlocked())[0]
+	var first_id = first.get_entity_id()
 
 	# ensure it's not unlocked already!
-	assert_that(next.is_unlocked()).is_false()
+	assert_that(first.is_unlocked()).is_false()
 
-	# complete the current (which for now also unlocks the 'next' puzzle)
-	Store.complete_puzzle_set(first)
+	# unlock it
+	Store.unlock_puzzle_set(first)
 
-	# should have two events created
-	assert_that(len(Store.events)).is_equal(2)
-	var ev = Store.events[1]
-	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(next.get_entity_id())
+	# should have one event created
+	assert_that(len(Store.events)).is_equal(1)
+	var ev = Store.events[0]
+	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(first_id)
 
 	# in-place entity updates
-	assert_that(next.is_unlocked()).is_true()
+	assert_that(first.is_unlocked()).is_true()
 
 	# re-pulled entity updates as well
-	var _next = Store.get_puzzle_sets().filter(func(e): return e.get_entity_id() == next_id)[0]
-	assert_that(_next.is_unlocked()).is_true()
+	var _first = Store.find_puzzle_set(first)
+	assert_that(_first.is_unlocked()).is_true()
 
 	# reloaded data shows the same
 	Store.load_game()
-	_next = Store.get_puzzle_sets().filter(func(e): return e.get_entity_id() == next_id)[0]
-	assert_that(_next.is_unlocked()).is_true()
+	_first = Store.find_puzzle_set(first)
+	assert_that(_first.is_unlocked()).is_true()
 
-	####################
-
-	# do it again, unlocking the 'next-next' puzzle
-	Store.complete_puzzle_set(next)
-	var third = Store.get_puzzle_sets().filter(func(e):
-		return e.get_entity_id() == next.get_next_puzzle_set().get_entity_id())[0]
-	assert_that(third.is_unlocked()).is_true()
 
 #########################################################################
 ## completing puzzles
@@ -126,7 +118,9 @@ func test_completing_a_puzzle(indexes, test_parameters=[[[0]], [[0, 1]], [[0, 1,
 
 	assert_that(puz_set.can_play_puzzle(idx)).is_true()
 	assert_that(puz_set.can_play_puzzle(idx + 1)).is_true()
-	assert_that(puz_set.can_play_puzzle(idx + 2)).is_false()
+	assert_that(puz_set.can_play_puzzle(idx + 2)).is_true()
+	assert_that(puz_set.can_play_puzzle(idx + 3)).is_true()
+	assert_that(puz_set.can_play_puzzle(idx + 4)).is_false()
 
 #########################################################################
 ## skipping puzzles
@@ -235,4 +229,4 @@ func test_puzzle_set_complete_and_unlock_dupe_events_increment_count():
 
 	ev = Store.events[1]
 	assert_that(ev.get_puzzle_set().get_entity_id()).is_equal(puz_set.get_next_puzzle_set().get_entity_id())
-	assert_that(ev.get_count()).is_equal(5) # b/c the 'completed' event also unlocks these
+	assert_that(ev.get_count()).is_equal(2)
