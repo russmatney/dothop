@@ -56,7 +56,9 @@ func update_state(data):
 func update_puzzle_number(entry):
 	if "puzzles_remaining" in entry:
 		var rem = entry.puzzles_remaining
-		if rem == 1:
+		if rem == 0:
+			puzzle_num_label.text = "[center]Puzzle set complete![/center]"
+		elif rem == 1:
 			puzzle_num_label.text = "[center]1 puzzle left![/center]"
 		else:
 			puzzle_num_label.text = "[center]%s puzzles left[/center]" % entry.puzzles_remaining

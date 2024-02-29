@@ -109,9 +109,11 @@ func previous_puzzle_set_exists():
 func start_selected_puzzle():
 	var ps = current_puzzle_set
 	var idx = current_puzzle_index
+	var already_complete = current_puzzle_set.is_completed()
 	Navi.nav_to(game_scene, {setup=func(g):
 		g.puzzle_set = ps
 		g.puzzle_num = idx
+		g.already_complete = already_complete
 		})
 
 ## input ###################################################################

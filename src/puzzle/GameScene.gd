@@ -11,6 +11,8 @@ var puzzle_node
 var puzzle_scene
 @export var puzzle_num = 0
 
+var already_complete = false
+
 var hud
 
 ## ready #####################################################################
@@ -155,9 +157,18 @@ func on_puzzle_win():
 		Store.unlock_puzzle_set(ps)
 		await show_unlock_jumbo(ps)
 
-	var end_of_puzzle_set = puzzle_num + 1 >= len(game_def.puzzles)
-
-	if stats.puzzles_completed == stats.total_puzzles:
+	if already_complete:
+		var end_of_puzzle_set = puzzle_num + 1 >= len(game_def.puzzles)
+		if end_of_puzzle_set:
+			Dino.notif("All puzzles complete!")
+			await show_puzzle_set_complete_jumbo()
+			nav_to_world_map()
+		else:
+			var next_puzzle_num = puzzle_num + 1
+			show_progress_toast(next_puzzle_num)
+			puzzle_num = next_puzzle_num
+			rebuild_puzzle()
+	elif stats.puzzles_completed == stats.total_puzzles:
 		Dino.notif("All puzzles complete!")
 		await show_no_more_puzzles_jumbo()
 		nav_to_credits()
