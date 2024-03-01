@@ -369,7 +369,7 @@
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
-						"value": 45
+						"value": 46
 					},
 					"sort_order": {
 						"type": "int",
@@ -420,7 +420,7 @@
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
-						"value": 22
+						"value": 23
 					},
 					"sort_order": {
 						"type": "int",
@@ -656,7 +656,7 @@
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
-						"value": 14
+						"value": 15
 					},
 					"sort_order": {
 						"type": "int",
@@ -711,7 +711,7 @@
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
-						"value": 6
+						"value": 7
 					},
 					"sort_order": {
 						"type": "int",
@@ -762,7 +762,7 @@
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
-						"value": 30
+						"value": 33
 					},
 					"sort_order": {
 						"type": "int",
