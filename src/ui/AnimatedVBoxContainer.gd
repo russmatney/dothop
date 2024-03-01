@@ -25,6 +25,8 @@ func on_visibility_changed():
 		hide_and_animate_in()
 
 func hide_and_animate_in():
+	if Engine.is_editor_hint():
+		return
 	for c in chs:
 		if c.visible:
 			c.modulate.a = 0.0
@@ -32,12 +34,16 @@ func hide_and_animate_in():
 	animate_opening.call_deferred()
 
 func animate_opening():
+	if Engine.is_editor_hint():
+		return
 	set_custom_minimum_size(Vector2.ZERO)
 	var t = create_tween()
+	var custom_size = (
+		Vector2.RIGHT * (max(og_size.x, child_size.x) + margin.x)
+		) + (Vector2.DOWN * (child_size.y * len(chs) + margin.y))
+
 	t.tween_property(self, "custom_minimum_size",
-		(Vector2.RIGHT * (max(og_size.x, child_size.x) + margin.x))
-		+ (Vector2.DOWN * (child_size.y * len(chs) + margin.y)),
-		anim_duration).set_trans(Tween.TRANS_CUBIC)
+		custom_size, anim_duration).set_trans(Tween.TRANS_CUBIC)
 	await get_tree().create_timer(anim_duration).timeout
 
 	for c in chs:

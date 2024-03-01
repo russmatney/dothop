@@ -1,4 +1,3 @@
-@tool
 extends Control
 
 ## vars ############################################################
@@ -30,13 +29,9 @@ func _ready():
 	animated_container.child_size = icon_size * Vector2.ONE
 	puzzle_list.set_columns(grid_columns)
 
-	if not Engine.is_editor_hint():
-		panel_container.minimum_size_changed.connect(func():
-			set_custom_minimum_size(panel_container.get_size())
-			set_size(panel_container.get_size()))
-
-	if Engine.is_editor_hint():
-		render({puzzle_set=Store.get_puzzle_sets()[0]})
+	panel_container.minimum_size_changed.connect(func():
+		set_custom_minimum_size(panel_container.get_size())
+		set_size(panel_container.get_size()))
 
 ## disable animations ##################################################
 
