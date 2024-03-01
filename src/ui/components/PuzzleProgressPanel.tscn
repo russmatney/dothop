@@ -21,17 +21,16 @@ script = ExtResource("2_mt4fd")
 [node name="PuzzlePanelContainer" type="PanelContainer" parent="."]
 unique_name_in_owner = true
 layout_mode = 0
-offset_right = 396.0
-offset_bottom = 328.0
+offset_right = 128.0
+offset_bottom = 128.0
 size_flags_horizontal = 3
 theme = ExtResource("1_tufv2")
 
 [node name="AnimatedVBoxContainer" type="VBoxContainer" parent="PuzzlePanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(158, 154)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 2
 script = ExtResource("2_6lh1w")
-child_size = Vector2(64, 64)
 margin = Vector2(94, 90)
 
 [node name="PuzzleList" type="GridContainer" parent="PuzzlePanelContainer/AnimatedVBoxContainer"]
