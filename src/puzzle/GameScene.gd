@@ -234,22 +234,14 @@ func update_achievements(opts={}):
 		GodotSteam.set_seven_hundred_dots()
 	if stats.dots_hopped > 800:
 		GodotSteam.set_eight_hundred_dots()
+	if stats.dots_hopped > 900:
+		GodotSteam.set_nine_hundred_dots()
+	if stats.dots_hopped > 1000:
+		GodotSteam.set_one_thousand_dots()
 	if stats.dots_hopped > 1 and stats.dots_hopped == stats.total_dots:
 		GodotSteam.set_all_the_dots()
 
-## progress jumbo #####################################################################
-
-# func show_progress_jumbo():
-# 	var ct = puzzle_num + 1 - last_puzzle_num
-# 	var header = "%s Puzzles Complete!" % str(ct)
-# 	var instance = PuzzleCompleteScene.instantiate()
-# 	instance.puzzle_set = puzzle_set
-# 	instance.start_puzzle_num = last_puzzle_num
-# 	last_puzzle_num = puzzle_num + 1
-# 	instance.end_puzzle_num = puzzle_num + 1
-
-# 	var opts = {header=header, body=body, pause=false, instance=instance}
-# 	return Jumbotron.jumbo_notif(opts)
+## progress toast #####################################################################
 
 func show_progress_toast(next_puzzle_num):
 	var panel = ProgressPanelScene.instantiate()

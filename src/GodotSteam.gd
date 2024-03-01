@@ -99,6 +99,8 @@ func clear_all_achievements():
 		steam.clearAchievement(SIX_HUNDRED_DOTS)
 		steam.clearAchievement(SEVEN_HUNDRED_DOTS)
 		steam.clearAchievement(EIGHT_HUNDRED_DOTS)
+		steam.clearAchievement(NINE_HUNDRED_DOTS)
+		steam.clearAchievement(ONE_THOUSAND_DOTS)
 		steam.clearAchievement(ALL_THE_DOTS)
 		steam.storeStats()
 
@@ -209,6 +211,16 @@ const EIGHT_HUNDRED_DOTS="EIGHT_HUNDRED_DOTS"
 
 func set_eight_hundred_dots():
 	set_achievement(EIGHT_HUNDRED_DOTS)
+
+const NINE_HUNDRED_DOTS="NINE_HUNDRED_DOTS"
+
+func set_nine_hundred_dots():
+	set_achievement(NINE_HUNDRED_DOTS)
+
+const ONE_THOUSAND_DOTS="ONE_THOUSAND_DOTS"
+
+func set_one_thousand_dots():
+	set_achievement(ONE_THOUSAND_DOTS)
 
 const ALL_THE_DOTS="ALL_THE_DOTS"
 
