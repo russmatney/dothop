@@ -22,9 +22,18 @@ var stats
 func set_focus():
 	var ctrls = []
 	ctrls.append_array(puzzle_list.get_children())
+	if len(ctrls) > 0:
+		var btn = ctrls[0]
+		btn.grab_focus()
+		return
+
+	# hide puzzle cursor if we're not focusing a puzzle-list child
+	hide_puzzle_cursor()
+
 	ctrls.append_array([next_puzzle_set_button, previous_puzzle_set_button])
-	var btn = ctrls[0]
-	btn.grab_focus()
+	if len(ctrls) > 0:
+		var btn = ctrls[0]
+		btn.grab_focus()
 
 func is_something_focused():
 	var ctrls = []
@@ -44,6 +53,8 @@ func _ready():
 	if not Engine.is_editor_hint():
 		SoundManager.play_music(Music.late_night_radio, 2.0)
 		reset_map()
+
+	hide_puzzle_cursor()
 
 	var next_to_complete_puzzle_idx = 0
 	for i in len(puzzle_sets):
@@ -229,6 +240,10 @@ func move_puzzle_cursor(icon, opts={}):
 
 	if opts.get("no_move", false):
 		puzzle_set_icon.position = icon.global_position
+
+	if icon.global_position == Vector2.ZERO:
+		# TODO defer? call again after icon has animated in? icon is going to 0, 0 :/
+		return
 
 	var time = 0.4
 	var t = create_tween()
