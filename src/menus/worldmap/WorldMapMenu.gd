@@ -166,6 +166,7 @@ func show_puzzle_set(puzzle_set):
 		Anim.fade_in(locked_puzzle_label)
 
 	var theme = puzzle_set.get_theme()
+	var first_puzzle_icon
 	var next_puzzle_icon
 
 	# list of puzzles
@@ -183,6 +184,8 @@ func show_puzzle_set(puzzle_set):
 		else:
 			icon.gui_input.connect(on_level_icon_gui_input)
 			icon.focus_entered.connect(move_puzzle_cursor.bind(icon))
+			if not first_puzzle_icon:
+				first_puzzle_icon = icon
 			if puzzle_set.completed_puzzle(i):
 				icon.set_texture(theme.get_dot_icon())
 				icon.set_focus_mode(Control.FOCUS_ALL)
@@ -222,6 +225,9 @@ func show_puzzle_set(puzzle_set):
 			next_puzzle_set_button.grab_focus()
 		elif not previous_puzzle_set_button.is_disabled():
 			previous_puzzle_set_button.grab_focus()
+
+		U.call_in(0.4, self, func():
+			move_puzzle_cursor(first_puzzle_icon))
 
 ## puzzle cursor ################################################
 
