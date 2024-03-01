@@ -59,7 +59,7 @@ func update_puzzle_number(entry):
 		if rem == 0:
 			puzzle_num_label.text = "[center]Puzzle set complete![/center]"
 		elif rem == 1:
-			puzzle_num_label.text = "[center]1 puzzle left![/center]"
+			puzzle_num_label.text = "[center]Last puzzle![/center]"
 		else:
 			puzzle_num_label.text = "[center]%s puzzles left[/center]" % entry.puzzles_remaining
 
