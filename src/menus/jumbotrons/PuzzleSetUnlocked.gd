@@ -41,6 +41,9 @@ func render():
 				"Moving on up in the world!",
 				"You rock the house!",
 				"You're out of this world!",
+				"Dang, you must be wicked smart!",
+				"I'm seriously so proud of you :)",
+				"Well done indeed!",
 				])
 	else:
 		header.text = "[center]Dang, that was the [color=crimson]last puzzle[/color]!"
