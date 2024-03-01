@@ -225,17 +225,19 @@
 
 (def boxart-defs
   (->>
-    {:header-capsule   {:width 460 :height 215 :base boxart-base-logo-wide}
-     :small-capsule    {:width 231 :height 87 :base boxart-base-logo-wide}
-     :main-capsule     {:width 616 :height 353}
-     :vertical-capsule {:width 374 :height 448}
-     :page-background  {:width 1438 :height 810}
-     :library-capsule  {:width 600 :height 900}
-     :library-header   {:width 460 :height 215 :base boxart-base-logo-wide}
-     :library-hero     {:width 3840 :height 1240 :base boxart-base-bg-no-logo}
-     :library-logo     {:width 1280 :height 720 :base boxart-base-logo-no-bg}
-     :client-icon      {:width 16 :height 16 :skip-generate true :export-ext ".jpg"}
-     :community-icon   {:width 184 :height 184}}
+    {:header-capsule     {:width 460 :height 215 :base boxart-base-logo-wide}
+     :small-capsule      {:width 231 :height 87 :base boxart-base-logo-wide}
+     :main-capsule       {:width 616 :height 353}
+     :vertical-capsule   {:width 374 :height 448}
+     :page-background    {:width 1438 :height 810}
+     :library-capsule    {:width 600 :height 900}
+     :library-header     {:width 460 :height 215 :base boxart-base-logo-wide}
+     :library-hero       {:width 3840 :height 1240 :base boxart-base-bg-no-logo}
+     :library-logo       {:width 1280 :height 720 :base boxart-base-logo-no-bg}
+     :client-icon        {:width 16 :height 16 :skip-generate true :export-ext ".jpg"}
+     :community-icon     {:width 184 :height 184}
+     :event-cover-image  {:width 800 :height 450 :base boxart-base-logo-wide}
+     :event-header-image {:width 1920 :height 622 :base boxart-base-logo-wide}}
     (map (fn [[label opts]] [label (assoc opts :label label)]))
     (into {})))
 

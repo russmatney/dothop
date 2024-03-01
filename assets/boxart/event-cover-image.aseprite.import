@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://cut5uy1dqlnns"
+path="res://.godot/imported/event-cover-image.aseprite-bb6d6e52d3d471200e23f099c4669fa2.res"
+
+[deps]
+
+source_file="res://assets/boxart/event-cover-image.aseprite"
+dest_files=["res://.godot/imported/event-cover-image.aseprite-bb6d6e52d3d471200e23f099c4669fa2.res"]
+
+[params]
+

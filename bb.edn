@@ -19,6 +19,6 @@
    :requires   ([babashka.http-server :as http-server])
    :task       (http-server/exec {:port 3010 :dir (str "dist/dothop-web")})}
 
-  generate-steam-box-art
+  generate-boxart
   {:description ""
-   :task        (tasks/generate-steam-box-art)}}}
+   :task        (tasks/generate-all-boxart)}}}
