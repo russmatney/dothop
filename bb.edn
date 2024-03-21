@@ -21,4 +21,9 @@
 
   generate-boxart
   {:description ""
-   :task        (tasks/generate-all-boxart)}}}
+   :task        (tasks/generate-all-boxart)}
+
+  gd-plug
+  (tasks/shell-and-log
+    (str "godot --no-window -s plug.gd " (string/join " " *command-line-args*)))
+  }}
