@@ -100,7 +100,12 @@ func error_as_string(error_number :int) -> String:
 
 ## A litle helper to auto freeing your created objects after test execution
 func auto_free(obj :Variant) -> Variant:
-	return __execution_context.register_auto_free(obj)
+	if __execution_context != null:
+		return __execution_context.register_auto_free(obj)
+	else:
+		if is_instance_valid(obj):
+			obj.queue_free()
+		return obj
 
 
 @warning_ignore("native_method_override")
@@ -188,7 +193,7 @@ func await_millis(timeout :int) -> void:
 ## example:[br]
 ## [codeblock]
 ##    # creates a runner by using a instanciated scene
-##    var scene = load("res://foo/my_scne.tscn").instantiate() 
+##    var scene = load("res://foo/my_scne.tscn").instantiate()
 ##    var runner := scene_runner(scene)
 ##
 ##    # or simply creates a runner by using the scene resource path
@@ -200,7 +205,7 @@ func scene_runner(scene :Variant, verbose := false) -> GdUnitSceneRunner:
 
 # === Mocking  & Spy ===========================================================
 
-## do return a default value for primitive types or null 
+## do return a default value for primitive types or null
 const RETURN_DEFAULTS = GdUnitMock.RETURN_DEFAULTS
 ## do call the real implementation
 const CALL_REAL_FUNC = GdUnitMock.CALL_REAL_FUNC
@@ -593,7 +598,7 @@ func assert_failure_await(assertion :Callable) -> GdUnitFailureAssert:
 ##		# tests no error was occured during execution the code
 ##		await assert_error(func (): return 0 )\
 ##		    .is_success()
-##		
+##
 ##		# tests an push_error('test error') was occured during execution the code
 ##		await assert_error(func (): push_error('test error') )\
 ##		    .is_push_error('test error')
