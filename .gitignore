@@ -12,3 +12,5 @@ dist/
 
 
 .DS_Store
+
+.plugged/
