@@ -1,3 +1,4 @@
+@tool
 extends Object
 class_name Log
 
@@ -7,12 +8,13 @@ static func log_prefix(stack):
 	if len(stack) > 1:
 		var call_site = stack[1]
 		var basename = call_site["source"].get_file().get_basename()
+		var line_num = str(call_site.get("line", 0))
 		if call_site["source"].match("*/test/*"):
-			return "{" + basename + "}: "
+			return "{" + basename + ":" + line_num + "}: "
 		elif call_site["source"].match("*/addons/*"):
-			return "<" + basename + ">: "
+			return "<" + basename + ":" + line_num + ">: "
 		else:
-			return "[" + basename + "]: "
+			return "[" + basename + ":" + line_num + "]: "
 
 static func color_wrap(s, color, use_color=true):
 	if use_color:
@@ -33,6 +35,7 @@ static func color_wrap(s, color, use_color=true):
 # - white
 # - orange
 # - gray
+
 # supported tags:
 # - b
 # - i
@@ -47,11 +50,17 @@ static func color_wrap(s, color, use_color=true):
 # - bgcolor
 # - fgcolor
 
-## to_pretty ###########################################################################
+## _to_pretty ###########################################################################
 
 # refactor into opts dict
 # refactor into pluggable pretty printer
-static func to_pretty(msg, newlines=false, use_color=true, indent_level=0):
+static func _to_pretty(msg, opts={}):
+	var newlines = opts.get("newlines", false)
+	var use_color = opts.get("color", true)
+	var indent_level = opts.get("indent_level", 0)
+	if not "indent_level" in opts:
+		opts["indent_level"] = indent_level
+
 	var max_array_size = 20
 	var omit_vals_for_keys = ["layer_0/tile_data"]
 	if not is_instance_valid(msg) and typeof(msg) == TYPE_OBJECT:
@@ -68,7 +77,8 @@ static func to_pretty(msg, newlines=false, use_color=true, indent_level=0):
 		for i in range(len(msg)):
 			if newlines and last > 1:
 				tmp += "\n\t"
-			tmp += Log.to_pretty(msg[i], newlines, use_color, indent_level + 1)
+			opts.indent_level += 1
+			tmp += Log._to_pretty(msg[i], opts)
 			if i != last:
 				tmp += Log.color_wrap(", ", "red", use_color)
 		tmp += Log.color_wrap(" ]", "red", use_color)
@@ -84,7 +94,8 @@ static func to_pretty(msg, newlines=false, use_color=true, indent_level=0):
 			if k in omit_vals_for_keys:
 				val = "..."
 			else:
-				val = Log.to_pretty(msg[k], newlines, use_color, indent_level + 1)
+				opts.indent_level += 1
+				val = Log._to_pretty(msg[k], opts)
 			if newlines and ct > 1:
 				tmp += "\n\t" \
 					+ range(indent_level)\
@@ -115,15 +126,19 @@ static func to_pretty(msg, newlines=false, use_color=true, indent_level=0):
 		else:
 			return '(%s,%s)' % [msg.x, msg.y]
 	elif msg is Object and msg.has_method("data"):
-		return Log.to_pretty(msg.data(), newlines, use_color, indent_level)
-	elif msg is Object and msg.has_method("to_pretty"):
-		return msg.to_pretty(newlines, use_color, indent_level)
+		return Log._to_pretty(msg.data(), opts)
+	elif msg is Object and msg.has_method("to_printable"):
+		return Log._to_pretty(msg.to_printable(), opts)
 	else:
 		return str(msg)
 
 ## to_printable ###########################################################################
 
-static func to_printable(msgs, stack=[], newlines=false, pretty=true, use_color=true):
+static func to_printable(msgs, opts={}):
+	var stack = opts.get("stack", [])
+	var pretty = opts.get("pretty", true)
+	var newlines = opts.get("newlines", false)
+	var use_color = opts.get("color", true)
 	var m = ""
 	if len(stack) > 0:
 		var prefix = Log.log_prefix(stack)
@@ -141,10 +156,10 @@ static func to_printable(msgs, stack=[], newlines=false, pretty=true, use_color=
 	for msg in msgs:
 		# add a space between msgs
 		if pretty:
-			m += "%s " % Log.to_pretty(msg, newlines, use_color)
+			m += "%s " % Log._to_pretty(msg, opts)
 		else:
 			m += "%s " % str(msg)
-	return m
+	return m.trim_suffix(" ")
 
 static func is_not_default(v):
 	return not v is String or (v is String and v != "ZZZDEF")
@@ -154,25 +169,25 @@ static func is_not_default(v):
 static func pr(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
-	var m = Log.to_printable(msgs, get_stack())
+	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 static func info(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
-	var m = Log.to_printable(msgs, get_stack())
+	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 static func log(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
-	var m = Log.to_printable(msgs, get_stack())
+	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 static func prn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
-	var m = Log.to_printable(msgs, get_stack(), true)
+	var m = Log.to_printable(msgs, {stack=get_stack(), newlines=true})
 	print_rich(m)
 
 static func warn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
@@ -180,8 +195,8 @@ static func warn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF"
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()
 	rich_msgs.push_front("[color=yellow][WARN][/color]")
-	print_rich(Log.to_printable(rich_msgs, get_stack(), true))
-	var m = Log.to_printable(msgs, get_stack(), true, false)
+	print_rich(Log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+	var m = Log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
 	push_warning(m)
 
 static func err(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
@@ -189,8 +204,8 @@ static func err(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF",
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()
 	rich_msgs.push_front("[color=red][ERR][/color]")
-	print_rich(Log.to_printable(rich_msgs, get_stack(), true))
-	var m = Log.to_printable(msgs, get_stack(), true, false)
+	print_rich(Log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+	var m = Log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
 	push_error(m)
 
 static func error(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
@@ -198,6 +213,6 @@ static func error(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()
 	rich_msgs.push_front("[color=red][ERR][/color]")
-	print_rich(Log.to_printable(rich_msgs, get_stack(), true))
-	var m = Log.to_printable(msgs, get_stack(), true, false)
+	print_rich(Log.to_printable(rich_msgs, {stack=get_stack(), newlines=true}))
+	var m = Log.to_printable(msgs, {stack=get_stack(), newlines=true, pretty=false})
 	push_error(m)

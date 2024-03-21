@@ -8,3 +8,4 @@ func _plugging():
 	plug("nathanhoad/godot_sound_manager", {include=["addons/sound_manager"]})
 	plug("timothyqiu/gdfxr")
 	plug("viniciusgerevini/godot-aseprite-wizard", {include=["addons/AsepriteWizard"]})
+	plug("russmatney/log.gd", {include=["addons/log"]})

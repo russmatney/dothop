@@ -9,5 +9,5 @@ func _get_configuration_warnings():
 		return ["No puzzle_set assigned!"]
 	return []
 
-func to_pretty(a, b, c):
-	return Log.to_pretty({puzzle_set=puzzle_set, "self"=str(self)}, a, b, c)
+func to_printable():
+	return {puzzle_set=puzzle_set, "self"=str(self)}
