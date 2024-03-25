@@ -41,6 +41,8 @@ March 1st 2024!
 - [[https://youtu.be/yfdHTPWyWvA][A Tour of Dot Hop (Youtube Devlog)]]
 - [[https://youtu.be/fxT0u9VVcIg][Dot Hop's Gameplay Trailer]]
 
+- In progress docs: https://russmatney.github.io/dothop/#/
+
 *** Copyright Notice
 Dot Hop © 2023-2024 by Russell Matney is licensed under CC BY-NC-ND 4.0. To view a copy
 of this license, visit http://creativecommons.org/licenses/by-nc-nd/4.0/
