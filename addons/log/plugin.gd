@@ -1,10 +1,8 @@
 @tool
 extends EditorPlugin
 
-
 func _enter_tree():
-	Log.pr("<Log>")
+	ProjectSettings.settings_changed.connect(on_settings_changed)
 
-
-func _exit_tree():
-	Log.pr("</Log>")
+func on_settings_changed():
+	Log.setup_config()
