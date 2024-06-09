@@ -3,9 +3,6 @@ extends "../base_inspector_dock.gd"
 
 var sprite_frames_creator = preload("../../../creators/sprite_frames/sprite_frames_creator.gd").new()
 
-func _setup():
-	sprite_frames_creator.init(config)
-
 
 func _get_available_layers(global_source_path: String) -> Array:
 	return sprite_frames_creator.list_layers(global_source_path)
@@ -41,5 +38,7 @@ func _do_import():
 	await file_system.filesystem_changed
 
 	sprite_frames_creator.create_animations(target_node, aseprite_output.content, { "slice": _slice })
+
+	wizard_config.set_source_hash(target_node, FileAccess.get_md5(source_path))
 
 	_handle_cleanup(aseprite_output.content)

@@ -4,11 +4,11 @@ extends PanelContainer
 const wizard_config = preload("../../config/wizard_config.gd")
 const result_code = preload("../../config/result_codes.gd")
 var _aseprite_file_exporter = preload("../../aseprite/file_exporter.gd").new()
+var config = preload("../../config/config.gd").new()
 
 var scene: Node
 var target_node: Node
-var config
-var file_system: EditorFileSystem
+var file_system: EditorFileSystem = EditorInterface.get_resource_filesystem()
 
 var _layer: String = ""
 var _slice: String = ""
@@ -58,9 +58,23 @@ func _ready():
 	_pre_setup()
 	_setup_interface()
 	_setup_config()
-	_aseprite_file_exporter.init(config)
 	_setup_field_listeners()
 	_setup()
+	_check_for_changes()
+
+
+func _check_for_changes():
+	if not _source or _source == "":
+		return
+
+	var saved_hash = wizard_config.get_source_hash(target_node)
+
+	if saved_hash == "":
+		return
+
+	if saved_hash != FileAccess.get_md5(_source):
+		$dock_fields.show_source_change_warning()
+
 
 func _setup_interface():
 	_hide_fields()
@@ -248,7 +262,7 @@ func _save_config():
 	for c in child_config:
 		cfg[c] = child_config[c]
 
-	wizard_config.save_config(target_node, config.is_use_metadata_enabled(), cfg)
+	wizard_config.save_config(target_node, cfg)
 
 
 func _get_import_options(default_folder: String):
@@ -362,6 +376,8 @@ func _on_import_pressed():
 
 	await _do_import()
 	_importing = false
+	$dock_fields.hide_source_change_warning()
+	EditorInterface.save_scene()
 
 
 # This is a little bit leaky as this base scene contains fields only relevant to animation players.
