@@ -1,8 +1,7 @@
 extends "res://addons/gd-plug/plug.gd"
 
 func _plugging():
-	plug("MikeSchulze/gdUnit4", {include=["addons/gdUnit4"]})
-	plug("imjp94/gd-plug-ui")
+	plug("MikeSchulze/gdUnit4", {exclude=["addons/gdUnit4/test"]})
 	plug("bitbrain/pandora", {include=["addons/pandora"]})
 	plug("nathanhoad/godot_input_helper", {include=["addons/input_helper"]})
 	plug("nathanhoad/godot_sound_manager", {include=["addons/sound_manager"]})
