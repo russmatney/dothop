@@ -24,6 +24,7 @@ const PLAYSTATION_BUTTON_LABELS = ["Cross", "Circle", "Square", "Triangle", "Sel
 @onready var device_index: int = 0 if has_joypad() else -1
 
 var deadzone: float = 0.5
+var mouse_motion_threshold: int = 100
 var device_last_changed_at: int = 0
 
 
@@ -36,8 +37,10 @@ func _input(event: InputEvent) -> void:
 	var next_device: String = device
 	var next_device_index: int = device_index
 
-	# Did we just press a key on the keyboard?
-	if event is InputEventKey or event is InputEventMouseButton:
+	# Did we just press a key on the keyboard or move the mouse?
+	if event is InputEventKey \
+		or event is InputEventMouseButton \
+		or (event is InputEventMouseMotion and (event as InputEventMouseMotion).relative.length_squared() > mouse_motion_threshold):
 		next_device = DEVICE_KEYBOARD
 		next_device_index = -1
 
@@ -215,7 +218,7 @@ func serialize_inputs_for_actions(actions: PackedStringArray = []) -> String:
 			elif input is InputEventJoypadButton:
 				action_map["joypad"].append(input.button_index)
 			elif input is InputEventJoypadMotion:
-				action_map["joypad"].append("%d|%d" % [input.axis, input.axis_value])
+				action_map["joypad"].append("%d|%f" % [input.axis, input.axis_value])
 
 		map[action] = action_map
 
@@ -336,7 +339,12 @@ func replace_joypad_input_for_action(action: String, current_input: InputEvent, 
 ## Replace a button, given its index
 func replace_joypad_input_at_index(action: String, index: int, input: InputEvent, swap_if_taken: bool = true) -> Error:
 	var inputs: Array[InputEvent] = get_joypad_inputs_for_action(action)
-	var replacing_input = InputEventJoypadButton.new() if (inputs.is_empty() or inputs.size() <= index) else inputs[index]
+	var replacing_input
+	if inputs.is_empty() or inputs.size() <= index:
+		replacing_input = InputEventJoypadButton.new()
+		replacing_input.button_index = JOY_BUTTON_INVALID
+	else:
+		replacing_input = inputs[index]
 	return _update_joypad_input_for_action(action, input, swap_if_taken, replacing_input)
 
 

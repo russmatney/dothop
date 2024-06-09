@@ -34,6 +34,20 @@ namespace NathanHoad
     }
 
 
+    public float Deadzone
+    {
+      get => (float)Instance.Get("deadzone");
+      set => Instance.Set("deadzone", value);
+    }
+
+
+    public int MouseMotionThreshold
+    {
+      get => (int)Instance.Get("mouse_motion_threshold");
+      set => Instance.Set("mouse_motion_threshold", value);
+    }
+
+
     public static string GetSimplifiedDeviceName()
     {
       return (string)Instance.Call("get_simplified_device_name");
@@ -84,6 +98,9 @@ namespace NathanHoad
 
     public static string SerializeInputsForActions(Array<string> actions = null)
     {
+      if (actions == null) {
+        actions = new Array<string>();
+      }
       return (string)Instance.Call("serialize_inputs_for_actions", actions);
     }
 
