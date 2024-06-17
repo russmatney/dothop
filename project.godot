@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="Dot Hop"
+config/version="1.0.0"
 run/main_scene="res://src/menus/MainMenu.tscn"
 config/features=PackedStringArray("4.2", "GL Compatibility")
 boot_splash/bg_color=Color(0.227451, 0.207843, 0.196078, 1)
@@ -39,6 +40,16 @@ window/stretch/mode="viewport"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://src/": "green",
+"res://src/puzzle/": "orange",
+"res://src/puzzles/": "blue",
+"res://src/themes/": "purple"
+}
 
 [gdunit4]
 
@@ -145,7 +156,13 @@ debug_toggle={
 ]
 }
 
+[input_devices]
+
+pointing/emulate_touch_from_mouse=true
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
 textures/vram_compression/import_etc2_astc=true
