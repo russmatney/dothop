@@ -202,7 +202,7 @@ func _unhandled_input(event):
 		if state == null:
 			Log.warn("No state, ignoring move input")
 			return
-		check_move_input()
+		check_move_input(event)
 	elif Trolls.is_undo(event) and not block_move:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
@@ -236,8 +236,8 @@ func cancel_reset_puzzle():
 var block_move
 var last_move
 
-func check_move_input():
-	var move_vec = Trolls.grid_move_vector()
+func check_move_input(event=null):
+	var move_vec = Trolls.grid_move_vector(event)
 
 	if move_vec != last_move:
 		# allow moving in a new direction
