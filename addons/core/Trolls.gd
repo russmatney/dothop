@@ -32,21 +32,23 @@ static func move_vector(event=null):
 	if event:
 		if Trolls.is_screen_drag_event(event):
 			var dir = to_cardinal_direction(event.velocity, 100)
-			Log.pr("drag gesture dir", dir)
+			Log.pr("drag gesture dir", dir, "velocity", event.velocity, "relative", event.relative)
 			return dir
 	if Dino.focused:
 		return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	return Vector2.ZERO
 
 static func to_cardinal_direction(vec, thresh=0.6):
+	if abs(vec.y) > abs(vec.x):
+		if vec.y < -1*thresh:
+			return Vector2.UP
+		elif vec.y > thresh:
+			return Vector2.DOWN
+
 	if vec.x > thresh:
 		return Vector2.RIGHT
 	elif vec.x < -1*thresh:
 		return Vector2.LEFT
-	elif vec.y < -1*thresh:
-		return Vector2.UP
-	elif vec.y > thresh:
-		return Vector2.DOWN
 	return Vector2.ZERO
 
 static func grid_move_vector(event=null, thresh=0.6):
