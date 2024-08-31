@@ -134,7 +134,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/dots/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/dots/Dot.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -148,7 +151,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/dots/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/dots/Dot.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -162,7 +168,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/dots/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/dots/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
@@ -189,7 +198,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/space/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/space/Dot.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -203,7 +215,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/space/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/space/Dot.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -213,7 +228,10 @@
 					"music_tracks": {
 						"type": "array",
 						"value": {
-							"0": "res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"
+							"0": {
+								"type": "string",
+								"value": "res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"
+							}
 						}
 					},
 					"player_icon_texture": {
@@ -223,7 +241,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/space/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/space/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
@@ -250,7 +271,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/fall/Leaf.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/fall/Leaf.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -264,7 +288,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/fall/Leaf.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/fall/Leaf.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -274,7 +301,10 @@
 					"music_tracks": {
 						"type": "array",
 						"value": {
-							"0": "res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"
+							"0": {
+								"type": "string",
+								"value": "res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"
+							}
 						}
 					},
 					"player_icon_texture": {
@@ -284,7 +314,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/fall/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/fall/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
@@ -457,7 +490,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/winter/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/winter/Dot.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -471,7 +507,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/winter/Goal.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/winter/Goal.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -481,7 +520,10 @@
 					"music_tracks": {
 						"type": "array",
 						"value": {
-							"0": "res://assets/songs/benburnes/Abstraction - Lounge Groove LOOP.ogg"
+							"0": {
+								"type": "string",
+								"value": "res://assets/songs/benburnes/Abstraction - Lounge Groove LOOP.ogg"
+							}
 						}
 					},
 					"player_icon_texture": {
@@ -491,7 +533,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/winter/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/winter/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
@@ -522,7 +567,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/spring/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/spring/Dot.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -536,7 +584,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/spring/Goal.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/spring/Goal.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -546,7 +597,10 @@
 					"music_tracks": {
 						"type": "array",
 						"value": {
-							"0": "res://assets/songs/benburnes/The Verdant Grove LOOP.wav"
+							"0": {
+								"type": "string",
+								"value": "res://assets/songs/benburnes/The Verdant Grove LOOP.wav"
+							}
 						}
 					},
 					"player_icon_texture": {
@@ -556,7 +610,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/spring/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/spring/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
@@ -587,7 +644,10 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/summer/Dot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/summer/Dot.tscn"
+							}
 						}
 					},
 					"dotted_icon_texture": {
@@ -601,7 +661,10 @@
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/summer/Goal.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/summer/Goal.tscn"
+							}
 						}
 					},
 					"is_unlocked": {
@@ -615,7 +678,10 @@
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/summer/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/summer/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {
