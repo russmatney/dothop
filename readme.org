@@ -4,9 +4,9 @@
 * _
 
 #+html: <p align="center">
-#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/unit_tests.yml"><img alt="Unit Tests" src="https://github.com/russmatney/dothop/actions/workflows/unit-tests.yml/badge.svg" /></a>
-#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/itch_build_and_deploy.yml"><img alt="Itch Deploy" src="https://github.com/russmatney/dothop/actions/workflows/itch-build-and-deploy.yml/badge.svg" /></a>
-#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/steam_build_and_deploy.yml"><img alt="Steam Deploy" src="https://github.com/russmatney/dothop/actions/workflows/steam-build-and-deploy.yml/badge.svg" /></a>
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/unit-tests.yml"><img alt="Unit Tests" src="https://github.com/russmatney/dothop/actions/workflows/unit-tests.yml/badge.svg" /></a>
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/itch-build-and-deploy.yml"><img alt="Itch Deploy" src="https://github.com/russmatney/dothop/actions/workflows/itch-build-and-deploy.yml/badge.svg" /></a>
+#+html:   <a href="https://github.com/russmatney/dothop/actions/workflows/steam-build-and-deploy.yml"><img alt="Steam Deploy" src="https://github.com/russmatney/dothop/actions/workflows/steam-build-and-deploy.yml/badge.svg" /></a>
 #+html:  </p>
 
 #+html: <div id="header" align="center">
