@@ -1,11 +1,13 @@
 extends GdUnitArrayAssert
 
 
-var _base :GdUnitAssert
-var _current_value_provider :ValueProvider
+var _base: GdUnitAssert
+var _current_value_provider: ValueProvider
+var _type_check: bool
 
 
-func _init(current :Variant) -> void:
+func _init(current: Variant, type_check := true) -> void:
+	_type_check = type_check
 	_current_value_provider = DefaultValueProvider.new(current)
 	_base = ResourceLoader.load("res://addons/gdUnit4/src/asserts/GdUnitAssertImpl.gd", "GDScript",
 								ResourceLoader.CACHE_MODE_REUSE).new(current)
@@ -33,11 +35,16 @@ func report_error(error :String) -> GdUnitArrayAssert:
 
 
 func failure_message() -> String:
-	return _base._current_error_message
+	return _base.failure_message()
 
 
 func override_failure_message(message :String) -> GdUnitArrayAssert:
 	_base.override_failure_message(message)
+	return self
+
+
+func append_failure_message(message :String) -> GdUnitArrayAssert:
+	_base.append_failure_message(message)
 	return self
 
 
@@ -55,9 +62,18 @@ func max_length(left :Variant, right :Variant) -> int:
 	return rs if ls < rs else ls
 
 
-func _array_equals_div(current :Array, expected :Array, case_sensitive :bool = false) -> Array:
+# gdlint: disable=function-name
+func _toPackedStringArray(value :Variant) -> PackedStringArray:
+	if GdArrayTools.is_array_type(value):
+		return PackedStringArray(value as Array)
+	var v := PackedStringArray()
+	v.append(str(value))
+	return v
+
+
+func _array_equals_div(current :Array, expected :Variant, case_sensitive :bool = false) -> Array:
 	var current_value := PackedStringArray(current)
-	var expected_value := PackedStringArray(expected)
+	var expected_value := _toPackedStringArray(expected)
 	var index_report := Array()
 	for index in current_value.size():
 		var c := current_value[index]
@@ -168,7 +184,7 @@ func is_not_null() -> GdUnitArrayAssert:
 
 # Verifies that the current String is equal to the given one.
 func is_equal(expected :Variant) -> GdUnitArrayAssert:
-	if not _validate_value_type(expected):
+	if _type_check and not _validate_value_type(expected):
 		return report_error("ERROR: expected value: <%s>\n is not a Array Type!" % GdObjects.typeof_as_string(expected))
 	var current_value :Variant = get_current_value()
 	if current_value == null and expected != null:
@@ -184,7 +200,7 @@ func is_equal(expected :Variant) -> GdUnitArrayAssert:
 
 # Verifies that the current Array is equal to the given one, ignoring case considerations.
 func is_equal_ignoring_case(expected :Variant) -> GdUnitArrayAssert:
-	if not _validate_value_type(expected):
+	if _type_check and not _validate_value_type(expected):
 		return report_error("ERROR: expected value: <%s>\n is not a Array Type!" % GdObjects.typeof_as_string(expected))
 	var current_value :Variant = get_current_value()
 	if current_value == null and expected != null:

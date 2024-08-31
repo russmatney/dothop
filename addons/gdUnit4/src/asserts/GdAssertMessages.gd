@@ -8,7 +8,10 @@ const SUB_COLOR :=  Color(1, 0, 0, .3)
 const ADD_COLOR :=  Color(0, 1, 0, .3)
 
 
-static func format_dict(value :Dictionary) -> String:
+static func format_dict(value :Variant) -> String:
+	if not value is Dictionary:
+		return str(value)
+
 	if value.is_empty():
 		return "{ }"
 	var as_rows := var_to_str(value).split("\n")
@@ -613,3 +616,13 @@ static func format_invalid(value :String) -> String:
 
 static func humanized(value :String) -> String:
 	return value.replace("_", " ")
+
+
+static func build_failure_message(failure :String, additional_failure_message: String, custom_failure_message: String) -> String:
+	var message := failure if custom_failure_message.is_empty() else custom_failure_message
+	if additional_failure_message.is_empty():
+		return message
+	return """
+		%s
+		[color=LIME_GREEN][b]Additional info:[/b][/color]
+		 %s""".dedent().trim_prefix("\n") % [message, additional_failure_message]

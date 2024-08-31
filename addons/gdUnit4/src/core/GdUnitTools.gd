@@ -27,7 +27,7 @@ static func prints_verbose(message :String) -> void:
 		prints(message)
 
 
-static func free_instance(instance :Variant, is_stdout_verbose :=false) -> bool:
+static func free_instance(instance :Variant, use_call_deferred :bool = false, is_stdout_verbose := false) -> bool:
 	if instance is Array:
 		for element :Variant in instance:
 			free_instance(element)
@@ -43,24 +43,35 @@ static func free_instance(instance :Variant, is_stdout_verbose :=false) -> bool:
 		print_verbose("GdUnit4:gc():free instance ", instance)
 	release_double(instance)
 	if instance is RefCounted:
-		instance.notification(Object.NOTIFICATION_PREDELETE)
+		(instance as RefCounted).notification(Object.NOTIFICATION_PREDELETE)
+		# If scene runner freed we explicit await all inputs are processed
+		if instance is GdUnitSceneRunnerImpl:
+			await instance.await_input_processed()
 		return true
 	else:
-		# is instance already freed?
-		#if not is_instance_valid(instance) or ClassDB.class_get_property(instance, "new"):
-		#	return false
-		#release_connections(instance)
 		if instance is Timer:
 			instance.stop()
-			instance.call_deferred("free")
-			await Engine.get_main_loop().process_frame
+			if use_call_deferred:
+				instance.call_deferred("free")
+			else:
+				instance.free()
+				await Engine.get_main_loop().process_frame
 			return true
+
 		if instance is Node and instance.get_parent() != null:
 			if is_stdout_verbose:
 				print_verbose("GdUnit4:gc():remove node from parent ",  instance.get_parent(), instance)
-			instance.get_parent().remove_child(instance)
-			instance.set_owner(null)
-		instance.free()
+			if use_call_deferred:
+				instance.get_parent().remove_child.call_deferred(instance)
+				#instance.call_deferred("set_owner", null)
+			else:
+				instance.get_parent().remove_child(instance)
+		if is_stdout_verbose:
+			print_verbose("GdUnit4:gc():freeing `free()` the instance ", instance)
+		if use_call_deferred:
+			instance.call_deferred("free")
+		else:
+			instance.free()
 		return !is_instance_valid(instance)
 
 
@@ -92,9 +103,9 @@ static func release_timers() -> void:
 
 
 # the finally cleaup unfreed resources and singletons
-static func dispose_all() -> void:
+static func dispose_all(use_call_deferred :bool = false) -> void:
 	release_timers()
-	GdUnitSingleton.dispose()
+	GdUnitSingleton.dispose(use_call_deferred)
 	GdUnitSignals.dispose()
 
 

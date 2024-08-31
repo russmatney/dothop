@@ -34,11 +34,16 @@ func report_error(error :String) -> GdUnitIntAssert:
 
 
 func failure_message() -> String:
-	return _base._current_error_message
+	return _base.failure_message()
 
 
 func override_failure_message(message :String) -> GdUnitIntAssert:
 	_base.override_failure_message(message)
+	return self
+
+
+func append_failure_message(message :String) -> GdUnitIntAssert:
+	_base.append_failure_message(message)
 	return self
 
 
@@ -52,12 +57,12 @@ func is_not_null() -> GdUnitIntAssert:
 	return self
 
 
-func is_equal(expected :int) -> GdUnitIntAssert:
+func is_equal(expected :Variant) -> GdUnitIntAssert:
 	_base.is_equal(expected)
 	return self
 
 
-func is_not_equal(expected :int) -> GdUnitIntAssert:
+func is_not_equal(expected :Variant) -> GdUnitIntAssert:
 	_base.is_not_equal(expected)
 	return self
 
