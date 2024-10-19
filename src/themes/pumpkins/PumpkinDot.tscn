@@ -1,0 +1,49 @@
+[gd_scene load_steps=6 format=3 uid="uid://tr7u31n263mg"]
+
+[ext_resource type="Script" path="res://src/themes/pumpkins/PumpkinDot.gd" id="1_lqdj3"]
+[ext_resource type="Texture2D" uid="uid://dlp2c8r3rkg73" path="res://src/themes/pumpkins/pumpkin.png" id="2_mwdep"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umglb"]
+atlas = ExtResource("2_mwdep")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_377hw"]
+atlas = ExtResource("2_mwdep")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n8cnn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umglb")
+}],
+"loop": true,
+"name": &"dot",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_377hw")
+}],
+"loop": true,
+"name": &"dotted",
+"speed": 10.0
+}]
+
+[node name="PumpkinDot" type="Node2D"]
+script = ExtResource("1_lqdj3")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_n8cnn")
+animation = &"dot"
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"slice": "",
+"source": "res://src/themes/pumpkins/assets/pumpkin.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "e6ca95123638d95d556972f19c65eb07"

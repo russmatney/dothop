@@ -51,6 +51,13 @@ folder_colors={
 "res://src/themes/": "purple"
 }
 
+[file_customization]
+
+folder_colors={
+"res://addons/": "red",
+"res://src/": "green"
+}
+
 [gdunit4]
 
 settings/common/update_notification_enabled=false

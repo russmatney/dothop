@@ -893,6 +893,45 @@
 						"value": "Puzzle Skipped"
 					}
 				}
+			},
+			{
+				"_category_id": "3",
+				"_icon_color": "ffffff00",
+				"_id": "70",
+				"_index": 0,
+				"_name": "Pumpkins",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Pumpkins"
+					},
+					"dot_icon_texture": {
+						"type": "resource",
+						"value": "res://src/themes/pumpkins/pumpkin.png"
+					},
+					"dot_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/pumpkins/PumpkinDot.tscn"
+						}
+					},
+					"goal_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/fall/Leaf.tscn"
+						}
+					},
+					"player_scenes": {
+						"type": "array",
+						"value": {
+							"0": "res://src/themes/fall/Player.tscn"
+						}
+					},
+					"puzzle_scene": {
+						"type": "resource",
+						"value": "res://src/themes/pumpkins/PumpkinsPuzzle.tscn"
+					}
+				}
 			}
 		],
 		"_properties": [
@@ -1166,7 +1205,7 @@
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 69
+			"default": 70
 		}
 	}
 }
