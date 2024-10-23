@@ -37,9 +37,9 @@ func test_initial_store_theme_data():
 	# test that we get as many themes as entities
 	assert_that(len(themes)).is_equal(len(theme_ents))
 
-	# all themes unlocked (for now)
+	# at least one theme unlocked
 	var unlocked = themes.filter(func(ent): return ent.is_unlocked())
-	assert_that(len(unlocked)).is_equal(len(theme_ents))
+	assert_that(len(unlocked)).is_greater(0)
 
 #########################################################################
 ## completing and unlocking puzzle sets
