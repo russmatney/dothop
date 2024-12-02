@@ -2,8 +2,8 @@
 extends CanvasLayer
 class_name Credits
 
-@export var credit_line_scene: PackedScene = preload("res://addons/core/credits/CreditLine.tscn")
-@export var credit_header_scene: PackedScene = preload("res://addons/core/credits/CreditHeader.tscn")
+@export var credit_line_scene: PackedScene = preload("res://src/credits/CreditLine.tscn")
+@export var credit_header_scene: PackedScene = preload("res://src/credits/CreditHeader.tscn")
 @onready var credits_lines_container: VBoxContainer = $%CreditsLinesContainer
 @onready var credits_scroll_container: ScrollContainer = $%CreditsScrollContainer
 

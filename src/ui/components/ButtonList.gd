@@ -2,7 +2,7 @@
 extends VBoxContainer
 class_name ButtonList
 
-@export var default_button_scene: PackedScene = preload("res://addons/core/ui/MenuButton.tscn")
+@export var default_button_scene: PackedScene = preload("res://src/ui/components/MenuButton.tscn")
 
 signal button_focused(btn)
 signal button_unfocused(btn)

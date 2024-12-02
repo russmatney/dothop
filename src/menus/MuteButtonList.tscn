@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://src/menus/MuteButtonList.gd" id="1_hivsh"]
 [ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="2_k4kf0"]
-[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="3_xcll7"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="3_xcll7"]
 
 [node name="MuteButtonList" type="VBoxContainer"]
 anchors_preset = 15

@@ -4,7 +4,7 @@ class_name Jumbotron
 
 ## static ##########################################################################
 
-static var jumbotron_scene_path = "res://addons/core/ui/Jumbotron.tscn"
+static var jumbotron_scene_path = "res://src/ui/components/Jumbotron.tscn"
 
 static func jumbo_notif(opts):
 	var scene = opts.get("scene", load(jumbotron_scene_path))
