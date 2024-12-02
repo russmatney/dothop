@@ -54,6 +54,10 @@ func _ready() -> void:
 	Pandora.data_loaded_failure.connect(self._data_load_failure)
 	Pandora.import_progress.connect(self._on_progress)
 
+	# Handle file system changes
+	if Engine.is_editor_hint():
+		EditorInterface.get_file_system_dock().file_removed.connect(_handle_file_deleted)
+		EditorInterface.get_file_system_dock().files_moved.connect(_handle_file_moved)
 
 func reattempt_load_on_error() -> void:
 	if _load_error:
@@ -194,3 +198,33 @@ func _on_import_ended(data: Array[PandoraEntity]) -> void:
 	save_button.disabled = false
 	reset_button.disabled = false
 	import_button.disabled = false
+
+
+func _handle_file_moved(old_path: String, new_path: String) -> void:
+	var entities: Array[PandoraEntity] = []
+	entities.append_array(Pandora.get_all_entities())
+	entities.append_array(Pandora.get_all_categories())
+	for entity in entities:
+		if entity.get_icon_path() == old_path:
+			entity._icon_path = new_path
+		
+		# Handle properties which we can't automatically update,
+		# like strings. We don't need to update resources as they
+		# are automatically updated by the engine.
+		for property in entity._properties:
+			if property.get_property_type() == null:
+				continue
+			if property.get_default_value() == null:
+				continue
+			if property.get_property_type()._type_name == "string" && property._default_value == old_path:
+					property._default_value = new_path
+	await Engine.get_main_loop().process_frame
+	
+	Pandora.save_data()
+	_populate_data.call_deferred()
+	for property in property_editor.property_list.get_children():
+		property._refresh()
+
+func _handle_file_deleted(file: String) -> void:
+	await _handle_file_moved(file, "")
+	

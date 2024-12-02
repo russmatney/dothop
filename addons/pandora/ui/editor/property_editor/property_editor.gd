@@ -15,6 +15,7 @@ const PROPERTY_DEFAULT_NAME = "property"
 @onready var unselected_container = %UnselectedContainer
 @onready var entity_attributes = %EntityAttributes
 @onready var property_settings_container = %PropertySettingsContainer
+@onready var scroll_container: ScrollContainer = %ScrollContainer
 
 var current_entity: PandoraEntity
 
@@ -81,7 +82,13 @@ func _add_property_control(control: PandoraPropertyControl, property: PandoraPro
 		)
 	)
 	property_list.add_child(control_kvp)
+	control_kvp.property_key_edit.grab_focus()
 	control_kvp.original_property_selected.connect(property_settings_container.set_property)
+	await get_tree().process_frame
+	# First scroll to the control node and then apply an offset.
+	# It's important to wait a frame before scrolling as for the documentation.
+	scroll_container.ensure_control_visible(control_kvp)
+	scroll_container.scroll_vertical = scroll_container.scroll_vertical + 100
 
 
 func _generate_property_name(type: String, entity: PandoraEntity) -> String:
