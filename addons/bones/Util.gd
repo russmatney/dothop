@@ -114,6 +114,9 @@ static func free_children(node: Node):
 # not sure what difference this makes
 static func remove_children(node: Node, opts={}):
 	for ch in node.get_children():
+		if opts.get("filter"):
+			if not opts.filter.call(ch):
+				continue
 		if opts.get("defer", false):
 			node.remove_child.call_deferred(ch)
 			ch.queue_free()
