@@ -231,6 +231,17 @@ func cancel_reset_puzzle():
 		return
 	reset_tween.kill()
 
+func reset_pressed():
+	init_game_state()
+
+func undo_pressed():
+	if state == null:
+		Log.warn("No state, ignoring undo input")
+		return
+	for p in state.players:
+		undo_last_move(p)
+
+
 ## check_move_input ##############################################################
 
 var block_move

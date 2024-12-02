@@ -13,6 +13,12 @@ extends CanvasLayer
 @onready var undo_input_icon = $%UndoInputIcon
 @onready var reset_input_icon = $%ResetInputIcon
 
+@onready var undo_button = $%UndoButton
+@onready var reset_button = $%ResetButton
+
+signal undo_pressed
+signal reset_pressed
+
 var puzzle_def: PuzzleDef
 
 ## ready ########################################################
@@ -23,6 +29,9 @@ func _ready():
 	InputHelper.joypad_changed.connect(func(_di, _connected): set_control_icons())
 	InputHelper.keyboard_input_changed.connect(func(_action, _event): set_control_icons())
 	InputHelper.joypad_input_changed.connect(func(_action, _event): set_control_icons())
+
+	reset_button.pressed.connect(func(): reset_pressed.emit())
+	undo_button.pressed.connect(func(): undo_pressed.emit())
 
 func set_control_icons():
 	undo_input_icon.set_icon_for_action("ui_undo")
