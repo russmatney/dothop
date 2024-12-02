@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://c223urhhg7xv3"]
 
-[ext_resource type="Theme" uid="uid://bkvfrd7dyu3lp" path="res://addons/core/notifications/NotificationLabelTheme.tres" id="1"]
-[ext_resource type="Script" path="res://addons/core/notifications/NotifRichLabel.gd" id="2"]
+[ext_resource type="Theme" uid="uid://bkvfrd7dyu3lp" path="res://src/ui/notifications/NotificationLabelTheme.tres" id="1"]
+[ext_resource type="Script" path="res://src/ui/notifications/NotifRichLabel.gd" id="2"]
 
 [node name="NotifRichLabel" type="RichTextLabel"]
 clip_contents = false

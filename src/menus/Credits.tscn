@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://d0wisijkrk581"]
 
 [ext_resource type="Script" path="res://src/menus/Credits.gd" id="1_hirvt"]
-[ext_resource type="Theme" uid="uid://ce80gjswvmncn" path="res://addons/core/credits/CreditsTheme.tres" id="2_wl425"]
+[ext_resource type="Theme" uid="uid://ce80gjswvmncn" path="res://src/credits/CreditsTheme.tres" id="2_wl425"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="3_juowr"]
 
 [node name="Credits" type="CanvasLayer"]
