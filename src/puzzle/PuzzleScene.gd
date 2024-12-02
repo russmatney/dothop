@@ -276,7 +276,7 @@ func on_dot_pressed(_type, node):
 	# calc move_vec for tapped dot with first player
 	var first_player_coord = null
 	for p in state.players:
-		if p.coord:
+		if p.coord != null:
 			first_player_coord = p.coord
 			break
 	if first_player_coord == null:
