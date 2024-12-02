@@ -13,8 +13,12 @@ var state: GameState
 var events: Array[Event] = []
 
 func save_game():
+	events.map(func(ev):
+		if ev == null: Log.warn("Cannot save null event!", ev)
+		)
 	SaveGame.save_game(get_tree(), {
-		events=events.map(Pandora.serialize),
+		events=events.filter(func(ev): return ev != null)\
+		.map(Pandora.serialize),
 		})
 
 # validation and basic recovery from crashes on loaded data?
@@ -25,8 +29,10 @@ func load_game():
 	if not "events" in data or len(data.events) == 0:
 		events = initial_events()
 	else:
-		# TODO handle crashes when events can't deserialize
-		events.assign(data.events.map(Pandora.deserialize))
+		events.assign(data.events\
+			.filter(func(ev): return ev != null)\
+			# TODO handle crashes when events can't deserialize
+			.map(Pandora.deserialize))
 
 	state = GameState.new(events)
 
