@@ -25,8 +25,8 @@ var scene_ready
 #############################################################
 
 func _ready():
-	Dino.notification.connect(_on_notification)
-	Dino.notif("[Notifications online]", {id="initial"})
+	DotHop.notification.connect(_on_notification)
+	DotHop.notif("[Notifications online]", {id="initial"})
 	scene_ready = true
 
 #############################################################

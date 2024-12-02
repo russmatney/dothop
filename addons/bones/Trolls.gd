@@ -34,7 +34,7 @@ static func move_vector(event=null):
 			var dir = to_cardinal_direction(event.velocity, 100)
 			Log.pr("drag gesture dir", dir, "velocity", event.velocity, "relative", event.relative)
 			return dir
-	if Dino.focused:
+	if Debug.focused:
 		return Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	return Vector2.ZERO
 

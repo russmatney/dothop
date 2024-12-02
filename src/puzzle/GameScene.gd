@@ -160,7 +160,7 @@ func on_puzzle_win():
 	if already_complete:
 		var end_of_puzzle_set = puzzle_num + 1 >= len(game_def.puzzles)
 		if end_of_puzzle_set:
-			Dino.notif("All puzzles complete!")
+			DotHop.notif("All puzzles complete!")
 			await show_puzzle_set_complete_jumbo()
 			nav_to_world_map()
 		else:
@@ -169,11 +169,11 @@ func on_puzzle_win():
 			puzzle_num = next_puzzle_num
 			rebuild_puzzle()
 	elif stats.puzzles_completed == stats.total_puzzles:
-		Dino.notif("All puzzles complete!")
+		DotHop.notif("All puzzles complete!")
 		await show_no_more_puzzles_jumbo()
 		nav_to_credits()
 	elif completed_puzzle_set:
-		Dino.notif("Completed puzzle set!")
+		DotHop.notif("Completed puzzle set!")
 		await show_puzzle_set_complete_jumbo()
 		nav_to_world_map()
 	else:
