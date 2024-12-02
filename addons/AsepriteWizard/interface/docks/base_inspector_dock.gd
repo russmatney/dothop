@@ -10,7 +10,6 @@ var scene: Node
 var target_node: Node
 var file_system: EditorFileSystem = EditorInterface.get_resource_filesystem()
 
-var _layer: String = ""
 var _slice: String = ""
 var _source: String = ""
 var _file_dialog_aseprite: EditorFileDialog
@@ -19,6 +18,9 @@ var _importing := false
 var _output_folder := ""
 var _out_folder_default := "[Same as scene]"
 var _layer_default := "[all]"
+
+var _output_filename_text := "File Name"
+var _output_filename_prefix_text := "File Name Prefix"
 
 var _interface_section_state
 
@@ -29,7 +31,7 @@ var _interface_section_state
 # layers
 @onready var _layer_section_header := $dock_fields/VBoxContainer/extra/sections/layers/section_header as Button
 @onready var _layer_section_container := $dock_fields/VBoxContainer/extra/sections/layers/section_content as MarginContainer
-@onready var _layer_field := $dock_fields/VBoxContainer/extra/sections/layers/section_content/content/layer/options as OptionButton
+@onready var _layer_field := $dock_fields/VBoxContainer/extra/sections/layers/section_content/content/layer/options as VBoxContainer
 @onready var _visible_layers_field :=  $dock_fields/VBoxContainer/extra/sections/layers/section_content/content/visible_layers/CheckBox as CheckBox
 @onready var _ex_pattern_field := $dock_fields/VBoxContainer/extra/sections/layers/section_content/content/ex_pattern/LineEdit as LineEdit
 # slice
@@ -41,6 +43,7 @@ var _interface_section_state
 @onready var _output_section_container := $dock_fields/VBoxContainer/extra/sections/output/section_content as MarginContainer
 @onready var _out_folder_field := $dock_fields/VBoxContainer/extra/sections/output/section_content/content/out_folder/button as Button
 @onready var _out_filename_field := $dock_fields/VBoxContainer/extra/sections/output/section_content/content/out_filename/LineEdit as LineEdit
+@onready var _out_filename_label := $dock_fields/VBoxContainer/extra/sections/output/section_content/content/out_filename/Label as Label
 
 @onready var _import_button := $dock_fields/VBoxContainer/import as Button
 
@@ -54,6 +57,10 @@ const INTERFACE_SECTION_KEY_OUTPUT = "output_section"
 	INTERFACE_SECTION_KEY_OUTPUT: { "header": _output_section_header, "content": _output_section_container},
 }
 
+const PENDING_CHANGES_KEY := "pending_changes"
+
+var _do_not_update_pending := false
+
 func _ready():
 	_pre_setup()
 	_setup_interface()
@@ -61,6 +68,7 @@ func _ready():
 	_setup_field_listeners()
 	_setup()
 	_check_for_changes()
+	_check_for_field_changes()
 
 
 func _check_for_changes():
@@ -76,6 +84,45 @@ func _check_for_changes():
 		$dock_fields.show_source_change_warning()
 
 
+func _check_for_field_changes():
+	var cfg = wizard_config.load_config(target_node)
+	var changed = _get_changed_config(cfg)
+
+	if changed == null or changed.is_empty():
+		$dock_fields.hide_fields_change_warning()
+		_interface_section_state[PENDING_CHANGES_KEY] = {}
+	else:
+		if cfg != null and not cfg.is_empty(): # has saved data
+			$dock_fields.show_fields_change_warning()
+		_interface_section_state[PENDING_CHANGES_KEY] = changed
+
+
+func _update_pending_fields():
+	if _do_not_update_pending:
+		return
+
+	_check_for_field_changes()
+	wizard_config.save_interface_config(target_node, _interface_section_state)
+
+
+func _get_changed_config(saved_config):
+	var current = _get_current_config()
+
+	if saved_config == null:
+		return current if current != null else {}
+
+	if current == null:
+		return {}
+
+	var changed := {}
+
+	for c in current:
+		if saved_config.get(c) != current[c]:
+			changed[c] = current[c]
+
+	return changed
+
+
 func _setup_interface():
 	_hide_fields()
 	_show_specific_fields()
@@ -88,9 +135,26 @@ func _setup_interface():
 		_adjust_section_visibility(key)
 
 
-func _setup_config():
+func _load_persisted_config() -> Dictionary:
 	var cfg = wizard_config.load_config(target_node)
+	var persisted = {}
 	if cfg == null:
+		persisted = {}
+	else:
+		persisted = cfg.duplicate()
+
+	var changed = _interface_section_state.get(PENDING_CHANGES_KEY, {})
+
+	for c in changed:
+		persisted[c] = changed[c]
+
+	return persisted
+
+
+func _setup_config():
+	var cfg = _load_persisted_config()
+
+	if cfg.is_empty():
 		_load_common_default_config()
 	else:
 		_load_common_config(cfg)
@@ -100,13 +164,25 @@ func _load_common_config(cfg):
 	if cfg.has("source"):
 		_set_source(cfg.source)
 
+	# keeping this to be backwards compatible
 	if cfg.get("layer", "") != "":
-		_layer_field.clear()
-		_set_layer(cfg.layer)
+		_layer_field.set_selected_layers([cfg.layer])
+		_update_pending_fields()
+		_out_filename_label.text = _output_filename_prefix_text
+	else:
+		var layers = cfg.get("layers", [])
+		_layer_field.set_selected_layers(layers)
+		if layers.size() > 0:
+			_update_pending_fields()
+		if layers.size() == 1:
+			_out_filename_label.text = _output_filename_prefix_text
 
 	if cfg.get("slice", "") != "":
 		_slice_field.clear()
 		_set_slice(cfg.slice)
+	else:
+		_slice = ""
+		_slice_field.select(0)
 
 	_set_out_folder(cfg.get("o_folder", ""))
 	_out_filename_field.text = cfg.get("o_name", "")
@@ -127,22 +203,20 @@ func _set_source(source):
 	_source = source
 	_source_field.text = _source
 	_source_field.tooltip_text = _source
-
-
-func _set_layer(layer):
-	_layer = layer
-	_layer_field.add_item(_layer)
+	_update_pending_fields()
 
 
 func _set_slice(slice):
 	_slice = slice
 	_slice_field.add_item(_slice)
+	_update_pending_fields()
 
 
 func _set_out_folder(path):
 	_output_folder = path
 	_out_folder_field.text = _output_folder if _output_folder != "" else _out_folder_default
 	_out_folder_field.tooltip_text = _out_folder_field.text
+	_update_pending_fields()
 
 
 func _toggle_section_visibility(key: String) -> void:
@@ -171,8 +245,8 @@ func _setup_field_listeners():
 	_source_field.pressed.connect(_on_source_pressed)
 	_source_field.aseprite_file_dropped.connect(_on_source_aseprite_file_dropped)
 
-	_layer_field.button_down.connect(_on_layer_button_down)
-	_layer_field.item_selected.connect(_on_layer_item_selected)
+	_layer_field.data_fetcher = _fetch_layers
+	_layer_field.value_changed.connect(_on_layer_value_changed)
 
 	_slice_field.button_down.connect(_on_slice_button_down)
 	_slice_field.item_selected.connect(_on_slice_item_selected)
@@ -195,21 +269,24 @@ func _on_output_header_button_down():
 	_toggle_section_visibility(INTERFACE_SECTION_KEY_OUTPUT)
 
 
-func _on_layer_button_down():
+func _fetch_layers():
 	if _source == "":
 		_show_message("Please. Select source file first.")
 		return
 
-	var layers = _get_available_layers(ProjectSettings.globalize_path(_source))
-	_populate_options_field(_layer_field, layers, _layer)
+	return _get_available_layers(ProjectSettings.globalize_path(_source))
 
 
-func _on_layer_item_selected(index):
-	if index == 0:
-		_layer = ""
+func _on_layer_value_changed():
+	var layers: Array = _layer_field.get_selected_layers()
+
+	if layers.size() == 1:
+		_out_filename_label.text = _output_filename_prefix_text
+		_update_pending_fields()
 		return
-	_layer = _layer_field.get_item_text(index)
-	_save_config()
+
+	_out_filename_label.text = _output_filename_text
+	_update_pending_fields()
 
 
 func _on_slice_item_selected(index):
@@ -217,7 +294,7 @@ func _on_slice_item_selected(index):
 		_slice = ""
 		return
 	_slice = _slice_field.get_item_text(index)
-	_save_config()
+	_update_pending_fields()
 
 
 func _on_slice_button_down():
@@ -243,15 +320,13 @@ func _on_slice_button_down():
 func _on_source_pressed():
 	_open_source_dialog()
 
-##
-## Save current import options to node metadata
-##
-func _save_config():
+
+func _get_current_config():
 	var child_config = _get_current_field_values()
 
 	var cfg := {
 		"source": _source,
-		"layer": _layer,
+		"layers": _layer_field.get_selected_layers(),
 		"slice": _slice,
 		"o_folder": _output_folder,
 		"o_name": _out_filename_field.text,
@@ -262,7 +337,16 @@ func _save_config():
 	for c in child_config:
 		cfg[c] = child_config[c]
 
-	wizard_config.save_config(target_node, cfg)
+	return cfg
+
+
+##
+## Save current import options to node metadata
+##
+func _save_config():
+	wizard_config.save_config(target_node, _get_current_config())
+	_update_pending_fields()
+	EditorInterface.mark_scene_as_unsaved()
 
 
 func _get_import_options(default_folder: String):
@@ -271,7 +355,7 @@ func _get_import_options(default_folder: String):
 		"exception_pattern": _ex_pattern_field.text,
 		"only_visible_layers": _visible_layers_field.button_pressed,
 		"output_filename": _out_filename_field.text,
-		"layer": _layer
+		"layers": _layer_field.get_selected_layers()
 	}
 
 
@@ -294,13 +378,13 @@ func _create_aseprite_file_selection():
 
 func _on_aseprite_file_selected(path):
 	_set_source(ProjectSettings.localize_path(path))
-	_save_config()
+	_update_pending_fields()
 	_file_dialog_aseprite.queue_free()
 
 
 func _on_source_aseprite_file_dropped(path):
 	_set_source(path)
-	_save_config()
+	_update_pending_fields()
 
 
 ## Helper method to populate field with values
@@ -338,10 +422,12 @@ func _create_output_folder_selection():
 func _on_output_folder_selected(path):
 	_set_out_folder(path)
 	_output_folder_dialog.queue_free()
+	_update_pending_fields()
 
 
 func _on_out_dir_dropped(path):
 	_set_out_folder(path)
+	_update_pending_fields()
 
 
 func _show_message(message: String):
@@ -349,7 +435,8 @@ func _show_message(message: String):
 	get_parent().add_child(_warning_dialog)
 	_warning_dialog.dialog_text = message
 	_warning_dialog.popup_centered()
-	_warning_dialog.connect("popup_hide",Callable(_warning_dialog,"queue_free"))
+	_warning_dialog.canceled.connect(_warning_dialog.queue_free)
+	_warning_dialog.confirmed.connect(_warning_dialog.queue_free)
 
 
 func _notify_aseprite_error(aseprite_error_code):
@@ -374,10 +461,16 @@ func _on_import_pressed():
 		_importing = false
 		return
 
+	if get_tree().get_edited_scene_root().scene_file_path == "":
+		_show_message("Scene needs to be saved at least once before importing animations")
+		_importing = false
+		return
+
 	await _do_import()
 	_importing = false
 	$dock_fields.hide_source_change_warning()
 	EditorInterface.save_scene()
+
 
 
 # This is a little bit leaky as this base scene contains fields only relevant to animation players.
@@ -386,6 +479,23 @@ func _hide_fields():
 	$dock_fields/VBoxContainer/modes.hide()
 	$dock_fields/VBoxContainer/animation_player.hide()
 	$dock_fields/VBoxContainer/extra/sections/animation.hide()
+	$dock_fields/VBoxContainer/extra/sections/animation_sf.hide()
+
+
+func _on_dock_fields_revert_changes_requested() -> void:
+	$dock_fields.disable_change_notification = true
+	_do_not_update_pending = true
+	_interface_section_state[PENDING_CHANGES_KEY] = {}
+	wizard_config.save_interface_config(target_node, _interface_section_state)
+	_setup_config()
+	$dock_fields.disable_change_notification = false
+	$dock_fields.hide_fields_change_warning()
+	_do_not_update_pending = false
+	EditorInterface.mark_scene_as_unsaved()
+
+
+func _on_dock_fields_field_changed() -> void:
+	_check_for_field_changes()
 
 
 ## this will be called before base class does its setup
