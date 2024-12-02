@@ -912,19 +912,28 @@
 					"dot_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/pumpkins/PumpkinDot.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/pumpkins/PumpkinDot.tscn"
+							}
 						}
 					},
 					"goal_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/fall/Leaf.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/fall/Leaf.tscn"
+							}
 						}
 					},
 					"player_scenes": {
 						"type": "array",
 						"value": {
-							"0": "res://src/themes/fall/Player.tscn"
+							"0": {
+								"type": "string",
+								"value": "res://src/themes/fall/Player.tscn"
+							}
 						}
 					},
 					"puzzle_scene": {

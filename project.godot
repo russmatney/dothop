@@ -30,6 +30,8 @@ Store="*res://src/Store.gd"
 Music="*res://src/Music.gd"
 Sounds="*res://src/Sounds.gd"
 GodotSteam="*res://src/GodotSteam.gd"
+Debug="*res://addons/bones/Debug.gd"
+Juice="*res://addons/bones/Juice.gd"
 
 [display]
 
@@ -39,7 +41,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/bones/plugin.cfg", "res://addons/core/plugin.cfg", "res://addons/dj/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [file_customization]
 
