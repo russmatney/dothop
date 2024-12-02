@@ -33,7 +33,7 @@ jobs:
       - name: Web Build
         run: |
           mkdir -v -p dist/dothop-web
-          godot --headless -v --export-debug dothop-web dist/dothop-web/index.html || exit 0
+          godot --headless -v --export-debug Web dist/dothop-web/index.html || exit 0
       - name: Sanity check
         run: |
           ls -alh dist/
