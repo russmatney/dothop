@@ -412,9 +412,14 @@ func node_for_object_name(obj_name):
 	var t = obj_type.get(obj_name)
 	if t != null and "type" in node:
 		node.type = t
+		if node.has_signal("dot_pressed"):
+			node.dot_pressed.connect(on_dot_pressed.bind(t, node))
 	elif obj_name not in ["Player"]:
 		Log.warn("no type for object?", obj_name)
 	return node
+
+func on_dot_pressed(type, node):
+	Log.info(type, "dot pressed", node)
 
 ## custom nodes ##############################################################
 

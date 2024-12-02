@@ -14,6 +14,9 @@ var display_name = "dot"
 
 var label
 var color_rect
+var area
+
+signal dot_pressed
 
 ## Log.pp #########################################################
 
@@ -24,9 +27,22 @@ func data():
 
 func _ready():
 	U.set_optional_nodes(self, {
-		label="ObjectLabel", color_rect="ColorRect"})
+		label="ObjectLabel", color_rect="ColorRect",
+		area="Area2D"})
+
+	if area == null:
+		ensure_area()
 
 	render()
+
+func ensure_area():
+	var rect = Rect2(Vector2.ONE * square_size / -2.0, Vector2.ONE * square_size)
+	area = Reptile.to_area2D(null, rect)
+	area.input_event.connect(func(_viewport, event, _shape_idx):
+		if Trolls.is_tap(event) or Trolls.is_click(event):
+			dot_pressed.emit()
+		)
+	add_child(area)
 
 ## set_initial_coord #########################################################
 

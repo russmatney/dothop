@@ -81,6 +81,14 @@ static func is_restart_released(event):
 static func is_undo(event):
 	return is_event(event, "ui_undo")
 
+static func is_click(event):
+	# released left-click
+	return event is InputEventMouseButton and not event.is_pressed() and event.get_button_index() == 1
+
+static func is_tap(event):
+	# lifted finger
+	return event is InputEventScreenTouch and not event.is_pressed() and event.get_index() == 0
+
 static func is_accept(event):
 	return is_event(event, "ui_accept")
 
