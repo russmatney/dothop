@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=3 uid="uid://cl82y6gylisqo"]
 
 [ext_resource type="Script" path="res://src/themes/dots/Dot.gd" id="1_pofn5"]
-[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/core/assets/fonts/at01.ttf" id="2_4n18a"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="2_4n18a"]
 [ext_resource type="Texture2D" uid="uid://mqp6x6wpgjc8" path="res://src/themes/dots/blue_ring.png" id="3_gt0f5"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_pshfs"]

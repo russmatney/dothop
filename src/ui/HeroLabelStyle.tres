@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=2 format=3 uid="uid://ckbpwodffr03"]
 
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_g5tfq"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="1_g5tfq"]
 
 [resource]
 RichTextLabel/colors/default_color = Color(0.0823529, 0.419608, 0.635294, 1)

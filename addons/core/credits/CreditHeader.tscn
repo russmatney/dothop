@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://bt8n3px2vu7vp"]
 
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="1_mnlnj"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="1_mnlnj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m25he"]
 content_margin_left = 10.0

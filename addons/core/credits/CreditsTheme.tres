@@ -1,6 +1,6 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://ce80gjswvmncn"]
 
-[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/core/assets/fonts/Born2bSportyV2.ttf" id="2_j8hc4"]
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="2_j8hc4"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_m25he"]
 content_margin_left = 10.0
