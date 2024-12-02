@@ -211,12 +211,13 @@ func show_puzzle_set(puzzle_set):
 	puzzle_set_icon.modulate.a = 0.0
 
 	if next_puzzle_icon:
-		U.call_in(0.4, self, func():
+		U.call_in(self, func():
 			if next_puzzle_icon:
 				move_puzzle_cursor(next_puzzle_icon, {no_move=true})
 			# if nothing has focus, grab it here
 			if not is_something_focused():
-				next_puzzle_icon.grab_focus.call_deferred())
+				next_puzzle_icon.grab_focus.call_deferred(),
+			0.4)
 		# wait a frame in an attempt to quickly grab focus
 		await get_tree().process_frame
 		next_puzzle_icon.grab_focus.call_deferred()
@@ -226,8 +227,9 @@ func show_puzzle_set(puzzle_set):
 		elif not previous_puzzle_set_button.is_disabled():
 			previous_puzzle_set_button.grab_focus()
 
-		U.call_in(0.4, self, func():
-			move_puzzle_cursor(first_puzzle_icon))
+		U.call_in(self, func():
+			move_puzzle_cursor(first_puzzle_icon),
+			0.4)
 
 ## puzzle cursor ################################################
 

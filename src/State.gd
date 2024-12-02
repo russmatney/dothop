@@ -19,7 +19,9 @@ func apply_events(events):
 	Log.prn("applying %s events, including" % len(events),
 		events.filter(func(ev):
 			return not ev is PuzzleCompleted)\
-		.map(func(e): return e.get_display_name()))
+		.map(func(e):
+			if e == null: return "Null Event"
+			return e.get_display_name()))
 
 	for event in events:
 		apply_event(event)

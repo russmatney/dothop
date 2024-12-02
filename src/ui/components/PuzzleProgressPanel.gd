@@ -88,7 +88,8 @@ func render(opts):
 	if start_puzzle_icon and end_puzzle_icon:
 		# ugh, this hard-coded time is gross....
 		# needs to let the resizing and toasting run first
-		U.call_in(0.8, self, func(): move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}))
+		U.call_in(self, func(): move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}),
+			0.8)
 
 	rendered.emit()
 
