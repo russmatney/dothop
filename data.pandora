@@ -109,6 +109,10 @@
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/DebugThemeData.tres"
 					}
 				}
 			},
@@ -131,15 +135,6 @@
 						"type": "resource",
 						"value": "res://src/themes/dots/assets/blue_ring3.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/dots/Dot.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/dots/assets/blue_ring2.png"
@@ -147,15 +142,6 @@
 					"goal_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/dots/assets/blue_ring1.png"
-					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/dots/Dot.tscn"
-							}
-						}
 					},
 					"is_unlocked": {
 						"type": "bool",
@@ -165,18 +151,13 @@
 						"type": "resource",
 						"value": "res://src/themes/dots/dots_player.png"
 					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/dots/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/dots/DotsPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/dots/DotsThemeData.tres"
 					}
 				}
 			},
@@ -195,15 +176,6 @@
 						"type": "resource",
 						"value": "res://src/themes/space/assets/asteroid_2.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/space/Dot.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/space/assets/asteroid_2-dotted.png"
@@ -212,44 +184,21 @@
 						"type": "resource",
 						"value": "res://src/themes/space/assets/goal.png"
 					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/space/Dot.tscn"
-							}
-						}
-					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
-					},
-					"music_tracks": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"
-							}
-						}
 					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/space/assets/ufo.png"
 					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/space/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/space/SpacePuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/space/SpaceThemeData.tres"
 					}
 				}
 			},
@@ -268,15 +217,6 @@
 						"type": "resource",
 						"value": "res://src/themes/fall/assets/leaf_greenred.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/fall/Leaf.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/fall/assets/leaf_greenred_dotted.png"
@@ -285,44 +225,21 @@
 						"type": "resource",
 						"value": "res://src/themes/fall/assets/leaf_goal.png"
 					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/fall/Leaf.tscn"
-							}
-						}
-					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
-					},
-					"music_tracks": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"
-							}
-						}
 					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/fall/assets/player.png"
 					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/fall/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/fall/FallPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/fall/FallThemeData.tres"
 					}
 				}
 			},
@@ -487,15 +404,6 @@
 						"type": "resource",
 						"value": "res://src/themes/winter/assets/dot.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/winter/Dot.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/winter/assets/dot-dotted.png"
@@ -504,40 +412,13 @@
 						"type": "resource",
 						"value": "res://src/themes/winter/goal.png"
 					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/winter/Goal.tscn"
-							}
-						}
-					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
 					},
-					"music_tracks": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://assets/songs/benburnes/Abstraction - Lounge Groove LOOP.ogg"
-							}
-						}
-					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/winter/assets/player.png"
-					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/winter/Player.tscn"
-							}
-						}
 					},
 					"puzzle_scene": {
 						"type": "resource",
@@ -564,15 +445,6 @@
 						"type": "resource",
 						"value": "res://src/themes/spring/assets/dot.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/spring/Dot.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/spring/assets/goal.png"
@@ -581,44 +453,21 @@
 						"type": "resource",
 						"value": "res://src/themes/spring/goal.png"
 					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/spring/Goal.tscn"
-							}
-						}
-					},
 					"is_unlocked": {
 						"type": "bool",
 						"value": true
-					},
-					"music_tracks": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://assets/songs/benburnes/The Verdant Grove LOOP.wav"
-							}
-						}
 					},
 					"player_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/spring/assets/player.png"
 					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/spring/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/spring/SpringPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/spring/SpringThemeData.tres"
 					}
 				}
 			},
@@ -641,15 +490,6 @@
 						"type": "resource",
 						"value": "res://src/themes/summer/assets/dot.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/summer/Dot.tscn"
-							}
-						}
-					},
 					"dotted_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/summer/assets/dot-dotted.png"
@@ -657,15 +497,6 @@
 					"goal_icon_texture": {
 						"type": "resource",
 						"value": "res://src/themes/summer/goal.png"
-					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/summer/Goal.tscn"
-							}
-						}
 					},
 					"is_unlocked": {
 						"type": "bool",
@@ -675,18 +506,13 @@
 						"type": "resource",
 						"value": "res://src/themes/summer/assets/player.png"
 					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/summer/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/summer/SummerPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/summer/SummerThemeData.tres"
 					}
 				}
 			},
@@ -909,36 +735,13 @@
 						"type": "resource",
 						"value": "res://src/themes/pumpkins/pumpkin.png"
 					},
-					"dot_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/pumpkins/PumpkinDot.tscn"
-							}
-						}
-					},
-					"goal_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/fall/Leaf.tscn"
-							}
-						}
-					},
-					"player_scenes": {
-						"type": "array",
-						"value": {
-							"0": {
-								"type": "string",
-								"value": "res://src/themes/fall/Player.tscn"
-							}
-						}
-					},
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/pumpkins/PumpkinsPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/pumpkins/PumpkinsThemeData.tres"
 					}
 				}
 			}
@@ -1065,33 +868,6 @@
 			},
 			{
 				"_category_id": "3",
-				"_default_value": {
-
-				},
-				"_id": "47",
-				"_name": "player_scenes",
-				"_type": "array"
-			},
-			{
-				"_category_id": "3",
-				"_default_value": {
-
-				},
-				"_id": "48",
-				"_name": "dot_scenes",
-				"_type": "array"
-			},
-			{
-				"_category_id": "3",
-				"_default_value": {
-
-				},
-				"_id": "49",
-				"_name": "goal_scenes",
-				"_type": "array"
-			},
-			{
-				"_category_id": "3",
 				"_default_value": "res://assets/songs/sulosounds/chill-electric-background.wav",
 				"_id": "50",
 				"_name": "background_music",
@@ -1164,15 +940,6 @@
 				"_type": "resource"
 			},
 			{
-				"_category_id": "3",
-				"_default_value": {
-
-				},
-				"_id": "62",
-				"_name": "music_tracks",
-				"_type": "array"
-			},
-			{
 				"_category_id": "1",
 				"_default_value": false,
 				"_id": "63",
@@ -1209,12 +976,19 @@
 					"Min Value": 0
 				},
 				"_type": "int"
+			},
+			{
+				"_category_id": "3",
+				"_default_value": null,
+				"_id": "71",
+				"_name": "puzzle_theme_data",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 70
+			"default": 71
 		}
 	}
 }

@@ -14,26 +14,13 @@ func is_unlocked() -> bool:
 	return get_bool("is_unlocked")
 
 func get_player_scenes() -> Array[PackedScene]:
-	var arr = get_array("player_scenes")
-	var ar: Array[PackedScene] = []
-	for a in arr:
-		var sc = load(a)
-		ar.append(sc)
-	return ar
+	return get_theme_data().player_scenes
 
 func get_dot_scenes() -> Array[PackedScene]:
-	var arr = get_array("dot_scenes")
-	var ar: Array[PackedScene] = []
-	for a in arr:
-		ar.append(load(a))
-	return ar
+	return get_theme_data().dot_scenes
 
 func get_goal_scenes() -> Array[PackedScene]:
-	var arr = get_array("goal_scenes")
-	var ar: Array[PackedScene] = []
-	for a in arr:
-		ar.append(load(a))
-	return ar
+	return get_theme_data().goal_scenes
 
 func get_background_music() -> AudioStream:
 	return get_resource("background_music")
@@ -51,7 +38,7 @@ func get_goal_icon() -> Texture:
 	return get_resource("goal_icon_texture")
 
 func get_music_tracks() -> Array[AudioStream]:
-	var track_strs = get_array("music_tracks")
+	var track_strs = get_theme_data().music_tracks
 	var tracks: Array[AudioStream] = []
 	for t in track_strs:
 		if ResourceLoader.exists(t, "AudioStream"):
@@ -64,6 +51,9 @@ func get_music_tracks() -> Array[AudioStream]:
 		if bg:
 			tracks.append(bg)
 	return tracks
+
+func get_theme_data() -> PuzzleThemeData:
+	return get_resource("puzzle_theme_data")
 
 ## all properties (consumed by Log.gd) #################
 

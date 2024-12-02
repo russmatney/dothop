@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=4 format=3 uid="uid://cjl7cgvtofdcc"]
+
+[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_ughi5"]
+[ext_resource type="PackedScene" uid="uid://bmm1270drou5v" path="res://src/themes/space/Dot.tscn" id="1_uy3vh"]
+[ext_resource type="PackedScene" uid="uid://csgpsdj4n3rfj" path="res://src/themes/space/Player.tscn" id="2_onk3e"]
+
+[resource]
+script = ExtResource("1_ughi5")
+player_scenes = Array[PackedScene]([ExtResource("2_onk3e")])
+dot_scenes = Array[PackedScene]([ExtResource("1_uy3vh")])
+goal_scenes = Array[PackedScene]([ExtResource("1_uy3vh")])
+music_tracks = Array[String](["res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"])

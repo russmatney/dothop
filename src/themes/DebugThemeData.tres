@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=2 format=3 uid="uid://vc64ajdhnluf"]
+
+[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_567u7"]
+
+[resource]
+script = ExtResource("1_567u7")
+player_scenes = Array[PackedScene]([])
+dot_scenes = Array[PackedScene]([])
+goal_scenes = Array[PackedScene]([])
