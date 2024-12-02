@@ -9,13 +9,13 @@ script = ExtResource("1_l8wxo")
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_left = -8.0
 offset_top = -7.0
-offset_right = 8.0
-offset_bottom = 9.0
+offset_right = 24.0
+offset_bottom = 25.0
 color = Color(1, 1, 0, 1)
 
 [node name="ObjectLabel" type="RichTextLabel" parent="."]
 clip_contents = false
-custom_minimum_size = Vector2(16, 16)
+custom_minimum_size = Vector2(32, 32)
 offset_left = -19.0
 offset_top = -19.0
 offset_right = 21.0
