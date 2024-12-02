@@ -18,7 +18,7 @@ const DEVICE_GENERIC = "generic"
 const XBOX_BUTTON_LABELS = ["A", "B", "X", "Y", "Back", "Home", "Menu", "Left Stick", "Right Stick", "Left Shoulder", "Right Shoulder", "Up", "Down", "Left", "Right", "Share"]
 const SWITCH_BUTTON_LABELS = ["B", "A", "Y", "X", "-", "", "+", "Left Stick", "Right Stick", "Left Shoulder", "Right Shoulder", "Up", "Down", "Left", "Right", "Capture"]
 const PLAYSTATION_BUTTON_LABELS = ["Cross", "Circle", "Square", "Triangle", "Select", "PS", "Options", "L3", "R3", "L1", "R1", "Up", "Down", "Left", "Right", "Microphone"]
-
+const STEAMDECK_BUTTON_LABELS = ["A", "B", "X", "Y", "View", "?", "Options", "Left Stick", "Right Stick", "Left Shoulder", "Right Shoulder", "Up", "Down", "Left", "Right"]
 
 @onready var device: String = guess_device_name()
 @onready var device_index: int = 0 if has_joypad() else -1
@@ -63,13 +63,16 @@ func _input(event: InputEvent) -> void:
 # Convert a Godot device identifier to a simplified string
 func get_simplified_device_name(raw_name: String) -> String:
 	match raw_name:
-		"XInput Gamepad", "Xbox Series Controller", "Xbox 360 Controller", \
+		"XInput Gamepad", "Xbox Series Controller", "Xbox 360 Controller", "Xbox Wireless Controller", \
 		"Xbox One Controller":
 			return DEVICE_XBOX_CONTROLLER
 
 		"Sony DualSense", "PS5 Controller", "PS4 Controller", \
 		"Nacon Revolution Unlimited Pro Controller":
 			return DEVICE_PLAYSTATION_CONTROLLER
+
+		"Steam Virtual Gamepad":
+			return DEVICE_STEAMDECK_CONTROLLER
 
 		"Switch":
 			return DEVICE_SWITCH_CONTROLLER
@@ -155,7 +158,7 @@ func get_label_for_input(input: InputEvent) -> String:
 				return "Mouse Middle Button"
 			MOUSE_BUTTON_RIGHT:
 				return "Mouse Right Button"
-		return "Mouse Button %d" % input
+		return "Mouse Button %d" % input.button_index
 
 	elif input is InputEventJoypadButton:
 		match device:
@@ -165,6 +168,9 @@ func get_label_for_input(input: InputEvent) -> String:
 				return "%s Button" % SWITCH_BUTTON_LABELS[input.button_index]
 			DEVICE_PLAYSTATION_CONTROLLER:
 				return "%s Button" % PLAYSTATION_BUTTON_LABELS[input.button_index]
+			DEVICE_STEAMDECK_CONTROLLER:
+				return "%s Button" % STEAMDECK_BUTTON_LABELS[input.button_index]
+
 	elif input is InputEventJoypadMotion:
 		var motion: InputEventJoypadMotion = input as InputEventJoypadMotion
 		match motion.axis:
