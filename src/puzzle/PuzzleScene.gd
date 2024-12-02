@@ -247,8 +247,9 @@ func undo_pressed():
 var block_move
 var last_move
 
-func check_move_input(event=null):
-	var move_vec = Trolls.grid_move_vector(event)
+func check_move_input(event=null, move_vec=null):
+	if move_vec == null:
+		move_vec = Trolls.grid_move_vector(event)
 
 	if move_vec != last_move:
 		# allow moving in a new direction
@@ -270,6 +271,24 @@ func restart_block_move_timer(t=0.2):
 	block_move_timer.tween_callback(func():
 		block_move = false
 		check_move_input()).set_delay(t)
+
+func on_dot_pressed(_type, node):
+	# calc move_vec for tapped dot with first player
+	var first_player_coord = null
+	for p in state.players:
+		if p.coord:
+			first_player_coord = p.coord
+			break
+	if first_player_coord == null:
+		Log.warn("Cannot move to dot, no player coord found")
+		return
+
+	var move_vec = node.current_coord - first_player_coord
+	if move_vec.x == 0 or move_vec.y == 0:
+		check_move_input(null, move_vec.normalized())
+	else:
+		Log.info("Cannot move to dot", node, node.current_coord)
+
 
 ## state/grid ##############################################################
 
@@ -418,9 +437,6 @@ func node_for_object_name(obj_name):
 		Log.warn("no type for object?", obj_name)
 	return node
 
-func on_dot_pressed(type, node):
-	Log.info(type, "dot pressed", node)
-
 ## custom nodes ##############################################################
 
 func get_scene_for(obj_name):
@@ -468,7 +484,7 @@ func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 		return []
 	var cells = []
 	var cursor = coord + dir
-	var last_cursor
+	var last_cursor = null
 	while coord_in_grid(cursor) and last_cursor != cursor:
 		cells.append(cell_at_coord(cursor))
 		last_cursor = cursor
