@@ -24,8 +24,13 @@ var show_on_actor: bool = true
 
 func get_label():
 	if label_fn:
-		return label_fn.call()
-	return label
+		var lbl = label_fn.call()
+		if lbl:
+			return lbl
+	if label:
+		return label
+	Log.warn("No label specified for action", self)
+	return "action"
 
 #################################################################
 # to string

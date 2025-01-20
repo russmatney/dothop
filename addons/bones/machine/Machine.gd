@@ -123,6 +123,16 @@ func transit(target_state_name: String, ctx: Dictionary = {}):
 	next_state = null
 	is_transitioning = false
 
+# does nothing if the passed state name is already the state
+# (should this be the default behavior?)
+func transit_if_new(target_state_name: String, ctx: Dictionary = {}):
+	if state.name == target_state_name:
+		return
+	transit(target_state_name, ctx)
+
+func is_in_state(state_name: String) -> bool:
+	return state.name == state_name
+
 ## input #####################################################################
 
 func _unhandled_input(ev):
