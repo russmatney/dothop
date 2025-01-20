@@ -25,7 +25,7 @@ class CLIRunner:
 
 	var _state := READY
 	var _test_suites_to_process: Array
-	var _executor :Variant
+	var _executor: GdUnitTestSuiteExecutor
 	var _cs_executor :Variant
 	var _report: GdUnitHtmlReport
 	var _report_dir: String
@@ -104,12 +104,17 @@ class CLIRunner:
 
 
 	func _ready() -> void:
+		if Engine.get_version_info().hex < 0x40300:
+			_console.prints_error("The GdUnit4 plugin requires Godot version 4.3 or higher to run.")
+			quit(RETURN_ERROR_GODOT_VERSION_NOT_SUPPORTED)
+			return
 		_state = INIT
+
 		_report_dir = GdUnitFileAccess.current_dir() + "reports"
 		_executor = GdUnitTestSuiteExecutor.new()
 		# stop checked first test failure to fail fast
 		@warning_ignore("unsafe_cast")
-		(_executor as GdUnitTestSuiteExecutor).fail_fast(true)
+		_executor.fail_fast(true)
 		if GdUnit4CSharpApiLoader.is_mono_supported():
 			prints("GdUnit4Net version '%s' loaded." % GdUnit4CSharpApiLoader.version())
 			_cs_executor = GdUnit4CSharpApiLoader.create_executor(self)
@@ -125,7 +130,6 @@ class CLIRunner:
 			prints("Finallize .. done")
 
 
-	@warning_ignore("unsafe_method_access")
 	func _process(_delta :float) -> void:
 		match _state:
 			INIT:
@@ -140,10 +144,13 @@ class CLIRunner:
 					# process next test suite
 					var test_suite: Node = _test_suites_to_process.pop_front()
 
+					@warning_ignore("unsafe_method_access")
 					if _cs_executor != null and _cs_executor.IsExecutable(test_suite):
+						@warning_ignore("unsafe_method_access")
 						_cs_executor.Execute(test_suite)
 						await _cs_executor.ExecutionCompleted
 					else:
+						@warning_ignore("unsafe_call_argument")
 						await _executor.execute(test_suite)
 					set_process(true)
 			STOP:
@@ -611,10 +618,6 @@ var _cli_runner :CLIRunner
 
 
 func _initialize() -> void:
-	if Engine.get_version_info().hex < 0x40200:
-		prints("GdUnit4 requires a minimum of Godot 4.2.x Version!")
-		quit(CLIRunner.RETURN_ERROR_GODOT_VERSION_NOT_SUPPORTED)
-		return
 	DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MINIMIZED)
 	_cli_runner = CLIRunner.new()
 	root.add_child(_cli_runner)
