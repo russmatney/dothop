@@ -7,7 +7,7 @@
 [ext_resource type="Theme" uid="uid://biwc2va0xo5y6" path="res://src/ui/SunburstHeaderText.tres" id="4_kr6yf"]
 [ext_resource type="Theme" uid="uid://csu2vx7hyhrig" path="res://src/ui/SunburstBodyText.tres" id="5_8b3k6"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="7_0hoq7"]
-[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="8_4yivn"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="8_4yivn"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvqjg"]
 

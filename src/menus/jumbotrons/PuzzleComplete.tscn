@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_ybq7j"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="3_7lcnl"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://src/menus/controls/ActionInputIcon.tscn" id="4_m6plc"]
-[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/ui/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_hn0bi"]
+[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_hn0bi"]
 [ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_6i7hg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyat3"]
