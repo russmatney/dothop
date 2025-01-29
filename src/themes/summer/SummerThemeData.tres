@@ -1,12 +1,25 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=5 format=3 uid="uid://3ojwqfn7ar0v"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=10 format=3 uid="uid://3ojwqfn7ar0v"]
 
 [ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/summer/Dot.tscn" id="1_2wvlr"]
+[ext_resource type="Texture2D" uid="uid://b2ug20o8rmf7e" path="res://src/themes/summer/assets/dot.png" id="1_u7tjx"]
 [ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_ut62m"]
 [ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/summer/Goal.tscn" id="2_8gohi"]
+[ext_resource type="Texture2D" uid="uid://dudiwc3mb25i6" path="res://src/themes/summer/assets/dot-dotted.png" id="3_blvlb"]
 [ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/summer/Player.tscn" id="3_dw813"]
+[ext_resource type="PackedScene" uid="uid://crq5eh3kjrx0s" path="res://src/themes/summer/SummerPuzzle.tscn" id="4_qeu6c"]
+[ext_resource type="Texture2D" uid="uid://b3aeinup1bxe7" path="res://src/themes/summer/assets/goal.png" id="4_wljcv"]
+[ext_resource type="Texture2D" uid="uid://b8ntebmrf1cok" path="res://src/themes/summer/assets/player.png" id="6_emd31"]
 
 [resource]
 script = ExtResource("1_ut62m")
+display_name = "Summer"
+puzzle_scene = ExtResource("4_qeu6c")
 player_scenes = Array[PackedScene]([ExtResource("3_dw813")])
 dot_scenes = Array[PackedScene]([ExtResource("1_2wvlr")])
 goal_scenes = Array[PackedScene]([ExtResource("2_8gohi")])
+player_icon = ExtResource("6_emd31")
+dot_icon = ExtResource("1_u7tjx")
+dotted_icon = ExtResource("3_blvlb")
+goal_icon = ExtResource("4_wljcv")
+music_tracks = Array[String](["res://assets/songs/sulosounds/funk-till-five-loop.wav"])
+is_unlocked = false

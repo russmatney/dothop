@@ -4,7 +4,7 @@ class_name GameDef
 
 ## vars ########################################3333
 
-var puzzles = []
+var puzzles: Array[PuzzleDef] = []
 var legend: Dictionary
 var meta: Dictionary
 var raw: Dictionary
@@ -12,16 +12,16 @@ var path: String
 
 ## init ########################################3333
 
-func _init(_path, parsed: Dictionary):
+func _init(_path: String, parsed: Dictionary) -> void:
 	if _path:
 		path = _path
 	raw = parsed
 	legend = parsed.legend
-	puzzles = parsed.puzzles.map(func(puzzle): return PuzzleDef.new(puzzle))
+	puzzles.assign(parsed.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef: return PuzzleDef.new(puzzle)))
 
-## log.data() ########################################3333
+## to_pretty ########################################3333
 
-func data():
+func to_pretty() -> Dictionary:
 	return {path=path, obj=str(self), puzzles=len(puzzles)}
 
 ## helpers ########################################3333

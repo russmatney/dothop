@@ -2,8 +2,58 @@
 extends Resource
 class_name PuzzleThemeData
 
+@export var display_name: String
+
+@export var puzzle_scene: PackedScene
 @export var player_scenes: Array[PackedScene]
 @export var dot_scenes: Array[PackedScene]
 @export var goal_scenes: Array[PackedScene]
 
+@export var player_icon: Texture
+@export var dot_icon: Texture
+@export var dotted_icon: Texture
+@export var goal_icon: Texture
+
+# TODO assign AudioStreams directly?
 @export var music_tracks: Array[String]
+
+@export var is_unlocked: bool = false
+
+## to_pretty ##############################
+
+func to_pretty() -> Dictionary:
+	return {
+		puzzle_scene=puzzle_scene,
+		name=display_name,
+		is_unlocked=is_unlocked,
+		player_scenes=len(player_scenes),
+		dot_scenes=len(dot_scenes),
+		goal_scenes=len(goal_scenes),
+		}
+
+## unlock ##############################
+
+# TODO probably this flag shouldn't live on the theme data! should be some other store
+func unlock() -> void:
+	is_unlocked = true
+	# https://docs.godotengine.org/en/stable/classes/class_resource.html#class-resource-signal-changed
+	# should we do this in a setter?
+	emit_changed()
+
+## get_music_tracks ##############################
+
+# should we do this in the music-tracks getter?
+func get_music_tracks() -> Array[AudioStream]:
+	var tracks: Array[AudioStream] = []
+	for t: String in music_tracks:
+		if ResourceLoader.exists(t, "AudioStream"):
+			var track: AudioStream = ResourceLoader.load(t, "AudioStream")
+			tracks.append(track)
+		else:
+			Log.warn("theme music track does not exist!", t)
+	# TODO restore a fallback
+	# if len(tracks) == 0:
+	# 	var bg = get_background_music()
+	# 	if bg:
+	# 		tracks.append(bg)
+	return tracks

@@ -1,5 +1,6 @@
 @tool
 extends Jumbotron
+class_name PuzzleUnlocked
 
 ## vars ############################################################
 

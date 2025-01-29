@@ -61,10 +61,6 @@ func data():
 	return {
 		puzzle_scene=get_puzzle_scene(),
 		name=get_display_name(),
-		is_unlocked=is_unlocked(),
-		player_scenes=len(get_player_scenes()),
-		dot_scenes=len(get_dot_scenes()),
-		goal_scenes=len(get_goal_scenes()),
 		}
 
 ## computed ############################################

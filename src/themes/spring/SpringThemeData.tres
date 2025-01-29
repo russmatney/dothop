@@ -1,13 +1,25 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=5 format=3 uid="uid://cl2l1ysdmee75"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=10 format=3 uid="uid://cl2l1ysdmee75"]
 
 [ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_byehf"]
+[ext_resource type="Texture2D" uid="uid://bhormuyooit3b" path="res://src/themes/spring/assets/dot.png" id="1_lyo2k"]
 [ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/spring/Dot.tscn" id="1_tg3rl"]
 [ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/spring/Goal.tscn" id="2_axqgo"]
+[ext_resource type="Texture2D" uid="uid://bx632elbmp40w" path="res://src/themes/spring/assets/dot-dotted.png" id="3_nlqja"]
 [ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/spring/Player.tscn" id="3_vuc8k"]
+[ext_resource type="PackedScene" uid="uid://crq5eh3kjrx0s" path="res://src/themes/spring/SpringPuzzle.tscn" id="4_c25aj"]
+[ext_resource type="Texture2D" uid="uid://bv372p4l6y6ow" path="res://src/themes/spring/assets/goal.png" id="4_wif7w"]
+[ext_resource type="Texture2D" uid="uid://dqyug4lfrx6l3" path="res://src/themes/spring/assets/player.png" id="6_qmnvj"]
 
 [resource]
 script = ExtResource("1_byehf")
+display_name = "Spring"
+puzzle_scene = ExtResource("4_c25aj")
 player_scenes = Array[PackedScene]([ExtResource("3_vuc8k")])
 dot_scenes = Array[PackedScene]([ExtResource("1_tg3rl")])
 goal_scenes = Array[PackedScene]([ExtResource("2_axqgo")])
+player_icon = ExtResource("6_qmnvj")
+dot_icon = ExtResource("1_lyo2k")
+dotted_icon = ExtResource("3_nlqja")
+goal_icon = ExtResource("4_wif7w")
 music_tracks = Array[String](["res://assets/songs/benburnes/The Verdant Grove LOOP.wav"])
+is_unlocked = null

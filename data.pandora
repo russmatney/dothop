@@ -423,6 +423,10 @@
 					"puzzle_scene": {
 						"type": "resource",
 						"value": "res://src/themes/winter/WinterPuzzle.tscn"
+					},
+					"puzzle_theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/winter/WinterThemeData.tres"
 					}
 				}
 			},

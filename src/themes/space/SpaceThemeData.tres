@@ -1,12 +1,24 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=4 format=3 uid="uid://cjl7cgvtofdcc"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://cjl7cgvtofdcc"]
 
+[ext_resource type="Texture2D" uid="uid://oau7lbxvg455" path="res://src/themes/space/assets/asteroid_2.png" id="1_8vw2e"]
 [ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_ughi5"]
 [ext_resource type="PackedScene" uid="uid://bmm1270drou5v" path="res://src/themes/space/Dot.tscn" id="1_uy3vh"]
 [ext_resource type="PackedScene" uid="uid://csgpsdj4n3rfj" path="res://src/themes/space/Player.tscn" id="2_onk3e"]
+[ext_resource type="Texture2D" uid="uid://8roxodr8ivic" path="res://src/themes/space/assets/asteroid_2-dotted.png" id="3_blsb1"]
+[ext_resource type="PackedScene" uid="uid://cggxk31fgnci7" path="res://src/themes/space/SpacePuzzle.tscn" id="3_vruqi"]
+[ext_resource type="Texture2D" uid="uid://dwim4t4tkxx10" path="res://src/themes/space/assets/goal.png" id="4_g62d0"]
+[ext_resource type="Texture2D" uid="uid://bbmgg6l2xoau7" path="res://src/themes/space/assets/ufo.png" id="5_esxj5"]
 
 [resource]
 script = ExtResource("1_ughi5")
+display_name = "Space"
+puzzle_scene = ExtResource("3_vruqi")
 player_scenes = Array[PackedScene]([ExtResource("2_onk3e")])
 dot_scenes = Array[PackedScene]([ExtResource("1_uy3vh")])
 goal_scenes = Array[PackedScene]([ExtResource("1_uy3vh")])
+player_icon = ExtResource("5_esxj5")
+dot_icon = ExtResource("1_8vw2e")
+dotted_icon = ExtResource("3_blsb1")
+goal_icon = ExtResource("4_g62d0")
 music_tracks = Array[String](["res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"])
+is_unlocked = false

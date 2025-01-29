@@ -1,0 +1,12 @@
+#+title: Todo
+
+* [-] refactor puzzleTheme into custom resources
+handle save events (theme_id) across transition/refactor
+* [ ] refactor puzzleSet into custom resources
+handle save events (puzzle_id) across transition/refactor
+* [ ] animate (shake) available next-dots
+* [ ] rewrite menu/world map
+* bugs
+** [ ] restore pause
+** [ ] tap/click to advance on 'new-puzzle-unlocked scenes'
+* [ ] v2 'Dots' theme art

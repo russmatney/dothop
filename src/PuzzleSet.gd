@@ -57,22 +57,23 @@ func data():
 var game_def: GameDef
 
 # returns a cached game_def, or parses a new one
-func get_game_def():
+func get_game_def() -> GameDef:
 	if game_def != null:
 		return game_def
 
 	game_def = Puzz.parse_game_def(get_puzzle_script_path())
 	return game_def
 
-func get_puzzles():
-	return get_game_def().puzzles.filter(func(puzz): return puzz.shape)
+func get_puzzles() -> Array[PuzzleDef]:
+	return get_game_def().puzzles.filter(func(puzz: PuzzleDef) -> bool: return puzz.shape != null)
 
-func get_puzzle(idx: int):
-	var puzzs = get_puzzles()
+func get_puzzle(idx: int) -> PuzzleDef:
+	var puzzs: Array[PuzzleDef] = get_puzzles()
 	if idx < len(puzzs):
 		return puzzs[idx]
 	else:
 		Log.warn("Requested out of range puzzle index", idx, self)
+		return
 
 # Attach an "analysis" to each level_def (game_def.puzzles[])
 # returns the game_def

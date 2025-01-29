@@ -1,11 +1,24 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=4 format=3 uid="uid://dttbuv6lqqjdq"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://dttbuv6lqqjdq"]
 
 [ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_d2pp1"]
 [ext_resource type="PackedScene" uid="uid://cl82y6gylisqo" path="res://src/themes/dots/Dot.tscn" id="1_ouvcn"]
+[ext_resource type="Texture2D" uid="uid://da02w71vfab6o" path="res://src/themes/dots/assets/blue_ring1.png" id="1_wotl1"]
 [ext_resource type="PackedScene" uid="uid://cifvwoalwila" path="res://src/themes/dots/Player.tscn" id="2_8kh3e"]
+[ext_resource type="Texture2D" uid="uid://bbgjbmgqhuton" path="res://src/themes/dots/assets/blue_ring2.png" id="3_e6kct"]
+[ext_resource type="PackedScene" uid="uid://qkaayvt6sph0" path="res://src/themes/dots/DotsPuzzle.tscn" id="3_nc3eo"]
+[ext_resource type="Texture2D" uid="uid://qf1ybffqg7pd" path="res://src/themes/dots/assets/blue_ring3.png" id="4_l73ry"]
+[ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="5_rglfg"]
 
 [resource]
 script = ExtResource("1_d2pp1")
+display_name = "Dots"
+puzzle_scene = ExtResource("3_nc3eo")
 player_scenes = Array[PackedScene]([ExtResource("2_8kh3e")])
 dot_scenes = Array[PackedScene]([ExtResource("1_ouvcn")])
 goal_scenes = Array[PackedScene]([ExtResource("1_ouvcn")])
+player_icon = ExtResource("5_rglfg")
+dot_icon = ExtResource("1_wotl1")
+dotted_icon = ExtResource("3_e6kct")
+goal_icon = ExtResource("4_l73ry")
+music_tracks = Array[String](["res://assets/songs/sulosounds/chill-electric-background.wav"])
+is_unlocked = null

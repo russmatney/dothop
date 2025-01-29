@@ -1,9 +1,14 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=2 format=3 uid="uid://vc64ajdhnluf"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=3 format=3 uid="uid://vc64ajdhnluf"]
 
 [ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_567u7"]
+[ext_resource type="PackedScene" uid="uid://cub0kguq12eo4" path="res://src/puzzle/PuzzleScene.tscn" id="1_e5qx0"]
 
 [resource]
 script = ExtResource("1_567u7")
-player_scenes = Array[PackedScene]([])
+display_name = "Debug"
+puzzle_scene = ExtResource("1_e5qx0")
+player_scenes = Array[PackedScene]([null])
 dot_scenes = Array[PackedScene]([])
 goal_scenes = Array[PackedScene]([])
+music_tracks = Array[String]([])
+is_unlocked = null
