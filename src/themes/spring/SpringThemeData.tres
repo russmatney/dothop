@@ -22,4 +22,4 @@ dot_icon = ExtResource("1_lyo2k")
 dotted_icon = ExtResource("3_nlqja")
 goal_icon = ExtResource("4_wif7w")
 music_tracks = Array[String](["res://assets/songs/benburnes/The Verdant Grove LOOP.wav"])
-is_unlocked = null
+is_unlocked = false

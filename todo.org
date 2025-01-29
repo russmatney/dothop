@@ -4,9 +4,11 @@
 handle save events (theme_id) across transition/refactor
 * [ ] refactor puzzleSet into custom resources
 handle save events (puzzle_id) across transition/refactor
+* [ ] enforce strict types everywhere
 * [ ] animate (shake) available next-dots
 * [ ] rewrite menu/world map
 * bugs
 ** [ ] restore pause
 ** [ ] tap/click to advance on 'new-puzzle-unlocked scenes'
+** [ ] new undo/reset buttons are grabbing focus from the controller
 * [ ] v2 'Dots' theme art

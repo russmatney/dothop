@@ -11,4 +11,4 @@ player_scenes = Array[PackedScene]([null])
 dot_scenes = Array[PackedScene]([])
 goal_scenes = Array[PackedScene]([])
 music_tracks = Array[String]([])
-is_unlocked = null
+is_unlocked = false

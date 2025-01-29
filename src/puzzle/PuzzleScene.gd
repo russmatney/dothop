@@ -19,10 +19,9 @@ static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 # for testing just the game logic (without loading a full DotHopGame)
 static func build_puzzle_node(opts: Dictionary) -> Node2D:
 	# parse the puzzle script game, set game_def
-	var game_def_p: String = opts.get("game_def_path")
 	var _game_def: GameDef = opts.get("game_def")
-	if not _game_def and game_def_p:
-		_game_def = Puzz.parse_game_def(game_def_p)
+	if not _game_def and opts.get("game_def_path"):
+		_game_def = Puzz.parse_game_def(str(opts.get("game_def_path")))
 
 	if _game_def == null:
 		Log.warn("No game_def passed, cannot build_puzzle_node()", opts)
@@ -253,7 +252,7 @@ var block_move: bool
 var last_move: Vector2
 
 func check_move_input(event: InputEvent = null, move_vec: Vector2 = Vector2.ZERO) -> void:
-	if move_vec == null:
+	if move_vec == Vector2.ZERO:
 		move_vec = Trolls.grid_move_vector(event)
 
 	if move_vec != last_move:
@@ -279,7 +278,7 @@ func restart_block_move_timer(t: float = 0.2) -> void:
 
 func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
-	var first_player_coord: Vector2
+	var first_player_coord: Variant
 	for p: Dictionary in state.players:
 		if p.coord != null:
 			first_player_coord = p.coord
@@ -309,8 +308,8 @@ func init_game_state() -> void:
 		var row: Array = puzzle_def.shape[y]
 		var r: Array = []
 		for x: int in len(row):
-			var cell: Array = puzzle_def.shape[y][x]
-			var objs: Array = game_def.get_cell_objects(cell)
+			var cell: Variant = puzzle_def.shape[y][x]
+			var objs: Variant = game_def.get_cell_objects(cell)
 			r.append(objs)
 		grid.append(r)
 
@@ -325,7 +324,7 @@ func init_player(coord: Vector2, node: Node) -> Dictionary:
 	return {coord=coord, stuck=false, move_history=[], node=node}
 
 func clear_nodes() -> void:
-	for ch: Node2D in get_children():
+	for ch: Node in get_children():
 		if ch.is_in_group("generated"):
 			# hide flicker while we wait for queue_free
 			ch.set_visible(false)
@@ -351,9 +350,9 @@ func coord_pos(node: Node2D) -> Vector2:
 		return node.position
 
 func puzzle_rect(opts: Dictionary = {}) -> Rect2:
-	var nodes: Array[Node2D] = puzzle_cam_nodes(opts)
+	var nodes: Array = puzzle_cam_nodes(opts)
 	var rect: Rect2 = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
-	for node: DotHopDot in nodes:
+	for node: Variant in nodes:
 		if "square_size" in node:
 			# scale might also be a factor
 			var bot_right: Vector2 = coord_pos(node) + node.square_size * Vector2.ONE * 1.0
@@ -389,7 +388,7 @@ func rebuild_nodes() -> void:
 	var players: Array = []
 	for y: int in len(state.grid):
 		for x: int in len(state.grid[y]):
-			var objs: Array = state.grid[y][x]
+			var objs: Variant = state.grid[y][x]
 			if objs == null:
 				continue
 			for obj_name: String in objs:
@@ -434,7 +433,7 @@ func node_for_object_name(obj_name: String) -> Node2D:
 		return
 	var node: Node2D = scene.instantiate()
 	node.display_name = obj_name
-	var t: DHData.dotType = obj_type.get(obj_name)
+	var t: Variant = obj_type.get(obj_name)
 	if t != null and "type" in node:
 		node.type = t
 		if node.has_signal("dot_pressed"):
@@ -481,7 +480,7 @@ func coord_in_grid(coord: Vector2) -> bool:
 		coord.x < state.grid_xs and coord.y < state.grid_ys
 
 func cell_at_coord(coord: Vector2) -> Dictionary:
-	var nodes: Array = state.cell_nodes.get(coord)
+	var nodes: Variant = state.cell_nodes.get(coord)
 	return {objs=state.grid[coord.y][coord.x], coord=coord, nodes=nodes}
 
 # returns a list of cells from the passed position in the passed direction
@@ -491,7 +490,7 @@ func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 		return []
 	var cells: Array = []
 	var cursor: Vector2 = coord + dir
-	var last_cursor: Vector2
+	var last_cursor: Variant = null
 	while coord_in_grid(cursor) and last_cursor != cursor:
 		cells.append(cell_at_coord(cursor))
 		last_cursor = cursor
@@ -499,18 +498,18 @@ func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 	return cells
 
 # Returns a list of cell object names
-func all_cells() -> Array[Variant]:
+func all_cells() -> Array:
 	if state == null:
 		return []
 	var cs: Array = []
 	for row: Array in state.grid:
-		for cell: Array in row:
+		for cell: Variant in row:
 			cs.append(cell)
 	return cs
 
 # Returns true if there are no "dot" objects in the state grid
 func all_dotted() -> bool:
-	return all_cells().all(func(c: Array) -> bool:
+	return all_cells().all(func(c: Variant) -> bool:
 		if c == null:
 			return true
 		for obj_name: String in c:
@@ -519,7 +518,7 @@ func all_dotted() -> bool:
 		return true)
 
 func dot_count(only_undotted: bool = false) -> int:
-	return len(all_cells().filter(func(c: Array) -> bool:
+	return len(all_cells().filter(func(c: Variant) -> bool:
 		if c == null:
 			return false
 		for obj_name: String in c:
@@ -531,9 +530,9 @@ func dot_count(only_undotted: bool = false) -> int:
 
 
 func all_players_at_goal() -> bool:
-	return all_cells().filter(func(c: Array[String]) -> bool:
+	return all_cells().filter(func(c: Variant) -> bool:
 		return c != null and "Goal" in c
-		).all(func(c: Array[String]) -> bool: return "Player" in c)
+		).all(func(c: Array) -> bool: return "Player" in c)
 
 func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
@@ -548,13 +547,13 @@ func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 
 ## move/state-updates ##############################################################
 
-func previous_undo_coord(player: Dictionary, skip_coord: Vector2, start_at: int = 0) -> Vector2:
+func previous_undo_coord(player: Dictionary, skip_coord: Vector2, start_at: int = 0) -> Variant:
 	# pulls the first coord from player history that does not match `skip_coord`,
 	# starting after `start_at`
 	for m: Vector2 in player.move_history.slice(start_at):
 		if m != skip_coord:
 			return m
-	return Vector2.ZERO
+	return
 
 # Move the player to the passed cell's coordinate.
 # also updates the game state
@@ -574,7 +573,7 @@ func move_player_to_cell(player: Dictionary, cell: Dictionary) -> Signal:
 
 	# remove previous undo marker
 	# NOTE start_at 1 b/c history has already been updated
-	var prev_undo_coord: Vector2
+	var prev_undo_coord: Variant
 	if len(player.move_history) > 1:
 		prev_undo_coord = previous_undo_coord(player, player.coord, 1)
 	if prev_undo_coord != null:
@@ -659,7 +658,7 @@ func undo_last_move(player: Dictionary) -> void:
 	var dest_cell: Dictionary = cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
-	var prev_undo_coord: Vector2 = previous_undo_coord(player, dest_cell.coord, 0)
+	var prev_undo_coord: Variant = previous_undo_coord(player, dest_cell.coord, 0)
 	if prev_undo_coord != null:
 		if not "Undo" in state.grid[prev_undo_coord.y][prev_undo_coord.x]:
 			state.grid[prev_undo_coord.y][prev_undo_coord.x].append("Undo")
@@ -729,7 +728,7 @@ func move(move_dir: Vector2) -> bool:
 			continue
 
 		# instead of markers, read undo based on only the player move history?
-		var undo_cell_in_dir: Dictionary = U.first(cells.filter(func(c: Dictionary) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
+		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Dictionary) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
 			moves_to_make.append(["undo", undo_last_move, p, undo_cell_in_dir])

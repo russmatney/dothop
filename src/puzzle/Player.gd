@@ -11,7 +11,7 @@ class_name DotHopPlayer
 
 var display_name: String = "Player"
 
-var label : Label
+var label : RichTextLabel
 var color_rect : ColorRect
 var current_coord: Vector2
 
