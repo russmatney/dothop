@@ -1,10 +1,11 @@
 extends Camera2D
+class_name DotHopCam
 
-var zoom_min = 0.5
-var zoom_max = 5.0
-var base_margin = 64
+var zoom_min: float = 0.5
+var zoom_max: float = 5.0
+var base_margin: float = 64
 
-func center_on_rect(rect):
+func center_on_rect(rect: Rect2) -> void:
 	rect = rect.grow(base_margin)
 
 	var screen_size: Vector2 = get_viewport_rect().size

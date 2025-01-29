@@ -563,35 +563,35 @@ static func is_not_default(v) -> bool:
 	return not v is String or (v is String and v != "ZZZDEF")
 
 ## Pretty-print the passed arguments in a single line.
-static func pr(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func pr(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 ## Pretty-print the passed arguments in a single line.
-static func info(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func info(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 ## Pretty-print the passed arguments in a single line.
-static func log(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func log(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var m = Log.to_printable(msgs, {stack=get_stack()})
 	print_rich(m)
 
 ## Pretty-print the passed arguments, expanding dictionaries and arrays with newlines and indentation.
-static func prn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func prn(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var m = Log.to_printable(msgs, {stack=get_stack(), newlines=true})
 	print_rich(m)
 
 ## Like [code]Log.prn()[/code], but also calls push_warning() with the pretty string.
-static func warn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func warn(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()
@@ -601,7 +601,7 @@ static func warn(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF"
 	push_warning(m)
 
 ## Like [code]Log.prn()[/code], but prepends a "[TODO]" and calls push_warning() with the pretty string.
-static func todo(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func todo(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	msgs.push_front("[TODO]")
@@ -612,7 +612,7 @@ static func todo(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF"
 	push_warning(m)
 
 ## Like [code]Log.prn()[/code], but also calls push_error() with the pretty string.
-static func err(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func err(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()
@@ -622,7 +622,7 @@ static func err(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF",
 	push_error(m)
 
 ## Like [code]Log.prn()[/code], but also calls push_error() with the pretty string.
-static func error(msg, msg2="ZZZDEF", msg3="ZZZDEF", msg4="ZZZDEF", msg5="ZZZDEF", msg6="ZZZDEF", msg7="ZZZDEF"):
+static func error(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF"):
 	var msgs = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
 	var rich_msgs = msgs.duplicate()

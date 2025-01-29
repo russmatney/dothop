@@ -2,9 +2,12 @@
 extends Node2D
 class_name DotHopPuzzle
 
+# TODO move all vector2 to vector2i?
+# TODO refactor 'state', 'player', 'cell', 'move' into well-typed internal classes
+
 ## static ##########################################################################
 
-static var fallback_puzzle_scene = "res://src/puzzle/PuzzleScene.tscn"
+static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 
 # Builds and returns a "puzzle_scene" node, with a game_def and puzzle_def set
 # Accepts several input options, but only 'game_def' or 'game_def_path' are required.
@@ -14,10 +17,10 @@ static var fallback_puzzle_scene = "res://src/puzzle/PuzzleScene.tscn"
 #
 # This func could live on the DotHopGame script, but a function like this is useful
 # for testing just the game logic (without loading a full DotHopGame)
-static func build_puzzle_node(opts:Variant) -> Node2D:
+static func build_puzzle_node(opts: Dictionary) -> Node2D:
 	# parse the puzzle script game, set game_def
-	var game_def_p = opts.get("game_def_path")
-	var _game_def = opts.get("game_def")
+	var game_def_p: String = opts.get("game_def_path")
+	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and game_def_p:
 		_game_def = Puzz.parse_game_def(game_def_p)
 
@@ -26,9 +29,9 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		return
 
 	# parse/pick the puzzle to load
-	var puzzle = opts.get("puzzle")
+	var puzzle: PuzzleDef = opts.get("puzzle")
 	# default to loading the first puzzle
-	var _puzzle_num = opts.get("puzzle_num", 0)
+	var _puzzle_num: int = opts.get("puzzle_num", 0)
 	var _puzzle_def: PuzzleDef
 
 	if puzzle != null:
@@ -42,14 +45,16 @@ static func build_puzzle_node(opts:Variant) -> Node2D:
 		Log.warn("Could not determine _puzzle_def, cannot build_puzzle_node()")
 		return
 
-	var _theme = opts.get("puzzle_theme")
-	var scene = opts.get("puzzle_scene", _theme.get_puzzle_scene() if _theme else null)
-	if scene is String:
-		scene = load(scene)
+	var _theme: PuzzleTheme = opts.get("puzzle_theme")
+	var _theme_data: PuzzleThemeData = opts.get("puzzle_theme_data")
+	var scene: PackedScene = opts.get("puzzle_scene", _theme_data.puzzle_scene if _theme_data else null)
+	if scene == null:
+		# TODO Drop support for this unless we use it (maybe in tests?)
+		scene = load(str(opts.get("puzzle_scene_path")))
 	elif scene == null:
 		scene = load(fallback_puzzle_scene)
 
-	var node = scene.instantiate()
+	var node: DotHopPuzzle = scene.instantiate()
 
 	node.game_def = _game_def
 	node.theme = _theme
@@ -90,7 +95,7 @@ var puzzle_def : PuzzleDef :
 		puzzle_def = ld
 		if Engine.is_editor_hint():
 			init_game_state()
-@export var square_size = 32
+@export var square_size: int = 32
 
 @export var puzzle_num : int :
 	set(pn):
@@ -100,7 +105,7 @@ var puzzle_def : PuzzleDef :
 				puzzle_def = game_def.puzzles[pn]
 
 
-var state
+var state: Dictionary
 
 signal win
 
@@ -111,7 +116,7 @@ signal move_rejected
 signal move_blocked
 signal rebuilt_nodes
 
-var obj_type = {
+var obj_type: Dictionary = {
 	"Dot": DHData.dotType.Dot,
 	"Dotted": DHData.dotType.Dotted,
 	"Goal": DHData.dotType.Goal,
@@ -119,17 +124,17 @@ var obj_type = {
 
 ## enter_tree ##############################################################
 
-func _init():
+func _init() -> void:
 	add_to_group(DHData.puzzle_group, true)
 
 ## ready ##############################################################
 
-@export var randomize_layout = true
-var reverse_ys = false
-var reverse_xs = false
-var rotate_shape = false
+@export var randomize_layout: bool = true
+var reverse_ys: bool = false
+var reverse_xs: bool = false
+var rotate_shape: bool = false
 
-func _ready():
+func _ready() -> void:
 	if puzzle_def == null:
 		Log.pr("no puzzle_def, trying backups!", name)
 		if game_def_path != "":
@@ -147,7 +152,7 @@ func _ready():
 		if reverse_ys:
 			puzzle_def.shape.reverse()
 		if reverse_xs:
-			for row in puzzle_def.shape:
+			for row: Array in puzzle_def.shape:
 				row.reverse()
 		if rotate_shape:
 			# don't rotate very wide puzzles
@@ -162,35 +167,35 @@ func _ready():
 	move_blocked.connect(on_move_blocked)
 	rebuilt_nodes.connect(on_rebuilt_nodes)
 
-func on_win():
+func on_win() -> void:
 	Sounds.play(Sounds.S.complete)
 
-func on_player_moved():
-	var total_dots = float(dot_count() + 1)
-	var dotted = total_dots - float(dot_count(true)) - 1
+func on_player_moved() -> void:
+	var total_dots: float = float(dot_count() + 1)
+	var dotted: float = total_dots - float(dot_count(true)) - 1
 	# ensure some minimum
 	dotted = clamp(dotted, total_dots/4, total_dots)
 	if state.win:
 		dotted += 1
 	Sounds.play(Sounds.S.dot_collected, {scale_range=total_dots, scale_note=dotted, interrupt=true})
 
-func on_player_undo():
+func on_player_undo() -> void:
 	Sounds.play(Sounds.S.minimize)
 
-func on_move_rejected():
+func on_move_rejected() -> void:
 	Sounds.play(Sounds.S.showjumbotron)
 
-func on_move_blocked():
+func on_move_blocked() -> void:
 	pass
 
-func on_rebuilt_nodes():
+func on_rebuilt_nodes() -> void:
 	Sounds.play(Sounds.S.maximize)
 
 
 ## input ##############################################################
 
-var just_logged_blocked_input = false
-func _unhandled_input(event):
+var just_logged_blocked_input: bool = false
+func _unhandled_input(event: InputEvent) -> void:
 	if state != null and state.win:
 		if not just_logged_blocked_input:
 			Log.pr("Blocking input events b/c we're in a win state")
@@ -207,7 +212,7 @@ func _unhandled_input(event):
 		if state == null:
 			Log.warn("No state, ignoring undo input")
 			return
-		for p in state.players:
+		for p: Dictionary in state.players:
 			undo_last_move(p)
 		restart_block_move_timer(0.1)
 
@@ -218,36 +223,36 @@ func _unhandled_input(event):
 	elif Trolls.is_debug_toggle(event):
 		Log.pr(state.grid)
 
-var reset_tween
-func hold_to_reset_puzzle():
+var reset_tween: Tween
+func hold_to_reset_puzzle() -> void:
 	if reset_tween != null and reset_tween.is_running():
 		# already holding
 		return
 	reset_tween = create_tween()
 	reset_tween.tween_callback(init_game_state).set_delay(DHData.reset_hold_t)
 
-func cancel_reset_puzzle():
+func cancel_reset_puzzle() -> void:
 	if reset_tween == null:
 		return
 	reset_tween.kill()
 
-func reset_pressed():
+func reset_pressed() -> void:
 	init_game_state()
 
-func undo_pressed():
+func undo_pressed() -> void:
 	if state == null:
 		Log.warn("No state, ignoring undo input")
 		return
-	for p in state.players:
+	for p: Dictionary in state.players:
 		undo_last_move(p)
 
 
 ## check_move_input ##############################################################
 
-var block_move
-var last_move
+var block_move: bool
+var last_move: Vector2
 
-func check_move_input(event=null, move_vec=null):
+func check_move_input(event: InputEvent = null, move_vec: Vector2 = Vector2.ZERO) -> void:
 	if move_vec == null:
 		move_vec = Trolls.grid_move_vector(event)
 
@@ -262,20 +267,20 @@ func check_move_input(event=null, move_vec=null):
 	elif block_move:
 		move_blocked.emit()
 
-var block_move_timer
-func restart_block_move_timer(t=0.2):
+var block_move_timer: Tween
+func restart_block_move_timer(t: float = 0.2) -> void:
 	block_move = true
 	if block_move_timer != null:
 		block_move_timer.kill()
 	block_move_timer = create_tween()
-	block_move_timer.tween_callback(func():
+	block_move_timer.tween_callback(func() -> void:
 		block_move = false
 		check_move_input()).set_delay(t)
 
-func on_dot_pressed(_type, node):
+func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
-	var first_player_coord = null
-	for p in state.players:
+	var first_player_coord: Vector2
+	for p: Dictionary in state.players:
 		if p.coord != null:
 			first_player_coord = p.coord
 			break
@@ -283,7 +288,7 @@ func on_dot_pressed(_type, node):
 		Log.warn("Cannot move to dot, no player coord found")
 		return
 
-	var move_vec = node.current_coord - first_player_coord
+	var move_vec: Vector2 = node.current_coord - first_player_coord
 	if move_vec.x == 0 or move_vec.y == 0:
 		check_move_input(null, move_vec.normalized())
 	else:
@@ -293,19 +298,19 @@ func on_dot_pressed(_type, node):
 ## state/grid ##############################################################
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
-func init_game_state():
+func init_game_state() -> void:
 	if len(puzzle_def.shape) == 0:
 		Log.warn("init_game_state() called without puzzle_def.shape", puzzle_def)
 		return
 
-	var grid = []
-	var players = []
-	for y in len(puzzle_def.shape):
-		var row = puzzle_def.shape[y]
-		var r = []
-		for x in len(row):
-			var cell = puzzle_def.shape[y][x]
-			var objs = game_def.get_cell_objects(cell)
+	var grid: Array = []
+	var players: Array = []
+	for y: int in len(puzzle_def.shape):
+		var row: Array = puzzle_def.shape[y]
+		var r: Array = []
+		for x: int in len(row):
+			var cell: Array = puzzle_def.shape[y][x]
+			var objs: Array = game_def.get_cell_objects(cell)
 			r.append(objs)
 		grid.append(r)
 
@@ -316,19 +321,19 @@ func init_game_state():
 
 ## setup level ##############################################################
 
-func init_player(coord, node) -> Dictionary:
+func init_player(coord: Vector2, node: Node) -> Dictionary:
 	return {coord=coord, stuck=false, move_history=[], node=node}
 
-func clear_nodes():
-	for ch in get_children():
+func clear_nodes() -> void:
+	for ch: Node2D in get_children():
 		if ch.is_in_group("generated"):
 			# hide flicker while we wait for queue_free
 			ch.set_visible(false)
 			ch.queue_free()
 
-var dhcam_scene = preload("res://src/DotHopCam.tscn")
-var dhcam
-func ensure_camera():
+var dhcam_scene: PackedScene = preload("res://src/DotHopCam.tscn")
+var dhcam: DotHopCam
+func ensure_camera() -> void:
 	if len(state.grid) == 0:
 		return
 
@@ -339,55 +344,57 @@ func ensure_camera():
 		dhcam = dhcam_scene.instantiate()
 		add_child(dhcam)
 
-func coord_pos(node):
+func coord_pos(node: Node2D) -> Vector2:
 	if node.has_method("current_position"):
 		return node.current_position()
 	else:
 		return node.position
 
-func puzzle_rect(opts={}):
-	var nodes = puzzle_cam_nodes(opts)
-	var rect = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
-	for node in nodes:
+func puzzle_rect(opts: Dictionary = {}) -> Rect2:
+	var nodes: Array[Node2D] = puzzle_cam_nodes(opts)
+	var rect: Rect2 = Rect2(coord_pos(nodes[0]), Vector2.ZERO)
+	for node: DotHopDot in nodes:
 		if "square_size" in node:
 			# scale might also be a factor
-			rect = rect.expand(coord_pos(node) + node.square_size * Vector2.ONE * 1.0)
-			rect = rect.expand(coord_pos(node) - node.square_size * Vector2.ONE * 0.5)
+			var bot_right: Vector2 = coord_pos(node) + node.square_size * Vector2.ONE * 1.0
+			# why the half here?
+			var top_left_half: Vector2 = coord_pos(node) - node.square_size * Vector2.ONE * 0.5
+			rect = rect.expand(bot_right).expand(top_left_half)
 		else:
 			rect = rect.expand(coord_pos(node))
 	return rect
 
-func puzzle_cam_nodes(opts={}):
-	var cam_nodes = []
-	var nodes
+func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
+	var cam_nodes: Array = []
+	var nodes: Array
 	if opts.get("dots_only"):
-		nodes = all_cell_nodes({filter=func(node):
+		nodes = all_cell_nodes({filter=func(node: DotHopDot) -> bool:
 			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
 	else:
 		nodes = all_cell_nodes()
 	cam_nodes.append_array(nodes)
-	for p in state.players:
+	for p: Dictionary in state.players:
 		cam_nodes.append(p.node)
 	return cam_nodes
 
 # Adds nodes for the object_names in each cell of the grid.
 # Tracks nodes (except for players) in a state.cell_nodes dict.
 # Tracks players in state.players list.
-func rebuild_nodes():
+func rebuild_nodes() -> void:
 	clear_nodes()
 
 	if not Engine.is_editor_hint() and is_inside_tree():
 		ensure_camera()
 
-	var players = []
-	for y in len(state.grid):
-		for x in len(state.grid[y]):
-			var objs = state.grid[y][x]
+	var players: Array = []
+	for y: int in len(state.grid):
+		for x: int in len(state.grid[y]):
+			var objs: Array = state.grid[y][x]
 			if objs == null:
 				continue
-			for obj_name in objs:
-				var coord = Vector2(x, y)
-				var node = create_node_at_coord(obj_name, coord)
+			for obj_name: String in objs:
+				var coord: Vector2 = Vector2(x, y)
+				var node: Node2D = create_node_at_coord(obj_name, coord)
 				if obj_name == "Player":
 					state.players.append(init_player(coord, node))
 					players.append(node)
@@ -397,7 +404,7 @@ func rebuild_nodes():
 						state.cell_nodes[coord] = []
 					state.cell_nodes[coord].append(node)
 
-	for p in players:
+	for p: Node in players:
 		add_child(p)
 
 	if dhcam != null:
@@ -407,7 +414,7 @@ func rebuild_nodes():
 	rebuilt_nodes.emit()
 
 func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
-	var node = node_for_object_name(obj_name)
+	var node: Node2D = node_for_object_name(obj_name)
 	# nodes should maybe set their own position
 	# (i.e. not be automatically moved, but stay on teh puzzle's origin)
 	node.square_size = square_size
@@ -417,18 +424,17 @@ func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
 		node.position = coord * square_size
 	node.add_to_group("generated", true)
 	if debugging or not Engine.is_editor_hint():
-		node.ready.connect(func():
-			node.set_owner(self))
+		node.ready.connect(func() -> void: node.set_owner(self))
 	return node
 
-func node_for_object_name(obj_name):
-	var scene = get_scene_for(obj_name)
+func node_for_object_name(obj_name: String) -> Node2D:
+	var scene: PackedScene = get_scene_for(obj_name)
 	if not scene:
 		Log.err("No scene found for object name", obj_name)
 		return
-	var node = scene.instantiate()
+	var node: Node2D = scene.instantiate()
 	node.display_name = obj_name
-	var t = obj_type.get(obj_name)
+	var t: DHData.dotType = obj_type.get(obj_name)
 	if t != null and "type" in node:
 		node.type = t
 		if node.has_signal("dot_pressed"):
@@ -439,29 +445,30 @@ func node_for_object_name(obj_name):
 
 ## custom nodes ##############################################################
 
-func get_scene_for(obj_name):
+func get_scene_for(obj_name: String) -> PackedScene:
 	match obj_name:
 		"Player": return get_player_scene()
 		"Dot": return get_dot_scene()
 		"Dotted": return get_dotted_scene()
 		"Goal": return get_goal_scene()
+		_: return
 
-func get_player_scene():
+func get_player_scene() -> PackedScene:
 	if theme and len(theme.get_player_scenes()) > 0:
 		return U.rand_of(theme.get_player_scenes())
 	return load("res://src/puzzle/Player.tscn")
 
-func get_dot_scene():
+func get_dot_scene() -> PackedScene:
 	if theme and len(theme.get_dot_scenes()) > 0:
 		return U.rand_of(theme.get_dot_scenes())
 	return load("res://src/puzzle/Dot.tscn")
 
-func get_dotted_scene():
+func get_dotted_scene() -> PackedScene:
 	if theme and len(theme.get_dot_scenes()) > 0:
 		return U.rand_of(theme.get_dot_scenes())
 	return load("res://src/puzzle/Dot.tscn")
 
-func get_goal_scene():
+func get_goal_scene() -> PackedScene:
 	if theme and len(theme.get_goal_scenes()) > 0:
 		return U.rand_of(theme.get_goal_scenes())
 	return load("res://src/puzzle/Dot.tscn")
@@ -469,12 +476,12 @@ func get_goal_scene():
 ## grid helpers ##############################################################
 
 # returns true if the passed coord is in the level's grid
-func coord_in_grid(coord:Vector2) -> bool:
+func coord_in_grid(coord: Vector2) -> bool:
 	return coord.x >= 0 and coord.y >= 0 and \
 		coord.x < state.grid_xs and coord.y < state.grid_ys
 
-func cell_at_coord(coord:Vector2) -> Dictionary:
-	var nodes = state.cell_nodes.get(coord)
+func cell_at_coord(coord: Vector2) -> Dictionary:
+	var nodes: Array = state.cell_nodes.get(coord)
 	return {objs=state.grid[coord.y][coord.x], coord=coord, nodes=nodes}
 
 # returns a list of cells from the passed position in the passed direction
@@ -482,9 +489,9 @@ func cell_at_coord(coord:Vector2) -> Dictionary:
 func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 	if dir == Vector2.ZERO:
 		return []
-	var cells = []
-	var cursor = coord + dir
-	var last_cursor = null
+	var cells: Array = []
+	var cursor: Vector2 = coord + dir
+	var last_cursor: Vector2
 	while coord_in_grid(cursor) and last_cursor != cursor:
 		cells.append(cell_at_coord(cursor))
 		last_cursor = cursor
@@ -495,27 +502,27 @@ func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 func all_cells() -> Array[Variant]:
 	if state == null:
 		return []
-	var cs = []
-	for row in state.grid:
-		for cell in row:
+	var cs: Array = []
+	for row: Array in state.grid:
+		for cell: Array in row:
 			cs.append(cell)
 	return cs
 
 # Returns true if there are no "dot" objects in the state grid
 func all_dotted() -> bool:
-	return all_cells().all(func(c):
+	return all_cells().all(func(c: Array) -> bool:
 		if c == null:
 			return true
-		for obj_name in c:
+		for obj_name: String in c:
 			if obj_name == "Dot":
 				return false
 		return true)
 
-func dot_count(only_undotted=false):
-	return len(all_cells().filter(func(c):
+func dot_count(only_undotted: bool = false) -> int:
+	return len(all_cells().filter(func(c: Array) -> bool:
 		if c == null:
 			return false
-		for obj_name in c:
+		for obj_name: String in c:
 			if only_undotted and obj_name in ["Dot"]:
 				return true
 			elif not only_undotted and obj_name in ["Dot", "Dotted"]:
@@ -524,15 +531,15 @@ func dot_count(only_undotted=false):
 
 
 func all_players_at_goal() -> bool:
-	return all_cells().filter(func(c):
-		if c != null and "Goal" in c:
-			return true
-		).all(func(c): return "Player" in c)
+	return all_cells().filter(func(c: Array[String]) -> bool:
+		return c != null and "Goal" in c
+		).all(func(c: Array[String]) -> bool: return "Player" in c)
 
-func all_cell_nodes(opts={}) -> Array[Node2D]:
-	var ns = state.cell_nodes.values().reduce(func(agg, nodes):
+func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
+	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
 		if "filter" in opts:
-			nodes = nodes.filter(opts.get("filter"))
+			var f: Callable = opts.get("filter")
+			nodes = nodes.filter(f)
 		agg.append_array(nodes)
 		return agg, []) # if we don't provide an initial val, the first node gets through FOR FREE
 	var t_nodes: Array[Node2D] = []
@@ -541,20 +548,21 @@ func all_cell_nodes(opts={}) -> Array[Node2D]:
 
 ## move/state-updates ##############################################################
 
-func previous_undo_coord(player, skip_coord, start_at=0):
+func previous_undo_coord(player: Dictionary, skip_coord: Vector2, start_at: int = 0) -> Vector2:
 	# pulls the first coord from player history that does not match `skip_coord`,
 	# starting after `start_at`
-	for m in player.move_history.slice(start_at):
+	for m: Vector2 in player.move_history.slice(start_at):
 		if m != skip_coord:
 			return m
+	return Vector2.ZERO
 
 # Move the player to the passed cell's coordinate.
 # also updates the game state
 # cell should have a `coord`
 # NOTE updating move_history is done after all players move
-func move_player_to_cell(player, cell):
+func move_player_to_cell(player: Dictionary, cell: Dictionary) -> Signal:
 	# move player node
-	var move_finished_sig
+	var move_finished_sig: Signal
 	if player.node.has_method("move_to_coord"):
 		move_finished_sig = player.node.move_to_coord(cell.coord)
 	else:
@@ -566,7 +574,7 @@ func move_player_to_cell(player, cell):
 
 	# remove previous undo marker
 	# NOTE start_at 1 b/c history has already been updated
-	var prev_undo_coord
+	var prev_undo_coord: Vector2
 	if len(player.move_history) > 1:
 		prev_undo_coord = previous_undo_coord(player, player.coord, 1)
 	if prev_undo_coord != null:
@@ -582,9 +590,9 @@ func move_player_to_cell(player, cell):
 
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell):
+func mark_cell_dotted(cell: Dictionary) -> void:
 	# support multiple nodes per cell?
-	var node = U.first(cell.nodes)
+	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
 		Log.warn("can't mark dotted, no node found!", cell)
 		return
@@ -601,9 +609,9 @@ func mark_cell_dotted(cell):
 
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
-func mark_cell_undotted(cell):
+func mark_cell_undotted(cell: Dictionary) -> void:
 	# support multiple nodes per cell?
-	var node = U.first(cell.nodes)
+	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
 		# undoing from goal doesn't require any undotting
 		return
@@ -620,15 +628,15 @@ func mark_cell_undotted(cell):
 
 ## move to dot ##############################################################
 
-func move_to_dot(player, cell):
+func move_to_dot(player: Dictionary, cell: Dictionary) -> void:
 	# consider handling these in the same step (depending on the animation)
 	move_player_to_cell(player, cell)
 	mark_cell_dotted(cell)
 
 ## move to goal ##############################################################
 
-func move_to_goal(player, cell):
-	var move_finished = move_player_to_cell(player, cell)
+func move_to_goal(player: Dictionary, cell: Dictionary) -> void:
+	var move_finished: Signal = move_player_to_cell(player, cell)
 	if all_dotted() and all_players_at_goal():
 		state.win = true
 		if move_finished:
@@ -639,7 +647,7 @@ func move_to_goal(player, cell):
 
 ## undo last move ##############################################################
 
-func undo_last_move(player):
+func undo_last_move(player: Dictionary) -> void:
 	# supports the solver - undo moves state.win back to false
 	state.win = false
 
@@ -647,11 +655,11 @@ func undo_last_move(player):
 		Log.warn("Can't undo, no moves yet!")
 		return
 	# remove last move from move_history
-	var last_pos = player.move_history.pop_front()
-	var dest_cell = cell_at_coord(last_pos)
+	var last_pos: Vector2 = player.move_history.pop_front()
+	var dest_cell: Dictionary = cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
-	var prev_undo_coord = previous_undo_coord(player, dest_cell.coord, 0)
+	var prev_undo_coord: Vector2 = previous_undo_coord(player, dest_cell.coord, 0)
 	if prev_undo_coord != null:
 		if not "Undo" in state.grid[prev_undo_coord.y][prev_undo_coord.x]:
 			state.grid[prev_undo_coord.y][prev_undo_coord.x].append("Undo")
@@ -690,14 +698,15 @@ func undo_last_move(player):
 # any undos (movement backwards) undos the last movement
 # if any player is stuck, only undo is allowed
 # otherwise, the player moves to the dot or goal in the direction pressed
-func move(move_dir):
+# return true if the move was made successfully
+func move(move_dir: Vector2) -> bool:
 	if move_dir == Vector2.ZERO:
 		# don't do anything!
-		return
+		return false
 
-	var moves_to_make = []
-	for p in state.players:
-		var cells = cells_in_direction(p.coord, move_dir)
+	var moves_to_make: Array = []
+	for p: Dictionary in state.players:
+		var cells: Array = cells_in_direction(p.coord, move_dir)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
@@ -708,7 +717,7 @@ func move(move_dir):
 					p.node.move_attempt_away_from_edge(move_dir)
 			continue
 
-		cells = cells.filter(func(c): return c.objs != null)
+		cells = cells.filter(func(c: Dictionary) -> bool: return c.objs != null)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
@@ -720,12 +729,12 @@ func move(move_dir):
 			continue
 
 		# instead of markers, read undo based on only the player move history?
-		var undo_cell_in_dir = U.first(cells.filter(func(c): return "Undo" in c.objs and c.coord in p.move_history))
+		var undo_cell_in_dir: Dictionary = U.first(cells.filter(func(c: Dictionary) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
 			moves_to_make.append(["undo", undo_last_move, p, undo_cell_in_dir])
 		else:
-			for cell in cells:
+			for cell: Dictionary in cells:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(["stuck", null, p])
@@ -747,12 +756,12 @@ func move(move_dir):
 					break
 				Log.warn("unexpected/unhandled cell in direction", cell)
 
-	var any_move = moves_to_make.any(func(m): return m[0] in ["dot", "goal"])
+	var any_move: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] in ["dot", "goal"])
 	if any_move:
-		for p in state.players:
+		for p: Dictionary in state.players:
 			p.move_history.push_front(p.coord)
 
-		for m in moves_to_make:
+		for m: Array in moves_to_make:
 			if m[0] in ["dot", "goal"]:
 				m[1].call(m[2], m[3])
 
@@ -760,12 +769,14 @@ func move(move_dir):
 		player_moved.emit()
 		return true # we moved!
 
-	var any_undo = moves_to_make.any(func(m): return m[0] == "undo")
+	var any_undo: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] == "undo")
 	if any_undo:
-		for m in moves_to_make:
+		for m: Array in moves_to_make:
 			# kind of wonky, could refactor to use a dict/struct
 			undo_last_move(m[2])
-		return
+		return false
 
 	# trigger HUD update
 	move_rejected.emit()
+
+	return false

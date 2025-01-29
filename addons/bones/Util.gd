@@ -573,9 +573,10 @@ static func toggle_pause_nodes(should_pause=null, nodes=[]):
 #################################################################
 ## func
 
-static func first(list):
+static func first(list: Array) -> Variant:
 	if list != null and len(list) > 0:
 		return list[0]
+	return
 
 static func sum(vals):
 	return vals.reduce(func(agg, x): return x + agg)
