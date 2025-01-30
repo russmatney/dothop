@@ -28,13 +28,13 @@ static func build_puzzle_node(opts: Dictionary) -> Node2D:
 		return
 
 	# parse/pick the puzzle to load
-	var puzzle: PuzzleDef = opts.get("puzzle")
+	var puzzle: Variant = opts.get("puzzle")
 	# default to loading the first puzzle
 	var _puzzle_num: int = opts.get("puzzle_num", 0)
 	var _puzzle_def: PuzzleDef
 
-	if puzzle != null:
-		_puzzle_def = Puzz.parse_puzzle_def(puzzle)
+	if puzzle is Array:
+		_puzzle_def = Puzz.parse_puzzle_def(puzzle as Array)
 	elif _puzzle_num != null:
 		_puzzle_def = _game_def.puzzles[_puzzle_num]
 	else:

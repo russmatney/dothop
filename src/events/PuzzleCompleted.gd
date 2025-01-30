@@ -11,16 +11,16 @@ func get_puzzle_set_id() -> String:
 func get_puzzle_index() -> int:
 	return get_integer("puzzle_idx")
 
-func data():
-	var d = super.data()
+func data() -> Variant:
+	var d: Dictionary = super.data()
 	d.merge({
 		puzzle_set=get_puzzle_set().get_display_name(),
 		puzzle_index=get_puzzle_index(),
 		})
 	return d
 
-static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int):
-	var event = Pandora.get_entity(EventIds.PUZZLECOMPLETEDEVENT).instantiate()
+static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int) -> PuzzleCompleted:
+	var event: PuzzleCompleted = Pandora.get_entity(EventIds.PUZZLECOMPLETEDEVENT).instantiate()
 	event.set_string("puzzle_set_id", puzzle_set.get_entity_id())
 	event.set_integer("puzzle_idx", puzzle_idx)
 	event.set_event_data({
@@ -29,8 +29,8 @@ static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int):
 		})
 	return event
 
-static func is_matching_event(event, puzzle_set: PuzzleSet, idx: int):
+static func is_matching_event(event: PuzzleCompleted, puzzle_set: PuzzleSet, idx: int) -> bool:
 	if not event is PuzzleCompleted:
 		return false
-	return event.get_puzzle_set_id() == puzzle_set.get_entity_id() and \
-		event.get_puzzle_index() == idx
+	return (event as PuzzleCompleted).get_puzzle_set_id() == puzzle_set.get_entity_id() and \
+		(event as PuzzleCompleted).get_puzzle_index() == idx

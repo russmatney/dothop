@@ -25,29 +25,28 @@ func get_goal_scenes() -> Array[PackedScene]:
 func get_background_music() -> AudioStream:
 	return get_resource("background_music")
 
-func get_player_icon() -> Texture:
+func get_player_icon() -> Texture2D:
 	return get_resource("player_icon_texture")
 
-func get_dot_icon() -> Texture:
+func get_dot_icon() -> Texture2D:
 	return get_resource("dot_icon_texture")
 
-func get_dotted_icon() -> Texture:
+func get_dotted_icon() -> Texture2D:
 	return get_resource("dotted_icon_texture")
 
-func get_goal_icon() -> Texture:
+func get_goal_icon() -> Texture2D:
 	return get_resource("goal_icon_texture")
 
 func get_music_tracks() -> Array[AudioStream]:
-	var track_strs = get_theme_data().music_tracks
 	var tracks: Array[AudioStream] = []
-	for t in track_strs:
+	for t: String in get_theme_data().music_tracks:
 		if ResourceLoader.exists(t, "AudioStream"):
-			var track = ResourceLoader.load(t, "AudioStream")
+			var track: AudioStream = ResourceLoader.load(t, "AudioStream")
 			tracks.append(track)
 		else:
 			Log.warn("theme music track does not exist!", t)
 	if len(tracks) == 0:
-		var bg = get_background_music()
+		var bg: AudioStream = get_background_music()
 		if bg:
 			tracks.append(bg)
 	return tracks
@@ -57,7 +56,7 @@ func get_theme_data() -> PuzzleThemeData:
 
 ## all properties (consumed by Log.gd) #################
 
-func data():
+func data() -> Variant:
 	return {
 		puzzle_scene=get_puzzle_scene(),
 		name=get_display_name(),
@@ -67,5 +66,5 @@ func data():
 
 ## actions ############################################
 
-func unlock():
+func unlock() -> void:
 	set_bool("is_unlocked", true)

@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@19565")
+current_marker = NodePath("@Marker2D@25204")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -89,7 +89,7 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme = ExtResource("14_vrel8")
 bbcode_enabled = true
-text = "[center]Leaf Me Alone (7/10)"
+text = "[center]Them Dots (3/12)"
 fit_content = true
 scroll_active = false
 
@@ -109,7 +109,10 @@ alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
+focus_mode = 0
+mouse_filter = 2
 theme = ExtResource("11_hm0xn")
+disabled = true
 text = "<"
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer2/PuzzleListContainer/VBoxContainer/HBoxContainer"]

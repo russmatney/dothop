@@ -3,28 +3,28 @@ class_name PuzzleAnalysis
 
 ## vars ####################################
 
-const WIN = "WIN"
-const STUCK_GOAL = "STUCK_GOAL"
-const STUCK_DOT = "STUCK_DOT"
+const WIN: String = "WIN"
+const STUCK_GOAL: String = "STUCK_GOAL"
+const STUCK_DOT: String = "STUCK_DOT"
 
 var puzzle_node: DotHopPuzzle
 
 ## init ####################################
 
-func _init(node: DotHopPuzzle):
+func _init(node: DotHopPuzzle) -> void:
 	puzzle_node = node
 
 ## collect_move_tree ####################################
 
-var all_dirs = [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN]
+var all_dirs: Array[Vector2] = [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN]
 
-func collect_move_tree(current_move_dict={}, last_move=null):
-	var any_moves = false
-	for dir in all_dirs:
-		if last_move and dir == -1 * last_move:
+func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = null) -> Variant:
+	var any_moves: bool = false
+	for dir: Vector2 in all_dirs:
+		if last_move is Vector2 and dir == -1 * last_move:
 			continue # skip 'undos'
 
-		var did_step = puzzle_node.move(dir)
+		var did_step: bool = puzzle_node.move(dir)
 		if did_step:
 			any_moves = true
 			current_move_dict[dir] = collect_move_tree({}, dir)
@@ -43,19 +43,19 @@ func collect_move_tree(current_move_dict={}, last_move=null):
 
 ## collect_paths ####################################
 
-func collect_paths(_move_tree, current_path=[], _paths=[]) -> Array:
+func collect_paths(_move_tree: Variant, current_path: Array = [], _paths: Array = []) -> Array:
 	if not _move_tree is Dictionary:
 		# this is a test-only edge case, but if we can't make moves from the start...
-		var new_path = current_path.duplicate()
+		var new_path: Array = current_path.duplicate()
 		new_path.append(_move_tree)
 		_paths.append(new_path)
 		return _paths
 
-	for dir in _move_tree.keys():
-		var new_path = current_path.duplicate() # new path for each move
+	for dir: Vector2 in (_move_tree as Dictionary).keys():
+		var new_path: Array = current_path.duplicate() # new path for each move
 		new_path.append(dir)
 
-		var node = _move_tree[dir]
+		var node: Variant = _move_tree[dir]
 		if node is Dictionary:
 			collect_paths(node, new_path, _paths)
 		elif node == WIN or node == STUCK_DOT or node == STUCK_GOAL:
@@ -66,7 +66,7 @@ func collect_paths(_move_tree, current_path=[], _paths=[]) -> Array:
 
 ## analyze ####################################
 
-var move_tree #: Dictionary | String
+var move_tree: Variant #: Dictionary | String
 var paths: Array
 
 var winning_paths: Array
@@ -89,9 +89,9 @@ func analyze() -> PuzzleAnalysis:
 	move_tree = collect_move_tree()
 	paths = collect_paths(move_tree)
 
-	winning_paths = paths.filter(func(p): return p[-1] == WIN)
-	stuck_dot_paths = paths.filter(func(p): return p[-1] == STUCK_DOT)
-	stuck_goal_paths = paths.filter(func(p): return p[-1] == STUCK_GOAL)
+	winning_paths = paths.filter(func(p: Array) -> bool: return p[-1] == WIN)
+	stuck_dot_paths = paths.filter(func(p: Array) -> bool: return p[-1] == STUCK_DOT)
+	stuck_goal_paths = paths.filter(func(p: Array) -> bool: return p[-1] == STUCK_GOAL)
 
 	path_count = len(paths)
 	winning_path_count = len(winning_paths)

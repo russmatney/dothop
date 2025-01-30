@@ -2,7 +2,7 @@
 extends Object
 class_name ParsedGame
 
-var section_parsers = {
+var section_parsers: Dictionary = {
 	"prelude": parse_prelude,
 	"objects": parse_objects,
 	"legend": parse_legend,
@@ -13,8 +13,9 @@ var section_parsers = {
 	"puzzles": parse_puzzles,
 	}
 
-func parse(contents):
-	var parsed = {}
+# TODO create a stronger type for this (ParsedGame? duh?)
+func parse(contents: String) -> Dictionary:
+	var parsed: Dictionary = {}
 
 	# force a similar prelude header
 	contents = "=======\nPRELUDE\n=======\n\n" + contents
@@ -197,12 +198,12 @@ func parse_win_conditions(chunks):
 
 ## puzzles #########################################################
 
-func parse_puzzle(shape_lines, raw_meta=[]):
+func parse_puzzle(shape_lines: Array, raw_meta: Array = []) -> Dictionary:
 	var meta = parse_metadata(raw_meta)
 	var raw_shape
 	if shape_lines:
 		raw_shape = parse_shape(shape_lines)
-	var line_count = 0
+	var line_count: int = 0
 	if shape_lines:
 		line_count = len(shape_lines)
 

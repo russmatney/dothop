@@ -17,7 +17,7 @@ var is_skipped: bool
 
 ## init ########################################3333
 
-func _init(raw: Dictionary):
+func _init(raw: Dictionary) -> void:
 	if raw.shape:
 		shape = raw.shape
 	width = raw.width
@@ -28,27 +28,27 @@ func _init(raw: Dictionary):
 	if "idx" in raw:
 		idx = raw.idx
 
-func rotate():
-	var new_shape = []
-	for row in shape:
-		for i in len(row):
+func rotate() -> void:
+	var new_shape: Array = []
+	for row: Array in shape:
+		for i: int in len(row):
 			if i > len(new_shape) - 1:
 				new_shape.append([])
-			new_shape[i].append(row[i])
+			(new_shape[i] as Array).append(row[i])
 	shape = new_shape
-	var w = width
-	var h = height
+	var w: int = width
+	var h: int = height
 	width = h
 	height = w
 
 ## log.data() ########################################3333
 
-func data():
+func data() -> Variant:
 	return {meta=meta, idx=idx, is_skipped=is_skipped, is_completed=is_completed,}
 
 ## helper ########################################3333
 
-func get_message():
+func get_message() -> String:
 	if message:
 		return message
 	else:
@@ -56,13 +56,13 @@ func get_message():
 
 ## dot count ########################################3333
 
-var _dot_count
-func dot_count():
+var _dot_count: int
+func dot_count() -> int:
 	if _dot_count:
 		return _dot_count
-	var ct = 0
-	for x in len(shape):
-		for y in len(shape[x]):
+	var ct: int = 0
+	for x: int in len(shape):
+		for y: int in len(shape[x]):
 			if shape[x][y] in ["x", "o", "t"]: # NOT IDEAL!
 				ct += 1
 	_dot_count = ct

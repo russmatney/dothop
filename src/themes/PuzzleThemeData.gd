@@ -9,10 +9,10 @@ class_name PuzzleThemeData
 @export var dot_scenes: Array[PackedScene]
 @export var goal_scenes: Array[PackedScene]
 
-@export var player_icon: Texture
-@export var dot_icon: Texture
-@export var dotted_icon: Texture
-@export var goal_icon: Texture
+@export var player_icon: Texture2D
+@export var dot_icon: Texture2D
+@export var dotted_icon: Texture2D
+@export var goal_icon: Texture2D
 
 # TODO assign AudioStreams directly?
 @export var music_tracks: Array[String]

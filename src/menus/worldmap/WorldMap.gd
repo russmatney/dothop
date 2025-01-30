@@ -2,7 +2,7 @@
 extends Node2D
 class_name WorldMap
 
-@onready var map = $%MapSprite
+@onready var map: Node2D = $%MapSprite
 
 @export var current_marker: Marker2D = null :
 	set(marker):
@@ -10,18 +10,18 @@ class_name WorldMap
 		if is_node_ready():
 			center_map()
 
-@export var zoom_scale_min = 1.0
-@export var zoom_scale_max = 2.0
+@export var zoom_scale_min: float = 1.0
+@export var zoom_scale_max: float = 2.0
 
-func center_map():
-	var pos = Vector2(0, 0)
+func center_map() -> void:
+	var pos: Vector2 = Vector2(0, 0)
 	if current_marker != null:
 		pos = current_marker.position * -1
 
 	if Engine.is_editor_hint():
 		return
 
-	var t = create_tween()
+	var t: Tween = create_tween()
 	t.tween_property(map, "position", pos, 0.4)\
 		.set_trans(Tween.TRANS_CUBIC)\
 		.set_ease(Tween.EASE_IN_OUT)
@@ -41,9 +41,9 @@ func center_map():
 
 # Returns an array of puzzle map markers
 # does not include markers without assigned puzzle_sets
-func get_markers():
-	var ms = []
-	for ch in get_children():
-		if ch is PuzzleMapMarker and ch.puzzle_set != null:
+func get_markers() -> Array:
+	var ms: Array = []
+	for ch: Node in get_children():
+		if ch is PuzzleMapMarker and (ch as PuzzleMapMarker).puzzle_set != null:
 			ms.append(ch)
 	return ms

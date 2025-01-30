@@ -20,7 +20,7 @@ enum S {
 ###########################################################################
 # sounds
 
-@onready var sounds = {
+@onready var sounds: Dictionary = {
 	S.candlelit:
 	[
 			preload("res://assets/sounds/candlelit1.sfxr"),
@@ -78,7 +78,7 @@ enum S {
 	],
 }
 
-func _ready():
+func _ready() -> void:
 	if not Engine.is_editor_hint():
 		SoundManager.set_default_sound_bus("Sound")
 		SoundManager.set_default_ui_sound_bus("UI Sound")
@@ -92,7 +92,7 @@ func _enter_tree() -> void:
 	if not Engine.is_editor_hint():
 		get_tree().node_added.connect(on_node_added)
 
-func on_node_added(node: Node):
+func on_node_added(node: Node) -> void:
 	if node is Button:
 		node.focus_entered.connect(on_button_focused.bind(node))
 		node.pressed.connect(on_button_pressed.bind(node))
