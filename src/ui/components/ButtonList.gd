@@ -4,61 +4,61 @@ class_name ButtonList
 
 @export var default_button_scene: PackedScene = preload("res://src/ui/components/MenuButton.tscn")
 
-signal button_focused(btn)
-signal button_unfocused(btn)
+signal button_focused(btn: Button)
+signal button_unfocused(btn: Button)
 
 ## config warnings #####################################################################
 
-func _get_configuration_warnings():
+func _get_configuration_warnings() -> PackedStringArray:
 	if default_button_scene == null:
 		return ["No default_button_scene set"]
 	return []
 
 ## ready #####################################################################
 
-func _ready():
+func _ready() -> void:
 	if Engine.is_editor_hint():
 		request_ready()
 
 	set_focus()
 
-func set_focus():
+func set_focus() -> void:
 	# nice default... if nothing else has focus?
 	# do parents still get to override this?
-	var chs = get_children()
+	var chs: Array = get_children()
 	if len(chs) > 0:
-		chs[0].grab_focus()
+		(chs[0] as Control).grab_focus()
 	else:
 		Log.pr(self, "no children, can't grab focus")
 
-	var btns = get_buttons()
+	var btns: Array = get_buttons()
 	if len(btns) > 0:
-		btns[0].grab_focus()
+		(btns[0] as Control).grab_focus()
 
 ## add_menu_item #####################################################################
 
-func get_buttons():
+func get_buttons() -> Array:
 	return get_children()
 
-func clear():
-	for b in get_buttons():
+func clear() -> void:
+	for b: Node in get_buttons():
 		if is_instance_valid(b):
 			b.queue_free()
 
-func add_menu_item(item):
+func add_menu_item(item: Dictionary) -> void:
 	# read texts from buttons in scene
-	var texts = []
-	for but in get_buttons():
+	var texts: Array = []
+	for but: Button in get_buttons():
 		if not but.is_queued_for_deletion():
 			texts.append(but.text)
 
-	var hide_fn = item.get("hide_fn")
+	var hide_fn: Callable = item.get("hide_fn")
 	if hide_fn and hide_fn.call():
 		return
 
-	var label = item.get("label")
+	var label: String = item.get("label")
 	if not label:
-		var label_fn = item.get("label_fn")
+		var label_fn: Callable = item.get("label_fn")
 		if label_fn:
 			label = label_fn.call()
 		if not label:
@@ -66,30 +66,30 @@ func add_menu_item(item):
 	if label in texts:
 		Log.pr("Found existing button with label, skipping add_menu_item", item)
 		return
-	var button_scene = item.get("button_scene", default_button_scene)
-	var button = button_scene.instantiate()
+	var button_scene: PackedScene = item.get("button_scene", default_button_scene)
+	var button: Button = button_scene.instantiate()
 
-	button.focus_entered.connect(func(): button_focused.emit(button, item))
-	button.focus_exited.connect(func(): button_unfocused.emit(button, item))
+	button.focus_entered.connect(func() -> void: button_focused.emit(button, item))
+	button.focus_exited.connect(func() -> void: button_unfocused.emit(button, item))
 	button.text = label
 	connect_pressed_to_action(button, item)
 	add_child(button)
 
-func set_menu_items(items):
+func set_menu_items(items: Array) -> void:
 	clear()
-	for it in items:
+	for it: Dictionary in items:
 		add_menu_item(it)
 
-func no_op():
+func no_op() -> void:
 	Log.pr("button created with no method")
 
 
-func connect_pressed_to_action(button, item):
-	var nav_to = item.get("nav_to", false)
+func connect_pressed_to_action(button: Button, item: Dictionary) -> void:
+	var nav_to: String = item.get("nav_to", "")
 
-	var fn
-	var arg
-	var argv
+	var fn: Callable
+	var arg: Variant
+	var argv: Array
 	if nav_to:
 		fn = Navi.nav_to
 		arg = nav_to
@@ -114,6 +114,7 @@ func connect_pressed_to_action(button, item):
 		return
 
 	if item.get("is_disabled"):
+		@warning_ignore("unsafe_method_access")
 		if item.is_disabled.call():
 			button.set_disabled(true)
 			return

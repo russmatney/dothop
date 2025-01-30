@@ -4,29 +4,31 @@ class_name Jumbotron
 
 ## static ##########################################################################
 
-static var jumbotron_scene_path = "res://src/ui/components/Jumbotron.tscn"
+static var jumbotron_scene_path: String = "res://src/ui/components/Jumbotron.tscn"
 
-static func jumbo_notif(opts):
-	var scene = opts.get("scene", load(jumbotron_scene_path))
-	var jumbotron = opts.get("instance", scene.instantiate())
+static func jumbo_notif(opts: Dictionary) -> Signal:
+	var scene: PackedScene = opts.get("scene", load(jumbotron_scene_path))
+	var jumbotron: Jumbotron = opts.get("instance", scene.instantiate())
 	Navi.add_child(jumbotron)
-	# this opt-in pattern might make more sense than 'Navi.menus'
-	Navi.navigating.connect(jumbotron.on_navigate)
 
-	var header = opts.get("header", "")
-	var body = opts.get("body", "")
-	var action_label_text = opts.get("action_label_text")
-	var on_close = opts.get("on_close")
-	var pause = opts.get("pause", true)
+	# TODO clean up!
+	# this opt-in pattern might make more sense than 'Navi.menus'
+	# what happened to this?
+	# Navi.navigating.connect(jumbotron.on_navigate)
+
+	var hd: String = opts.get("header", "")
+	var bd: String = opts.get("body", "")
+	var on_close: Callable = opts.get("on_close")
+	var pause: bool = opts.get("pause", true)
 
 	# reset data
-	if header:
-		jumbotron.header_text = header
-	if body:
-		jumbotron.body_text = body
+	if hd:
+		jumbotron.header_text = hd
+	if bd:
+		jumbotron.body_text = bd
 	jumbotron.set_control_icon()
 
-	jumbotron.jumbo_closed.connect(func():
+	jumbotron.jumbo_closed.connect(func() -> void:
 		if on_close and is_instance_valid(on_close.get_object()):
 			on_close.call()
 		if pause:
@@ -46,9 +48,9 @@ static func jumbo_notif(opts):
 
 signal jumbo_closed
 
-var header
-var body
-var dismiss_input_icon
+var header: RichTextLabel
+var body: RichTextLabel
+var dismiss_input_icon: ActionInputIcon
 
 @export var header_text: String :
 	set(v):
@@ -76,7 +78,7 @@ var dismiss_input_icon
 
 ## ready ##########################################################################
 
-func _ready():
+func _ready() -> void:
 	U.set_optional_nodes(self, {
 			header="%Header",
 			body="%Body",
@@ -84,35 +86,36 @@ func _ready():
 			})
 	set_control_icon()
 	if not Engine.is_editor_hint():
-		InputHelper.device_changed.connect(func(device, _idx):
+		InputHelper.device_changed.connect(func(device: String, _idx: int) -> void:
 			Log.pr("jumbotron detected device change")
 			set_control_icon(device))
 
-func set_control_icon(device=null):
+func set_control_icon(device: String = "") -> void:
 	if dismiss_input_icon:
 		dismiss_input_icon.set_icon_for_action("ui_accept", device)
 
-func on_navigate():
+# TODO restore or clean this up?
+func on_navigate() -> void:
 	# when navi is used to navigate elsewhere, kill the jumbotron
 	# NOTE that we skip the on_close, which usually navigates away anyway
 	queue_free()
 
 ## input ##########################################################################
 
-func _unhandled_input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if Trolls.is_close(event) or Trolls.is_accept(event):
 		fade_out()
 
 ## fade ##########################################################################
 
-func fade_in():
-	$PanelContainer.modulate.a = 0
+func fade_in() -> void:
+	($PanelContainer as Control).modulate.a = 0
 	set_visible(true)
-	var t = create_tween()
+	var t: Tween = create_tween()
 	t.tween_property($PanelContainer, "modulate:a", 1, 0.4)
 
-func fade_out():
-	var t = create_tween()
+func fade_out() -> void:
+	var t: Tween = create_tween()
 	t.tween_property($PanelContainer, "modulate:a", 0, 0.4)
 	t.tween_callback(set_visible.bind(false))
-	t.tween_callback(func(): jumbo_closed.emit())
+	t.tween_callback(func() -> void: jumbo_closed.emit())

@@ -1,5 +1,6 @@
 @tool
 extends TextureRect
+# class_name ActionInputIcon
 
 @export var input_text = "" :
 	set(v):

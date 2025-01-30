@@ -74,11 +74,11 @@ func axis_to_input_text(axis):
 
 ## public
 
-func set_icon_for_action(action_name, device=null):
+func set_icon_for_action(action_name, device=""):
 	if Engine.is_editor_hint():
 		input_text = U.rand_of(["A Button", "Enter", "X", "Ctrl+Z"])
 		return
-	if not device:
+	if device == "":
 		device = InputHelper.device
 	var input = InputHelper.get_keyboard_or_joypad_input_for_action(action_name)
 	if input == null:

@@ -3,22 +3,22 @@ class_name PuzzleProgressPanel
 
 ## vars ############################################################
 
-@onready var puzzle_list = $%PuzzleList
-@onready var panel_container = $%PuzzlePanelContainer
-@onready var puzzle_set_icon = $%PuzzleSetIcon
-@onready var animated_container = $%AnimatedVBoxContainer
+@onready var puzzle_list: GridContainer = $%PuzzleList
+@onready var panel_container: PanelContainer = $%PuzzlePanelContainer
+@onready var puzzle_set_icon: TextureRect = $%PuzzleSetIcon
+@onready var animated_container: AnimatedVBoxContainer = $%AnimatedVBoxContainer
 var puzzle_set: PuzzleSet
 var start_puzzle_num: int
 var end_puzzle_num: int
 
-@export var icon_size = 64.0
-@export var grid_columns = 4
+@export var icon_size: float = 64.0
+@export var grid_columns: int = 4
 
 signal rendered
 
 ## ready ############################################################
 
-func _ready():
+func _ready() -> void:
 	animated_container.set_custom_minimum_size(Vector2.ZERO)
 	if not icon_size:
 		icon_size = 64
@@ -30,19 +30,20 @@ func _ready():
 	animated_container.child_size = icon_size * Vector2.ONE
 	puzzle_list.set_columns(grid_columns)
 
-	panel_container.minimum_size_changed.connect(func():
+	panel_container.minimum_size_changed.connect(func() -> void:
 		set_custom_minimum_size(panel_container.get_size())
 		set_size(panel_container.get_size()))
 
 ## disable animations ##################################################
 
-func disable_resize_animation():
-	var cont = get_node("%AnimatedVBoxContainer")
+func disable_resize_animation() -> void:
+	# apparently called before _ready()?
+	var cont: AnimatedVBoxContainer = get_node("%AnimatedVBoxContainer")
 	cont.disable_animations = true
 
 ## build puzzle list ############################################################
 
-func render(opts):
+func render(opts: Dictionary) -> void:
 	animated_container.set_custom_minimum_size(Vector2.ZERO)
 	puzzle_set = opts.get("puzzle_set")
 	start_puzzle_num = opts.get("start_puzzle_num", 0)
@@ -51,14 +52,14 @@ func render(opts):
 		Log.warn("No puzzle set found in PuzzleProgressPanel")
 		return
 
-	var ps_theme = puzzle_set.get_theme()
+	var ps_theme: PuzzleTheme = puzzle_set.get_theme()
 
-	var start_puzzle_icon
-	var end_puzzle_icon
+	var start_puzzle_icon: TextureRect
+	var end_puzzle_icon: TextureRect
 
 	U.remove_children(puzzle_list)
-	for i in range(len(puzzle_set.get_puzzles())):
-		var icon = TextureRect.new()
+	for i: int in range(len(puzzle_set.get_puzzles())):
+		var icon: TextureRect = TextureRect.new()
 		icon.set_custom_minimum_size(icon_size * Vector2.ONE)
 		if puzzle_set.completed_puzzle(i):
 			icon.set_texture(ps_theme.get_dot_icon())
@@ -89,12 +90,12 @@ func render(opts):
 	if start_puzzle_icon and end_puzzle_icon:
 		# ugh, this hard-coded time is gross....
 		# needs to let the resizing and toasting run first
-		U.call_in(self, func(): move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}),
+		U.call_in(self, func() -> void: move_puzzle_cursor(end_puzzle_icon, {from=start_puzzle_icon}),
 			0.8)
 
 	rendered.emit()
 
-func move_puzzle_cursor(icon, opts={}):
+func move_puzzle_cursor(icon: TextureRect, opts: Dictionary = {}) -> void:
 	if opts.get("no_show", false):
 		puzzle_set_icon.modulate.a = 0.0
 		puzzle_set_icon.global_position = icon.global_position
@@ -103,14 +104,14 @@ func move_puzzle_cursor(icon, opts={}):
 	if opts.get("from", false):
 		puzzle_set_icon.global_position = opts.from.global_position
 
-	var time = 0.4
-	var t = create_tween()
+	var time: float = 0.4
+	var t: Tween = create_tween()
 	t.tween_property(puzzle_set_icon, "modulate:a", 1.0, time)\
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	t.parallel().tween_property(puzzle_set_icon, "global_position", icon.global_position, time)\
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-	var scale_tween = create_tween()
+	var scale_tween: Tween = create_tween()
 	scale_tween.tween_property(puzzle_set_icon, "scale", 1.3*Vector2.ONE, time/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(puzzle_set_icon, "scale", 0.8*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	scale_tween.tween_property(puzzle_set_icon, "scale", 1.0*Vector2.ONE, time/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)

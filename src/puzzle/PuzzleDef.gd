@@ -52,7 +52,7 @@ func get_message() -> String:
 	if message:
 		return message
 	else:
-		return meta.get("message")
+		return meta.get("message", "")
 
 ## dot count ########################################3333
 
