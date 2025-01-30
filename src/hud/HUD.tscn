@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://src/hud/HUD.gd" id="1_5wqol"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="2_1a27s"]
 [ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://src/ui/notifications/Notifications.tscn" id="3_fxnlu"]
-[ext_resource type="PackedScene" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_ocg6b"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_ocg6b"]
 [ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="4_bq2ar"]
 [ext_resource type="Texture2D" uid="uid://cthfejrkt0eh7" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_r.png" id="5_eiimu"]
 [ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="5_h4785"]
@@ -109,7 +109,6 @@ layout_mode = 2
 
 [node name="UndoInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/UndoControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
-visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -148,7 +147,6 @@ layout_mode = 2
 
 [node name="ResetInputIcon" parent="VBoxContainer/HBoxContainer/VBoxContainer/ResetControlHint" instance=ExtResource("3_ocg6b")]
 unique_name_in_owner = true
-visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 texture = ExtResource("5_eiimu")

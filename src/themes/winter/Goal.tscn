@@ -27,6 +27,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6055a")
 animation = &"goal"
+frame_progress = 0.0848775
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

@@ -18,7 +18,7 @@ static func jumbo_notif(opts: Dictionary) -> Signal:
 
 	var hd: String = opts.get("header", "")
 	var bd: String = opts.get("body", "")
-	var on_close: Callable = opts.get("on_close")
+	var on_close: Variant = opts.get("on_close")
 	var pause: bool = opts.get("pause", true)
 
 	# reset data
@@ -29,8 +29,8 @@ static func jumbo_notif(opts: Dictionary) -> Signal:
 	jumbotron.set_control_icon()
 
 	jumbotron.jumbo_closed.connect(func() -> void:
-		if on_close and is_instance_valid(on_close.get_object()):
-			on_close.call()
+		if on_close and on_close is Callable and is_instance_valid((on_close as Callable).get_object()):
+			(on_close as Callable).call()
 		if pause:
 			Navi.get_tree().paused = false
 		jumbotron.queue_free())

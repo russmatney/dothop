@@ -3,7 +3,7 @@ extends Node
 
 ## _ready ###########################################
 
-func _enter_tree():
+func _enter_tree() -> void:
 	load_game()
 
 ## data store ###########################################
@@ -12,25 +12,25 @@ var state: GameState
 
 var events: Array[Event] = []
 
-func save_game():
-	events.map(func(ev):
+func save_game() -> void:
+	events.map(func(ev: Event) -> void:
 		if ev == null: Log.warn("Cannot save null event!", ev)
 		)
 	SaveGame.save_game(get_tree(), {
-		events=events.filter(func(ev): return ev != null)\
+		events=events.filter(func(ev: Event) -> bool: return ev != null)\
 		.map(Pandora.serialize),
 		})
 
 # validation and basic recovery from crashes on loaded data?
 # i.e. missing puzzle_sets, at least set the initial ones and get to playable state
-func load_game():
-	var data = SaveGame.load_game(get_tree())
+func load_game() -> void:
+	var data: Dictionary = SaveGame.load_game(get_tree())
 
 	if not "events" in data or len(data.events) == 0:
 		events = initial_events()
 	else:
-		events.assign(data.events\
-			.filter(func(ev): return ev != null)\
+		events.assign((data.events as Array)\
+			.filter(func(ev: Event) -> bool: return ev != null)\
 			# TODO handle crashes when events can't deserialize
 			.map(Pandora.deserialize))
 
@@ -40,7 +40,7 @@ func load_game():
 		events=len(events), puzzle_sets=len(state.puzzle_sets), themes=len(state.themes)
 		})
 
-func reset_game_data():
+func reset_game_data() -> void:
 	SaveGame.delete_save()
 	load_game()
 
@@ -54,7 +54,7 @@ func initial_events() -> Array[Event]:
 func get_puzzle_sets() -> Array[PuzzleSet]:
 	return state.puzzle_sets
 
-func find_puzzle_set(ps: PuzzleSet):
+func find_puzzle_set(ps: PuzzleSet) -> PuzzleSet:
 	return state.find_puzzle_set(ps)
 
 func get_themes() -> Array[PuzzleTheme]:
@@ -63,11 +63,11 @@ func get_themes() -> Array[PuzzleTheme]:
 func get_events() -> Array[Event]:
 	return events
 
-func find_events(filter_fn) -> Array[Event]:
+func find_events(filter_fn: Callable) -> Array[Event]:
 	return events.filter(filter_fn)
 
-func find_event(filter_fn) -> Event:
-	var evs = find_events(filter_fn)
+func find_event(filter_fn: Callable) -> Event:
+	var evs: Array = find_events(filter_fn)
 	if len(evs) > 0:
 		return evs[0]
 	else:
@@ -75,8 +75,8 @@ func find_event(filter_fn) -> Event:
 
 ## events ###########################################
 
-func complete_puzzle_set(puz: PuzzleSet):
-	var event = find_event(func(ev): return PuzzleSetCompleted.is_matching_event(ev, puz))
+func complete_puzzle_set(puz: PuzzleSet) -> void:
+	var event: PuzzleSetCompleted = find_event(func(ev: Event) -> bool: return PuzzleSetCompleted.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
 	elif not event:
@@ -85,8 +85,8 @@ func complete_puzzle_set(puz: PuzzleSet):
 		events.append(event)
 	save_game()
 
-func complete_puzzle_index(puz: PuzzleSet, idx: int):
-	var event = find_event(func(ev): return PuzzleCompleted.is_matching_event(ev, puz, idx))
+func complete_puzzle_index(puz: PuzzleSet, idx: int) -> void:
+	var event: PuzzleCompleted = find_event(func(ev: Event) -> bool: return PuzzleCompleted.is_matching_event(ev, puz, idx))
 	if event:
 		event.inc_count()
 	elif not event:
@@ -94,20 +94,21 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int):
 		state.apply_event(event)
 		events.append(event)
 
-	var skip_event = find_event(func(ev):
-		return PuzzleSkipped.is_matching_event(ev, puz, idx) and ev.is_active())
+	var skip_event: Event = find_event(func(ev: Event) -> bool:
+		return PuzzleSkipped.is_matching_event(ev, puz, idx) and (ev as PuzzleSkipped).is_active())
 	if skip_event:
-		skip_event.mark_inactive()
+		(skip_event as PuzzleSkipped).mark_inactive()
 		# NOTE the in-place (passed) puzzle set is not updated
 		state.apply_event(skip_event)
 
-	var p = state.find_puzzle_set(event.get_puzzle_set())
+	@warning_ignore("unsafe_method_access")
+	var p: PuzzleSet = state.find_puzzle_set(event.get_puzzle_set() as PuzzleSet)
 	p.attach_game_def_stats()
 
 	save_game()
 
-func skip_puzzle(puz: PuzzleSet, idx: int):
-	var event = find_event(func(ev): return PuzzleSkipped.is_matching_event(ev, puz, idx))
+func skip_puzzle(puz: PuzzleSet, idx: int) -> void:
+	var event: PuzzleSkipped = find_event(func(ev: Event) -> bool: return PuzzleSkipped.is_matching_event(ev, puz, idx))
 	if event:
 		event.inc_count()
 	elif not event:
@@ -120,8 +121,8 @@ func skip_puzzle(puz: PuzzleSet, idx: int):
 
 	save_game()
 
-func unlock_puzzle_set(puz: PuzzleSet):
-	var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, puz))
+func unlock_puzzle_set(puz: PuzzleSet) -> void:
+	var event: Event = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
 	elif not event:
@@ -133,17 +134,17 @@ func unlock_puzzle_set(puz: PuzzleSet):
 	save_game()
 
 # Deprecated
-func unlock_next_puzzle_set(puz: PuzzleSet):
-	var next = puz.get_next_puzzle_set()
+func unlock_next_puzzle_set(puz: PuzzleSet) -> void:
+	var next: PuzzleSet = puz.get_next_puzzle_set()
 	if next:
 		unlock_puzzle_set(next)
 	else:
 		Log.warn("No next puzzle to unlock!", puz)
 
-func unlock_all_puzzle_sets():
+func unlock_all_puzzle_sets() -> void:
 	Log.warn("Unlocking all puzzle sets!")
-	for ps in state.puzzle_sets:
-		var event = find_event(func(ev): return PuzzleSetUnlocked.is_matching_event(ev, ps))
+	for ps: PuzzleSet in state.puzzle_sets:
+		var event: PuzzleSetUnlocked = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, ps))
 		if event:
 			continue
 		event = PuzzleSetUnlocked.new_event(ps)

@@ -29,7 +29,7 @@ static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int) -> PuzzleCompleted
 		})
 	return event
 
-static func is_matching_event(event: PuzzleCompleted, puzzle_set: PuzzleSet, idx: int) -> bool:
+static func is_matching_event(event: Event, puzzle_set: PuzzleSet, idx: int) -> bool:
 	if not event is PuzzleCompleted:
 		return false
 	return (event as PuzzleCompleted).get_puzzle_set_id() == puzzle_set.get_entity_id() and \
