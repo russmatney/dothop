@@ -1,16 +1,16 @@
 @tool
 extends DotsDot
 
-@onready var asteroid1 = $Asteroid1
-@onready var asteroid2 = $Asteroid2
-@onready var star = $Star
+@onready var asteroid1: Node2D = $Asteroid1
+@onready var asteroid2: Node2D = $Asteroid2
+@onready var star: Node2D = $Star
 
 ## ready ###########################################################
 
-func _ready():
+func _ready() -> void:
 	super._ready()
 
-	var anims = [asteroid1, asteroid2, star]
+	var anims := [asteroid1, asteroid2, star]
 
 	match type:
 		DHData.dotType.Dot:
@@ -26,7 +26,7 @@ func _ready():
 			anim.play("goal")
 			U.set_random_frame(anim)
 
-	for an in anims:
+	for an: Node2D in anims:
 		if anim != an:
 			an.set_visible(false)
 		else:

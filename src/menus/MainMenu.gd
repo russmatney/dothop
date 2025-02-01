@@ -1,33 +1,33 @@
 @tool
 extends CanvasLayer
 
-@onready var start_button = $%StartButton
-@onready var options_button = $%OptionsButton
-@onready var credits_button = $%CreditsButton
-@onready var quit_button = $%QuitButton
-@onready var puzzle_stats_label = $%PuzzleStatsLabel
+@onready var start_button: Button = $%StartButton
+@onready var options_button: Button = $%OptionsButton
+@onready var credits_button: Button = $%CreditsButton
+@onready var quit_button: Button = $%QuitButton
+@onready var puzzle_stats_label: RichTextLabel = $%PuzzleStatsLabel
 
-@onready var world_map = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
-@onready var options_menu = preload("res://src/menus/OptionsPanel.tscn")
-@onready var credits_menu = preload("res://src/menus/Credits.tscn")
+@onready var world_map: PackedScene = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
+@onready var options_menu: PackedScene = preload("res://src/menus/OptionsPanel.tscn")
+@onready var credits_menu: PackedScene = preload("res://src/menus/Credits.tscn")
 
-func _ready():
+func _ready() -> void:
 	if not Engine.is_editor_hint():
 		SoundManager.play_music(Music.late_night_radio)
-		U.call_in(self, func(): GodotSteam.set_first_hop(), 0.8)
+		U.call_in(self, func() -> void: GodotSteam.set_first_hop(), 0.8)
 
 	start_button.grab_focus.call_deferred()
-	start_button.visibility_changed.connect(func(): start_button.grab_focus())
+	start_button.visibility_changed.connect(func() -> void: start_button.grab_focus())
 
-	start_button.pressed.connect(func(): Navi.nav_to(world_map))
-	options_button.pressed.connect(func(): Navi.nav_to(options_menu))
-	credits_button.pressed.connect(func(): Navi.nav_to(credits_menu))
-	quit_button.pressed.connect(func(): get_tree().quit())
+	start_button.pressed.connect(func() -> void: Navi.nav_to(world_map))
+	options_button.pressed.connect(func() -> void: Navi.nav_to(options_menu))
+	credits_button.pressed.connect(func() -> void: Navi.nav_to(credits_menu))
+	quit_button.pressed.connect(func() -> void: get_tree().quit())
 
 	render_puzzle_stats()
 
-func render_puzzle_stats():
-	var stats = DHData.calc_stats(Store.get_puzzle_sets())
+func render_puzzle_stats() -> void:
+	var stats := DHData.calc_stats(Store.get_puzzle_sets())
 
 	Log.pr("Puzzle stats!", {
 		events=len(Store.get_events()),

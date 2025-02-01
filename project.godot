@@ -36,7 +36,6 @@ Juice="*res://addons/bones/Juice.gd"
 [debug]
 
 gdscript/warnings/untyped_declaration=1
-gdscript/warnings/inferred_declaration=1
 gdscript/warnings/unsafe_property_access=1
 gdscript/warnings/unsafe_method_access=1
 gdscript/warnings/unsafe_call_argument=1

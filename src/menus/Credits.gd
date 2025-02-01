@@ -1,7 +1,7 @@
 @tool
 extends Credits
 
-var dothop_credits = [
+var dothop_credits := [
 	[
 		"",
 		"",
@@ -218,22 +218,22 @@ var dothop_credits = [
 	],
 ]
 
-func get_credit_lines():
+func get_credit_lines() -> Array:
 	return dothop_credits
 
 ## vars #################################################
 
-@onready var main_menu_button = $%MainMenuButton
+@onready var main_menu_button: Button = $%MainMenuButton
 
 ## ready #################################################
 
-func _ready():
+func _ready() -> void:
 	if not Engine.is_editor_hint():
 		SoundManager.play_music(Music.late_night_radio)
 
 	super._ready()
-	main_menu_button.pressed.connect(func():
+	main_menu_button.pressed.connect(func() -> void:
 		Navi.nav_to_main_menu())
 	main_menu_button.grab_focus.call_deferred()
-	main_menu_button.visibility_changed.connect(func():
+	main_menu_button.visibility_changed.connect(func() -> void:
 		main_menu_button.grab_focus())

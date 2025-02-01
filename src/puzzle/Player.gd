@@ -50,9 +50,10 @@ func set_initial_coord(coord: Vector2) -> void:
 
 ## move #########################################################
 
-func move_to_coord(coord: Vector2) -> void:
+func move_to_coord(coord: Vector2) -> Variant:
 	current_coord = coord
 	position = coord * square_size
+	return
 
 ## undo #########################################################
 

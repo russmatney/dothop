@@ -3,45 +3,45 @@ extends PanelContainer
 
 ## vars ###############################################3
 
-@onready var edit_action_scene = preload("res://src/menus/controls/EditActionRow.tscn")
-@onready var action_rows = $%EditActionRows
-@onready var reset_controls_button = $%ResetControlsButton
+@onready var edit_action_scene := preload("res://src/menus/controls/EditActionRow.tscn")
+@onready var action_rows: BoxContainer = $%EditActionRows
+@onready var reset_controls_button: Button = $%ResetControlsButton
 
-var displayed_actions = [
+var displayed_actions := [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
 	# "ui_up", "ui_down", "ui_left", "ui_right",
 	]
 
 ## ready ###############################################3
 
-func _ready():
+func _ready() -> void:
 	render_action_rows()
 	reset_controls_button.pressed.connect(on_reset_controls_pressed)
 
 ## render ###############################################3
 
-func render_action_rows():
+func render_action_rows() -> void:
 	U.remove_children(action_rows)
-	for action in displayed_actions:
-		var row = edit_action_scene.instantiate()
+	for action: String in displayed_actions:
+		var row: EditActionRow = edit_action_scene.instantiate()
 		row.edit_pressed.connect(on_edit_pressed.bind(row))
 		row.action_name = action
 		action_rows.add_child(row)
 
-	for row in action_rows.get_children():
+	for row: EditActionRow in action_rows.get_children():
 		row.set_focus()
 		break
 
 ## on edit
 
-func on_edit_pressed(row):
-	for r in action_rows.get_children():
+func on_edit_pressed(row: EditActionRow) -> void:
+	for r: EditActionRow in action_rows.get_children():
 		if r != row:
 			r.clear_editing_unless(row)
 
 ## reset controls ###############################################3
 
-func on_reset_controls_pressed():
-	Log.pr("resetting controls!")
+func on_reset_controls_pressed() -> void:
+	Log.info("resetting controls!")
 	InputHelper.reset_all_actions()
 	render_action_rows()

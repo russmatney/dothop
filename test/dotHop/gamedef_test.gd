@@ -1,8 +1,8 @@
 extends GdUnitTestSuite
 class_name GameDefTest
 
-func test_expected_puzzle_count():
-	var parsed = Puzz.parse_game_def(null, {contents="
+func test_expected_puzzle_count() -> void:
+	var parsed: GameDef = Puzz.parse_game_def(null, {contents="
 title DotHop
 author Russell Matney
 
@@ -34,8 +34,8 @@ ox.o.ot
 
 	assert_int(len(parsed.puzzles)).is_equal(2)
 
-func test_puzzle_def_metadata():
-	var parsed = Puzz.parse_game_def(null, {contents="
+func test_puzzle_def_metadata() -> void:
+	var parsed: GameDef= Puzz.parse_game_def(null, {contents="
 title DotHop
 author Russell Matney
 
@@ -75,11 +75,11 @@ ox.o.ot
 .......
 "})
 	assert_int(len(parsed.puzzles)).is_equal(3)
-	var puzz_one = parsed.puzzles[0]
-	var puzz_two = parsed.puzzles[1]
-	var puzz_three = parsed.puzzles[2]
+	var puzz_one: PuzzleDef = parsed.puzzles[0]
+	var puzz_two: PuzzleDef = parsed.puzzles[1]
+	var puzz_three: PuzzleDef = parsed.puzzles[2]
 
-	assert_that(puzz_one.meta.first).is_true()
+	assert_bool(puzz_one.meta.first).is_true()
 	assert_that(puzz_one.meta.name).is_equal("First puzzle")
 	assert_that(puzz_one.meta.message).is_equal("Good luck out there | You got this!")
 

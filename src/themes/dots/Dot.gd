@@ -2,19 +2,19 @@
 extends DotHopDot
 class_name DotsDot
 
-var anim
+var anim: AnimatedSprite2D
 
 ## ready ###########################################################
 
-func _ready():
-	var a = get_node_or_null("AnimatedSprite2D")
+func _ready() -> void:
+	var a: Variant = get_node_or_null("AnimatedSprite2D")
 	if a:
 		anim = a
 	super._ready()
 
 ## render ###########################################################
 
-func render():
+func render() -> void:
 	if anim != null:
 		match type:
 			DHData.dotType.Dot:
