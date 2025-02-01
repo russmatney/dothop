@@ -30,7 +30,7 @@ func load_game() -> void:
 		events = initial_events()
 	else:
 		events.assign((data.events as Array)\
-			.filter(func(ev: Event) -> bool: return ev != null)\
+			.filter(func(ev: Variant) -> bool: return ev != null)\
 			# TODO handle crashes when events can't deserialize
 			.map(Pandora.deserialize))
 
