@@ -1,52 +1,53 @@
 @tool
 extends VBoxContainer
 
-var scene_ready
+var scene_ready: bool
 
-@export var add_notif = "" :
+@export var add_notif: String = "" :
 	set(txt):
 		add_notif = txt
 		if txt and scene_ready:
 			_on_notification({"msg": txt})
 
-@export var add_rich_notif = "" :
+@export var add_rich_notif: String = "" :
 	set(txt):
 		add_rich_notif = txt
 		if txt and scene_ready:
 			_on_notification({"msg": txt, "rich": true})
 
+@warning_ignore("unused_private_class_variable")
 @export var _clear : bool :
 	set(v):
-		for ch in get_children():
+		for ch: Node in get_children():
 			ch.queue_free()
 
-@export var side = "left"
+@export var side: String = "left"
 
 #############################################################
 
-func _ready():
+func _ready() -> void:
 	DotHop.notification.connect(_on_notification)
 	DotHop.notif("[Notifications online]", {id="initial"})
 	scene_ready = true
 
 #############################################################
 
-var notif_label = preload("res://src/ui/notifications/NotifLabel.tscn")
-var notif_rich_label = preload("res://src/ui/notifications/NotifRichLabel.tscn")
+var notif_label: PackedScene = preload("res://src/ui/notifications/NotifLabel.tscn")
+var notif_rich_label: PackedScene = preload("res://src/ui/notifications/NotifRichLabel.tscn")
 
-var id_notifs = {}
+var id_notifs: Dictionary = {}
 
 # TODO support passed icon to decorate the notif/toast
-func _on_notification(notif: Dictionary):
-	var lbl
+func _on_notification(notif: Dictionary) -> void:
+	var lbl: Variant # aka my Label + RichTextLabel disaster
 
-	var text = notif.get("text", notif.get("msg"))
+	var text: String = notif.get("text", notif.get("msg"))
 
-	var id = notif.get("id", text)
-	var found_existing = false
+	var id: String = notif.get("id", text)
+	var found_existing: bool = false
 	if id != null:
 		if id in id_notifs:
-			var l = id_notifs[id]
+			var l: Node = id_notifs[id]
 			if is_instance_valid(l) and not l.is_queued_for_deletion():
 				lbl = l
 				found_existing = true
@@ -55,10 +56,12 @@ func _on_notification(notif: Dictionary):
 
 	if not found_existing and notif.get("rich"):
 		lbl = notif_rich_label.instantiate()
-		lbl.text = "[%s]%s[/%s]" % [side, text, side]
+		# two ticking time bombs
+		(lbl as RichTextLabel).text = "[%s]%s[/%s]" % [side, text, side]
 	elif not found_existing:
 		lbl = notif_label.instantiate()
-		lbl.text = text
+		# await a weary traveler
+		(lbl as Label).text = text
 
 	if notif.get("rich"):
 		lbl.text = "[%s]%s[/%s]" % [side, text, side]
@@ -67,13 +70,15 @@ func _on_notification(notif: Dictionary):
 	lbl.ttl = notif.get("ttl", 3.0)
 
 	if found_existing:
+		@warning_ignore("unsafe_method_access")
 		lbl.reset_ttl()
+		@warning_ignore("unsafe_method_access")
 		lbl.reemphasize()
 
 	if id != null:
 		id_notifs[id] = lbl
 
 	if not found_existing:
-		add_child(lbl)
+		add_child(lbl as Node)
 	# if Engine.is_editor_hint():
 	# 	lbl.set_owner(owner)

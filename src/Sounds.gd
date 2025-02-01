@@ -94,8 +94,8 @@ func _enter_tree() -> void:
 
 func on_node_added(node: Node) -> void:
 	if node is Button:
-		node.focus_entered.connect(on_button_focused.bind(node))
-		node.pressed.connect(on_button_pressed.bind(node))
+		(node as Button).focus_entered.connect(on_button_focused.bind(node))
+		(node as Button).pressed.connect(on_button_pressed.bind(node))
 
 func on_button_focused(button: Button) -> void:
 	if button.is_visible_in_tree():
