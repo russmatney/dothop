@@ -38,7 +38,7 @@ func test_initial_store_theme_data() -> void:
 	assert_that(len(themes)).is_equal(len(theme_ents))
 
 	# at least one theme unlocked
-	var unlocked := themes.filter(func(ent: PuzzleSet) -> bool: return ent.is_unlocked())
+	var unlocked := themes.filter(func(ent: PuzzleTheme) -> bool: return ent.is_unlocked())
 	assert_int(len(unlocked)).is_greater(0)
 
 #########################################################################

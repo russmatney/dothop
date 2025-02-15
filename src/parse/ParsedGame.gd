@@ -74,13 +74,15 @@ func parse_prelude(chunks: Array) -> Dictionary:
 
 func parse_objects(chunks: Array) -> Dictionary:
 	var objs := {}
-	for lines: Array[String] in chunks:
+	for lines: Array in chunks:
 		var obj := {}
-		var nm_parts := lines[0].split(" ")
+		var line: String = lines[0]
+		var nm_parts := line.split(" ")
 		obj.name = nm_parts[0]
 		if nm_parts.size() > 1:
 			obj.symbol = nm_parts[1]
-		obj.colors = Array(lines[1].split(" "))
+		var line2: String = lines[1]
+		obj.colors = Array(line2.split(" "))
 		if lines.size() > 2:
 			lines.remove_at(0)
 			lines.remove_at(0)

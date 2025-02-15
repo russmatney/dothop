@@ -12,7 +12,7 @@ static func parse_game_def(path: Variant, opts: Dictionary = {}) -> GameDef:
 		contents = file.get_as_text()
 
 	var parsed: Dictionary = ParsedGame.new().parse(contents)
-	return GameDef.new(path as String, parsed)
+	return GameDef.new(path, parsed)
 
 # helpful for supporting some tests
 static func parse_puzzle_def(lines: Array) -> PuzzleDef:

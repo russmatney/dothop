@@ -17,7 +17,7 @@ static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 #
 # This func could live on the DotHopGame script, but a function like this is useful
 # for testing just the game logic (without loading a full DotHopGame)
-static func build_puzzle_node(opts: Dictionary) -> Node2D:
+static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and opts.get("game_def_path"):
@@ -47,10 +47,10 @@ static func build_puzzle_node(opts: Dictionary) -> Node2D:
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
 	var _theme_data: PuzzleThemeData = opts.get("puzzle_theme_data")
 	var scene: PackedScene = opts.get("puzzle_scene", _theme_data.puzzle_scene if _theme_data else null)
-	if scene == null:
+	if scene == null and opts.get("puzzle_scene_path") != null:
 		# TODO Drop support for this unless we use it (maybe in tests?)
 		scene = load(str(opts.get("puzzle_scene_path")))
-	elif scene == null:
+	if scene == null:
 		scene = load(fallback_puzzle_scene)
 
 	var node: DotHopPuzzle = scene.instantiate()
@@ -574,7 +574,9 @@ func move_player_to_cell(player: Dictionary, cell: Dictionary) -> Signal:
 	@warning_ignore("unsafe_method_access")
 	if player.node.has_method("move_to_coord"):
 		@warning_ignore("unsafe_method_access")
-		move_finished_sig = player.node.move_to_coord(cell.coord)
+		var res: Variant = player.node.move_to_coord(cell.coord)
+		if res != null:
+			move_finished_sig = res
 	else:
 		player.node.position = cell.coord * square_size
 

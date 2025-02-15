@@ -2,15 +2,16 @@ extends GdUnitTestSuite
 class_name PuzzleAnalysisTest
 
 
-func build_puzzle(puzzle):
-	var puzzle_node = DotHopPuzzle.build_puzzle_node({puzzle=puzzle,
+func build_puzzle(puzzle: Array) -> DotHopPuzzle:
+	var puzzle_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle,
 		game_def_path="res://src/puzzles/dothop.txt"})
 	puzzle_node.init_game_state()
 	return puzzle_node
 
 ## test the solver ##################################################
 
-func test_puzzle_solver_basic(puzz, solvable, test_parameters=[
+@warning_ignore("unused_parameter")
+func test_puzzle_solver_basic(puzz: Array, solvable: bool, test_parameters: Array = [
 		[["xot"], true],
 		[[
 			"x.",
@@ -31,15 +32,16 @@ func test_puzzle_solver_basic(puzz, solvable, test_parameters=[
 			"ox.o.ot",
 			"...o.o.",
 			], true],
-	]):
-	var puzzle = build_puzzle(puzz)
-	var result = PuzzleAnalysis.new(puzzle).analyze()
+	]) -> void:
+	var puzzle := build_puzzle(puzz)
+	var result := PuzzleAnalysis.new(puzzle).analyze()
 	assert_bool(result.solvable).is_equal(solvable)
 
 	puzzle.free()
 
 
-func test_puzzle_solver_analysis(puzz, expected_result, test_parameters=[
+@warning_ignore("unused_parameter")
+func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_parameters: Array = [
 		[["xot"], {
 			solvable=true,
 			path_count=1, winning_path_count=1, stuck_path_count=0,
@@ -78,36 +80,36 @@ func test_puzzle_solver_analysis(puzz, expected_result, test_parameters=[
 			solvable=true,
 			path_count=22, winning_path_count=2, stuck_path_count=20,
 			}],
-	]):
-	var puzzle = build_puzzle(puzz)
+	]) -> void:
+	var puzzle := build_puzzle(puzz)
 
-	var result = PuzzleAnalysis.new(puzzle).analyze()
+	var result := PuzzleAnalysis.new(puzzle).analyze()
 
-	for k in expected_result:
+	for k: String in expected_result:
 		assert_that(expected_result[k]).is_equal(result.get(k))
 
 	puzzle.free()
 
 ## test in-game puzzles ##################################################
 
-func test_all_puzzles_solvable():
-	var sets = Store.get_puzzle_sets()
+func test_all_puzzles_solvable() -> void:
+	var sets := Store.get_puzzle_sets()
 	assert_int(len(sets)).is_greater(3) # make sure we get some
 
 	for puzzle_set in sets:
-		var game_def = Puzz.parse_game_def(puzzle_set.get_puzzle_script_path())
-		var puzzle_count = len(game_def.puzzles)
+		var game_def := Puzz.parse_game_def(puzzle_set.get_puzzle_script_path())
+		var puzzle_count := len(game_def.puzzles)
 		assert_int(puzzle_count).is_greater(0)
 		for i in puzzle_count:
 			# requiring a node that is added to the scene to analyze is a damn shame here
 			# (can the analysis be run without the node's _ready()?
-			var puzz_node = DotHopPuzzle.build_puzzle_node({
+			var puzz_node := DotHopPuzzle.build_puzzle_node({
 				game_def=game_def,
 				puzzle_num=i,
 				})
 			puzz_node.init_game_state()
 
-			var solve = PuzzleAnalysis.new(puzz_node).analyze()
+			var solve := PuzzleAnalysis.new(puzz_node).analyze()
 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), "num:", i,
 				"solvable?", solve.solvable,
 				"dot count", solve.dot_count,

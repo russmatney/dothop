@@ -12,8 +12,8 @@ var path: String
 
 ## init ########################################3333
 
-func _init(_path: String, parsed: Dictionary) -> void:
-	if _path:
+func _init(_path: Variant, parsed: Dictionary) -> void:
+	if _path != null:
 		path = _path
 	raw = parsed
 	legend = parsed.legend

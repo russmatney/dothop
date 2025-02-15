@@ -1,6 +1,6 @@
 extends "res://addons/gd-plug/plug.gd"
 
-func _plugging():
+func _plugging() -> void:
 	plug("MikeSchulze/gdUnit4", {exclude=["addons/gdUnit4/test"]})
 	plug("bitbrain/pandora", {include=["addons/pandora"]})
 	plug("nathanhoad/godot_input_helper", {include=["addons/input_helper"]})
