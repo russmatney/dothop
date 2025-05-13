@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://cvhnovcheippa"]
 
-[ext_resource type="Script" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
+[ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_gk83m"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_ify5j"]

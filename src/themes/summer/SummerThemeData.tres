@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://coyuchcg4n431" path="res://src/themes/summer/Dot.tscn" id="1_2wvlr"]
 [ext_resource type="Texture2D" uid="uid://b2ug20o8rmf7e" path="res://src/themes/summer/assets/dot.png" id="1_u7tjx"]
-[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_ut62m"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_ut62m"]
 [ext_resource type="PackedScene" uid="uid://m8pypw3n8v1d" path="res://src/themes/summer/Goal.tscn" id="2_8gohi"]
 [ext_resource type="Texture2D" uid="uid://dudiwc3mb25i6" path="res://src/themes/summer/assets/dot-dotted.png" id="3_blvlb"]
 [ext_resource type="PackedScene" uid="uid://caphciwfwdctj" path="res://src/themes/summer/Player.tscn" id="3_dw813"]

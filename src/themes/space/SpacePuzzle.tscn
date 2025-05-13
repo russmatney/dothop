@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://cggxk31fgnci7"]
 
-[ext_resource type="Script" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
+[ext_resource type="Script" uid="uid://idxaeas1jbnr" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
 [ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_fp1xt"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_fp1xt"]
 
 [sub_resource type="Resource" id="Resource_gytqd"]
 script = ExtResource("2_fp1xt")

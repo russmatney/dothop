@@ -1,13 +1,13 @@
 [gd_scene load_steps=11 format=3 uid="uid://cq5r4oojxyu5a"]
 
-[ext_resource type="Script" path="res://src/menus/OptionsPanel.gd" id="1_axmuv"]
+[ext_resource type="Script" uid="uid://byd2llfct56ks" path="res://src/menus/OptionsPanel.gd" id="1_axmuv"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_6cvgy"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="3_io088"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="4_06n2g"]
-[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="4_gdi4a"]
+[ext_resource type="Script" uid="uid://cpuyvmqrhur0o" path="res://src/ui/AnimatedVBoxContainer.gd" id="4_gdi4a"]
 [ext_resource type="PackedScene" uid="uid://cpxj4aeuv006l" path="res://src/menus/MuteButtonList.tscn" id="5_bdku5"]
 [ext_resource type="PackedScene" uid="uid://dsft6f7x2lk4v" path="res://src/menus/controls/ControlsPanel.tscn" id="6_fg0x4"]
-[ext_resource type="Script" path="res://src/ui/FadeIn.gd" id="8_hk322"]
+[ext_resource type="Script" uid="uid://bctpf7w7bb4xq" path="res://src/ui/FadeIn.gd" id="8_hk322"]
 [ext_resource type="Theme" uid="uid://b06bqbqqeena" path="res://src/ui/ConfirmationDialogueTheme.tres" id="8_pvanl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6sn6c"]

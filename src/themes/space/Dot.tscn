@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://bmm1270drou5v"]
 
-[ext_resource type="Script" path="res://src/themes/space/Dot.gd" id="1_bmb34"]
+[ext_resource type="Script" uid="uid://nipbiwn8b1oq" path="res://src/themes/space/Dot.gd" id="1_bmb34"]
 [ext_resource type="Texture2D" uid="uid://bnehigh2xb350" path="res://src/themes/space/asteroid.png" id="2_mqxg7"]
 [ext_resource type="Texture2D" uid="uid://br4lr3d2a7upy" path="res://src/themes/space/goal.png" id="3_6klux"]
 [ext_resource type="Texture2D" uid="uid://de3q107q77tuj" path="res://src/themes/space/asteroid_2.png" id="3_a316t"]

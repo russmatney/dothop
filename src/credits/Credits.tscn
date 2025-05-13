@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://c2epup4igoqvl"]
 
-[ext_resource type="Script" path="res://src/credits/Credits.gd" id="1_ef8l5"]
+[ext_resource type="Script" uid="uid://brde2uixqaga7" path="res://src/credits/Credits.gd" id="1_ef8l5"]
 [ext_resource type="PackedScene" uid="uid://bo44ga11t2q8p" path="res://src/credits/CreditLine.tscn" id="3_mimlg"]
 
 [node name="Credits" type="CanvasLayer"]

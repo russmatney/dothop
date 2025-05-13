@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://b25h3h6ofryxi"]
 
 [ext_resource type="PackedScene" uid="uid://tr7u31n263mg" path="res://src/themes/pumpkins/PumpkinDot.tscn" id="1_t6r88"]
-[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_tyb8m"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_tyb8m"]
 [ext_resource type="Texture2D" uid="uid://dlp2c8r3rkg73" path="res://src/themes/pumpkins/pumpkin.png" id="1_xxqf0"]
 [ext_resource type="PackedScene" uid="uid://di85piestdv0m" path="res://src/themes/fall/Leaf.tscn" id="2_d3b15"]
 [ext_resource type="PackedScene" uid="uid://dpn7mqij5du3n" path="res://src/themes/fall/Player.tscn" id="3_1y6j3"]

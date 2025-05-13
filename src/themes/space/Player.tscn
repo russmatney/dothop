@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://csgpsdj4n3rfj"]
 
-[ext_resource type="Script" path="res://src/themes/space/Player.gd" id="1_j03dg"]
+[ext_resource type="Script" uid="uid://bcubllohl0pt3" path="res://src/themes/space/Player.gd" id="1_j03dg"]
 [ext_resource type="Texture2D" uid="uid://df2eaco1ps67w" path="res://src/themes/space/ufo.png" id="2_28spo"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nmbye"]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=3 format=3 uid="uid://vc64ajdhnluf"]
 
-[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_567u7"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_567u7"]
 [ext_resource type="PackedScene" uid="uid://cub0kguq12eo4" path="res://src/puzzle/PuzzleScene.tscn" id="1_e5qx0"]
 
 [resource]

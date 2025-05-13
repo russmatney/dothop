@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://cjl7cgvtofdcc"]
 
 [ext_resource type="Texture2D" uid="uid://oau7lbxvg455" path="res://src/themes/space/assets/asteroid_2.png" id="1_8vw2e"]
-[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_ughi5"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_ughi5"]
 [ext_resource type="PackedScene" uid="uid://bmm1270drou5v" path="res://src/themes/space/Dot.tscn" id="1_uy3vh"]
 [ext_resource type="PackedScene" uid="uid://csgpsdj4n3rfj" path="res://src/themes/space/Player.tscn" id="2_onk3e"]
 [ext_resource type="Texture2D" uid="uid://8roxodr8ivic" path="res://src/themes/space/assets/asteroid_2-dotted.png" id="3_blsb1"]

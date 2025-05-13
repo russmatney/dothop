@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://tr7u31n263mg"]
 
-[ext_resource type="Script" path="res://src/themes/pumpkins/PumpkinDot.gd" id="1_lqdj3"]
+[ext_resource type="Script" uid="uid://bw6svooi8iapj" path="res://src/themes/pumpkins/PumpkinDot.gd" id="1_lqdj3"]
 [ext_resource type="Texture2D" uid="uid://dlp2c8r3rkg73" path="res://src/themes/pumpkins/pumpkin.png" id="2_mwdep"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umglb"]

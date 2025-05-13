@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
 
-[ext_resource type="Script" path="res://src/themes/winter/WinterPuzzle.gd" id="1_n4qjr"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_nn1xv"]
+[ext_resource type="Script" uid="uid://becyrcbh6v7oo" path="res://src/themes/winter/WinterPuzzle.gd" id="1_n4qjr"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_nn1xv"]
 [ext_resource type="Texture2D" uid="uid://bq5gwu01p78qr" path="res://src/themes/winter/assets/winterbg1_sheet.png" id="6_i84xx"]
 
 [sub_resource type="Resource" id="Resource_ap3d0"]

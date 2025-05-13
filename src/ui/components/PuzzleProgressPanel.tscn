@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://dlvpdwwuh8av8"]
 
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="1_tufv2"]
-[ext_resource type="Script" path="res://src/ui/AnimatedVBoxContainer.gd" id="2_6lh1w"]
-[ext_resource type="Script" path="res://src/ui/components/PuzzleProgressPanel.gd" id="2_mt4fd"]
+[ext_resource type="Script" uid="uid://cpuyvmqrhur0o" path="res://src/ui/AnimatedVBoxContainer.gd" id="2_6lh1w"]
+[ext_resource type="Script" uid="uid://spqfgv8uoxud" path="res://src/ui/components/PuzzleProgressPanel.gd" id="2_mt4fd"]
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="4_130o0"]
 
 [node name="PuzzleProgressPanel" type="Control"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://y6dvlkypc634"]
 
-[ext_resource type="Script" path="res://src/themes/fall/FallPuzzle.gd" id="1_m31km"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
+[ext_resource type="Script" uid="uid://ctjvqavdr2s6m" path="res://src/themes/fall/FallPuzzle.gd" id="1_m31km"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
 [ext_resource type="Texture2D" uid="uid://beggnuu07g1dk" path="res://src/themes/fall/assets/fallbg-2_sheet.png" id="3_fs7ti"]
 
 [sub_resource type="Resource" id="Resource_6arfg"]

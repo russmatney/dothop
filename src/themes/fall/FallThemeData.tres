@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://x85lhb72ywee"]
 
-[ext_resource type="Script" path="res://src/themes/PuzzleThemeData.gd" id="1_84qne"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_84qne"]
 [ext_resource type="PackedScene" uid="uid://dpn7mqij5du3n" path="res://src/themes/fall/Player.tscn" id="1_mi5di"]
 [ext_resource type="PackedScene" uid="uid://di85piestdv0m" path="res://src/themes/fall/Leaf.tscn" id="1_tiex6"]
 [ext_resource type="Texture2D" uid="uid://drfuuoebb136e" path="res://src/themes/fall/assets/leaf_greenred.png" id="1_tjkvp"]

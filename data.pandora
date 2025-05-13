@@ -830,7 +830,7 @@
 			},
 			{
 				"_category_id": "28",
-				"_default_value": 0,
+				"_default_value": 0.0,
 				"_id": "38",
 				"_name": "timestamp_float",
 				"_type": "float"
@@ -904,7 +904,7 @@
 				"_id": "54",
 				"_name": "max_completed_puzzle_idx",
 				"_setting_overrides": {
-					"Min Value": -1
+					"Min Value": -1.0
 				},
 				"_type": "int"
 			},
@@ -977,7 +977,7 @@
 				"_id": "69",
 				"_name": "puzzles_to_unlock",
 				"_setting_overrides": {
-					"Min Value": 0
+					"Min Value": 0.0
 				},
 				"_type": "int"
 			},
@@ -992,7 +992,7 @@
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 71
+			"default": 71.0
 		}
 	}
 }

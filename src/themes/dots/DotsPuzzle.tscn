@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://qkaayvt6sph0"]
 
-[ext_resource type="Script" path="res://src/themes/dots/DotsPuzzle.gd" id="1_g1ytu"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_5gqre"]
+[ext_resource type="Script" uid="uid://2nn8tbu7xdh2" path="res://src/themes/dots/DotsPuzzle.gd" id="1_g1ytu"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_5gqre"]
 
 [sub_resource type="Resource" id="Resource_5rmsa"]
 script = ExtResource("2_5gqre")

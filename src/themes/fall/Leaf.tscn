@@ -1,6 +1,6 @@
 [gd_scene load_steps=36 format=3 uid="uid://di85piestdv0m"]
 
-[ext_resource type="Script" path="res://src/themes/fall/Leaf.gd" id="1_l6y56"]
+[ext_resource type="Script" uid="uid://dv1pucaqenfl3" path="res://src/themes/fall/Leaf.gd" id="1_l6y56"]
 [ext_resource type="Texture2D" uid="uid://d23a8ljxjvq0x" path="res://src/themes/fall/leaf_green.png" id="2_7qt6e"]
 [ext_resource type="Texture2D" uid="uid://f6v5qu873jn1" path="res://src/themes/fall/leaf_greenred.png" id="3_b4v6s"]
 [ext_resource type="Texture2D" uid="uid://b46m768vfaimt" path="res://src/themes/fall/leaf_purple.png" id="4_e6ltx"]

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://dve6wwmspbde0"]
 
-[ext_resource type="Script" path="res://src/ui/components/Jumbotron.gd" id="1_6gaau"]
+[ext_resource type="Script" uid="uid://dbm06064f5slq" path="res://src/ui/components/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="2_tehfu"]
-[ext_resource type="PackedScene" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_1031q"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_1031q"]
 [ext_resource type="Texture2D" uid="uid://bxsr7k8mimuxn" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_enter.png" id="4_hqfl6"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]

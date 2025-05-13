@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://dpn7mqij5du3n"]
 
-[ext_resource type="Script" path="res://src/themes/fall/Player.gd" id="1_4prmm"]
+[ext_resource type="Script" uid="uid://dbnm1cfe5c8dn" path="res://src/themes/fall/Player.gd" id="1_4prmm"]
 [ext_resource type="Texture2D" uid="uid://bwj617862p1jl" path="res://src/themes/fall/player.png" id="2_4av6r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xthu7"]

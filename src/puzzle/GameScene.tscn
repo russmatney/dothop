@@ -1,9 +1,9 @@
 [gd_scene load_steps=8 format=3 uid="uid://ce3lkje27mc27"]
 
-[ext_resource type="Script" path="res://src/puzzle/GameScene.gd" id="1_ak4mv"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_00afq"]
+[ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/puzzle/GameScene.gd" id="1_ak4mv"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_00afq"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
-[ext_resource type="Script" path="res://src/PuzzleSet.gd" id="3_qrqrt"]
+[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/PuzzleSet.gd" id="3_qrqrt"]
 [ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/DotHopCam.tscn" id="6_76inj"]
 
 [sub_resource type="Resource" id="Resource_ygcuv"]

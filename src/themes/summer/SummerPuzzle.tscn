@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
 
-[ext_resource type="Script" path="res://src/themes/summer/SummerPuzzle.gd" id="1_n4qjr"]
-[ext_resource type="Script" path="res://src/themes/PuzzleTheme.gd" id="2_lj7be"]
+[ext_resource type="Script" uid="uid://0aoxhuuyopg6" path="res://src/themes/summer/SummerPuzzle.gd" id="1_n4qjr"]
+[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_lj7be"]
 [ext_resource type="Texture2D" uid="uid://bptlqqe3padky" path="res://src/themes/summer/assets/summerbg1_sheet.png" id="6_fobk3"]
 
 [sub_resource type="Resource" id="Resource_yarm8"]
