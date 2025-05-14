@@ -52,8 +52,8 @@ func add_menu_item(item: Dictionary) -> void:
 		if not but.is_queued_for_deletion():
 			texts.append(but.text)
 
-	var hide_fn: Callable = item.get("hide_fn")
-	if hide_fn and hide_fn.call():
+	var hide_fn: Variant = item.get("hide_fn")
+	if hide_fn and hide_fn is Callable and (hide_fn as Callable).call():
 		return
 
 	var label: String = item.get("label")
