@@ -1,29 +1,29 @@
-[gd_scene load_steps=9 format=3 uid="uid://caphciwfwdctj"]
+[gd_scene load_steps=9 format=3 uid="uid://cfscrlijy337d"]
 
-[ext_resource type="Script" uid="uid://dsl6gsqh6musi" path="res://src/themes/summer/Player.gd" id="1_vvvex"]
-[ext_resource type="Texture2D" uid="uid://kpd43nkqpb6y" path="res://src/themes/summer/player.png" id="2_a7pxc"]
+[ext_resource type="Script" uid="uid://dsl6gsqh6musi" path="res://src/themes/summer/Player.gd" id="1_o6oo2"]
+[ext_resource type="Texture2D" uid="uid://kpd43nkqpb6y" path="res://src/themes/summer/player.png" id="2_fgj2j"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4jdk7"]
-atlas = ExtResource("2_a7pxc")
+atlas = ExtResource("2_fgj2j")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0bhti"]
-atlas = ExtResource("2_a7pxc")
+atlas = ExtResource("2_fgj2j")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w2b5k"]
-atlas = ExtResource("2_a7pxc")
+atlas = ExtResource("2_fgj2j")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n2co5"]
-atlas = ExtResource("2_a7pxc")
+atlas = ExtResource("2_fgj2j")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_afbb1"]
-atlas = ExtResource("2_a7pxc")
+atlas = ExtResource("2_fgj2j")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_rstrp"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_cggxj"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -46,14 +46,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Player" type="Node2D" groups=["player"]]
-z_index = 5
-script = ExtResource("1_vvvex")
+[node name="SummerPlayer" type="Node2D" groups=["player"]]
+script = ExtResource("1_o6oo2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_rstrp")
+sprite_frames = SubResource("SpriteFrames_cggxj")
 animation = &"idle"
 autoplay = "idle"
 metadata/_aseprite_wizard_config_ = {
@@ -64,4 +63,11 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "op_exp": false,
 "source": "res://src/themes/summer/assets/player.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"layers": [],
+"should_round_fps": true,
+"slice": ""
+}
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
+[gd_scene load_steps=5 format=3 uid="uid://i8c8wf7rllh8"]
 
 [ext_resource type="Script" uid="uid://becyrcbh6v7oo" path="res://src/themes/winter/WinterPuzzle.gd" id="1_n4qjr"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_nn1xv"]

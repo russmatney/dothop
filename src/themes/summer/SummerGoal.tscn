@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=3 uid="uid://da7o3wudhb4jk"]
+
+[ext_resource type="Script" uid="uid://ctfbtpkvh1hr2" path="res://src/themes/summer/Goal.gd" id="1_tlsf1"]
+[ext_resource type="Texture2D" uid="uid://bin8a2qxwpw8x" path="res://src/themes/summer/goal.png" id="2_uc5a4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6f7fd"]
+atlas = ExtResource("2_uc5a4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4wekg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6f7fd")
+}],
+"loop": true,
+"name": &"goal",
+"speed": 10.0
+}]
+
+[node name="SummerGoal" type="Node2D"]
+script = ExtResource("1_tlsf1")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_4wekg")
+animation = &"goal"
+metadata/_aseprite_wizard_config_ = {
+"layer": "",
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"op_exp": false,
+"source": "res://src/themes/summer/assets/goal.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"layers": [],
+"should_round_fps": true,
+"slice": ""
+}
+}

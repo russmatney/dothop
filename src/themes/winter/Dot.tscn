@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://coyuchcg4n431"]
+[gd_scene load_steps=10 format=3 uid="uid://dqgb3xge06vam"]
 
 [ext_resource type="Script" uid="uid://c4lkx5ii4qm4r" path="res://src/themes/winter/Dot.gd" id="1_jnnoi"]
 [ext_resource type="Texture2D" uid="uid://c57yeq8gp33wl" path="res://src/themes/winter/snowman.png" id="2_xjbb3"]

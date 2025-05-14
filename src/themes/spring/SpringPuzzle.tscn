@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://crq5eh3kjrx0s"]
+[gd_scene load_steps=5 format=3 uid="uid://b5e3ik1k1rx72"]
 
 [ext_resource type="Script" uid="uid://c21ck31qmppmf" path="res://src/themes/spring/SpringPuzzle.gd" id="1_n4qjr"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_0jpcc"]

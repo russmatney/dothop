@@ -1,25 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://coyuchcg4n431"]
+[gd_scene load_steps=8 format=3 uid="uid://ctnxrvyjmg6a"]
 
-[ext_resource type="Script" uid="uid://bxcrqxb6i02s" path="res://src/themes/summer/Dot.gd" id="1_jnnoi"]
-[ext_resource type="Texture2D" uid="uid://bejpom40io2dg" path="res://src/themes/summer/dot.png" id="2_pba0y"]
+[ext_resource type="Script" uid="uid://bxcrqxb6i02s" path="res://src/themes/summer/Dot.gd" id="1_uf5y2"]
+[ext_resource type="Texture2D" uid="uid://bejpom40io2dg" path="res://src/themes/summer/dot.png" id="2_tffho"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_86o2j"]
-atlas = ExtResource("2_pba0y")
+atlas = ExtResource("2_tffho")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1xoe8"]
-atlas = ExtResource("2_pba0y")
+atlas = ExtResource("2_tffho")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gum3v"]
-atlas = ExtResource("2_pba0y")
+atlas = ExtResource("2_tffho")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qtg70"]
-atlas = ExtResource("2_pba0y")
+atlas = ExtResource("2_tffho")
 region = Rect2(16, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_owlrn"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_moa1i"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -44,14 +44,13 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Dot" type="Node2D"]
-z_index = 1
-script = ExtResource("1_jnnoi")
+[node name="SummerDot" type="Node2D"]
+script = ExtResource("1_uf5y2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 scale = Vector2(2, 2)
-sprite_frames = SubResource("SpriteFrames_owlrn")
+sprite_frames = SubResource("SpriteFrames_moa1i")
 animation = &"dot"
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
@@ -61,4 +60,11 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "op_exp": false,
 "source": "res://src/themes/summer/assets/dot.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"layers": [],
+"should_round_fps": true,
+"slice": ""
+}
 }

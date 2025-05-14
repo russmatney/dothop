@@ -1,4 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://m8pypw3n8v1d"]
+[gd_scene load_steps=5 format=3 uid="uid://crnheepcaf2wn"]
 
 [ext_resource type="Script" uid="uid://chxd66sejakgx" path="res://src/themes/winter/Goal.gd" id="1_wbkvj"]
 [ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/winter/goal.png" id="2_t8468"]
@@ -27,7 +27,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_6055a")
 animation = &"goal"
-frame_progress = 0.0848775
+frame_progress = 0.188392
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
