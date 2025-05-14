@@ -18,6 +18,7 @@ static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 # This func could live on the DotHopGame script, but a function like this is useful
 # for testing just the game logic (without loading a full DotHopGame)
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
+	Log.prn("building puzzle node", opts)
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and opts.get("game_def_path"):
@@ -46,6 +47,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
 	var _theme_data: PuzzleThemeData = opts.get("puzzle_theme_data")
+	Log.info("using theme data", _theme_data)
 	var scene: PackedScene = opts.get("puzzle_scene", _theme_data.puzzle_scene if _theme_data else null)
 	if scene == null and opts.get("puzzle_scene_path") != null:
 		# TODO Drop support for this unless we use it (maybe in tests?)
@@ -57,6 +59,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 	node.game_def = _game_def
 	node.theme = _theme
+	node.theme_data = _theme_data
 	node.puzzle_def = _puzzle_def
 	node.puzzle_num = _puzzle_num
 	return node
@@ -88,6 +91,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 @export var debugging: bool = false
 
 @export var theme: PuzzleTheme
+@export var theme_data: PuzzleThemeData
 var game_def : GameDef
 var puzzle_def : PuzzleDef :
 	set(ld):
@@ -324,11 +328,14 @@ func init_player(coord: Vector2, node: Node) -> Dictionary:
 	return {coord=coord, stuck=false, move_history=[], node=node}
 
 func clear_nodes() -> void:
-	for ch: CanvasItem in get_children():
-		if ch.is_in_group("generated"):
+	for ch: Variant in get_children():
+		if not ch is CanvasItem:
+			continue
+		var ci: CanvasItem = ch as CanvasItem
+		if ci.is_in_group("generated"):
 			# hide flicker while we wait for queue_free
-			ch.set_visible(false)
-			ch.queue_free()
+			ci.set_visible(false)
+			ci.queue_free()
 
 var dhcam_scene: PackedScene = preload("res://src/DotHopCam.tscn")
 var dhcam: DotHopCam
@@ -451,32 +458,16 @@ func node_for_object_name(obj_name: String) -> Node2D:
 ## custom nodes ##############################################################
 
 func get_scene_for(obj_name: String) -> PackedScene:
+	if theme_data == null:
+		Log.warn("Missing expected theme_data")
+	else:
+		Log.prn("Found theme data", theme_data)
 	match obj_name:
-		"Player": return get_player_scene()
-		"Dot": return get_dot_scene()
-		"Dotted": return get_dotted_scene()
-		"Goal": return get_goal_scene()
+		"Player": return theme_data.get_player_scene()
+		"Dot": return theme_data.get_dot_scene()
+		"Dotted": return theme_data.get_dotted_scene()
+		"Goal": return theme_data.get_goal_scene()
 		_: return
-
-func get_player_scene() -> PackedScene:
-	if theme and len(theme.get_player_scenes()) > 0:
-		return U.rand_of(theme.get_player_scenes())
-	return load("res://src/puzzle/Player.tscn")
-
-func get_dot_scene() -> PackedScene:
-	if theme and len(theme.get_dot_scenes()) > 0:
-		return U.rand_of(theme.get_dot_scenes())
-	return load("res://src/puzzle/Dot.tscn")
-
-func get_dotted_scene() -> PackedScene:
-	if theme and len(theme.get_dot_scenes()) > 0:
-		return U.rand_of(theme.get_dot_scenes())
-	return load("res://src/puzzle/Dot.tscn")
-
-func get_goal_scene() -> PackedScene:
-	if theme and len(theme.get_goal_scenes()) > 0:
-		return U.rand_of(theme.get_goal_scenes())
-	return load("res://src/puzzle/Dot.tscn")
 
 ## grid helpers ##############################################################
 

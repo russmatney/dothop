@@ -57,3 +57,26 @@ func get_music_tracks() -> Array[AudioStream]:
 	# 	if bg:
 	# 		tracks.append(bg)
 	return tracks
+
+## getters ##############################
+
+# TODO preload or make constant for these fallback scenes
+func get_player_scene() -> PackedScene:
+	if len(player_scenes) > 0:
+		return U.rand_of(player_scenes)
+	return load("res://src/puzzle/Player.tscn")
+
+func get_dot_scene() -> PackedScene:
+	if len(dot_scenes) > 0:
+		return U.rand_of(dot_scenes)
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_dotted_scene() -> PackedScene:
+	if len(dot_scenes) > 0:
+		return U.rand_of(dot_scenes)
+	return load("res://src/puzzle/Dot.tscn")
+
+func get_goal_scene() -> PackedScene:
+	if len(goal_scenes) > 0:
+		return U.rand_of(goal_scenes)
+	return load("res://src/puzzle/Dot.tscn")
