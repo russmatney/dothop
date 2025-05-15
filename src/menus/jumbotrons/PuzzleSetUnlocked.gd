@@ -60,6 +60,7 @@ func render() -> void:
 		delay += 0.9
 
 	animate_fade_in(dismiss_input_icon, delay + 2)
+	animate_fade_in(dismiss_button, delay + 2)
 
 func animate_fade_in(node: CanvasItem, delay: float = 0) -> void:
 	var t: Tween = create_tween()

@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=3 uid="uid://dve6wwmspbde0"]
+[gd_scene load_steps=9 format=3 uid="uid://dve6wwmspbde0"]
 
 [ext_resource type="Script" uid="uid://dbm06064f5slq" path="res://src/ui/components/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="2_tehfu"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_1031q"]
-[ext_resource type="Texture2D" uid="uid://bxsr7k8mimuxn" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_enter.png" id="4_hqfl6"]
+[ext_resource type="Texture2D" uid="uid://d4cakhtcjts1r" path="res://assets/kenney-input-prompts/Nintendo Switch/Default/switch_button_a.png" id="5_6afe2"]
+[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="5_ii3wl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -64,6 +65,14 @@ custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxFlat_yrs0h")
 
+[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DismissButton" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2" instance=ExtResource("5_ii3wl")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dismiss"
+
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -72,5 +81,5 @@ unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-texture = ExtResource("4_hqfl6")
-input_text = "Enter"
+texture = ExtResource("5_6afe2")
+input_text = "A Button"

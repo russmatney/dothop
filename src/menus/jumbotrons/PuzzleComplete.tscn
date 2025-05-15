@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://wbyqneb7x2vr"]
+[gd_scene load_steps=10 format=3 uid="uid://wbyqneb7x2vr"]
 
 [ext_resource type="Script" uid="uid://clga1lr6lwbj2" path="res://src/menus/jumbotrons/PuzzleComplete.gd" id="1_su8xp"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_ybq7j"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="3_7lcnl"]
+[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="4_5owgh"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="4_m6plc"]
 [ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_hn0bi"]
 [ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_6i7hg"]
@@ -73,6 +74,14 @@ scroll_active = false
 [node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
+
+[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="DismissButton" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer4" instance=ExtResource("4_5owgh")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dismiss"
 
 [node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2

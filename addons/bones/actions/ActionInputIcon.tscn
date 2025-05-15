@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://c2v2yci7s2lde" path="res://addons/bones/actions/ActionInputIcon.gd" id="1_ui3le"]
 
 [node name="ActionInputIcon" type="TextureRect"]
+visible = false
 custom_minimum_size = Vector2(30, 0)
 offset_right = 30.0
 offset_bottom = 48.0

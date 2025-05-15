@@ -27,6 +27,7 @@ static func jumbo_notif(opts: Dictionary) -> Signal:
 	if bd:
 		jumbotron.body_text = bd
 	jumbotron.set_control_icon()
+	jumbotron.set_dismiss_button()
 
 	jumbotron.jumbo_closed.connect(func() -> void:
 		if on_close and on_close is Callable and is_instance_valid((on_close as Callable).get_object()):
@@ -51,6 +52,7 @@ signal jumbo_closed
 var header: RichTextLabel
 var body: RichTextLabel
 var dismiss_input_icon: ActionInputIcon
+var dismiss_button: Button
 
 @export var header_text: String :
 	set(v):
@@ -83,8 +85,10 @@ func _ready() -> void:
 			header="%Header",
 			body="%Body",
 			dismiss_input_icon="%DismissInputIcon",
+			dismiss_button="%DismissButton",
 			})
 	set_control_icon()
+	set_dismiss_button()
 	if not Engine.is_editor_hint():
 		InputHelper.device_changed.connect(func(device: String, _idx: int) -> void:
 			Log.pr("jumbotron detected device change")
@@ -93,6 +97,10 @@ func _ready() -> void:
 func set_control_icon(device: String = "") -> void:
 	if dismiss_input_icon:
 		dismiss_input_icon.set_icon_for_action("ui_accept", device)
+
+func set_dismiss_button() -> void:
+	if dismiss_button:
+		dismiss_button.pressed.connect(fade_out)
 
 # TODO restore or clean this up?
 func on_navigate() -> void:

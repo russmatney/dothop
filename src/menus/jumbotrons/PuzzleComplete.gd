@@ -12,6 +12,7 @@ var end_puzzle_num: int
 ## ready ############################################################
 
 func _ready() -> void:
+	super._ready()
 	render()
 
 ## build puzzle list ############################################################

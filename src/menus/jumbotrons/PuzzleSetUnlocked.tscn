@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bfc3jr7ui6wjt"]
+[gd_scene load_steps=12 format=3 uid="uid://bfc3jr7ui6wjt"]
 
 [ext_resource type="Script" uid="uid://dq4bv46xtaar" path="res://src/menus/jumbotrons/PuzzleSetUnlocked.gd" id="1_g7qf8"]
 [ext_resource type="Texture2D" uid="uid://wxbj5t4skm3w" path="res://assets/ui/sunburst_bg1.png" id="2_4mpuk"]
@@ -6,8 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="4_ghwcu"]
 [ext_resource type="Theme" uid="uid://biwc2va0xo5y6" path="res://src/ui/SunburstHeaderText.tres" id="4_kr6yf"]
 [ext_resource type="Theme" uid="uid://csu2vx7hyhrig" path="res://src/ui/SunburstBodyText.tres" id="5_8b3k6"]
-[ext_resource type="Texture2D" uid="uid://db11pg0l5l562" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_x.png" id="8_cllud"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="9_00xup"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="9_2nlfd"]
+[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="9_3tan6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvqjg"]
 
@@ -102,15 +103,24 @@ scroll_active = false
 layout_mode = 2
 size_flags_vertical = 3
 
+[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DismissButton" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer/CenterContainer4" instance=ExtResource("9_3tan6")]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Dismiss"
+
 [node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 
 [node name="DismissInputIcon" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer/CenterContainer3" instance=ExtResource("9_2nlfd")]
 unique_name_in_owner = true
+visible = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
-texture = ExtResource("8_cllud")
-input_text = "X"
+texture = ExtResource("9_00xup")
+input_text = "Ctrl+Z"
 
 [node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
