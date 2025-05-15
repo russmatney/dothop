@@ -100,7 +100,7 @@ func set_control_icon(device: String = "") -> void:
 
 func set_dismiss_button() -> void:
 	if dismiss_button:
-		dismiss_button.pressed.connect(fade_out)
+		U._connect(dismiss_button.pressed, fade_out)
 
 # TODO restore or clean this up?
 func on_navigate() -> void:
