@@ -4,9 +4,16 @@ extends Node
 ## config ##########################################################################
 
 var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
+var main_menu_path: String = "res://src/menus/MainMenu.tscn"
 
 func _ready() -> void:
+	Navi.set_main_menu(main_menu_path)
 	Navi.set_pause_menu(pause_menu_path)
+
+func maybe_pause() -> void:
+	if not get_tree().paused:
+		Navi.pause()
+		get_viewport().set_input_as_handled()
 
 ## focus ##########################################################################
 

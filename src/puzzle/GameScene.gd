@@ -63,9 +63,7 @@ func nav_to_credits() -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not Engine.is_editor_hint() and Trolls.is_pause(event):
-		if not get_tree().paused:
-			Navi.pause()
-			get_viewport().set_input_as_handled()
+		DotHop.maybe_pause()
 
 ## rebuild puzzle #####################################################################
 
