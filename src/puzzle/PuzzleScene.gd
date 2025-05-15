@@ -18,7 +18,6 @@ static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 # This func could live on the DotHopGame script, but a function like this is useful
 # for testing just the game logic (without loading a full DotHopGame)
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
-	Log.prn("building puzzle node", opts)
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and opts.get("game_def_path"):
@@ -47,7 +46,6 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
 	var _theme_data: PuzzleThemeData = opts.get("puzzle_theme_data")
-	Log.info("using theme data", _theme_data)
 	var scene: PackedScene = opts.get("puzzle_scene", _theme_data.puzzle_scene if _theme_data else null)
 	if scene == null and opts.get("puzzle_scene_path") != null:
 		# TODO Drop support for this unless we use it (maybe in tests?)
@@ -460,8 +458,6 @@ func node_for_object_name(obj_name: String) -> Node2D:
 func get_scene_for(obj_name: String) -> PackedScene:
 	if theme_data == null:
 		Log.warn("Missing expected theme_data")
-	else:
-		Log.prn("Found theme data", theme_data)
 	match obj_name:
 		"Player": return theme_data.get_player_scene()
 		"Dot": return theme_data.get_dot_scene()

@@ -144,8 +144,11 @@ func toggle_pause():
 func pause():
 	get_tree().paused = true
 	if pause_menu and is_instance_valid(pause_menu):
+		Log.pr("showing pause_menu", pause_menu)
 		pause_menu.show()
 		find_focus(pause_menu)
+	else:
+		Log.warn("No pause_menu configured")
 	# Music.switch_to_pause_music()
 	pause_toggled.emit(true)
 

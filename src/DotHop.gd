@@ -1,6 +1,13 @@
 @tool
 extends Node
 
+## config ##########################################################################
+
+var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
+
+func _ready() -> void:
+	Navi.set_pause_menu(pause_menu_path)
+
 ## focus ##########################################################################
 
 ## is the window focused?

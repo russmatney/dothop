@@ -89,13 +89,13 @@ func connect_pressed_to_action(button: Button, item: Dictionary) -> void:
 
 	var fn: Callable
 	var arg: Variant
-	var argv: Array
+	var argv: Array = []
 	if nav_to:
 		fn = Navi.nav_to
 		arg = nav_to
 	else:
 		arg = item.get("arg")
-		argv = item.get("argv")
+		argv = item.get("argv", [])
 		fn = item.get("fn")
 
 	if nav_to == null and fn == null:
@@ -121,7 +121,7 @@ func connect_pressed_to_action(button: Button, item: Dictionary) -> void:
 
 	if arg:
 		button.pressed.connect(fn.bind(arg))
-	elif argv:
+	elif len(argv) > 0:
 		button.pressed.connect(fn.bindv(argv))
 	else:
 		button.pressed.connect(fn)
