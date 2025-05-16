@@ -1,14 +1,14 @@
 extends GdUnitTestSuite
 class_name DotHopTest
 
-func build_puzzle(puzzle):
-	var puz_node = DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/puzzles/dothop.txt"})
+func build_puzzle(puzzle: Array) -> DotHopPuzzle:
+	var puz_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/puzzles/dothop.txt"})
 	puz_node.randomize_layout = false
 	puz_node.init_game_state()
 	return puz_node
 
-func test_basic_puzzle_one_win():
-	var puzzle = build_puzzle(["xoot"])
+func test_basic_puzzle_one_win() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle(["xoot"])
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -28,9 +28,9 @@ func test_basic_puzzle_one_win():
 
 	puzzle.free()
 
-func test_basic_puzzle_one_undo():
+func test_basic_puzzle_one_undo() -> void:
 
-	var puzzle = build_puzzle(["xoot"])
+	var puzzle: DotHopPuzzle = build_puzzle(["xoot"])
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -54,8 +54,8 @@ func test_basic_puzzle_one_undo():
 
 	puzzle.free()
 
-func test_two_player_puzzle_one_win():
-	var puzzle = build_puzzle(["xoot", "xoot"])
+func test_two_player_puzzle_one_win() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle(["xoot", "xoot"])
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -82,8 +82,8 @@ func test_two_player_puzzle_one_win():
 	assert_that(puzzle.state.win).is_equal(true)
 	puzzle.free()
 
-func test_two_player_puzzle_one_undo():
-	var puzzle = build_puzzle(["xoot", "xoot"])
+func test_two_player_puzzle_one_undo() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle(["xoot", "xoot"])
 
 	assert_that(puzzle.state.grid[0]).is_equal(
 		[["Player", "Dotted"], ["Dot"], ["Dot"], ["Goal"]])
@@ -116,8 +116,8 @@ func test_two_player_puzzle_one_undo():
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.free()
 
-func test_undo_obj_is_not_duplicated():
-	var puzzle = build_puzzle([
+func test_undo_obj_is_not_duplicated() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle([
 			"..oo",
 			"txoo",
 			"..oo",
@@ -145,8 +145,8 @@ func test_undo_obj_is_not_duplicated():
 
 	puzzle.free()
 
-func test_undo_obj_is_not_added_to_other_non_moving_player():
-	var puzzle = build_puzzle([
+func test_undo_obj_is_not_added_to_other_non_moving_player() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle([
 			"....o.o",
 			"tx..o.o",
 			"oo.o.x.",
@@ -195,8 +195,8 @@ func test_undo_obj_is_not_added_to_other_non_moving_player():
 	# assert_that(puzzle.state.grid[2],
 	# 	[null, null, ["Dotted"], ["Dotted", "Undo"]])
 
-func test_can_finish_puzzle_10():
-	var puzzle = build_puzzle([
+func test_can_finish_puzzle_10() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle([
 			"....o.o",
 			"tx..o.o",
 			"......t",
@@ -221,8 +221,8 @@ func test_can_finish_puzzle_10():
 
 	puzzle.free()
 
-func test_can_undo_across_dotted_cells():
-	var puzzle = build_puzzle([
+func test_can_undo_across_dotted_cells() -> void:
+	var puzzle: DotHopPuzzle = build_puzzle([
 			"oooo.",
 			"oxoot",
 			"..oo.",

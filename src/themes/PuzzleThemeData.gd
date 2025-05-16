@@ -95,14 +95,14 @@ static func get_dot_scene(th: PuzzleThemeData) -> PackedScene:
 		return load("res://src/puzzle/Dot.tscn")
 
 static func get_dotted_scene(th: PuzzleThemeData) -> PackedScene:
-	var sc: Variant = th.random_dot_scene() if th else null
+	var sc: Variant = th.random_dotted_scene() if th else null
 	if sc:
 		return sc
 	else:
 		return load("res://src/puzzle/Dot.tscn")
 
 static func get_goal_scene(th: PuzzleThemeData) -> PackedScene:
-	var sc: Variant = th.random_dot_scene() if th else null
+	var sc: Variant = th.random_goal_scene() if th else null
 	if sc:
 		return sc
 	else:

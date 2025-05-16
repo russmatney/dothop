@@ -511,7 +511,6 @@ class Cell:
 		nodes.assign(_nodes)
 
 func cell_at_coord(coord: Vector2) -> Cell:
-	@warning_ignore("unsafe_method_access")
 	var nodes: Array = state.cell_nodes.get(coord, [])
 	var objs: Variant = state.grid[coord.y][coord.x]
 	return Cell.new(objs as Array if objs else [], coord, nodes)
@@ -569,7 +568,6 @@ func all_players_at_goal() -> bool:
 		).all(func(c: Array) -> bool: return "Player" in c)
 
 func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
-	@warning_ignore("unsafe_method_access")
 	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
 		if "filter" in opts:
 			var f: Callable = opts.get("filter")
@@ -585,7 +583,6 @@ func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 func previous_undo_coord(player: Player, skip_coord: Vector2, start_at: int = 0) -> Variant:
 	# pulls the first coord from player history that does not match `skip_coord`,
 	# starting after `start_at`
-	@warning_ignore("unsafe_method_access")
 	for m: Vector2 in player.move_history.slice(start_at):
 		if m != skip_coord:
 			return m
@@ -598,7 +595,6 @@ func previous_undo_coord(player: Player, skip_coord: Vector2, start_at: int = 0)
 func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 	# move player node
 	var move_finished_sig: Signal
-	@warning_ignore("unsafe_method_access")
 	if player.node.has_method("move_to_coord"):
 		@warning_ignore("unsafe_method_access")
 		var res: Variant = player.node.move_to_coord(cell.coord)
@@ -617,7 +613,6 @@ func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 	# NOTE start_at 1 b/c history has already been updated
 	var prev_undo_coord: Variant
 	if len(player.move_history) > 1:
-		@warning_ignore("unsafe_call_argument")
 		prev_undo_coord = previous_undo_coord(player, player.coord, 1)
 	if prev_undo_coord != null:
 		@warning_ignore("unsafe_method_access")
@@ -636,7 +631,6 @@ func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 # depends on cell for `coord` and `nodes`.
 func mark_cell_dotted(cell: Cell) -> void:
 	# support multiple nodes per cell?
-	@warning_ignore("unsafe_call_argument")
 	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
 		Log.warn("can't mark dotted, no node found!", cell)
@@ -658,7 +652,6 @@ func mark_cell_dotted(cell: Cell) -> void:
 # depends on cell for `coord` and `nodes`.
 func mark_cell_undotted(cell: Cell) -> void:
 	# support multiple nodes per cell?
-	@warning_ignore("unsafe_call_argument")
 	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
 		# undoing from goal doesn't require any undotting
@@ -705,12 +698,10 @@ func undo_last_move(player: Player) -> void:
 		Log.warn("Can't undo, no moves yet!")
 		return
 	# remove last move from move_history
-	@warning_ignore("unsafe_method_access")
 	var last_pos: Vector2 = player.move_history.pop_front()
 	var dest_cell: Cell = cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
-	@warning_ignore("unsafe_call_argument")
 	var prev_undo_coord: Variant = previous_undo_coord(player, dest_cell.coord, 0)
 	if prev_undo_coord != null:
 		if not "Undo" in state.grid[prev_undo_coord.y][prev_undo_coord.x]:
@@ -720,14 +711,12 @@ func undo_last_move(player: Player) -> void:
 	state.grid[dest_cell.coord.y][dest_cell.coord.x].erase("Undo")
 
 	if last_pos == player.coord:
-		@warning_ignore("unsafe_method_access")
 		if player.node.has_method("undo_to_same_coord"):
 			@warning_ignore("unsafe_method_access")
 			player.node.undo_to_same_coord()
 		return
 
 	# move player node
-	@warning_ignore("unsafe_method_access")
 	if player.node.has_method("undo_to_coord"):
 		@warning_ignore("unsafe_method_access")
 		player.node.undo_to_coord(dest_cell.coord)
@@ -742,7 +731,6 @@ func undo_last_move(player: Player) -> void:
 
 	if "Dotted" in state.grid[player.coord.y][player.coord.x]:
 		# undo at the current player position
-		@warning_ignore("unsafe_call_argument")
 		mark_cell_undotted(cell_at_coord(player.coord))
 	if "Goal" in state.grid[player.coord.y][player.coord.x]:
 		# unstuck when undoing from the goal
@@ -767,17 +755,14 @@ func move(move_dir: Vector2) -> bool:
 
 	var moves_to_make: Array = []
 	for p: Player in state.players:
-		@warning_ignore("unsafe_call_argument")
 		var cells: Array = cells_in_direction(p.coord, move_dir)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
-				@warning_ignore("unsafe_method_access")
 				if p.node.has_method("move_attempt_stuck"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_stuck(move_dir)
 			else:
-				@warning_ignore("unsafe_method_access")
 				if p.node.has_method("move_attempt_away_from_edge"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_away_from_edge(move_dir)
@@ -787,12 +772,10 @@ func move(move_dir: Vector2) -> bool:
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
-				@warning_ignore("unsafe_method_access")
 				if p.node.has_method("move_attempt_stuck"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_stuck(move_dir)
 			else:
-				@warning_ignore("unsafe_method_access")
 				if p.node.has_method("move_attempt_only_nulls"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_only_nulls(move_dir)
@@ -808,7 +791,6 @@ func move(move_dir: Vector2) -> bool:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(["stuck", null, p])
-					@warning_ignore("unsafe_method_access")
 					if p.node.has_method("move_attempt_stuck"):
 						@warning_ignore("unsafe_method_access")
 						p.node.move_attempt_stuck(move_dir)
@@ -831,7 +813,6 @@ func move(move_dir: Vector2) -> bool:
 	var any_move: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] in ["dot", "goal"])
 	if any_move:
 		for p: Player in state.players:
-			@warning_ignore("unsafe_method_access")
 			p.move_history.push_front(p.coord)
 
 		for m: Array in moves_to_make:
