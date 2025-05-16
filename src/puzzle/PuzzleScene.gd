@@ -107,7 +107,30 @@ var puzzle_def : PuzzleDef :
 
 
 # um what no let's get some types here
-var state: Dictionary
+var state: PuzzState
+class PuzzState:
+	var win := false
+	var players: Array[Player] = []
+	var grid: Array
+	var grid_xs: int
+	var grid_ys: int
+	# var cell_nodes: Dictionary[Vector2, Array[Node2D]] = {}
+	var cell_nodes: Dictionary = {}
+
+	func _init(gd: Array) -> void:
+		grid = gd
+		grid_xs = len(gd[0])
+		grid_ys = len(gd)
+
+class Player:
+	var coord: Vector2
+	var stuck := false
+	var move_history: Array = []
+	var node: Node2D
+
+	func _init(crd: Vector2, nd: Node) -> void:
+		coord = crd
+		node = nd
 
 signal win
 
@@ -214,7 +237,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
 			return
-		for p: Dictionary in state.players:
+		for p: Player in state.players:
 			undo_last_move(p)
 		restart_block_move_timer(0.1)
 
@@ -245,7 +268,7 @@ func undo_pressed() -> void:
 	if state == null:
 		Log.warn("No state, ignoring undo input")
 		return
-	for p: Dictionary in state.players:
+	for p: Player in state.players:
 		undo_last_move(p)
 
 
@@ -282,7 +305,7 @@ func restart_block_move_timer(t: float = 0.2) -> void:
 func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
 	var first_player_coord: Variant
-	for p: Dictionary in state.players:
+	for p: Player in state.players:
 		if p.coord != null:
 			first_player_coord = p.coord
 			break
@@ -306,7 +329,6 @@ func init_game_state() -> void:
 		return
 
 	var grid: Array = []
-	var players: Array = []
 	for y: int in len(puzzle_def.shape):
 		var row: Array = puzzle_def.shape[y]
 		var r: Array = []
@@ -316,15 +338,17 @@ func init_game_state() -> void:
 			r.append(objs)
 		grid.append(r)
 
-	state = {players=players, grid=grid, grid_xs=len(grid[0]), grid_ys=len(grid), win=false, cell_nodes={}}
+	# state = {players=players, grid=grid, grid_xs=len(grid[0]), grid_ys=len(grid), win=false, cell_nodes={}}
+	state = PuzzState.new(grid)
 
 	rebuild_nodes()
 
 
 ## setup level ##############################################################
 
-func init_player(coord: Vector2, node: Node) -> Dictionary:
-	return {coord=coord, stuck=false, move_history=[], node=node}
+func init_player(coord: Vector2, node: Node) -> Player:
+	return Player.new(coord, node)
+	# return {coord=coord, stuck=false, move_history=[], node=node}
 
 func clear_nodes() -> void:
 	for ch: Variant in get_children():
@@ -378,7 +402,7 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 	else:
 		nodes = all_cell_nodes()
 	cam_nodes.append_array(nodes)
-	for p: Dictionary in state.players:
+	for p: Player in state.players:
 		cam_nodes.append(p.node)
 	return cam_nodes
 
@@ -401,7 +425,7 @@ func rebuild_nodes() -> void:
 				var coord: Vector2 = Vector2(x, y)
 				var node: Node2D = create_node_at_coord(obj_name, coord)
 				if obj_name == "Player":
-					(state.players as Array).append(init_player(coord, node))
+					state.players.append(init_player(coord, node))
 					players.append(node)
 				else:
 					add_child(node)
@@ -476,10 +500,21 @@ func coord_in_grid(coord: Vector2) -> bool:
 	return coord.x >= 0 and coord.y >= 0 and \
 		coord.x < state.grid_xs and coord.y < state.grid_ys
 
-func cell_at_coord(coord: Vector2) -> Dictionary:
+class Cell:
+	var objs: Array
+	var coord: Vector2
+	var nodes: Array[Node2D]
+
+	func _init(_objs: Array, _coord: Vector2, _nodes: Array[Node2D]) -> void:
+		objs = _objs
+		coord = _coord
+		nodes = _nodes
+
+func cell_at_coord(coord: Vector2) -> Cell:
 	@warning_ignore("unsafe_method_access")
-	var nodes: Variant = state.cell_nodes.get(coord)
-	return {objs=state.grid[coord.y][coord.x], coord=coord, nodes=nodes}
+	var nodes: Array[Node2D] = state.cell_nodes.get(coord, [])
+	return Cell.new(state.grid[coord.y][coord.x] as Array, coord, nodes)
+	# return {objs=state.grid[coord.y][coord.x], coord=coord, nodes=nodes}
 
 # returns a list of cells from the passed position in the passed direction
 # the cells are dicts with a coord, a list of objs (string names), and a list of nodes
@@ -546,7 +581,7 @@ func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 
 ## move/state-updates ##############################################################
 
-func previous_undo_coord(player: Dictionary, skip_coord: Vector2, start_at: int = 0) -> Variant:
+func previous_undo_coord(player: Player, skip_coord: Vector2, start_at: int = 0) -> Variant:
 	# pulls the first coord from player history that does not match `skip_coord`,
 	# starting after `start_at`
 	@warning_ignore("unsafe_method_access")
@@ -559,7 +594,7 @@ func previous_undo_coord(player: Dictionary, skip_coord: Vector2, start_at: int 
 # also updates the game state
 # cell should have a `coord`
 # NOTE updating move_history is done after all players move
-func move_player_to_cell(player: Dictionary, cell: Dictionary) -> Signal:
+func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 	# move player node
 	var move_finished_sig: Signal
 	@warning_ignore("unsafe_method_access")
@@ -598,7 +633,7 @@ func move_player_to_cell(player: Dictionary, cell: Dictionary) -> Signal:
 
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell: Dictionary) -> void:
+func mark_cell_dotted(cell: Cell) -> void:
 	# support multiple nodes per cell?
 	@warning_ignore("unsafe_call_argument")
 	var node: DotHopDot = U.first(cell.nodes)
@@ -620,7 +655,7 @@ func mark_cell_dotted(cell: Dictionary) -> void:
 
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
-func mark_cell_undotted(cell: Dictionary) -> void:
+func mark_cell_undotted(cell: Cell) -> void:
 	# support multiple nodes per cell?
 	@warning_ignore("unsafe_call_argument")
 	var node: DotHopDot = U.first(cell.nodes)
@@ -642,14 +677,14 @@ func mark_cell_undotted(cell: Dictionary) -> void:
 
 ## move to dot ##############################################################
 
-func move_to_dot(player: Dictionary, cell: Dictionary) -> void:
+func move_to_dot(player: Player, cell: Cell) -> void:
 	# consider handling these in the same step (depending on the animation)
 	move_player_to_cell(player, cell)
 	mark_cell_dotted(cell)
 
 ## move to goal ##############################################################
 
-func move_to_goal(player: Dictionary, cell: Dictionary) -> void:
+func move_to_goal(player: Player, cell: Cell) -> void:
 	var move_finished: Signal = move_player_to_cell(player, cell)
 	if all_dotted() and all_players_at_goal():
 		state.win = true
@@ -661,7 +696,7 @@ func move_to_goal(player: Dictionary, cell: Dictionary) -> void:
 
 ## undo last move ##############################################################
 
-func undo_last_move(player: Dictionary) -> void:
+func undo_last_move(player: Player) -> void:
 	# supports the solver - undo moves state.win back to false
 	state.win = false
 
@@ -671,7 +706,7 @@ func undo_last_move(player: Dictionary) -> void:
 	# remove last move from move_history
 	@warning_ignore("unsafe_method_access")
 	var last_pos: Vector2 = player.move_history.pop_front()
-	var dest_cell: Dictionary = cell_at_coord(last_pos)
+	var dest_cell: Cell = cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
 	@warning_ignore("unsafe_call_argument")
@@ -730,7 +765,7 @@ func move(move_dir: Vector2) -> bool:
 		return false
 
 	var moves_to_make: Array = []
-	for p: Dictionary in state.players:
+	for p: Player in state.players:
 		@warning_ignore("unsafe_call_argument")
 		var cells: Array = cells_in_direction(p.coord, move_dir)
 		if len(cells) == 0:
@@ -747,7 +782,7 @@ func move(move_dir: Vector2) -> bool:
 					p.node.move_attempt_away_from_edge(move_dir)
 			continue
 
-		cells = cells.filter(func(c: Dictionary) -> bool: return c.objs != null)
+		cells = cells.filter(func(c: Cell) -> bool: return c.objs != null)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
@@ -763,12 +798,12 @@ func move(move_dir: Vector2) -> bool:
 			continue
 
 		# instead of markers, read undo based on only the player move history?
-		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Dictionary) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
+		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
 			moves_to_make.append(["undo", undo_last_move, p, undo_cell_in_dir])
 		else:
-			for cell: Dictionary in cells:
+			for cell: Cell in cells:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(["stuck", null, p])
@@ -794,7 +829,7 @@ func move(move_dir: Vector2) -> bool:
 
 	var any_move: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] in ["dot", "goal"])
 	if any_move:
-		for p: Dictionary in state.players:
+		for p: Player in state.players:
 			@warning_ignore("unsafe_method_access")
 			p.move_history.push_front(p.coord)
 
@@ -811,7 +846,7 @@ func move(move_dir: Vector2) -> bool:
 	if any_undo:
 		for m: Array in moves_to_make:
 			# this is wonky, i should refactor to use a dict/struct for these movesh
-			undo_last_move(m[2] as Dictionary)
+			undo_last_move(m[2] as Player)
 		return false
 
 	# trigger HUD update
