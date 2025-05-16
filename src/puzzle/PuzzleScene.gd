@@ -743,8 +743,37 @@ func undo_last_move(player: Player) -> void:
 
 ## move ##############################################################
 
+class Move:
+	enum MoveType {
+		undo=0,
+		stuck=1,
+		blocked_by_player=2,
+		move_to=3,
+		}
+
+	var fn: Callable
+	var player: Player
+	var type: MoveType
+	var cell: Cell
+
+	func _init(t: MoveType, p: Player, fun: Variant = null, c: Cell = null) -> void:
+		type = t
+		player = p
+		if fun:
+			fn = fun
+		cell = c
+
+	static func undo(p: Player, fun: Callable) -> Move:
+		return Move.new(MoveType.undo, p, fun)
+	static func stuck(p: Player) -> Move:
+		return Move.new(MoveType.stuck, p)
+	static func blocked_by_player(p: Player) -> Move:
+		return Move.new(MoveType.blocked_by_player, p)
+	static func move_to(p: Player, fun: Callable, c: Cell) -> Move:
+		return Move.new(MoveType.move_to, p, fun, c)
+
 # attempt to move all players in move_dir
-# any undos (movement backwards) undos the last movement
+# any undos (movement backwards) unwinds the last move
 # if any player is stuck, only undo is allowed
 # otherwise, the player moves to the dot or goal in the direction pressed
 # return true if the move was made successfully
@@ -758,7 +787,7 @@ func move(move_dir: Vector2) -> bool:
 		var cells: Array = cells_in_direction(p.coord, move_dir)
 		if len(cells) == 0:
 			if p.stuck:
-				moves_to_make.append(["stuck", null, p])
+				moves_to_make.append(Move.stuck(p))
 				if p.node.has_method("move_attempt_stuck"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_stuck(move_dir)
@@ -771,7 +800,7 @@ func move(move_dir: Vector2) -> bool:
 		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
 			if p.stuck:
-				moves_to_make.append(["stuck", null, p])
+				moves_to_make.append(Move.stuck(p))
 				if p.node.has_method("move_attempt_stuck"):
 					@warning_ignore("unsafe_method_access")
 					p.node.move_attempt_stuck(move_dir)
@@ -785,18 +814,18 @@ func move(move_dir: Vector2) -> bool:
 		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
-			moves_to_make.append(["undo", undo_last_move, p, undo_cell_in_dir])
+			moves_to_make.append(Move.undo(p, undo_last_move))
 		else:
 			for cell: Cell in cells:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
-					moves_to_make.append(["stuck", null, p])
+					moves_to_make.append(Move.stuck(p))
 					if p.node.has_method("move_attempt_stuck"):
 						@warning_ignore("unsafe_method_access")
 						p.node.move_attempt_stuck(move_dir)
 					break
 				if "Player" in cell.objs:
-					moves_to_make.append(["blocked_by_player", null, p])
+					moves_to_make.append(Move.blocked_by_player(p))
 					# moving toward player animation?
 					break
 				if "Dotted" in cell.objs:
@@ -806,32 +835,32 @@ func move(move_dir: Vector2) -> bool:
 						p.node.move_attempt_stuck(move_dir)
 					continue
 				if "Dot" in cell.objs:
-					moves_to_make.append(["dot", move_to_dot, p, cell])
+					moves_to_make.append(Move.move_to(p, move_to_dot, cell))
 					break
 				if "Goal" in cell.objs:
-					moves_to_make.append(["goal", move_to_goal, p, cell])
+					moves_to_make.append(Move.move_to(p, move_to_goal, cell))
 					break
 				Log.warn("unexpected/unhandled cell in direction", cell)
 
-	var any_move: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] in ["dot", "goal"])
+	var any_move: bool = moves_to_make.any(func(m: Move) -> bool: return m.type == Move.MoveType.move_to)
 	if any_move:
 		for p: Player in state.players:
 			p.move_history.push_front(p.coord)
 
-		for m: Array in moves_to_make:
-			if m[0] in ["dot", "goal"]:
+		for m: Move in moves_to_make:
+			if m.type == Move.MoveType.move_to:
 				@warning_ignore("unsafe_method_access")
-				m[1].call(m[2], m[3])
+				m.fn.call(m.player, m.cell)
 
 		# trigger HUD update
 		player_moved.emit()
 		return true # we moved!
 
-	var any_undo: bool = moves_to_make.any(func(m: Array) -> bool: return m[0] == "undo")
+	var any_undo: bool = moves_to_make.any(func(m: Move) -> bool: return m.type == Move.MoveType.undo)
 	if any_undo:
-		for m: Array in moves_to_make:
-			# this is wonky, i should refactor to use a dict/struct for these movesh
-			undo_last_move(m[2] as Player)
+		# consider only undoing ONE time? does it make a difference?
+		for m: Move in moves_to_make:
+			undo_last_move(m.player)
 		return false
 
 	# trigger HUD update
