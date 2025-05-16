@@ -61,7 +61,7 @@ func get_game_def() -> GameDef:
 	if game_def != null:
 		return game_def
 
-	game_def = Puzz.parse_game_def(get_puzzle_script_path())
+	game_def = GameDef.parse_game_def(get_puzzle_script_path())
 	return game_def
 
 func get_puzzles() -> Array[PuzzleDef]:

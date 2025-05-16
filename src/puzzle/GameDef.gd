@@ -2,23 +2,40 @@
 extends Object
 class_name GameDef
 
+static func parse_game_def(_path: Variant, opts: Dictionary = {}) -> GameDef:
+	var contents: String = opts.get("contents", "")
+	if _path != null:
+		if not FileAccess.file_exists(_path as String):
+			Log.error("Path does not exist! returning nil", _path)
+			return
+		# could make sure file exists
+		var file: FileAccess = FileAccess.open(_path as String, FileAccess.READ)
+		contents = file.get_as_text()
+
+	var parsed_game: ParsedGame = ParsedGame.parse(contents)
+	return GameDef.new(_path, parsed_game)
+
+# helpful for supporting some tests
+static func parse_puzzle_def(lines: Array) -> PuzzleDef:
+	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines) as Dictionary)
+
 ## vars ########################################3333
 
 var puzzles: Array[PuzzleDef] = []
 var legend: Dictionary
 var meta: Dictionary
-var raw: Dictionary
+var parsed: ParsedGame
 var path: String
 
 ## init ########################################3333
 
-func _init(_path: Variant, parsed: Dictionary) -> void:
+func _init(_path: Variant, _parsed: ParsedGame) -> void:
 	if _path != null:
 		path = _path
-	raw = parsed
+	parsed = _parsed
 	legend = parsed.legend
-	var pzs: Array = parsed.puzzles
-	puzzles.assign(pzs.map(func(puzzle: Dictionary) -> PuzzleDef: return PuzzleDef.new(puzzle)))
+	puzzles.assign(parsed.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
+		return PuzzleDef.new(puzzle)))
 
 ## to_pretty ########################################3333
 

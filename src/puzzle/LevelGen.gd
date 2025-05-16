@@ -14,7 +14,7 @@ var game_def: GameDef
 ## ready
 
 func _ready() -> void:
-	game_def = Puzz.parse_game_def(puzz_file)
+	game_def = GameDef.parse_game_def(puzz_file)
 	Log.pr("Found", len(game_def.puzzles), "puzzles")
 
 	generate_puzzle(puzzle_num)

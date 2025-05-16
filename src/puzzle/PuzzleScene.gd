@@ -21,7 +21,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and opts.get("game_def_path"):
-		_game_def = Puzz.parse_game_def(str(opts.get("game_def_path")))
+		_game_def = GameDef.parse_game_def(str(opts.get("game_def_path")))
 
 	if _game_def == null:
 		Log.warn("No game_def passed, cannot build_puzzle_node()", opts)
@@ -34,7 +34,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	var _puzzle_def: PuzzleDef
 
 	if puzzle is Array:
-		_puzzle_def = Puzz.parse_puzzle_def(puzzle as Array)
+		_puzzle_def = GameDef.parse_puzzle_def(puzzle as Array)
 	elif _puzzle_num != null:
 		_puzzle_def = _game_def.puzzles[_puzzle_num]
 	else:
@@ -68,7 +68,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	set(gdp):
 		game_def_path = gdp
 		if gdp != "":
-			game_def = Puzz.parse_game_def(gdp)
+			game_def = GameDef.parse_game_def(gdp)
 			puzzle_def = game_def.puzzles[0]
 
 @export var clear: bool = false:
@@ -163,7 +163,7 @@ func _ready() -> void:
 	if puzzle_def == null:
 		Log.pr("no puzzle_def, trying backups!", name)
 		if game_def_path != "":
-			game_def = Puzz.parse_game_def(game_def_path)
+			game_def = GameDef.parse_game_def(game_def_path)
 			puzzle_def = game_def.puzzles[0]
 		else:
 			Log.err("no game_def_path!!")

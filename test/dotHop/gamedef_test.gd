@@ -2,7 +2,7 @@ extends GdUnitTestSuite
 class_name GameDefTest
 
 func test_expected_puzzle_count() -> void:
-	var parsed: GameDef = Puzz.parse_game_def(null, {contents="
+	var parsed: GameDef = GameDef.parse_game_def(null, {contents="
 title DotHop
 author Russell Matney
 
@@ -35,7 +35,7 @@ ox.o.ot
 	assert_int(len(parsed.puzzles)).is_equal(2)
 
 func test_puzzle_def_metadata() -> void:
-	var parsed: GameDef= Puzz.parse_game_def(null, {contents="
+	var parsed: GameDef = GameDef.parse_game_def(null, {contents="
 title DotHop
 author Russell Matney
 

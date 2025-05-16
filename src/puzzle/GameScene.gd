@@ -34,7 +34,7 @@ func _ready() -> void:
 		Log.warn("No game_def_path found!!")
 		return
 
-	game_def = Puzz.parse_game_def(game_def_path)
+	game_def = GameDef.parse_game_def(game_def_path)
 	rebuild_puzzle()
 
 	hud = get_node_or_null("HUD")
