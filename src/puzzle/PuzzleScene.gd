@@ -106,6 +106,7 @@ var puzzle_def : PuzzleDef :
 				puzzle_def = game_def.puzzles[pn]
 
 
+# um what no let's get some types here
 var state: Dictionary
 
 signal win
@@ -455,14 +456,17 @@ func node_for_object_name(obj_name: String) -> Node2D:
 
 ## custom nodes ##############################################################
 
+var already_warned := false
+
 func get_scene_for(obj_name: String) -> PackedScene:
-	if theme_data == null:
+	if theme_data == null and not already_warned:
+		already_warned = true
 		Log.warn("Missing expected theme_data")
 	match obj_name:
-		"Player": return theme_data.get_player_scene()
-		"Dot": return theme_data.get_dot_scene()
-		"Dotted": return theme_data.get_dotted_scene()
-		"Goal": return theme_data.get_goal_scene()
+		"Player": return PuzzleThemeData.get_player_scene(theme_data)
+		"Dot": return PuzzleThemeData.get_dot_scene(theme_data)
+		"Dotted": return PuzzleThemeData.get_dotted_scene(theme_data)
+		"Goal": return PuzzleThemeData.get_goal_scene(theme_data)
 		_: return
 
 ## grid helpers ##############################################################

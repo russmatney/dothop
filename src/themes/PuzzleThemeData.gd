@@ -60,23 +60,50 @@ func get_music_tracks() -> Array[AudioStream]:
 
 ## getters ##############################
 
-# TODO preload or make constant for these fallback scenes
-func get_player_scene() -> PackedScene:
+func random_player_scene() -> PackedScene:
 	if len(player_scenes) > 0:
 		return U.rand_of(player_scenes)
-	return load("res://src/puzzle/Player.tscn")
+	return null
 
-func get_dot_scene() -> PackedScene:
+func random_dot_scene() -> PackedScene:
 	if len(dot_scenes) > 0:
 		return U.rand_of(dot_scenes)
-	return load("res://src/puzzle/Dot.tscn")
+	return null
 
-func get_dotted_scene() -> PackedScene:
+func random_dotted_scene() -> PackedScene:
 	if len(dot_scenes) > 0:
 		return U.rand_of(dot_scenes)
-	return load("res://src/puzzle/Dot.tscn")
+	return null
 
-func get_goal_scene() -> PackedScene:
+func random_goal_scene() -> PackedScene:
 	if len(goal_scenes) > 0:
 		return U.rand_of(goal_scenes)
-	return load("res://src/puzzle/Dot.tscn")
+	return null
+
+static func get_player_scene(th: PuzzleThemeData) -> PackedScene:
+	var sc: Variant = th.random_player_scene() if th else null
+	if sc:
+		return sc
+	else:
+		return load("res://src/puzzle/Player.tscn")
+
+static func get_dot_scene(th: PuzzleThemeData) -> PackedScene:
+	var sc: Variant = th.random_dot_scene() if th else null
+	if sc:
+		return sc
+	else:
+		return load("res://src/puzzle/Dot.tscn")
+
+static func get_dotted_scene(th: PuzzleThemeData) -> PackedScene:
+	var sc: Variant = th.random_dot_scene() if th else null
+	if sc:
+		return sc
+	else:
+		return load("res://src/puzzle/Dot.tscn")
+
+static func get_goal_scene(th: PuzzleThemeData) -> PackedScene:
+	var sc: Variant = th.random_dot_scene() if th else null
+	if sc:
+		return sc
+	else:
+		return load("res://src/puzzle/Dot.tscn")
