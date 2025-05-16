@@ -505,15 +505,16 @@ class Cell:
 	var coord: Vector2
 	var nodes: Array[Node2D]
 
-	func _init(_objs: Array, _coord: Vector2, _nodes: Array[Node2D]) -> void:
+	func _init(_objs: Array, _coord: Vector2, _nodes: Array) -> void:
 		objs = _objs
 		coord = _coord
-		nodes = _nodes
+		nodes.assign(_nodes)
 
 func cell_at_coord(coord: Vector2) -> Cell:
 	@warning_ignore("unsafe_method_access")
-	var nodes: Array[Node2D] = state.cell_nodes.get(coord, [])
-	return Cell.new(state.grid[coord.y][coord.x] as Array, coord, nodes)
+	var nodes: Array = state.cell_nodes.get(coord, [])
+	var objs: Variant = state.grid[coord.y][coord.x]
+	return Cell.new(objs as Array if objs else [], coord, nodes)
 	# return {objs=state.grid[coord.y][coord.x], coord=coord, nodes=nodes}
 
 # returns a list of cells from the passed position in the passed direction
@@ -782,7 +783,7 @@ func move(move_dir: Vector2) -> bool:
 					p.node.move_attempt_away_from_edge(move_dir)
 			continue
 
-		cells = cells.filter(func(c: Cell) -> bool: return c.objs != null)
+		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(["stuck", null, p])
