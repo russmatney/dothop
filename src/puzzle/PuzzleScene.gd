@@ -800,7 +800,10 @@ func move(move_dir: Vector2) -> bool:
 					# moving toward player animation?
 					break
 				if "Dotted" in cell.objs:
-					# moving toward dotted 'blocked' animation?
+					# play move 'blocked' animation
+					if p.node.has_method("move_attempt_stuck"):
+						@warning_ignore("unsafe_method_access")
+						p.node.move_attempt_stuck(move_dir)
 					continue
 				if "Dot" in cell.objs:
 					moves_to_make.append(["dot", move_to_dot, p, cell])
