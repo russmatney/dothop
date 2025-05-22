@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="4_ghwcu"]
 [ext_resource type="Theme" uid="uid://biwc2va0xo5y6" path="res://src/ui/SunburstHeaderText.tres" id="4_kr6yf"]
 [ext_resource type="Theme" uid="uid://csu2vx7hyhrig" path="res://src/ui/SunburstBodyText.tres" id="5_8b3k6"]
-[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="9_00xup"]
+[ext_resource type="Texture2D" uid="uid://db11pg0l5l562" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_x.png" id="9_00xup"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="9_2nlfd"]
 [ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="9_3tan6"]
 
@@ -19,6 +19,7 @@ frame_1/texture = ExtResource("3_wootb")
 frame_1/duration = 1.0
 
 [node name="PuzzleSetUnlocked" type="CanvasLayer"]
+layer = 5
 script = ExtResource("1_g7qf8")
 
 [node name="PanelContainer" type="PanelContainer" parent="."]
@@ -120,7 +121,7 @@ visible = true
 custom_minimum_size = Vector2(150, 150)
 layout_mode = 2
 texture = ExtResource("9_00xup")
-input_text = "Ctrl+Z"
+input_text = "X"
 
 [node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)

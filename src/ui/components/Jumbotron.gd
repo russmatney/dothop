@@ -101,6 +101,8 @@ func set_control_icon(device: String = "") -> void:
 func set_dismiss_button() -> void:
 	if dismiss_button:
 		U._connect(dismiss_button.pressed, fade_out)
+	else:
+		Log.warn("no dismiss button found")
 
 # TODO restore or clean this up?
 func on_navigate() -> void:
