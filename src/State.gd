@@ -65,6 +65,9 @@ func apply_event(event: Event) -> void:
 
 func initial_puzzle_sets() -> Array[PuzzleSet]:
 	var ent: PuzzleSet = Pandora.get_entity(PuzzleSetIDs.THEMDOTS)
+	if ent == null:
+		Log.warn("no THEMDOTS PuzzleSet entity found. Is Pandora data loaded?")
+		return []
 	var pss: Array = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
 		.map(func(e: PandoraEntity) -> PuzzleSet: return e.instantiate())\
 		.filter(func(e: PuzzleSet) -> bool:
@@ -78,6 +81,9 @@ func initial_puzzle_sets() -> Array[PuzzleSet]:
 
 func initial_themes() -> Array[PuzzleTheme]:
 	var ent: PuzzleTheme = Pandora.get_entity(PuzzleThemeIDs.DEBUG)
+	if ent == null:
+		Log.warn("no DEBUG theme entity found. Is Pandora data loaded?")
+		return []
 	var ths: Array = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
 		.map(func(e: PandoraEntity) -> PuzzleTheme: return e.instantiate())
 	var th: Array[PuzzleTheme] = []

@@ -27,14 +27,12 @@ class PSMap:
 ## ready ##################################################
 
 func _ready() -> void:
-	Log.info("analyzing puzzle_sets", len(puzzle_sets))
-
 	ps_maps = []
 	for ps: PuzzleSet in puzzle_sets:
 		ps_maps.append(PSMap.new(ps))
-	Log.info("Built puzzle maps.")
 
 	render()
+
 
 ## render ##################################################
 
@@ -46,13 +44,9 @@ func render() -> void:
 	U.remove_children(map, {filter=func(ch: Node) -> void:
 		return ch.is_in_group(gen_key)})
 
-	Log.info("Removed previously generated nodes")
-
 	var acc_x: float = 0
 	var acc_y: float = 0
-	Log.info("Building psmaps:", ps_maps)
 	for psmap: PSMap in ps_maps:
-		Log.info("Building map for psmap:", psmap)
 		var worldmap_island: Texture2D = psmap.puzzle_set.get_worldmap_island_texture()
 
 		psmap.size = worldmap_island.get_size()
@@ -86,5 +80,3 @@ func render() -> void:
 			marker.set_owner(self)
 			marker.add_to_group(gen_key, true))
 		add_child(marker)
-
-		Log.info("built map for psmap:", psmap)

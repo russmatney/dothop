@@ -100,6 +100,9 @@ func show_previous_puzzle_set() -> void:
 func attempt_move_to_puzzle_set(delta: int) -> void:
 	var next_puzzle_set_idx: int = current_puzzle_set_idx + delta
 	next_puzzle_set_idx = clamp(next_puzzle_set_idx, 0, len(puzzle_sets) - 1)
+	if len(puzzle_sets) <= next_puzzle_set_idx or next_puzzle_set_idx == -1:
+		Log.warn("Next Puzzle set index out of bounds! aborting attempted move.")
+		return
 	var next_puzzle_set: PuzzleSet = puzzle_sets[next_puzzle_set_idx]
 
 	current_puzzle_set_idx = next_puzzle_set_idx
