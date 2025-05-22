@@ -40,6 +40,12 @@ func get_all_data(context_id: String) -> Dictionary:
 	var file: FileAccess
 	if _should_use_compression():
 		file = FileAccess.open_compressed(file_path, FileAccess.READ)
+		if file == null:
+			Log.err("pandora file open error", FileAccess.get_open_error())
+			Log.info("falling back to opening uncompressed data")
+			file = FileAccess.open(file_path, FileAccess.READ)
+			if file == null:
+				Log.err("pandora file open error", FileAccess.get_open_error())
 	else:
 		file = FileAccess.open(file_path, FileAccess.READ)
 	var json: JSON = JSON.new()
