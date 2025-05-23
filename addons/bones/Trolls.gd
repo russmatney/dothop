@@ -89,6 +89,10 @@ static func is_tap(event):
 	# lifted finger
 	return event is InputEventScreenTouch and not event.is_pressed() and event.get_index() == 0
 
+static func is_mouse_drag(event):
+	# mouse click down left-click
+	return event is InputEventScreenDrag
+
 static func is_accept(event):
 	return is_event(event, "ui_accept")
 

@@ -17,6 +17,8 @@ var color_rect: ColorRect
 var area: Area2D
 
 signal dot_pressed
+signal mouse_entered
+signal mouse_dragged
 
 ## Log.pp #########################################################
 
@@ -41,8 +43,11 @@ func ensure_area() -> void:
 	area.input_event.connect(func(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 		if Trolls.is_tap(event) or Trolls.is_click(event):
 			dot_pressed.emit()
-		)
+		if Trolls.is_mouse_drag(event):
+			mouse_dragged.emit())
+	area.mouse_entered.connect(func() -> void: mouse_entered.emit())
 	add_child(area)
+	area.ready.connect(func() -> void: area.set_owner(area.get_parent()))
 
 ## set_initial_coord #########################################################
 

@@ -3,7 +3,6 @@ extends Node2D
 class_name DotHopPuzzle
 
 # TODO move all vector2 to vector2i?
-# TODO refactor 'state', 'player', 'cell', 'move' into well-typed internal classes
 
 ## static ##########################################################################
 
@@ -122,6 +121,12 @@ class PuzzState:
 		grid_xs = len(gd[0])
 		grid_ys = len(gd)
 
+	func coord_for_dot(dot: DotHopDot) -> Vector2:
+		for coord: Vector2 in cell_nodes:
+			if dot in cell_nodes[coord]:
+				return coord
+		return Vector2.ZERO
+
 class Player:
 	var coord: Vector2
 	var stuck := false
@@ -192,6 +197,11 @@ func _ready() -> void:
 	move_blocked.connect(on_move_blocked)
 	rebuilt_nodes.connect(on_rebuilt_nodes)
 
+	player_moved.connect(on_queued_move_completed)
+	player_undo.connect(on_queued_move_completed)
+	move_rejected.connect(on_queued_move_completed)
+	move_blocked.connect(reattempt_blocked_move)
+
 func on_win() -> void:
 	Sounds.play(Sounds.S.complete)
 
@@ -216,6 +226,10 @@ func on_move_blocked() -> void:
 func on_rebuilt_nodes() -> void:
 	Sounds.play(Sounds.S.maximize)
 
+## process ##############################################################
+
+func _process(_delta: float) -> void:
+	process_move_queue()
 
 ## input ##############################################################
 
@@ -316,6 +330,55 @@ func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 		attempt_move(move_vec.normalized())
 	else:
 		Log.info("Cannot move to dot", node, node.current_coord)
+
+## move_queue ##############################################################
+
+var move_queue: Array[DotHopDot] = []
+
+func on_dot_mouse_dragged(type: DHData.dotType, node: DotHopDot) -> void:
+	if type == DHData.dotType.Dotted:
+		return
+
+	# TODO handle blocked input (b/c win state, etc)
+
+	Log.info("mouse dragged through dot or goal", node)
+
+	if not node in move_queue:
+		move_queue.append(node)
+
+var moving_via_queue := false
+var queued_move_dir := Vector2.ZERO
+
+func process_move_queue() -> void:
+	if move_queue.is_empty():
+		return
+	if moving_via_queue:
+		return
+	if len(state.players) == 0:
+		return
+
+	Log.pr("attempted next move in queue:", len(move_queue), move_queue)
+
+	var dot: DotHopDot = move_queue[0]
+	var player: Player = state.players[0]
+	var direction_to_dot := state.coord_for_dot(dot) - player.coord
+	if direction_to_dot == Vector2.ZERO:
+		return
+
+	# block until a move is attempted
+	moving_via_queue = true
+	attempt_move(direction_to_dot)
+
+func reattempt_blocked_move() -> void:
+	if moving_via_queue:
+		attempt_move(queued_move_dir)
+
+func on_queued_move_completed() -> void:
+	Log.pr("queued move complete!")
+	moving_via_queue = false
+	move_queue.pop_front()
+	Log.pr("remaining queue:", len(move_queue), move_queue)
+
 
 
 ## state/grid ##############################################################
@@ -471,7 +534,8 @@ func node_for_object_name(obj_name: String) -> Node2D:
 		if node.has_signal("dot_pressed"):
 			@warning_ignore("unsafe_method_access")
 			@warning_ignore("unsafe_property_access")
-			node.dot_pressed.connect(on_dot_pressed.bind(t, node))
+			# node.dot_pressed.connect(on_dot_pressed.bind(t, node))
+			node.mouse_dragged.connect(on_dot_mouse_dragged.bind(t, node))
 	elif obj_name not in ["Player"]:
 		Log.warn("no type for object?", obj_name)
 	return node
