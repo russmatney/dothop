@@ -100,7 +100,7 @@ func rebuild_puzzle() -> void:
 	puzzle_node.move_rejected.connect(func() -> void:
 		update_hud()
 		hud.show_controls(true))
-	puzzle_node.move_blocked.connect(update_hud)
+	puzzle_node.move_input_blocked.connect(update_hud)
 	puzzle_node.rebuilt_nodes.connect(func() -> void:
 		update_hud()
 		Anim.puzzle_animate_intro_from_point(puzzle_node))

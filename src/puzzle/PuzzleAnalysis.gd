@@ -24,8 +24,8 @@ func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = 
 		if last_move is Vector2 and dir == -1 * last_move:
 			continue # skip 'undos'
 
-		var did_step: bool = puzzle_node.move(dir)
-		if did_step:
+		var move_res: DotHopPuzzle.MoveResult = puzzle_node.move(dir)
+		if move_res == DotHopPuzzle.MoveResult.moved:
 			any_moves = true
 			current_move_dict[dir] = collect_move_tree({}, dir)
 			puzzle_node.move(-1 * dir) # undo

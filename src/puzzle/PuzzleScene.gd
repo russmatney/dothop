@@ -4,6 +4,8 @@ class_name DotHopPuzzle
 
 # TODO move all vector2 to vector2i?
 
+const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
 ## static ##########################################################################
 
 static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
@@ -143,7 +145,7 @@ signal win
 signal player_moved
 signal player_undo
 signal move_rejected
-signal move_blocked
+signal move_input_blocked
 signal rebuilt_nodes
 
 var obj_type: Dictionary = {
@@ -194,13 +196,10 @@ func _ready() -> void:
 	player_moved.connect(on_player_moved)
 	player_undo.connect(on_player_undo)
 	move_rejected.connect(on_move_rejected)
-	move_blocked.connect(on_move_blocked)
+	move_input_blocked.connect(on_move_input_blocked)
 	rebuilt_nodes.connect(on_rebuilt_nodes)
 
-	player_moved.connect(on_queued_move_completed)
-	player_undo.connect(on_queued_move_completed)
-	move_rejected.connect(on_queued_move_completed)
-	move_blocked.connect(reattempt_blocked_move)
+	input_block_timer_done.connect(reattempt_blocked_move)
 
 func on_win() -> void:
 	Sounds.play(Sounds.S.complete)
@@ -220,7 +219,7 @@ func on_player_undo() -> void:
 func on_move_rejected() -> void:
 	Sounds.play(Sounds.S.showjumbotron)
 
-func on_move_blocked() -> void:
+func on_move_input_blocked() -> void:
 	pass
 
 func on_rebuilt_nodes() -> void:
@@ -228,8 +227,8 @@ func on_rebuilt_nodes() -> void:
 
 ## process ##############################################################
 
-func _process(_delta: float) -> void:
-	process_move_queue()
+# func _process(_delta: float) -> void:
+# 	process_move_queue()
 
 ## input ##############################################################
 
@@ -248,7 +247,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			return
 		var move_dir: Vector2 = Trolls.grid_move_vector(event)
 		attempt_move(move_dir)
-	elif Trolls.is_undo(event) and not block_move:
+	elif Trolls.is_undo(event) and not block_move_input:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
 			return
@@ -289,30 +288,35 @@ func undo_pressed() -> void:
 
 ## attempt_move ##############################################################
 
-var block_move: bool
-var last_move: Vector2
+var block_move_input: bool
+var last_move: Vector2 = Vector2.ZERO
+signal input_block_timer_done
 
-func attempt_move(move_vec: Vector2 = Vector2.ZERO) -> void:
+func attempt_move(move_vec: Vector2 = Vector2.ZERO) -> Variant:
 	if move_vec != last_move:
 		# allow moving in a new direction
-		block_move = false
+		block_move_input = false
 
-	if move_vec != Vector2.ZERO and not block_move:
+	if move_vec != Vector2.ZERO and not block_move_input:
 		last_move = move_vec
-		move(move_vec)
+		var move_result := move(move_vec)
 		restart_block_move_timer()
-	elif block_move:
-		move_blocked.emit()
+		return move_result
+	elif block_move_input:
+		last_move = Vector2.ZERO
+		move_input_blocked.emit()
+	return false
 
 var block_move_timer: Tween
 func restart_block_move_timer(t: float = 0.2) -> void:
-	block_move = true
+	block_move_input = true
 	if block_move_timer != null:
 		block_move_timer.kill()
 	block_move_timer = create_tween()
 	block_move_timer.tween_callback(func() -> void:
-		block_move = false
-		attempt_move()).set_delay(t)
+		block_move_input = false
+		input_block_timer_done.emit()
+		).set_delay(t)
 
 func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
@@ -330,55 +334,76 @@ func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 		attempt_move(move_vec.normalized())
 	else:
 		Log.info("Cannot move to dot", node, node.current_coord)
+		# TODO shake the tapped dot
 
 ## move_queue ##############################################################
 
 var move_queue: Array[DotHopDot] = []
+var last_dot_dragged: DotHopDot = null
 
-func on_dot_mouse_dragged(type: DHData.dotType, node: DotHopDot) -> void:
-	if type == DHData.dotType.Dotted:
+func on_dot_mouse_dragged(dot: DotHopDot) -> void:
+	# TODO handle blocked input (clicking through jumbotron in win state)
+
+	# prevent dragging in the same dot from firing multiple times
+	if dot == last_dot_dragged:
+		return
+	last_dot_dragged = dot
+
+	Log.info("mouse dragged through dot or goal", dot)
+
+	if not dot in move_queue:
+		move_queue.append(dot)
+	else:
+		# don't call process if this dot is already queued
 		return
 
-	# TODO handle blocked input (b/c win state, etc)
+	process_move_queue.call_deferred()
 
-	Log.info("mouse dragged through dot or goal", node)
+var processing_move_queue := false
 
-	if not node in move_queue:
-		move_queue.append(node)
-
-var moving_via_queue := false
-var queued_move_dir := Vector2.ZERO
-
-func process_move_queue() -> void:
-	if move_queue.is_empty():
+func process_move_queue(skip_check:=false) -> void:
+	if not skip_check and processing_move_queue:
 		return
-	if moving_via_queue:
+	if move_queue.is_empty() or len(state.players) == 0:
+		Log.pr("finished processing move_queue")
+		processing_move_queue = false
 		return
-	if len(state.players) == 0:
-		return
-
-	Log.pr("attempted next move in queue:", len(move_queue), move_queue)
+	processing_move_queue = true
 
 	var dot: DotHopDot = move_queue[0]
 	var player: Player = state.players[0]
-	var direction_to_dot := state.coord_for_dot(dot) - player.coord
-	if direction_to_dot == Vector2.ZERO:
+	var dir := (state.coord_for_dot(dot) - player.coord).normalized()
+
+	Log.pr("calced next move in queue:", len(move_queue), move_queue, dir)
+	if dir == Vector2.ZERO:
+		Log.info("Zero move, dropping it.")
+		move_queue.pop_front()
+		# loop! until early exit
+		process_move_queue(true)
 		return
 
-	# block until a move is attempted
-	moving_via_queue = true
-	attempt_move(direction_to_dot)
+	var res: Variant = attempt_move(dir)
+	if res is bool and res == false:
+		Log.info("no move made yet, input blocked?")
+	elif res in [MoveResult.stuck, MoveResult.zero, MoveResult.move_not_allowed, MoveResult.undo]:
+		# TODO shake the unreachable dot!
+		Log.info("This move is not possible rn, dropping it.")
+		move_queue.pop_front()
+		last_dot_dragged = null
+	elif res in [MoveResult.moved]:
+		Log.info("Made the move!")
+		move_queue.pop_front()
+		last_dot_dragged = null
+	else:
+		Log.warn("Unhandled move result", res)
+		move_queue.pop_front()
+
+	# loop! until early exit
+	process_move_queue(true)
 
 func reattempt_blocked_move() -> void:
-	if moving_via_queue:
-		attempt_move(queued_move_dir)
-
-func on_queued_move_completed() -> void:
-	Log.pr("queued move complete!")
-	moving_via_queue = false
-	move_queue.pop_front()
-	Log.pr("remaining queue:", len(move_queue), move_queue)
-
+	if processing_move_queue:
+		process_move_queue(true)
 
 
 ## state/grid ##############################################################
@@ -535,7 +560,7 @@ func node_for_object_name(obj_name: String) -> Node2D:
 			@warning_ignore("unsafe_method_access")
 			@warning_ignore("unsafe_property_access")
 			# node.dot_pressed.connect(on_dot_pressed.bind(t, node))
-			node.mouse_dragged.connect(on_dot_mouse_dragged.bind(t, node))
+			node.mouse_dragged.connect(on_dot_mouse_dragged.bind(node))
 	elif obj_name not in ["Player"]:
 		Log.warn("no type for object?", obj_name)
 	return node
@@ -834,15 +859,26 @@ class Move:
 	static func move_to(p: Player, fun: Callable, c: Cell) -> Move:
 		return Move.new(MoveType.move_to, p, fun, c)
 
+enum MoveResult {
+	zero=0,
+	move_not_allowed=1,
+	stuck=2, # no legal destination in direction
+	undo=3,
+	moved=4,
+	}
+
 # attempt to move all players in move_dir
 # any undos (movement backwards) unwinds the last move
 # if any player is stuck, only undo is allowed
 # otherwise, the player moves to the dot or goal in the direction pressed
 # return true if the move was made successfully
-func move(move_dir: Vector2) -> bool:
+func move(move_dir: Vector2) -> MoveResult:
 	if move_dir == Vector2.ZERO:
 		# don't do anything!
-		return false
+		return MoveResult.zero
+	if not move_dir in ALLOWED_MOVES:
+		Log.warn("Illegal move attempted!")
+		return MoveResult.move_not_allowed
 
 	var moves_to_make: Array = []
 	for p: Player in state.players:
@@ -916,16 +952,16 @@ func move(move_dir: Vector2) -> bool:
 
 		# trigger HUD update
 		player_moved.emit()
-		return true # we moved!
+		return MoveResult.moved
 
 	var any_undo: bool = moves_to_make.any(func(m: Move) -> bool: return m.type == Move.MoveType.undo)
 	if any_undo:
 		# consider only undoing ONE time? does it make a difference?
 		for m: Move in moves_to_make:
 			undo_last_move(m.player)
-		return false
+		return MoveResult.undo
 
 	# trigger HUD update
 	move_rejected.emit()
 
-	return false
+	return MoveResult.stuck
