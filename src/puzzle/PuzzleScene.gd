@@ -318,7 +318,7 @@ func restart_block_move_timer(t: float = 0.2) -> void:
 		input_block_timer_done.emit()
 		).set_delay(t)
 
-func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
+func on_dot_pressed(node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
 	var first_player_coord: Variant
 	for p: Player in state.players:
@@ -349,8 +349,6 @@ func on_dot_mouse_dragged(dot: DotHopDot) -> void:
 		return
 	last_dot_dragged = dot
 
-	Log.info("mouse dragged through dot or goal", dot)
-
 	if not dot in move_queue:
 		move_queue.append(dot)
 	else:
@@ -365,7 +363,6 @@ func process_move_queue(skip_check:=false) -> void:
 	if not skip_check and processing_move_queue:
 		return
 	if move_queue.is_empty() or len(state.players) == 0:
-		Log.pr("finished processing move_queue")
 		processing_move_queue = false
 		return
 	processing_move_queue = true
@@ -374,9 +371,7 @@ func process_move_queue(skip_check:=false) -> void:
 	var player: Player = state.players[0]
 	var dir := (state.coord_for_dot(dot) - player.coord).normalized()
 
-	Log.pr("calced next move in queue:", len(move_queue), move_queue, dir)
 	if dir == Vector2.ZERO:
-		Log.info("Zero move, dropping it.")
 		move_queue.pop_front()
 		# loop! until early exit
 		process_move_queue(true)
@@ -384,14 +379,12 @@ func process_move_queue(skip_check:=false) -> void:
 
 	var res: Variant = attempt_move(dir)
 	if res is bool and res == false:
-		Log.info("no move made yet, input blocked?")
+		Log.info("No move made, is input blocked?")
 	elif res in [MoveResult.stuck, MoveResult.zero, MoveResult.move_not_allowed, MoveResult.undo]:
 		# TODO shake the unreachable dot!
-		Log.info("This move is not possible rn, dropping it.")
 		move_queue.pop_front()
 		last_dot_dragged = null
 	elif res in [MoveResult.moved]:
-		Log.info("Made the move!")
 		move_queue.pop_front()
 		last_dot_dragged = null
 	else:
@@ -559,7 +552,9 @@ func node_for_object_name(obj_name: String) -> Node2D:
 		if node.has_signal("dot_pressed"):
 			@warning_ignore("unsafe_method_access")
 			@warning_ignore("unsafe_property_access")
-			# node.dot_pressed.connect(on_dot_pressed.bind(t, node))
+			node.dot_pressed.connect(on_dot_pressed.bind(node))
+			@warning_ignore("unsafe_method_access")
+			@warning_ignore("unsafe_property_access")
 			node.mouse_dragged.connect(on_dot_mouse_dragged.bind(node))
 	elif obj_name not in ["Player"]:
 		Log.warn("no type for object?", obj_name)
@@ -877,7 +872,6 @@ func move(move_dir: Vector2) -> MoveResult:
 		# don't do anything!
 		return MoveResult.zero
 	if not move_dir in ALLOWED_MOVES:
-		Log.warn("Illegal move attempted!")
 		return MoveResult.move_not_allowed
 
 	var moves_to_make: Array = []
