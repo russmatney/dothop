@@ -100,7 +100,7 @@
 
 (defn aseprite-bin-path []
   (if (is-mac?)
-    "/Applications/Aseprite.app/Contents/MacOS/aseprite"
+    "/Users/russ/Library/Application Support/Steam/steamapps/common/Aseprite/Aseprite.app/Contents/MacOS/aseprite"
     "aseprite"))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -218,6 +218,7 @@
 (def boxart-dir "assets/boxart/")
 (def boxart-base-logo "assets/boxart/base_logo.aseprite")
 (def boxart-base-logo-wide "assets/boxart/base_logo_wide.aseprite")
+(def boxart-base-min-borders "assets/boxart/base_logo_min_borders.aseprite")
 (def boxart-base-bg-no-logo "assets/boxart/base_bg_no_logo.aseprite")
 (def boxart-base-logo-no-bg "assets/boxart/base_logo_no_bg.aseprite")
 
@@ -225,19 +226,37 @@
 
 (def boxart-defs
   (->>
-    {:header-capsule     {:width 460 :height 215 :base boxart-base-logo-wide}
-     :small-capsule      {:width 231 :height 87 :base boxart-base-logo-wide}
-     :main-capsule       {:width 616 :height 353}
-     :vertical-capsule   {:width 374 :height 448}
-     :page-background    {:width 1438 :height 810}
-     :library-capsule    {:width 600 :height 900}
-     :library-header     {:width 460 :height 215 :base boxart-base-logo-wide}
-     :library-hero       {:width 3840 :height 1240 :base boxart-base-bg-no-logo}
-     :library-logo       {:width 1280 :height 720 :base boxart-base-logo-no-bg}
-     :client-icon        {:width 16 :height 16 :skip-generate true :export-ext ".jpg"}
-     :community-icon     {:width 184 :height 184}
-     :event-cover-image  {:width 800 :height 450 :base boxart-base-logo-wide}
-     :event-header-image {:width 1920 :height 622 :base boxart-base-logo-wide}}
+    {
+     ;; :header-capsule     {:width 460 :height 215 :base boxart-base-logo-wide}
+     ;; :small-capsule      {:width 231 :height 87 :base boxart-base-logo-wide}
+     ;; :main-capsule       {:width 616 :height 353}
+     ;; :vertical-capsule   {:width 374 :height 448}
+     ;; :page-background    {:width 1438 :height 810}
+     ;; :library-capsule    {:width 600 :height 900}
+     ;; :library-header     {:width 460 :height 215 :base boxart-base-logo-wide}
+     ;; :library-hero       {:width 3840 :height 1240 :base boxart-base-bg-no-logo}
+     ;; :library-logo       {:width 1280 :height 720 :base boxart-base-logo-no-bg}
+     ;; :client-icon        {:width 16 :height 16 :skip-generate true :export-ext ".jpg"}
+     ;; :community-icon     {:width 184 :height 184}
+     ;; :event-cover-image  {:width 800 :height 450 :base boxart-base-logo-wide}
+     ;; :event-header-image {:width 1920 :height 622 :base boxart-base-logo-wide}
+     :apple-app-store              {:width 1024 :height 1024 :base boxart-base-min-borders}
+     :apple-ipad-pro               {:width 167 :height 167 :base boxart-base-min-borders}
+     :apple-ipad-app               {:width 76 :height 76 :base boxart-base-min-borders}
+     :apple-ipad-app-2x            {:width 152 :height 152 :base boxart-base-min-borders}
+     :apple-ipad-spotlight         {:width 40 :height 40 :base boxart-base-min-borders}
+     :apple-ipad-spotlight-2x      {:width 80 :height 80 :base boxart-base-min-borders}
+     :apple-ipad-settings          {:width 58 :height 58 :base boxart-base-min-borders}
+     :apple-ipad-notifications     {:width 40 :height 40 :base boxart-base-min-borders}
+     :apple-iphone-app-3x          {:width 180 :height 180 :base boxart-base-min-borders}
+     :apple-iphone-app-2x          {:width 120 :height 120 :base boxart-base-min-borders}
+     :apple-iphone-spotlight-3x    {:width 120 :height 120 :base boxart-base-min-borders}
+     :apple-iphone-spotlight-2x    {:width 80 :height 80 :base boxart-base-min-borders}
+     :apple-iphone-settings-3x     {:width 87 :height 87 :base boxart-base-min-borders}
+     :apple-iphone-settings-2x     {:width 58 :height 58 :base boxart-base-min-borders}
+     :apple-iphone-notification-3x {:width 60 :height 60 :base boxart-base-min-borders}
+     :apple-iphone-notification-2x {:width 40 :height 40 :base boxart-base-min-borders}
+     }
     (map (fn [[label opts]] [label (assoc opts :label label)]))
     (into {})))
 

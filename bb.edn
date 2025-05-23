@@ -22,6 +22,9 @@
   generate-boxart
   {:description ""
    :task        (tasks/generate-all-boxart)}
+  export-boxart
+  {:description ""
+   :task        (tasks/export-all-boxart)}
 
   gd-plug
   (tasks/shell-and-log
