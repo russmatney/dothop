@@ -232,7 +232,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		if state == null:
 			Log.warn("No state, ignoring move input")
 			return
-		check_move_input(event)
+		var move_dir: Vector2 = Trolls.grid_move_vector(event)
+		attempt_move(move_dir)
 	elif Trolls.is_undo(event) and not block_move:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
@@ -272,15 +273,12 @@ func undo_pressed() -> void:
 		undo_last_move(p)
 
 
-## check_move_input ##############################################################
+## attempt_move ##############################################################
 
 var block_move: bool
 var last_move: Vector2
 
-func check_move_input(event: InputEvent = null, move_vec: Vector2 = Vector2.ZERO) -> void:
-	if move_vec == Vector2.ZERO:
-		move_vec = Trolls.grid_move_vector(event)
-
+func attempt_move(move_vec: Vector2 = Vector2.ZERO) -> void:
 	if move_vec != last_move:
 		# allow moving in a new direction
 		block_move = false
@@ -300,7 +298,7 @@ func restart_block_move_timer(t: float = 0.2) -> void:
 	block_move_timer = create_tween()
 	block_move_timer.tween_callback(func() -> void:
 		block_move = false
-		check_move_input()).set_delay(t)
+		attempt_move()).set_delay(t)
 
 func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 	# calc move_vec for tapped dot with first player
@@ -315,7 +313,7 @@ func on_dot_pressed(_type: DHData.dotType, node: DotHopDot) -> void:
 
 	var move_vec: Vector2 = node.current_coord - first_player_coord
 	if move_vec.x == 0 or move_vec.y == 0:
-		check_move_input(null, move_vec.normalized())
+		attempt_move(move_vec.normalized())
 	else:
 		Log.info("Cannot move to dot", node, node.current_coord)
 

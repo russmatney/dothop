@@ -142,7 +142,7 @@ static func puzzle_animate_intro_from_point(puzz_node: DotHopPuzzle) -> Signal:
 		# puzz_node.state.players[0].node.get_global_position()
 		]
 	var nodes: Array = []
-	nodes.append_array((puzz_node.state.players as Array).map(func (p: Dictionary) -> Node2D: return p.node))
+	nodes.append_array((puzz_node.state.players as Array).map(func (p: DotHopPuzzle.Player) -> Node2D: return p.node))
 	nodes.append_array(puzz_node.all_cell_nodes())
 
 	for node: Node2D in nodes:
@@ -166,7 +166,7 @@ static func puzzle_animate_outro_to_point(puzz_node: DotHopPuzzle) -> Signal:
 		]
 
 	var nodes: Array = []
-	nodes.append_array((puzz_node.state.players as Array).map(func (p: Dictionary) -> Node2D: return p.node))
+	nodes.append_array((puzz_node.state.players as Array).map(func (p: DotHopPuzzle.Player) -> Node2D: return p.node))
 	nodes.append_array(puzz_node.all_cell_nodes())
 
 	for node: Node2D in nodes:
