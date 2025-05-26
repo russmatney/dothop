@@ -166,6 +166,8 @@ var reverse_ys: bool = false
 var reverse_xs: bool = false
 var rotate_shape: bool = false
 
+# PuzzleScene.ready()
+# in the local-testing case, we want to look up and assign a theme-data
 func _ready() -> void:
 	if puzzle_def == null:
 		Log.pr("no puzzle_def, trying backups!", name)
@@ -174,6 +176,10 @@ func _ready() -> void:
 			puzzle_def = game_def.puzzles[0]
 		else:
 			Log.err("no game_def_path!!")
+
+	if theme_data == null:
+		Log.warn("Puzzle Scene running with no theme data!")
+		theme_data = PuzzleThemeData.find_backup(self)
 
 	if randomize_layout:
 		reverse_ys = U.rand_of([true, false])

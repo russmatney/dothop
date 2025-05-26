@@ -80,6 +80,8 @@ func random_goal_scene() -> PackedScene:
 		return U.rand_of(goal_scenes)
 	return null
 
+## static ##############################
+
 static func get_player_scene(th: PuzzleThemeData) -> PackedScene:
 	var sc: Variant = th.random_player_scene() if th else null
 	if sc:
@@ -107,3 +109,16 @@ static func get_goal_scene(th: PuzzleThemeData) -> PackedScene:
 		return sc
 	else:
 		return load("res://src/puzzle/Dot.tscn")
+
+## find_backup ##############################
+
+# static var all_theme_data = []
+
+static func find_backup(node: Variant) -> PuzzleThemeData:
+	# for td in all_theme_data:
+	# 	if node.theme.get_theme_data() == td:
+	# 		return td
+
+	return node.theme.get_theme_data()
+
+	# Log.pr("Couldn't find theme for node", node, )
