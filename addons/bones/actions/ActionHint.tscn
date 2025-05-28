@@ -1,41 +1,19 @@
 [gd_scene load_steps=15 format=3 uid="uid://bfatjgmhlkjne"]
 
-[ext_resource type="Script" uid="uid://bmtikhc06f2gj" path="res://addons/bones/actions/ActionHint.gd" id="1_k2w1x"]
+[ext_resource type="Script" uid="uid://dluq6nubbuwgo" path="res://addons/bones/actions/ActionHint.gd" id="1_k2w1x"]
+[ext_resource type="RichTextEffect" uid="uid://0uwslnijaunf" path="res://addons/teeb.text_effects/resources/Jump.tres" id="3_q3lvy"]
+[ext_resource type="RichTextEffect" uid="uid://cpgmlv5404n2f" path="res://addons/teeb.text_effects/resources/ColorMod.tres" id="3_uu0q6"]
+[ext_resource type="RichTextEffect" uid="uid://b8opi43uxojvx" path="res://addons/teeb.text_effects/resources/Cuss.tres" id="4_ynxsy"]
+[ext_resource type="RichTextEffect" uid="uid://gyuxxiehtwe2" path="res://addons/teeb.text_effects/resources/Heart.tres" id="5_qh4rj"]
+[ext_resource type="RichTextEffect" uid="uid://dbghgr7vfdh1f" path="res://addons/teeb.text_effects/resources/L33T.tres" id="7_ro6ke"]
+[ext_resource type="RichTextEffect" uid="uid://cb1gkf45fqbha" path="res://addons/teeb.text_effects/resources/Nervous.tres" id="8_nnbou"]
+[ext_resource type="RichTextEffect" uid="uid://np0pacy0isjy" path="res://addons/teeb.text_effects/resources/Number.tres" id="9_x3ynq"]
+[ext_resource type="RichTextEffect" uid="uid://duheunaw0ivxk" path="res://addons/teeb.text_effects/resources/Rain.tres" id="10_np4w0"]
+[ext_resource type="RichTextEffect" uid="uid://dg1iqjisnj5e" path="res://addons/teeb.text_effects/resources/Sparkle.tres" id="11_ywtte"]
+[ext_resource type="RichTextEffect" uid="uid://cwd3qspt5fnva" path="res://addons/teeb.text_effects/resources/UwU.tres" id="12_wub3w"]
+[ext_resource type="RichTextEffect" uid="uid://dnb2l0mimhgp2" path="res://addons/teeb.text_effects/resources/Woo.tres" id="13_rvdlc"]
 [ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="14_g5lob"]
 [ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="15_r6s8h"]
-
-[sub_resource type="Resource" id="Resource_xdevy"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/ColorMod.tres"
-
-[sub_resource type="Resource" id="Resource_74jsk"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Cuss.tres"
-
-[sub_resource type="Resource" id="Resource_bn3kl"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Heart.tres"
-
-[sub_resource type="Resource" id="Resource_k3vkv"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Jump.tres"
-
-[sub_resource type="Resource" id="Resource_chng6"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/L33T.tres"
-
-[sub_resource type="Resource" id="Resource_p6jl0"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Nervous.tres"
-
-[sub_resource type="Resource" id="Resource_busjx"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Number.tres"
-
-[sub_resource type="Resource" id="Resource_75ad7"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Rain.tres"
-
-[sub_resource type="Resource" id="Resource_peuqo"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Sparkle.tres"
-
-[sub_resource type="Resource" id="Resource_opuas"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/UwU.tres"
-
-[sub_resource type="Resource" id="Resource_1ucsc"]
-metadata/__load_path__ = "res://addons/teeb.text_effects/resources/Woo.tres"
 
 [node name="ActionHint" type="Node2D"]
 z_index = 5
@@ -53,7 +31,7 @@ bbcode_enabled = true
 text = "[center][jump]"
 fit_content = true
 scroll_active = false
-custom_effects = [SubResource("Resource_xdevy"), SubResource("Resource_74jsk"), SubResource("Resource_bn3kl"), SubResource("Resource_k3vkv"), SubResource("Resource_chng6"), SubResource("Resource_p6jl0"), SubResource("Resource_busjx"), SubResource("Resource_75ad7"), SubResource("Resource_peuqo"), SubResource("Resource_opuas"), SubResource("Resource_1ucsc")]
+custom_effects = [ExtResource("3_uu0q6"), ExtResource("4_ynxsy"), ExtResource("5_qh4rj"), ExtResource("3_q3lvy"), ExtResource("7_ro6ke"), ExtResource("8_nnbou"), ExtResource("9_x3ynq"), ExtResource("10_np4w0"), ExtResource("11_ywtte"), ExtResource("12_wub3w"), ExtResource("13_rvdlc")]
 
 [node name="ActionInputIcon" parent="." instance=ExtResource("15_r6s8h")]
 offset_left = -16.0
