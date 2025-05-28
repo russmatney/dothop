@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://c5dwobjd34w3p"]
 
-[ext_resource type="Script" uid="uid://gso58x1xrfbx" path="res://addons/AsepriteWizard/interface/docks/wizard/as_wizard_window.gd" id="1"]
+[ext_resource type="Script" uid="uid://ufmscsnm8ya3" path="res://addons/AsepriteWizard/interface/docks/wizard/as_wizard_window.gd" id="1"]
 
 [sub_resource type="Image" id="Image_gc3fe"]
 data = {

@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8ricawxf4kxs"]
 
-[ext_resource type="Script" uid="uid://cwjylmoxognhc" path="res://addons/AsepriteWizard/interface/docks/layer_select_field.gd" id="1_6ya8h"]
+[ext_resource type="Script" uid="uid://c2c8r5ecgntp1" path="res://addons/AsepriteWizard/interface/docks/layer_select_field.gd" id="1_6ya8h"]
 
 [sub_resource type="Image" id="Image_e8od7"]
 data = {

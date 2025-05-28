@@ -1,6 +1,6 @@
-[gd_scene load_steps=2 format=3 uid="uid://3181n7nq0uyl"]
+[gd_scene load_steps=2 format=3 uid="uid://bgf0nf3hqy0xq"]
 
-[ext_resource type="Script" uid="uid://debeuke7txha7" path="res://addons/AsepriteWizard/interface/docks/wizard/wizard_nodes/source_path.gd" id="1"]
+[ext_resource type="Script" uid="uid://b5vp72sqovo7p" path="res://addons/AsepriteWizard/interface/docks/wizard/wizard_nodes/source_path.gd" id="1"]
 
 [node name="source_path" type="LineEdit"]
 offset_top = 34.0

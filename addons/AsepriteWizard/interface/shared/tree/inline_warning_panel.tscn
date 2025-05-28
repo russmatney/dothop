@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://c1l0bk12iwln3"]
 
-[ext_resource type="Script" uid="uid://0q4exeq5eawy" path="res://addons/AsepriteWizard/interface/shared/tree/inline_warning_panel.gd" id="1_aomsj"]
+[ext_resource type="Script" uid="uid://ctf8re8bekyl1" path="res://addons/AsepriteWizard/interface/shared/tree/inline_warning_panel.gd" id="1_aomsj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rpkoa"]
 bg_color = Color(0.44, 0.73, 0.98, 0.2)
