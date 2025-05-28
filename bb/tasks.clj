@@ -240,22 +240,24 @@
      ;; :community-icon     {:width 184 :height 184}
      ;; :event-cover-image  {:width 800 :height 450 :base boxart-base-logo-wide}
      ;; :event-header-image {:width 1920 :height 622 :base boxart-base-logo-wide}
-     :apple-app-store              {:width 1024 :height 1024 :base boxart-base-min-borders}
-     :apple-ipad-pro               {:width 167 :height 167 :base boxart-base-min-borders}
-     :apple-ipad-app               {:width 76 :height 76 :base boxart-base-min-borders}
-     :apple-ipad-app-2x            {:width 152 :height 152 :base boxart-base-min-borders}
-     :apple-ipad-spotlight         {:width 40 :height 40 :base boxart-base-min-borders}
-     :apple-ipad-spotlight-2x      {:width 80 :height 80 :base boxart-base-min-borders}
-     :apple-ipad-settings          {:width 58 :height 58 :base boxart-base-min-borders}
-     :apple-ipad-notifications     {:width 40 :height 40 :base boxart-base-min-borders}
-     :apple-iphone-app-3x          {:width 180 :height 180 :base boxart-base-min-borders}
-     :apple-iphone-app-2x          {:width 120 :height 120 :base boxart-base-min-borders}
-     :apple-iphone-spotlight-3x    {:width 120 :height 120 :base boxart-base-min-borders}
-     :apple-iphone-spotlight-2x    {:width 80 :height 80 :base boxart-base-min-borders}
-     :apple-iphone-settings-3x     {:width 87 :height 87 :base boxart-base-min-borders}
-     :apple-iphone-settings-2x     {:width 58 :height 58 :base boxart-base-min-borders}
-     :apple-iphone-notification-3x {:width 60 :height 60 :base boxart-base-min-borders}
-     :apple-iphone-notification-2x {:width 40 :height 40 :base boxart-base-min-borders}
+     :android-app-icon        {:width 512 :height 512 :base boxart-base-min-borders}
+     :android-feature-graphic {:width 1024 :height 500 :base boxart-base-logo-wide}
+     ;; :apple-app-store              {:width 1024 :height 1024 :base boxart-base-min-borders}
+     ;; :apple-ipad-pro               {:width 167 :height 167 :base boxart-base-min-borders}
+     ;; :apple-ipad-app               {:width 76 :height 76 :base boxart-base-min-borders}
+     ;; :apple-ipad-app-2x            {:width 152 :height 152 :base boxart-base-min-borders}
+     ;; :apple-ipad-spotlight         {:width 40 :height 40 :base boxart-base-min-borders}
+     ;; :apple-ipad-spotlight-2x      {:width 80 :height 80 :base boxart-base-min-borders}
+     ;; :apple-ipad-settings          {:width 58 :height 58 :base boxart-base-min-borders}
+     ;; :apple-ipad-notifications     {:width 40 :height 40 :base boxart-base-min-borders}
+     ;; :apple-iphone-app-3x          {:width 180 :height 180 :base boxart-base-min-borders}
+     ;; :apple-iphone-app-2x          {:width 120 :height 120 :base boxart-base-min-borders}
+     ;; :apple-iphone-spotlight-3x    {:width 120 :height 120 :base boxart-base-min-borders}
+     ;; :apple-iphone-spotlight-2x    {:width 80 :height 80 :base boxart-base-min-borders}
+     ;; :apple-iphone-settings-3x     {:width 87 :height 87 :base boxart-base-min-borders}
+     ;; :apple-iphone-settings-2x     {:width 58 :height 58 :base boxart-base-min-borders}
+     ;; :apple-iphone-notification-3x {:width 60 :height 60 :base boxart-base-min-borders}
+     ;; :apple-iphone-notification-2x {:width 40 :height 40 :base boxart-base-min-borders}
      }
     (map (fn [[label opts]] [label (assoc opts :label label)]))
     (into {})))
