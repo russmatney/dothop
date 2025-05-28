@@ -20,6 +20,7 @@ enum S {
 ###########################################################################
 # sounds
 
+# TODO refactor this into custom resource-based abstraction
 @onready var sounds: Dictionary = {
 	S.candlelit:
 	[

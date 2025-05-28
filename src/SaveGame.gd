@@ -60,5 +60,5 @@ static func load_game(_tree: SceneTree) -> Dictionary:
 		else:
 			Log.warn("Some other save-game shape found, ignoring.")
 
-	Log.info("Data loaded.", data)
+	Log.info("Data loaded.", len(data))
 	return data

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cdv566f17j4jx"]
 
 [ext_resource type="Script" uid="uid://dne6s68vqa6ry" path="res://src/menus/MainMenu.gd" id="1_wrr04"]
-[ext_resource type="Texture2D" uid="uid://wescmejk4ssr" path="res://assets/boxart/base_logo_no_bg_sheet.png" id="2_1jwlh"]
+[ext_resource type="Texture2D" uid="uid://c0g0e72eyct52" path="res://assets/ui/base_logo_no_bg_sheet.png" id="2_1jwlh"]
 [ext_resource type="Script" uid="uid://cpuyvmqrhur0o" path="res://src/ui/AnimatedVBoxContainer.gd" id="4_e383p"]
 [ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="4_mlk80"]
 [ext_resource type="Theme" uid="uid://tmcplph82m7i" path="res://src/ui/GreenWoodPanelTheme.tres" id="4_yjkk1"]
@@ -118,8 +118,8 @@ layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]0[/color] / [color=dark_slate_blue]72[/color] puzzles complete
-[color=forest_green]0[/color] / [color=dark_slate_blue]1073[/color] dots hopped"
+text = "[center][color=forest_green]19[/color] / [color=dark_slate_blue]73[/color] puzzles complete
+[color=forest_green]204[/color] / [color=dark_slate_blue]1101[/color] dots hopped"
 fit_content = true
 scroll_active = false
 
