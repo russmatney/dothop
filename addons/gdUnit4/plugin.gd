@@ -9,13 +9,12 @@ var _gd_inspector: Control
 var _gd_console: Control
 var _gd_filesystem_context_menu: Variant
 var _gd_scripteditor_context_menu: Variant
-var _guard: RefCounted
 
 
 func _enter_tree() -> void:
 	if check_running_in_test_env():
 		@warning_ignore("return_value_discarded")
-		CmdConsole.new().prints_warning("It was recognized that GdUnit4 is running in a test environment, therefore the GdUnit4 plugin will not be executed!")
+		GdUnitCSIMessageWriter.new().prints_warning("It was recognized that GdUnit4 is running in a test environment, therefore the GdUnit4 plugin will not be executed!")
 		return
 
 	if Engine.get_version_info().hex < 0x40300:
@@ -31,11 +30,10 @@ func _enter_tree() -> void:
 	var control := add_control_to_bottom_panel(_gd_console, "gdUnitConsole")
 	@warning_ignore("unsafe_method_access")
 	await _gd_console.setup_update_notification(control)
-	if GdUnit4CSharpApiLoader.is_mono_supported():
+	if GdUnit4CSharpApiLoader.is_dotnet_supported():
 		prints("GdUnit4Net version '%s' loaded." % GdUnit4CSharpApiLoader.version())
 	# Connect to be notified for script changes to be able to discover new tests
-	@warning_ignore("unsafe_method_access")
-	_guard = load("res://addons/gdUnit4/src/core/discovery/GdUnitTestDiscoverGuard.gd").new()
+	GdUnitTestDiscoverGuard.instance()
 	@warning_ignore("return_value_discarded")
 	resource_saved.connect(_on_resource_saved)
 	prints("Loading GdUnit4 Plugin success")
@@ -89,11 +87,12 @@ func _remove_context_menus() -> void:
 func _create_context_menu(script_path: String) -> Variant:
 	var context_menu_script := GDScript.new()
 	context_menu_script.source_code = FileAccess.get_file_as_string(script_path)
-	context_menu_script.reload()
+	var err := context_menu_script.reload(true)
+	if err != OK:
+		push_error("Can't create context menu %s, error: %s" % [script_path, error_string(err)])
 	return context_menu_script.new()
 
 
 func _on_resource_saved(resource: Resource) -> void:
 	if resource is Script:
-		@warning_ignore("unsafe_method_access")
-		await _guard.discover(resource as Script)
+		await GdUnitTestDiscoverGuard.instance().discover(resource as Script)

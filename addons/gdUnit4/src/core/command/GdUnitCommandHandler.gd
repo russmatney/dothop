@@ -167,11 +167,22 @@ func command(cmd_name: String) -> GdUnitCommand:
 	return _commands.get(cmd_name)
 
 
-func cmd_run_test_suites(test_suite_paths: PackedStringArray, debug: bool, rerun := false) -> void:
+func cmd_run_test_suites(scripts: Array[Script], debug: bool, rerun := false) -> void:
+	# Update test discovery
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitEventTestDiscoverStart.new())
+	var tests_to_execute: Array[GdUnitTestCase] = []
+	for script in scripts:
+		GdUnitTestDiscoverer.discover_tests(script, func(test_case: GdUnitTestCase) -> void:
+			tests_to_execute.append(test_case)
+			GdUnitTestDiscoverSink.discover(test_case)
+		)
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitEventTestDiscoverEnd.new(0, 0))
+	GdUnitTestDiscoverer.console_log_discover_results(tests_to_execute)
+
 	# create new runner runner_config for fresh run otherwise use saved one
 	if not rerun:
 		var result := _runner_config.clear()\
-			.add_test_suites(test_suite_paths)\
+			.add_test_cases(tests_to_execute)\
 			.save_config()
 		if result.is_error():
 			push_error(result.error_message())
@@ -179,22 +190,49 @@ func cmd_run_test_suites(test_suite_paths: PackedStringArray, debug: bool, rerun
 	cmd_run(debug)
 
 
-func cmd_run_test_case(test_suite_resource_path: String, test_case: String, test_param_index: int, debug: bool, rerun := false) -> void:
+func cmd_run_test_case(script: Script, test_case: String, test_param_index: int, debug: bool, rerun := false) -> void:
+	# Update test discovery
+	var tests_to_execute: Array[GdUnitTestCase] = []
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitEventTestDiscoverStart.new())
+	GdUnitTestDiscoverer.discover_tests(script, func(test: GdUnitTestCase) -> void:
+		# We filter for a single test
+		if test.test_name == test_case:
+			# We only add selected parameterized test to the execution list
+			if test_param_index == -1:
+				tests_to_execute.append(test)
+			elif test.attribute_index == test_param_index:
+				tests_to_execute.append(test)
+			GdUnitTestDiscoverSink.discover(test)
+	)
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitEventTestDiscoverEnd.new(0, 0))
+	GdUnitTestDiscoverer.console_log_discover_results(tests_to_execute)
+
 	# create new runner config for fresh run otherwise use saved one
 	if not rerun:
 		var result := _runner_config.clear()\
-			.add_test_case(test_suite_resource_path, test_case, test_param_index)\
+			.add_test_cases(tests_to_execute)\
 			.save_config()
 		if result.is_error():
 			push_error(result.error_message())
 			return
+	cmd_run(debug)
+
+
+func cmd_run_tests(tests_to_execute: Array[GdUnitTestCase], debug: bool) -> void:
+	# Save tests to runner config before execute
+	var result := _runner_config.clear()\
+		.add_test_cases(tests_to_execute)\
+		.save_config()
+	if result.is_error():
+		push_error(result.error_message())
+		return
 	cmd_run(debug)
 
 
 func cmd_run_overall(debug: bool) -> void:
-	var test_suite_paths: PackedStringArray = GdUnitCommandHandler.scan_all_test_directories(GdUnitSettings.test_root_folder())
+	var tests_to_execute := await GdUnitTestDiscoverer.run()
 	var result := _runner_config.clear()\
-		.add_test_suites(test_suite_paths)\
+		.add_test_cases(tests_to_execute)\
 		.save_config()
 	if result.is_error():
 		push_error(result.error_message())
@@ -206,6 +244,8 @@ func cmd_run(debug: bool) -> void:
 	# don't start is already running
 	if _is_running:
 		return
+
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitInit.new())
 	# save current selected excution config
 	var server_port: int = Engine.get_meta("gdunit_server_port")
 	var result := _runner_config.set_server_port(server_port).save_config()
@@ -249,12 +289,11 @@ func cmd_editor_run_test(debug: bool) -> void:
 		var result := regex.search(active_base_editor().get_line(cursor_line))
 		if result:
 			var func_name := result.get_string(2).strip_edges()
-			prints("Run test:", func_name, "debug", debug)
 			if func_name.begins_with("test_"):
-				cmd_run_test_case(active_script().resource_path, func_name, -1, debug)
+				cmd_run_test_case(active_script(), func_name, -1, debug)
 				return
 	# otherwise run the full test suite
-	var selected_test_suites := [active_script().resource_path]
+	var selected_test_suites: Array[Script] = [active_script()]
 	cmd_run_test_suites(selected_test_suites, debug)
 
 
@@ -276,12 +315,14 @@ func cmd_create_test() -> void:
 func cmd_discover_tests() -> void:
 	await GdUnitTestDiscoverer.run()
 
+
 static func scan_all_test_directories(root: String) -> PackedStringArray:
 	var base_directory := "res://"
 	# If the test root folder is configured as blank, "/", or "res://", use the root folder as described in the settings panel
 	if root.is_empty() or root == "/" or root == base_directory:
 		return [base_directory]
 	return scan_test_directories(base_directory, root, [])
+
 
 static func scan_test_directories(base_directory: String, test_directory: String, test_suite_paths: PackedStringArray) -> PackedStringArray:
 	print_verbose("Scannning for test directory '%s' at %s" % [test_directory, base_directory])
@@ -309,7 +350,7 @@ static func match_test_directory(directory: String, test_directory: String) -> b
 
 
 func run_debug_mode() -> void:
-	EditorInterface.play_custom_scene("res://addons/gdUnit4/src/core/GdUnitRunner.tscn")
+	EditorInterface.play_custom_scene("res://addons/gdUnit4/src/core/runners/GdUnitTestRunner.tscn")
 	_is_running = true
 
 
@@ -320,7 +361,7 @@ func run_release_mode() -> void:
 	arguments.append("--no-window")
 	arguments.append("--path")
 	arguments.append(ProjectSettings.globalize_path("res://"))
-	arguments.append("res://addons/gdUnit4/src/core/GdUnitRunner.tscn")
+	arguments.append("res://addons/gdUnit4/src/core/runners/GdUnitTestRunner.tscn")
 	_current_runner_process_id = OS.create_process(OS.get_executable_path(), arguments, false);
 	_is_running = true
 
