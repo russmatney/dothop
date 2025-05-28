@@ -85,8 +85,10 @@ static func get_config_color_theme() -> Dictionary:
 	match theme_id:
 		LOG_THEME_TERMSAFE:
 			return Log.COLORS_TERMINAL_SAFE
-		LOG_THEME_PRETTY_V1:
-			return Log.COLORS_PRETTY_V1
+		LOG_THEME_PRETTY_DARK_V1:
+			return Log.COLORS_PRETTY_DARK_V1
+		LOG_THEME_PRETTY_LIGHT_V1:
+			return Log.COLORS_PRETTY_LIGHT_V1
 		_:
 			print("Unknown LOG_THEME '%s', using fallback" % theme_id)
 			return Log.COLORS_TERMINAL_SAFE
@@ -130,7 +132,8 @@ static func set_color_theme(theme: String) -> void:
 # - gray
 
 const LOG_THEME_TERMSAFE: String = "TERMSAFE"
-const LOG_THEME_PRETTY_V1: String = "PRETTY_V1"
+const LOG_THEME_PRETTY_DARK_V1: String = "PRETTY_V1"
+const LOG_THEME_PRETTY_LIGHT_V1: String = "PRETTY_LIGHT_V1"
 
 static var COLORS_TERMINAL_SAFE: Dictionary = {
 	"SRC": "cyan",
@@ -189,7 +192,7 @@ static var COLORS_TERMINAL_SAFE: Dictionary = {
 	TYPE_MAX: "pink",
 	}
 
-static var COLORS_PRETTY_V1: Dictionary = {
+static var COLORS_PRETTY_DARK_V1: Dictionary = {
 	"SRC": "aquamarine",
 	"ADDONS": "peru",
 	"TEST": "green_yellow",
@@ -246,6 +249,63 @@ static var COLORS_PRETTY_V1: Dictionary = {
 	TYPE_MAX: "pink",
 	}
 
+static var COLORS_PRETTY_LIGHT_V1: Dictionary = {
+	"SRC": "dark_cyan",
+	"ADDONS": "dark_red",
+	"TEST": "dark_green",
+	",": "crimson",
+	"(": "crimson",
+	")": "crimson",
+	"[": "crimson",
+	"]": "crimson",
+	"{": "crimson",
+	"}": "crimson",
+	"&": "coral",
+	"^": "coral",
+	"dict_key": "dark_slate_blue",
+	"vector_value": "dark_orchid",
+	"class_name": "cadet_blue",
+	TYPE_NIL: "coral",
+	TYPE_BOOL: "dark_red",
+	TYPE_INT: "dark_orchid",
+	TYPE_FLOAT: "dark_orchid",
+	TYPE_STRING: "dark_red",
+	TYPE_VECTOR2: "cornflower_blue",
+	TYPE_VECTOR2I: "cornflower_blue",
+	TYPE_RECT2: "cornflower_blue",
+	TYPE_RECT2I: "cornflower_blue",
+	TYPE_VECTOR3: "cornflower_blue",
+	TYPE_VECTOR3I: "cornflower_blue",
+	TYPE_TRANSFORM2D: "dark_red",
+	TYPE_VECTOR4: "dark_orchid",
+	TYPE_VECTOR4I: "dark_orchid",
+	TYPE_PLANE: "dark_red",
+	TYPE_QUATERNION: "dark_red",
+	TYPE_AABB: "dark_red",
+	TYPE_BASIS: "dark_red",
+	TYPE_TRANSFORM3D: "dark_red",
+	TYPE_PROJECTION: "dark_red",
+	TYPE_COLOR: "dark_red",
+	TYPE_STRING_NAME: "dark_red",
+	TYPE_NODE_PATH: "dark_red",
+	TYPE_RID: "dark_red",
+	TYPE_OBJECT: "dark_red",
+	TYPE_CALLABLE: "dark_red",
+	TYPE_SIGNAL: "dark_red",
+	TYPE_DICTIONARY: "dark_red",
+	TYPE_ARRAY: "dark_red",
+	TYPE_PACKED_BYTE_ARRAY: "dark_red",
+	TYPE_PACKED_INT32_ARRAY: "dark_red",
+	TYPE_PACKED_INT64_ARRAY: "dark_red",
+	TYPE_PACKED_FLOAT32_ARRAY: "dark_red",
+	TYPE_PACKED_FLOAT64_ARRAY: "dark_red",
+	TYPE_PACKED_STRING_ARRAY: "dark_red",
+	TYPE_PACKED_VECTOR2_ARRAY: "dark_red",
+	TYPE_PACKED_VECTOR3_ARRAY: "dark_red",
+	TYPE_PACKED_COLOR_ARRAY: "dark_red",
+	TYPE_MAX: "dark_red",
+	}
+
 ## set color theme ####################################
 
 ## Use the terminal safe color scheme, which should handle colors in most tty-like environments.
@@ -257,7 +317,7 @@ static func set_colors_termsafe() -> void:
 ## [br][br]
 ## Hopefully we'll support more themes (including light themes) soon!
 static func set_colors_pretty() -> void:
-	set_color_theme(LOG_THEME_PRETTY_V1)
+	set_color_theme(LOG_THEME_PRETTY_DARK_V1)
 
 static var theme_overwrites: Dictionary = {}
 
@@ -329,7 +389,7 @@ static var type_overwrites: Dictionary = {}
 ##
 ## [br][br]
 ## The handler is called with the object and an options dict.
-## [code]func(obj, _opts): return {name=obj.name}[/code]
+## [code]func(obj): return {name=obj.name}[/code]
 static func register_type_overwrite(key: String, handler: Callable) -> void:
 	# TODO warning on key exists? support multiple handlers for same type?
 	# validate the key/handler somehow?
@@ -338,11 +398,11 @@ static func register_type_overwrite(key: String, handler: Callable) -> void:
 ## Register a dictionary of type overwrite.
 ##
 ## [br][br]
-## Expects a Dictionary like [code]{obj.get_class(): func(obj, opts): return {key=obj.get_key()}}[/code].
+## Expects a Dictionary like [code]{obj.get_class(): func(obj): return {key=obj.get_key()}}[/code].
 ##
 ## [br][br]
 ## It depends on [code]obj.get_class()[/code] then [code]typeof(obj)[/code] for the key.
-## The handler is called with the object and an options dict (e.g. [code]func(obj, _opts): return {name=obj.name}[/code]).
+## The handler is called with the object as the only argument. (e.g. [code]func(obj): return {name=obj.name}[/code]).
 static func register_type_overwrites(overwrites: Dictionary) -> void:
 	type_overwrites.merge(overwrites, true)
 
@@ -373,12 +433,11 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 		return Log.color_wrap(msg, opts)
 
 	if msg is Object and (msg as Object).get_class() in type_overwrites:
-		# TODO support single arity (no opts) impls?
 		var fn: Callable = type_overwrites.get((msg as Object).get_class())
-		return fn.call(msg, opts)
+		return Log.to_pretty(fn.call(msg), opts)
 	elif typeof(msg) in type_overwrites:
 		var fn: Callable = type_overwrites.get(typeof(msg))
-		return fn.call(msg, opts)
+		return Log.to_pretty(fn.call(msg), opts)
 
 	# objects
 	if msg is Object and (msg as Object).has_method("to_pretty"):
@@ -420,14 +479,19 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 		var last: Variant
 		if len(msg) > 0:
 			last = (msg as Dictionary).keys()[-1]
+		var indent_updated = false
 		for k: Variant in (msg as Dictionary).keys():
 			var val: Variant
 			if k in Log.get_dictionary_skip_keys():
 				val = "..."
 			else:
-				opts.indent_level += 1
+				if not indent_updated:
+					indent_updated = true
+					# prints("updating opts.indent_level", opts.indent_level)
+					opts.indent_level += 1
 				val = Log.to_pretty(msg[k], opts)
 			if newlines and ct > 1:
+				# prints("applying more tabs", indent_level)
 				tmp += "\n\t" \
 					+ range(indent_level)\
 					.map(func(_i: int) -> String: return "\t")\
@@ -437,6 +501,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 			if last and str(k) != str(last):
 				tmp += Log.color_wrap(", ", opts)
 		tmp += Log.color_wrap(" }", opts)
+		opts.indent_level -= 1 # ugh! updating the dict in-place
 		return tmp
 
 	# strings
