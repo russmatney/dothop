@@ -2,49 +2,44 @@
 
 [ext_resource type="Script" uid="uid://c21ck31qmppmf" path="res://src/themes/spring/SpringPuzzle.gd" id="1_n4qjr"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_0jpcc"]
-[ext_resource type="Texture2D" uid="uid://cjef0ur1vupio" path="res://src/themes/spring/dot.png" id="4_xe53k"]
+[ext_resource type="Texture2D" uid="uid://1epv8kxbuuxv" path="res://src/themes/spring/assets/particles1.png" id="4_grci4"]
+[ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_grci4"]
 [ext_resource type="Texture2D" uid="uid://ccp0c8ahlsvx5" path="res://src/themes/spring/assets/springbg1_sheet.png" id="6_cwjxf"]
+[ext_resource type="Texture2D" uid="uid://omjo0bt5k003" path="res://src/themes/spring/assets/particles2.png" id="7_jtm8u"]
 
 [sub_resource type="Resource" id="Resource_5ckec"]
 script = ExtResource("2_0jpcc")
 _id = "23"
 
-[sub_resource type="Gradient" id="Gradient_grci4"]
-offsets = PackedFloat32Array(0, 0.138329, 0.423631, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.538905, 0.538905, 0.538905, 1, 0.961447, 0.961447, 0.961447, 1, 1, 1, 1, 1)
+[sub_resource type="Curve" id="Curve_2m20g"]
+_data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
 
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_m8hu6"]
-gradient = SubResource("Gradient_grci4")
+[sub_resource type="CurveTexture" id="CurveTexture_0vvoo"]
+curve = SubResource("Curve_2m20g")
 
 [sub_resource type="Curve" id="Curve_jtm8u"]
 _limits = [-1.0, 1.0, 0.0, 1.0]
-_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.293421, -0.0352848), 0.0, 0.0, 0, 0, Vector2(0.509211, 0.579736), 0.0, 0.0, 0, 0, Vector2(0.711842, -0.681056), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.228083, 0.0278834), 0.0, 0.0, 0, 0, Vector2(0.509211, 0.579736), 0.0, 0.0, 0, 0, Vector2(0.754086, -0.329109), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
 
 [sub_resource type="CurveTexture" id="CurveTexture_2m20g"]
 curve = SubResource("Curve_jtm8u")
 
-[sub_resource type="Curve" id="Curve_0vvoo"]
-_data = [Vector2(0.182895, 0.272225), 0.0, 0.0, 0, 0, Vector2(0.293421, 1), 0.0, 0.0, 0, 0, Vector2(0.485526, 0), 0.0, 0.0, 0, 0, Vector2(0.643421, 1), 0.0, 0.0, 0, 0, Vector2(0.838158, 0), 0.0, 0.0, 0, 0, Vector2(0.948684, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
-point_count = 7
-
-[sub_resource type="CurveTexture" id="CurveTexture_b0klo"]
-curve = SubResource("Curve_0vvoo")
-
 [sub_resource type="Curve" id="Curve_axmjm"]
-_data = [Vector2(0.00921053, 0.11847), 0.0, 0.0, 0, 0, Vector2(0.138158, 0.149221), 0.0, 0.0, 0, 0, Vector2(0.177632, 0.297851), 0.0, 0.0, 0, 0, Vector2(0.346053, 0.149221), 0.0, 0.0, 0, 0, Vector2(0.69079, 0.113345), 0.0, 0.0, 0, 0, Vector2(0.764474, 0.390104), 0.0, 0.0, 0, 0, Vector2(0.851316, 0.128721), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0988113, 0.816012), 0.0, 0.0, 0, 0, Vector2(0.174591, 0.914871), 0.0, 0.0, 0, 0, Vector2(0.2474, 0.626531), 0.0, 0.0, 0, 0, Vector2(0.636701, 0.772074), 0.0, 0.0, 0, 0, Vector2(0.751114, 0.555133), 0.0, 0.0, 0, 0, Vector2(0.856612, 0.931348), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
 point_count = 8
 
 [sub_resource type="CurveTexture" id="CurveTexture_rg2jg"]
 curve = SubResource("Curve_axmjm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_48kng"]
+lifetime_randomness = 0.16
 particle_flag_disable_z = true
-radial_velocity_curve = SubResource("CurveTexture_b0klo")
-gravity = Vector3(0, 10, 0)
+emission_shape = 3
+emission_box_extents = Vector3(1280, 720, 1)
 scale_curve = SubResource("CurveTexture_rg2jg")
-color = Color(1, 0.380392, 1, 1)
-color_ramp = SubResource("GradientTexture1D_m8hu6")
+alpha_curve = SubResource("CurveTexture_0vvoo")
 hue_variation_curve = SubResource("CurveTexture_2m20g")
 turbulence_enabled = true
 
@@ -68,12 +63,19 @@ stretch_mode = 6
 layer = 3
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParticles"]
-visible = false
-position = Vector2(628, 346)
-scale = Vector2(13, 13)
-amount = 100
-texture = ExtResource("4_xe53k")
-lifetime = 12.99
+amount = 50
+texture = ExtResource("4_grci4")
+lifetime = 25.51
 preprocess = 5.46
 randomness = 0.84
 process_material = SubResource("ParticleProcessMaterial_48kng")
+script = ExtResource("5_grci4")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 50
+texture = ExtResource("7_jtm8u")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_48kng")
+script = ExtResource("5_grci4")
