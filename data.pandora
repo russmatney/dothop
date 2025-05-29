@@ -273,9 +273,9 @@
 							"_type": 0
 						}
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-one.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Tutorial.tres"
 					},
 					"theme": {
 						"type": "reference",
@@ -313,9 +313,9 @@
 						"type": "int",
 						"value": -1
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-two.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Space.tres"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -364,9 +364,9 @@
 							"_type": 0
 						}
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-three.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Fall.tres"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -546,9 +546,9 @@
 							"_type": 0
 						}
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-four.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Summer.tres"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -601,9 +601,9 @@
 							"_type": 0
 						}
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-five.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Spring.tres"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -652,9 +652,9 @@
 							"_type": 0
 						}
 					},
-					"puzzle_script_path": {
-						"type": "string",
-						"value": "res://src/puzzles/dothop-six.txt"
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/Winter.tres"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -760,7 +760,7 @@
 			},
 			{
 				"_category_id": "3",
-				"_default_value": "res://src/puzzle/PuzzleScene.tscn",
+				"_default_value": "res://src/puzzle/DotHopPuzzle.tscn",
 				"_id": "6",
 				"_name": "puzzle_scene",
 				"_type": "resource"
@@ -770,13 +770,6 @@
 				"_default_value": "",
 				"_id": "7",
 				"_name": "display_name",
-				"_type": "string"
-			},
-			{
-				"_category_id": "1",
-				"_default_value": "",
-				"_id": "9",
-				"_name": "puzzle_script_path",
 				"_type": "string"
 			},
 			{
@@ -987,12 +980,19 @@
 				"_id": "71",
 				"_name": "puzzle_theme_data",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": null,
+				"_id": "72.0",
+				"_name": "puzzle_set_data",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 71.0
+			"default": 72.0
 		}
 	}
 }

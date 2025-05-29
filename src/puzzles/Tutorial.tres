@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PuzzleSetData" load_steps=2 format=3 uid="uid://dsojwlppt3fmw"]
+
+[ext_resource type="Script" uid="uid://da6smb2xg6x4f" path="res://src/puzzles/PuzzleSetData.gd" id="1_ip1k7"]
+
+[resource]
+script = ExtResource("1_ip1k7")
+display_name = "Tutorial"
+path = "res://src/puzzles/dothop-one.txt"
+metadata/_custom_type_script = "uid://da6smb2xg6x4f"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="PuzzleSetData" load_steps=2 format=3 uid="uid://c2cdsimfduxmt"]
+
+[ext_resource type="Script" uid="uid://da6smb2xg6x4f" path="res://src/puzzles/PuzzleSetData.gd" id="1_bjan5"]
+
+[resource]
+script = ExtResource("1_bjan5")
+display_name = "Winter"
+path = "res://src/puzzles/dothop-six.txt"
+metadata/_custom_type_script = "uid://da6smb2xg6x4f"

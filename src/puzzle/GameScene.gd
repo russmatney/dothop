@@ -3,13 +3,12 @@ class_name DotHopGame
 
 ## vars #####################################################################
 
-@export_file var game_def_path: String
-@export var puzzle_theme: PuzzleTheme
 @export var puzzle_set: PuzzleSet
 
 var game_def: GameDef
 var puzzle_node: DotHopPuzzle
 var puzzle_scene: PackedScene
+var puzzle_theme: PuzzleTheme
 @export var puzzle_num: int = 0
 
 var already_complete: bool = false
@@ -23,14 +22,11 @@ func _ready() -> void:
 		puzzle_set = Store.get_puzzle_sets()[0]
 
 	if puzzle_set != null:
-		game_def_path = puzzle_set.get_puzzle_script_path()
 		puzzle_theme = puzzle_set.get_theme()
+		game_def = puzzle_set.get_game_def()
+	else:
+		Log.warn("no puzzle_set, cannot start GameScene")
 
-	if game_def_path == null:
-		Log.warn("No game_def_path found!!")
-		return
-
-	game_def = GameDef.parse_game_def(game_def_path)
 	rebuild_puzzle()
 
 	hud = get_node_or_null("HUD")

@@ -17,28 +17,16 @@ class_name PuzzleThemeData
 # TODO assign AudioStreams directly?
 @export var music_tracks: Array[String]
 
-@export var is_unlocked: bool = false
-
 ## to_pretty ##############################
 
 func to_pretty() -> Dictionary:
 	return {
 		puzzle_scene=puzzle_scene,
 		name=display_name,
-		is_unlocked=is_unlocked,
 		player_scenes=len(player_scenes),
 		dot_scenes=len(dot_scenes),
 		goal_scenes=len(goal_scenes),
 		}
-
-## unlock ##############################
-
-# TODO probably this flag shouldn't live on the theme data! should be some other store
-func unlock() -> void:
-	is_unlocked = true
-	# https://docs.godotengine.org/en/stable/classes/class_resource.html#class-resource-signal-changed
-	# should we do this in a setter?
-	emit_changed()
 
 ## get_music_tracks ##############################
 
@@ -109,10 +97,3 @@ static func get_goal_scene(th: PuzzleThemeData) -> PackedScene:
 		return sc
 	else:
 		return load("res://src/puzzle/Dot.tscn")
-
-## find_backup ##############################
-
-# static var all_theme_data = []
-
-static func find_backup(node: DotHopPuzzle) -> PuzzleThemeData:
-	return node.theme.get_theme_data()

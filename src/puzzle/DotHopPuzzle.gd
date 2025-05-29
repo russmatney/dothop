@@ -8,7 +8,7 @@ const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
 ## static ##########################################################################
 
-static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
+static var fallback_puzzle_scene: String = "res://src/puzzle/DotHopPuzzle.tscn"
 
 # Builds and returns a "puzzle_scene" node, with a game_def and puzzle_def set
 # Accepts several input options, but only 'game_def' or 'game_def_path' are required.
@@ -45,11 +45,12 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 		Log.warn("Could not determine _puzzle_def, cannot build_puzzle_node()")
 		return
 
+	###############################################################
 	# create puzzle scene node and set values
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
 	var scene: PackedScene = opts.get("puzzle_scene", _theme.get_puzzle_scene())
 	if scene == null:
-		scene = load(fallback_puzzle_scene)
+		scene = load(DotHopPuzzle.fallback_puzzle_scene)
 
 	var node: DotHopPuzzle = scene.instantiate()
 	node.game_def = _game_def
@@ -173,9 +174,10 @@ func _ready() -> void:
 		else:
 			Log.err("no game_def_path!!")
 
-	if theme_data == null:
-		Log.warn("Puzzle Scene running with no theme data!")
-		theme_data = PuzzleThemeData.find_backup(self)
+	if theme_data == null and theme != null:
+		theme_data = theme.get_theme_data()
+		if theme_data == null:
+			Log.warn("Puzzle Scene running with no theme data!")
 
 	if randomize_layout:
 		reverse_ys = U.rand_of([true, false])

@@ -7,6 +7,9 @@ class_name PuzzleSet
 func get_puzzle_script_path() -> String:
 	return get_string("puzzle_script_path")
 
+func get_puzzle_set_data() -> PuzzleSetData:
+	return get_resource("puzzle_set_data")
+
 func get_display_name() -> String:
 	return get_string("display_name")
 
@@ -44,7 +47,7 @@ func get_puzzles_to_unlock() -> int:
 
 func data() -> Variant:
 	return {
-		puzzle_script_path=get_puzzle_script_path(),
+		puzzle_set_data=get_puzzle_set_data(),
 		name=get_display_name(),
 		theme=get_theme().get_display_name(),
 		completed=is_completed(),
@@ -61,7 +64,7 @@ func get_game_def() -> GameDef:
 	if game_def != null:
 		return game_def
 
-	game_def = GameDef.parse_game_def(get_puzzle_script_path())
+	game_def = get_puzzle_set_data().parse_game_def()
 	return game_def
 
 func get_puzzles() -> Array[PuzzleDef]:

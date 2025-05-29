@@ -96,8 +96,8 @@ func test_all_puzzles_solvable() -> void:
 	var sets := Store.get_puzzle_sets()
 	assert_int(len(sets)).is_greater(3) # make sure we get some
 
-	for puzzle_set in sets:
-		var game_def := GameDef.parse_game_def(puzzle_set.get_puzzle_script_path())
+	for puzzle_set: PuzzleSet in sets:
+		var game_def := puzzle_set.get_game_def()
 		var puzzle_count := len(game_def.puzzles)
 		assert_int(puzzle_count).is_greater(0)
 		for i in puzzle_count:
