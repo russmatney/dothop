@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://3q4q20jkft0i"
+path="res://.godot/imported/particles.aseprite-e8866635b3795ef887988d67a827a1bf.res"
+
+[deps]
+
+source_file="res://src/themes/winter/assets/particles.aseprite"
+dest_files=["res://.godot/imported/particles.aseprite-e8866635b3795ef887988d67a827a1bf.res"]
+
+[params]
+

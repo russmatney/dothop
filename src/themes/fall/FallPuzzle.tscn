@@ -1,12 +1,49 @@
-[gd_scene load_steps=5 format=3 uid="uid://y6dvlkypc634"]
+[gd_scene load_steps=17 format=3 uid="uid://y6dvlkypc634"]
 
 [ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/puzzle/DotHopPuzzle.gd" id="1_4ql4j"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
 [ext_resource type="Texture2D" uid="uid://beggnuu07g1dk" path="res://src/themes/fall/assets/fallbg-2_sheet.png" id="3_fs7ti"]
+[ext_resource type="Texture2D" uid="uid://dsxalpbwb66hy" path="res://src/themes/fall/assets/particles1.png" id="4_p1vw6"]
+[ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_rdtii"]
+[ext_resource type="Texture2D" uid="uid://chesk26tar4qt" path="res://src/themes/fall/assets/particles2.png" id="6_rdtii"]
+[ext_resource type="Texture2D" uid="uid://qtfxqsaajknl" path="res://src/themes/fall/assets/particles3.png" id="7_i437u"]
+[ext_resource type="Texture2D" uid="uid://cmk0gbdh2f22x" path="res://src/themes/fall/assets/particles4.png" id="8_i437u"]
 
 [sub_resource type="Resource" id="Resource_ceino"]
 script = ExtResource("2_yfday")
 _id = "15"
+
+[sub_resource type="Curve" id="Curve_q4ujl"]
+_data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_0vvoo"]
+curve = SubResource("Curve_q4ujl")
+
+[sub_resource type="Curve" id="Curve_7cqax"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.228083, 0.0278834), 0.0, 0.0, 0, 0, Vector2(0.509211, 0.579736), 0.0, 0.0, 0, 0, Vector2(0.754086, -0.329109), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_2m20g"]
+curve = SubResource("Curve_7cqax")
+
+[sub_resource type="Curve" id="Curve_7wv4e"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0988113, 0.816012), 0.0, 0.0, 0, 0, Vector2(0.174591, 0.914871), 0.0, 0.0, 0, 0, Vector2(0.2474, 0.626531), 0.0, 0.0, 0, 0, Vector2(0.636701, 0.772074), 0.0, 0.0, 0, 0, Vector2(0.751114, 0.555133), 0.0, 0.0, 0, 0, Vector2(0.856612, 0.931348), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="CurveTexture" id="CurveTexture_rg2jg"]
+curve = SubResource("Curve_7wv4e")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_6q5pn"]
+lifetime_randomness = 0.16
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1280, 720, 1)
+scale_curve = SubResource("CurveTexture_rg2jg")
+alpha_curve = SubResource("CurveTexture_0vvoo")
+hue_variation_curve = SubResource("CurveTexture_2m20g")
+turbulence_enabled = true
 
 [node name="FallPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_4ql4j")
@@ -22,3 +59,42 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("3_fs7ti")
 stretch_mode = 6
+
+[node name="ForegroundParticles" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 20
+texture = ExtResource("4_p1vw6")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_6q5pn")
+script = ExtResource("5_rdtii")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 20
+texture = ExtResource("6_rdtii")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_6q5pn")
+script = ExtResource("5_rdtii")
+
+[node name="GPUParticles2D3" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 20
+texture = ExtResource("7_i437u")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_6q5pn")
+script = ExtResource("5_rdtii")
+
+[node name="GPUParticles2D4" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 20
+texture = ExtResource("8_i437u")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_6q5pn")
+script = ExtResource("5_rdtii")

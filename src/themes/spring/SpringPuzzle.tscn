@@ -15,7 +15,7 @@ _id = "23"
 _data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_0vvoo"]
+[sub_resource type="CurveTexture" id="CurveTexture_m8hu6"]
 curve = SubResource("Curve_2m20g")
 
 [sub_resource type="Curve" id="Curve_jtm8u"]
@@ -23,14 +23,14 @@ _limits = [-1.0, 1.0, 0.0, 1.0]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.228083, 0.0278834), 0.0, 0.0, 0, 0, Vector2(0.509211, 0.579736), 0.0, 0.0, 0, 0, Vector2(0.754086, -0.329109), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
 point_count = 5
 
-[sub_resource type="CurveTexture" id="CurveTexture_2m20g"]
+[sub_resource type="CurveTexture" id="CurveTexture_jtm8u"]
 curve = SubResource("Curve_jtm8u")
 
 [sub_resource type="Curve" id="Curve_axmjm"]
 _data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0988113, 0.816012), 0.0, 0.0, 0, 0, Vector2(0.174591, 0.914871), 0.0, 0.0, 0, 0, Vector2(0.2474, 0.626531), 0.0, 0.0, 0, 0, Vector2(0.636701, 0.772074), 0.0, 0.0, 0, 0, Vector2(0.751114, 0.555133), 0.0, 0.0, 0, 0, Vector2(0.856612, 0.931348), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
 point_count = 8
 
-[sub_resource type="CurveTexture" id="CurveTexture_rg2jg"]
+[sub_resource type="CurveTexture" id="CurveTexture_2m20g"]
 curve = SubResource("Curve_axmjm")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_48kng"]
@@ -38,9 +38,9 @@ lifetime_randomness = 0.16
 particle_flag_disable_z = true
 emission_shape = 3
 emission_box_extents = Vector3(1280, 720, 1)
-scale_curve = SubResource("CurveTexture_rg2jg")
-alpha_curve = SubResource("CurveTexture_0vvoo")
-hue_variation_curve = SubResource("CurveTexture_2m20g")
+scale_curve = SubResource("CurveTexture_2m20g")
+alpha_curve = SubResource("CurveTexture_m8hu6")
+hue_variation_curve = SubResource("CurveTexture_jtm8u")
 turbulence_enabled = true
 
 [node name="SpringPuzzle" type="Node2D" groups=["dothop_puzzle"]]

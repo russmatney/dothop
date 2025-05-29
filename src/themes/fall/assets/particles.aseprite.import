@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://budgdaitjuufg"
+path="res://.godot/imported/particles.aseprite-bd97d7f623c12b7fdf71562fdd8c19fb.res"
+
+[deps]
+
+source_file="res://src/themes/fall/assets/particles.aseprite"
+dest_files=["res://.godot/imported/particles.aseprite-bd97d7f623c12b7fdf71562fdd8c19fb.res"]
+
+[params]
+

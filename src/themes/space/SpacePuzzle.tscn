@@ -1,12 +1,47 @@
-[gd_scene load_steps=5 format=3 uid="uid://cggxk31fgnci7"]
+[gd_scene load_steps=15 format=3 uid="uid://cggxk31fgnci7"]
 
 [ext_resource type="Script" uid="uid://idxaeas1jbnr" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
 [ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_fp1xt"]
+[ext_resource type="Texture2D" uid="uid://c78di2lriey8c" path="res://src/themes/space/assets/particles1.png" id="4_wn1gr"]
+[ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_yo76b"]
+[ext_resource type="Texture2D" uid="uid://bmor7ustjxts3" path="res://src/themes/space/assets/particles2.png" id="6_mivl3"]
 
 [sub_resource type="Resource" id="Resource_gytqd"]
 script = ExtResource("2_fp1xt")
 _id = "14"
+
+[sub_resource type="Curve" id="Curve_7cbcx"]
+_data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_wn1gr"]
+curve = SubResource("Curve_7cbcx")
+
+[sub_resource type="Curve" id="Curve_l0a40"]
+_limits = [-1.0, 1.0, 0.0, 1.0]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.228083, 0.0278834), 0.0, 0.0, 0, 0, Vector2(0.509211, 0.579736), 0.0, 0.0, 0, 0, Vector2(0.754086, -0.329109), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 5
+
+[sub_resource type="CurveTexture" id="CurveTexture_yo76b"]
+curve = SubResource("Curve_l0a40")
+
+[sub_resource type="Curve" id="Curve_w7t8p"]
+_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0988113, 0.816012), 0.0, 0.0, 0, 0, Vector2(0.174591, 0.914871), 0.0, 0.0, 0, 0, Vector2(0.2474, 0.626531), 0.0, 0.0, 0, 0, Vector2(0.636701, 0.772074), 0.0, 0.0, 0, 0, Vector2(0.751114, 0.555133), 0.0, 0.0, 0, 0, Vector2(0.856612, 0.931348), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
+point_count = 8
+
+[sub_resource type="CurveTexture" id="CurveTexture_mivl3"]
+curve = SubResource("Curve_w7t8p")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5ht2u"]
+lifetime_randomness = 0.16
+particle_flag_disable_z = true
+emission_shape = 3
+emission_box_extents = Vector3(1280, 720, 1)
+scale_curve = SubResource("CurveTexture_mivl3")
+alpha_curve = SubResource("CurveTexture_wn1gr")
+hue_variation_curve = SubResource("CurveTexture_yo76b")
+turbulence_enabled = true
 
 [node name="SpacePuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_biqou")
@@ -22,3 +57,24 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("2_bjihu")
 stretch_mode = 1
+
+[node name="ForegroundParticles" type="CanvasLayer" parent="."]
+layer = 3
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 50
+texture = ExtResource("4_wn1gr")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_5ht2u")
+script = ExtResource("5_yo76b")
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="ForegroundParticles"]
+amount = 50
+texture = ExtResource("6_mivl3")
+lifetime = 25.51
+preprocess = 5.46
+randomness = 0.84
+process_material = SubResource("ParticleProcessMaterial_5ht2u")
+script = ExtResource("5_yo76b")
