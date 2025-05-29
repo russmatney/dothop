@@ -5,7 +5,6 @@ class_name DotHopGame
 
 @export_file var game_def_path: String
 @export var puzzle_theme: PuzzleTheme
-@export var puzzle_theme_data: PuzzleThemeData
 @export var puzzle_set: PuzzleSet
 
 var game_def: GameDef
@@ -27,9 +26,6 @@ func _ready() -> void:
 		game_def_path = puzzle_set.get_puzzle_script_path()
 		puzzle_theme = puzzle_set.get_theme()
 
-	if puzzle_theme_data == null:
-		puzzle_theme_data = puzzle_theme.get_theme_data()
-
 	if game_def_path == null:
 		Log.warn("No game_def_path found!!")
 		return
@@ -41,7 +37,7 @@ func _ready() -> void:
 
 	# TODO add music controls and toasts
 	SoundManager.stop_music(1.0)
-	var songs: Array[AudioStream] = puzzle_theme_data.get_music_tracks()
+	var songs: Array[AudioStream] = puzzle_theme.get_theme_data().get_music_tracks()
 	if len(songs) > 0:
 		SoundManager.play_music(songs[0], 2.0)
 
@@ -79,7 +75,6 @@ func rebuild_puzzle() -> void:
 		game_def=game_def,
 		puzzle_num=puzzle_num,
 		puzzle_theme=puzzle_theme,
-		puzzle_theme_data=puzzle_theme_data,
 		})
 
 	if puzzle_node == null:
@@ -130,7 +125,6 @@ func update_hud() -> void:
 func change_theme(theme: PuzzleTheme) -> void:
 	if puzzle_theme != theme:
 		puzzle_theme = theme
-		puzzle_theme_data = puzzle_theme.get_theme_data()
 		rebuild_puzzle()
 
 ## win #####################################################################

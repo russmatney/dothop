@@ -114,11 +114,5 @@ static func get_goal_scene(th: PuzzleThemeData) -> PackedScene:
 
 # static var all_theme_data = []
 
-static func find_backup(node: Variant) -> PuzzleThemeData:
-	# for td in all_theme_data:
-	# 	if node.theme.get_theme_data() == td:
-	# 		return td
-
+static func find_backup(node: DotHopPuzzle) -> PuzzleThemeData:
 	return node.theme.get_theme_data()
-
-	# Log.pr("Couldn't find theme for node", node, )

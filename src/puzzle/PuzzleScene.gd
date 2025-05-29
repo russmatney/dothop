@@ -19,17 +19,19 @@ static var fallback_puzzle_scene: String = "res://src/puzzle/PuzzleScene.tscn"
 # This func could live on the DotHopGame script, but a function like this is useful
 # for testing just the game logic (without loading a full DotHopGame)
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
+	# parse/ensure game def ######################################333
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
 	if not _game_def and opts.get("game_def_path"):
 		_game_def = GameDef.parse_game_def(str(opts.get("game_def_path")))
 
 	if _game_def == null:
-		Log.warn("No game_def passed, cannot build_puzzle_node()", opts)
+		Log.warn("No game_def passed or parsed, cannot build_puzzle_node()", opts)
 		return
 
+	# parse/ensure puzzle def ####################################
 	# parse/pick the puzzle to load
-	var puzzle: Variant = opts.get("puzzle")
+	var puzzle: Variant = opts.get("puzzle") # used to pass puzzles in tests
 	# default to loading the first puzzle
 	var _puzzle_num: int = opts.get("puzzle_num", 0)
 	var _puzzle_def: PuzzleDef
@@ -38,27 +40,21 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 		_puzzle_def = GameDef.parse_puzzle_def(puzzle as Array)
 	elif _puzzle_num != null:
 		_puzzle_def = _game_def.puzzles[_puzzle_num]
-	else:
-		pass
 
 	if _puzzle_def == null or _puzzle_def.shape == null:
 		Log.warn("Could not determine _puzzle_def, cannot build_puzzle_node()")
 		return
 
+	# create puzzle scene node and set values
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
-	var _theme_data: PuzzleThemeData = opts.get("puzzle_theme_data")
-	var scene: PackedScene = opts.get("puzzle_scene", _theme_data.puzzle_scene if _theme_data else null)
-	if scene == null and opts.get("puzzle_scene_path") != null:
-		# TODO Drop support for this unless we use it (maybe in tests?)
-		scene = load(str(opts.get("puzzle_scene_path")))
+	var scene: PackedScene = opts.get("puzzle_scene", _theme.get_puzzle_scene())
 	if scene == null:
 		scene = load(fallback_puzzle_scene)
 
 	var node: DotHopPuzzle = scene.instantiate()
-
 	node.game_def = _game_def
 	node.theme = _theme
-	node.theme_data = _theme_data
+	node.theme_data = _theme.get_theme_data()
 	node.puzzle_def = _puzzle_def
 	node.puzzle_num = _puzzle_num
 	return node
@@ -90,7 +86,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 @export var debugging: bool = false
 
 @export var theme: PuzzleTheme
-@export var theme_data: PuzzleThemeData
+var theme_data: PuzzleThemeData
 var game_def : GameDef
 var puzzle_def : PuzzleDef :
 	set(ld):
