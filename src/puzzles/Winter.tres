@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_bjan5")
 display_name = "Winter"
-path = "res://src/puzzles/dothop-six.txt"
+path = "res://src/puzzles/dothop-winter.txt"
 metadata/_custom_type_script = "uid://da6smb2xg6x4f"

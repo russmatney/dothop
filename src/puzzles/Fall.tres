@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_tna37")
 display_name = "Fall"
-path = "res://src/puzzles/dothop-three.txt"
+path = "res://src/puzzles/dothop-fall.txt"
 metadata/_custom_type_script = "uid://da6smb2xg6x4f"

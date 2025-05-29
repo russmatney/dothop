@@ -1,18 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=4 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/puzzle/GameScene.gd" id="1_ak4mv"]
-[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_00afq"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
 [ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/DotHopCam.tscn" id="6_76inj"]
 
-[sub_resource type="Resource" id="Resource_lukax"]
-script = ExtResource("2_00afq")
-_id = "23"
-
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
-game_def_path = "res://src/puzzles/dothop-one.txt"
-puzzle_theme = SubResource("Resource_lukax")
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 

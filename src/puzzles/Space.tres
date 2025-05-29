@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource("1_kqf35")
 display_name = "Space"
-path = "res://src/puzzles/dothop-two.txt"
+path = "res://src/puzzles/dothop-space.txt"
 metadata/_custom_type_script = "uid://da6smb2xg6x4f"
