@@ -286,7 +286,7 @@ static func call_in(node: Node, callable: Callable, s: float) -> void:
 		return
 	await node.get_tree().create_timer(s).timeout
 	var obj: Object = callable.get_object()
-	if obj and is_instance_valid(obj) and not callable.is_null():
+	if node and node != null and obj and is_instance_valid(obj) and not callable.is_null():
 		callable.call()
 
 ############################################################

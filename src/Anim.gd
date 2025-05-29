@@ -78,15 +78,15 @@ static func move_attempt_pull_back(node: CanvasItem, og_position: Vector2, targe
 	tween.tween_property(node, "position", target_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "position", og_position, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-static func float_a_bit(node: CanvasItem, og_position: Vector2, t: float = 0.8, trans: Tween.TransitionType = Tween.TRANS_CUBIC, _ease: Tween.EaseType = Tween.EASE_OUT) -> void:
+static func float_a_bit(node: CanvasItem, og_position: Vector2, t: float = 0.8, trans: Tween.TransitionType = Tween.TRANS_QUAD, _ease: Tween.EaseType = Tween.EASE_IN) -> void:
 	var tween: Tween = tween_on_node(node, "float_tween")
-	var dist: float = 3
+	var dist: float = randfn(1.0, 1.5)
 	var dir: Vector2 = Vector2(randfn(0.0, 1.0), randfn(0.0, 1.0)).normalized()
 	var offset: Vector2 = dir * dist
 	tween.tween_property(node, "position", og_position + offset, t).set_trans(trans).set_ease(_ease)
-	tween.tween_interval(t/2)
-	tween.tween_property(node, "position", og_position, t).set_trans(trans).set_ease(_ease)
-	tween.tween_interval(t/3)
+	# tween.tween_interval(t/2)
+	# tween.tween_property(node, "position", og_position, t).set_trans(trans).set_ease(_ease)
+	# tween.tween_interval(t/3)
 	tween.tween_callback(Anim.float_a_bit.bind(node, og_position, t, trans, _ease))
 
 # Scales

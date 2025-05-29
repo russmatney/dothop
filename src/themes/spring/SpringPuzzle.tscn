@@ -68,6 +68,7 @@ stretch_mode = 6
 layer = 3
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParticles"]
+visible = false
 position = Vector2(628, 346)
 scale = Vector2(13, 13)
 amount = 100
