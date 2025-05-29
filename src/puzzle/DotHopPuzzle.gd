@@ -9,25 +9,20 @@ const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 ## static ##########################################################################
 
 static var fallback_puzzle_scene: String = "res://src/puzzle/DotHopPuzzle.tscn"
+static var fallback_puzzle_set_data: String = "res://src/puzzles/Tutorial.tres"
 
-# Builds and returns a "puzzle_scene" node, with a game_def and puzzle_def set
-# Accepts several input options, but only 'game_def' or 'game_def_path' are required.
+# Builds and returns a "puzzle_scene" node.
 #
 # A raw puzzle or puzzle_num can be specified to load/pick a puzzle for a particular game_def.
 # `puzzle_scene` should be set according to the current theme.
-#
-# This func could live on the DotHopGame script, but a function like this is useful
-# for testing just the game logic (without loading a full DotHopGame)
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	# parse/ensure game def ######################################333
 	# parse the puzzle script game, set game_def
 	var _game_def: GameDef = opts.get("game_def")
-	if not _game_def and opts.get("game_def_path"):
-		_game_def = GameDef.parse_game_def(str(opts.get("game_def_path")))
-
-	if _game_def == null:
-		Log.warn("No game_def passed or parsed, cannot build_puzzle_node()", opts)
-		return
+	if not _game_def:
+		Log.info("no game def passed, using fallback")
+		var psd : PuzzleSetData = load(fallback_puzzle_set_data)
+		_game_def = psd.parse_game_def()
 
 	# parse/ensure puzzle def ####################################
 	# parse/pick the puzzle to load
@@ -61,13 +56,6 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	return node
 
 ## vars ##############################################################
-
-@export_file var game_def_path: String = "res://src/puzzles/dothop-two.txt" :
-	set(gdp):
-		game_def_path = gdp
-		if gdp != "":
-			game_def = GameDef.parse_game_def(gdp)
-			puzzle_def = game_def.puzzles[0]
 
 @export var clear: bool = false:
 	set(v):
@@ -167,12 +155,10 @@ var rotate_shape: bool = false
 # in the local-testing case, we want to look up and assign a theme-data
 func _ready() -> void:
 	if puzzle_def == null:
-		Log.pr("no puzzle_def, trying backups!", name)
-		if game_def_path != "":
-			game_def = GameDef.parse_game_def(game_def_path)
-			puzzle_def = game_def.puzzles[0]
-		else:
-			Log.err("no game_def_path!!")
+		Log.info("no puzzle_def, loading fallback", name)
+		var psd : PuzzleSetData = load(fallback_puzzle_set_data)
+		game_def = psd.parse_game_def()
+		puzzle_def = game_def.puzzles[0]
 
 	if theme_data == null and theme != null:
 		theme_data = theme.get_theme_data()

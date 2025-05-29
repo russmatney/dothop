@@ -2,7 +2,7 @@ extends GdUnitTestSuite
 class_name DotHopTest
 
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
-	var puz_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle, game_def_path="res://src/puzzles/dothop.txt"})
+	var puz_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
 	puz_node.randomize_layout = false
 	puz_node.init_game_state()
 	return puz_node

@@ -3,8 +3,7 @@ class_name PuzzleAnalysisTest
 
 
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
-	var puzzle_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle,
-		game_def_path="res://src/puzzles/dothop.txt"})
+	var puzzle_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
 	puzzle_node.init_game_state()
 	return puzzle_node
 

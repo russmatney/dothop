@@ -38,6 +38,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/CenterContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(600, 600)
 layout_mode = 2
 texture = ExtResource("2_1jwlh")
@@ -113,13 +114,14 @@ size_flags_vertical = 3
 
 [node name="PuzzleStatsLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 70)
 layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]0[/color] / [color=dark_slate_blue]73[/color] puzzles complete
-[color=forest_green]0[/color] / [color=dark_slate_blue]1101[/color] dots hopped"
+text = "[center][color=forest_green]13[/color] / [color=dark_slate_blue]73[/color] puzzles complete
+[color=forest_green]112[/color] / [color=dark_slate_blue]1101[/color] dots hopped"
 fit_content = true
 scroll_active = false
 
