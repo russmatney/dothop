@@ -4,7 +4,7 @@ class_name DotHopTest
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
 	var puz_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
 	puz_node.randomize_layout = false
-	puz_node.init_game_state()
+	puz_node.build_game_state()
 	return puz_node
 
 func test_basic_puzzle_one_win() -> void:

@@ -4,7 +4,7 @@ class_name PuzzleAnalysisTest
 
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
 	var puzzle_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
-	puzzle_node.init_game_state()
+	puzzle_node.build_game_state()
 	return puzzle_node
 
 ## test the solver ##################################################
@@ -106,7 +106,7 @@ func test_all_puzzles_solvable() -> void:
 				game_def=game_def,
 				puzzle_num=i,
 				})
-			puzz_node.init_game_state()
+			puzz_node.build_game_state()
 
 			var solve := PuzzleAnalysis.new(puzz_node).analyze()
 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), "num:", i,

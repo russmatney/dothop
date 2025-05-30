@@ -81,7 +81,7 @@ var puzzle_def : PuzzleDef :
 	set(ld):
 		puzzle_def = ld
 		if Engine.is_editor_hint():
-			init_game_state()
+			build_game_state()
 @export var square_size: int = 32
 
 @export var puzzle_num : int :
@@ -104,16 +104,45 @@ class PuzzState:
 	# var cell_nodes: Dictionary[Vector2, Array[Node2D]] = {}
 	var cell_nodes: Dictionary = {}
 
-	func _init(gd: Array) -> void:
-		grid = gd
-		grid_xs = len(gd[0])
-		grid_ys = len(gd)
+	func _init(puzzle_def: PuzzleDef, game_def: GameDef) -> void:
+		grid = []
+
+		for y: int in len(puzzle_def.shape):
+			var row: Array = puzzle_def.shape[y]
+			var r: Array = []
+			for x: int in len(row):
+				var cell: Variant = puzzle_def.shape[y][x]
+				# TODO convert these objs to an enum, probably at parse-time
+				var objs: Variant = game_def.get_cell_objects(cell)
+				r.append(objs)
+			grid.append(r)
+
+		grid_xs = len(grid[0])
+		grid_ys = len(grid)
 
 	func coord_for_dot(dot: DotHopDot) -> Vector2:
 		for coord: Vector2 in cell_nodes:
 			if dot in cell_nodes[coord]:
 				return coord
 		return Vector2.ZERO
+
+	func objs_for_coord(coord: Vector2) -> Variant:
+		return grid[int(coord.y)][int(coord.x)]
+
+	func all_coords() -> Array[Vector2]:
+		var crds: Array[Vector2] = []
+		for y: int in len(grid):
+			for x: int in len(grid[y]):
+				crds.append(Vector2(x, y))
+		return crds
+
+	func add_player(coord: Vector2, node: Node2D) -> void:
+		players.append(Player.new(coord, node))
+
+	func add_dot(coord: Vector2, node: Node2D) -> void:
+		if not coord in cell_nodes:
+			cell_nodes[coord] = []
+		(cell_nodes[coord] as Array).append(node)
 
 class Player:
 	var coord: Vector2
@@ -133,12 +162,6 @@ signal player_undo
 signal move_rejected
 signal move_input_blocked
 signal rebuilt_nodes
-
-var obj_type: Dictionary = {
-	"Dot": DHData.dotType.Dot,
-	"Dotted": DHData.dotType.Dotted,
-	"Goal": DHData.dotType.Goal,
-	}
 
 ## enter_tree ##############################################################
 
@@ -171,6 +194,9 @@ func _ready() -> void:
 		reverse_xs = U.rand_of([true, false])
 		rotate_shape = U.rand_of([true, false, false, false])
 
+	if not Engine.is_editor_hint() and is_inside_tree():
+		dhcam = DotHopCam.ensure_camera(self)
+
 	if puzzle_def:
 		if reverse_ys:
 			puzzle_def.shape.reverse()
@@ -181,7 +207,7 @@ func _ready() -> void:
 			# don't rotate very wide puzzles
 			if puzzle_def.width <= 6:
 				puzzle_def.rotate()
-		init_game_state()
+		build_game_state()
 
 	win.connect(on_win)
 	player_moved.connect(on_player_moved)
@@ -259,7 +285,7 @@ func hold_to_reset_puzzle() -> void:
 		# already holding
 		return
 	reset_tween = create_tween()
-	reset_tween.tween_callback(init_game_state).set_delay(DHData.reset_hold_t)
+	reset_tween.tween_callback(build_game_state).set_delay(DHData.reset_hold_t)
 
 func cancel_reset_puzzle() -> void:
 	if reset_tween == null:
@@ -267,7 +293,7 @@ func cancel_reset_puzzle() -> void:
 	reset_tween.kill()
 
 func reset_pressed() -> void:
-	init_game_state()
+	build_game_state()
 
 func undo_pressed() -> void:
 	if state == null:
@@ -393,31 +419,88 @@ func reattempt_blocked_move() -> void:
 ## state/grid ##############################################################
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
-func init_game_state() -> void:
-	if len(puzzle_def.shape) == 0:
-		Log.warn("init_game_state() called without puzzle_def.shape", puzzle_def)
-		return
-
-	var grid: Array = []
-	for y: int in len(puzzle_def.shape):
-		var row: Array = puzzle_def.shape[y]
-		var r: Array = []
-		for x: int in len(row):
-			var cell: Variant = puzzle_def.shape[y][x]
-			var objs: Variant = game_def.get_cell_objects(cell)
-			r.append(objs)
-		grid.append(r)
-
-	# state = {players=players, grid=grid, grid_xs=len(grid[0]), grid_ys=len(grid), win=false, cell_nodes={}}
-	state = PuzzState.new(grid)
-
+func build_game_state() -> void:
+	state = PuzzState.new(puzzle_def, game_def)
 	rebuild_nodes()
 
+# Adds nodes for the object_names in each cell of the grid.
+# Tracks nodes (except for players) in a state.cell_nodes dict.
+# Tracks players in state.players list.
+func rebuild_nodes() -> void:
+	clear_nodes()
+
+	var players: Array = []
+	for coord in state.all_coords():
+		var objs: Variant = state.objs_for_coord(coord)
+		if objs == null:
+			continue
+		for obj_name: String in objs:
+			var node: Node2D = setup_node_at_coord(obj_name, coord)
+			if node is DotHopPlayer:
+				state.add_player(coord, node)
+				players.append(node)
+			elif node is DotHopDot:
+				var dot: DotHopDot = node
+				dot.dot_pressed.connect(on_dot_pressed.bind(dot))
+				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
+				add_child(dot)
+				state.add_dot(coord, dot)
+
+	# wait to add players last (so they end up on top)
+	for p: Node in players:
+		add_child(p)
+
+	if dhcam != null:
+		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
+
+	# trigger HUD update
+	rebuilt_nodes.emit()
+
+func setup_node_at_coord(obj_name:String, coord:Vector2) -> Node:
+	var node: Node2D = node_for_object_name(obj_name)
+	node.add_to_group("generated", true)
+	if node is DotHopDot:
+		var dot: DotHopDot = node
+		dot.square_size = square_size
+		dot.set_initial_coord(coord)
+	elif node is DotHopPlayer:
+		var p: DotHopPlayer = node
+		p.square_size = square_size
+		p.set_initial_coord(coord)
+	if debugging or not Engine.is_editor_hint():
+		node.ready.connect(node.set_owner.bind(self))
+	return node
+
+func node_for_object_name(obj_name: String) -> Node2D:
+	var scene: PackedScene = get_scene_for(obj_name)
+	if not scene:
+		Log.err("No scene found for object name", obj_name)
+		return
+	var node: Node2D = scene.instantiate()
+	if node is DotHopDot:
+		var dot: DotHopDot = node
+		dot.display_name = obj_name
+		dot.type = obj_type.get(obj_name)
+	if node is DotHopPlayer:
+		var p: DotHopPlayer = node
+		p.display_name = obj_name
+	return node
+
+var obj_type: Dictionary = {
+	"Dot": DHData.dotType.Dot,
+	"Dotted": DHData.dotType.Dotted,
+	"Goal": DHData.dotType.Goal,
+	}
+
+func get_scene_for(obj_name: String) -> PackedScene:
+	match obj_name:
+		"Player": return PuzzleThemeData.get_player_scene(theme_data)
+		"Dot": return PuzzleThemeData.get_dot_scene(theme_data)
+		"Dotted": return PuzzleThemeData.get_dotted_scene(theme_data)
+		"Goal": return PuzzleThemeData.get_goal_scene(theme_data)
+		_: return
 
 ## setup level ##############################################################
-
-func init_player(coord: Vector2, node: Node) -> Player:
-	return Player.new(coord, node)
 
 func clear_nodes() -> void:
 	for ch: Variant in get_children():
@@ -461,96 +544,6 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 	for p: Player in state.players:
 		cam_nodes.append(p.node)
 	return cam_nodes
-
-# Adds nodes for the object_names in each cell of the grid.
-# Tracks nodes (except for players) in a state.cell_nodes dict.
-# Tracks players in state.players list.
-func rebuild_nodes() -> void:
-	clear_nodes()
-
-	if not Engine.is_editor_hint() and is_inside_tree():
-		dhcam = DotHopCam.ensure_camera(self)
-
-	var players: Array = []
-	for y: int in len(state.grid):
-		for x: int in len(state.grid[y]):
-			var objs: Variant = state.grid[y][x]
-			if objs == null:
-				continue
-			for obj_name: String in objs:
-				var coord: Vector2 = Vector2(x, y)
-				var node: Node2D = create_node_at_coord(obj_name, coord)
-				if obj_name == "Player":
-					state.players.append(init_player(coord, node))
-					players.append(node)
-				else:
-					add_child(node)
-					if not coord in state.cell_nodes:
-						state.cell_nodes[coord] = []
-					(state.cell_nodes[coord] as Array).append(node)
-
-	for p: Node in players:
-		add_child(p)
-
-	if dhcam != null:
-		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
-
-	# trigger HUD update
-	rebuilt_nodes.emit()
-
-func create_node_at_coord(obj_name:String, coord:Vector2) -> Node:
-	var node: Node2D = node_for_object_name(obj_name)
-	# nodes should maybe set their own position
-	# (i.e. not be automatically moved, but stay on the puzzle's origin)
-	@warning_ignore("unsafe_property_access")
-	node.square_size = square_size
-	if node.has_method("set_initial_coord"):
-		@warning_ignore("unsafe_method_access")
-		node.set_initial_coord(coord)
-	else:
-		node.position = coord * square_size
-	node.add_to_group("generated", true)
-	if debugging or not Engine.is_editor_hint():
-		node.ready.connect(func() -> void: node.set_owner(self))
-	return node
-
-func node_for_object_name(obj_name: String) -> Node2D:
-	var scene: PackedScene = get_scene_for(obj_name)
-	if not scene:
-		Log.err("No scene found for object name", obj_name)
-		return
-	var node: Node2D = scene.instantiate()
-	@warning_ignore("unsafe_property_access")
-	node.display_name = obj_name
-	var t: Variant = obj_type.get(obj_name)
-	if t != null and "type" in node:
-		@warning_ignore("unsafe_property_access")
-		node.type = t
-		if node.has_signal("dot_pressed"):
-			@warning_ignore("unsafe_method_access")
-			@warning_ignore("unsafe_property_access")
-			node.dot_pressed.connect(on_dot_pressed.bind(node))
-			@warning_ignore("unsafe_method_access")
-			@warning_ignore("unsafe_property_access")
-			node.mouse_dragged.connect(on_dot_mouse_dragged.bind(node))
-	elif obj_name not in ["Player"]:
-		Log.warn("no type for object?", obj_name)
-	return node
-
-## custom nodes ##############################################################
-
-var already_warned := false
-
-func get_scene_for(obj_name: String) -> PackedScene:
-	if theme_data == null and not already_warned:
-		already_warned = true
-		Log.warn("Missing expected theme_data")
-	match obj_name:
-		"Player": return PuzzleThemeData.get_player_scene(theme_data)
-		"Dot": return PuzzleThemeData.get_dot_scene(theme_data)
-		"Dotted": return PuzzleThemeData.get_dotted_scene(theme_data)
-		"Goal": return PuzzleThemeData.get_goal_scene(theme_data)
-		_: return
 
 ## grid helpers ##############################################################
 

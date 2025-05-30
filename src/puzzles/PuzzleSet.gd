@@ -85,7 +85,7 @@ func analyze_game_def() -> GameDef:
 	var puzzle_count: int = len(game_def.puzzles)
 	for i: int in puzzle_count:
 		var puzz_node: DotHopPuzzle = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
-		puzz_node.init_game_state()
+		puzz_node.build_game_state()
 		game_def.puzzles[i].analysis = PuzzleAnalysis.new(puzz_node).analyze()
 	return game_def
 
