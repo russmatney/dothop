@@ -6,6 +6,7 @@ extends CanvasLayer
 @onready var credits_button: Button = $%CreditsButton
 @onready var quit_button: Button = $%QuitButton
 @onready var puzzle_stats_label: RichTextLabel = $%PuzzleStatsLabel
+@onready var version_label: RichTextLabel = $%VersionLabel
 
 @onready var world_map: PackedScene = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 @onready var options_menu: PackedScene = preload("res://src/menus/OptionsPanel.tscn")
@@ -25,6 +26,7 @@ func _ready() -> void:
 	quit_button.pressed.connect(func() -> void: get_tree().quit())
 
 	render_puzzle_stats()
+	render_version()
 
 func render_puzzle_stats() -> void:
 	var stats := DHData.calc_stats(Store.get_puzzle_sets())
@@ -46,3 +48,6 @@ func render_puzzle_stats() -> void:
 		"/ [color=dark_slate_blue]%s[/color] dots hopped"
 		) % [stats.puzzles_completed, stats.total_puzzles,
 			stats.dots_hopped, stats.total_dots]
+
+func render_version() -> void:
+	version_label.text = str("v", ProjectSettings.get_setting("application/config/version"))

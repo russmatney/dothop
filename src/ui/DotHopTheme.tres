@@ -1,0 +1,15 @@
+[gd_resource type="Theme" load_steps=3 format=3 uid="uid://crneit8sf87tj"]
+
+[ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="1_03aao"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="1_mepb7"]
+
+[resource]
+MenuMetadata/base_type = &"RichTextLabel"
+MenuMetadata/colors/default_color = Color(0, 0, 0, 0.505882)
+MenuMetadata/font_sizes/normal_font_size = 64
+MenuMetadata/fonts/normal_font = ExtResource("1_03aao")
+RichTextLabel/fonts/bold_font = ExtResource("1_mepb7")
+RichTextLabel/fonts/bold_italics_font = ExtResource("1_mepb7")
+RichTextLabel/fonts/italics_font = ExtResource("1_mepb7")
+RichTextLabel/fonts/mono_font = ExtResource("1_mepb7")
+RichTextLabel/fonts/normal_font = ExtResource("1_mepb7")

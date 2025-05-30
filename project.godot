@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="Dot Hop"
-config/version="1.0.0"
+config/version="1.1.0"
 run/main_scene="res://src/menus/MainMenu.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 boot_splash/bg_color=Color(0.227451, 0.207843, 0.196078, 1)
 boot_splash/image="res://assets/boxart/page-background.png"
-config/icon="res://dothop-icon.png"
+config/icon="res://assets/boxart/apple-app-store.png"
+config/windows_native_icon="res://assets/boxart/client-icon_32.ico"
 
 [autoload]
 
