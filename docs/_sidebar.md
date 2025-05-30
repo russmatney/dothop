@@ -1,0 +1,2 @@
+* [Dot Hop](/)
+* [Changelog](/changelog)

@@ -14,6 +14,8 @@
 
   watch tasks/watch
 
+  docsify (tasks/shell-and-log "docsify serve docs")
+
   serve-web
   {:extra-deps {org.babashka/http-server {:local/root "../../babashka/http-server"}}
    :requires   ([babashka.http-server :as http-server])

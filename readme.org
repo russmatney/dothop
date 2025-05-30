@@ -40,8 +40,7 @@ March 1st 2024!
 - [[https://russmatney.itch.io/dot-hop][Dot Hop on Itch.io]]
 - [[https://youtu.be/yfdHTPWyWvA][A Tour of Dot Hop (Youtube Devlog)]]
 - [[https://youtu.be/fxT0u9VVcIg][Dot Hop's Gameplay Trailer]]
-
-- In progress docs: https://russmatney.github.io/dothop/#/
+- [[https://russmatney.github.io/dothop/][Docs]]
 
 *** License / Copyright
 Dot Hop © 2022-2024 by Russell Matney
