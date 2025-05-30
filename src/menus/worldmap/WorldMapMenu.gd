@@ -121,7 +121,7 @@ func previous_puzzle_set_exists() -> bool:
 		return false
 	return true
 
-@onready var game_scene: PackedScene = preload("res://src/puzzle/GameScene.tscn")
+@onready var game_scene: PackedScene = preload("res://src/dothop/GameScene.tscn")
 
 func start_selected_puzzle() -> void:
 	var ps: PuzzleSet = current_puzzle_set

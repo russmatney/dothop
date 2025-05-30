@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://y6dvlkypc634"]
 
-[ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/puzzle/DotHopPuzzle.gd" id="1_4ql4j"]
+[ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/dothop/DotHopPuzzle.gd" id="1_4ql4j"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
 [ext_resource type="Texture2D" uid="uid://beggnuu07g1dk" path="res://src/themes/fall/assets/fallbg-2_sheet.png" id="3_fs7ti"]
 [ext_resource type="Texture2D" uid="uid://dsxalpbwb66hy" path="res://src/themes/fall/assets/particles1.png" id="4_p1vw6"]

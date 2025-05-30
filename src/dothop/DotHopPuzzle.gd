@@ -8,7 +8,7 @@ const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
 ## static ##########################################################################
 
-static var fallback_puzzle_scene: String = "res://src/puzzle/DotHopPuzzle.tscn"
+static var fallback_puzzle_scene: String = "res://src/dothop/DotHopPuzzle.tscn"
 static var fallback_puzzle_set_data: String = "res://src/puzzles/Tutorial.tres"
 
 # Builds and returns a "puzzle_scene" node.

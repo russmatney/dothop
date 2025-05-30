@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://tvyrug4jm0ci"]
 
-[ext_resource type="Script" uid="uid://yg7oqbjr3enh" path="res://src/puzzle/LevelGen.gd" id="1_hju81"]
+[ext_resource type="Script" uid="uid://yg7oqbjr3enh" path="res://src/dothop/LevelGen.gd" id="1_hju81"]
 
 [node name="LevelGen" type="Node2D"]
 position = Vector2(0, -1)

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://djqd0irfxadlp"]
 
-[ext_resource type="Script" uid="uid://ci6shspn0rtkh" path="res://src/puzzle/DotHopCam.gd" id="1_nyqvw"]
+[ext_resource type="Script" uid="uid://ci6shspn0rtkh" path="res://src/dothop/DotHopCam.gd" id="1_nyqvw"]
 
 [node name="DotHopCam" type="Camera2D"]
 position_smoothing_enabled = true
