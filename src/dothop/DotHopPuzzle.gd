@@ -91,6 +91,7 @@ var puzzle_def : PuzzleDef :
 			if game_def:
 				puzzle_def = game_def.puzzles[pn]
 
+var dhcam: DotHopCam
 
 # um what no let's get some types here
 var state: PuzzState
@@ -417,7 +418,6 @@ func init_game_state() -> void:
 
 func init_player(coord: Vector2, node: Node) -> Player:
 	return Player.new(coord, node)
-	# return {coord=coord, stuck=false, move_history=[], node=node}
 
 func clear_nodes() -> void:
 	for ch: Variant in get_children():
@@ -428,19 +428,6 @@ func clear_nodes() -> void:
 			# hide flicker while we wait for queue_free
 			ci.set_visible(false)
 			ci.queue_free()
-
-var dhcam_scene: PackedScene = preload("res://src/DotHopCam.tscn")
-var dhcam: DotHopCam
-func ensure_camera() -> void:
-	if len(state.grid) == 0:
-		return
-
-	dhcam = get_node_or_null("DotHopCam")
-	if dhcam == null:
-		dhcam = get_parent().get_node_or_null("DotHopCam")
-	if dhcam == null:
-		dhcam = dhcam_scene.instantiate()
-		add_child(dhcam)
 
 func coord_pos(node: Node2D) -> Vector2:
 	if node.has_method("current_position"):
@@ -482,7 +469,7 @@ func rebuild_nodes() -> void:
 	clear_nodes()
 
 	if not Engine.is_editor_hint() and is_inside_tree():
-		ensure_camera()
+		dhcam = DotHopCam.ensure_camera(self)
 
 	var players: Array = []
 	for y: int in len(state.grid):
