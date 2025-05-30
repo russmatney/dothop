@@ -9,7 +9,7 @@
 				"_ids_generation_class": "PuzzleSetIDs",
 				"_index": 0,
 				"_name": "PuzzleSet",
-				"_script_path": "res://src/PuzzleSet.gd"
+				"_script_path": "res://src/puzzles/PuzzleSet.gd"
 			},
 			{
 				"_category_id": "",
