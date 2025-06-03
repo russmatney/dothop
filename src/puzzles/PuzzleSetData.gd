@@ -2,7 +2,7 @@
 extends Resource
 class_name PuzzleSetData
 
-@export_tool_button("Parse puzzle txt file") var parse_action: Variant = parse
+# @export_tool_button("Parse puzzle txt file") var parse_action: Variant = parse
 
 @export var display_name: String
 @export_file("*.txt") var path: String
