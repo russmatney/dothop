@@ -27,7 +27,7 @@ static func slide_out(node: Node2D, t: float = 0.6) -> void:
 	tween.parallel().tween_property(node, "modulate:a", 0.0, t)\
 		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 
-static func slide_from_point(node: Node2D, pos: Vector2 = Vector2.ZERO, t: float = 0.6, delay_ts: Array = []) -> Variant:
+static func slide_from_point(node: Node2D, pos: Vector2 = Vector2.ZERO, t: float = 0.6, delay_ts: Array = []) -> void:
 	var delay_t: float = U.rand_of(delay_ts) if len(delay_ts) > 0 else 0.0
 	var og_position: Vector2 = node.call("current_position") if node.has_method("current_position") else node.position
 	# jump + shrink to starting position :/
@@ -84,7 +84,6 @@ static func float_a_bit(node: CanvasItem, og_position: Vector2, t: float = 0.8,
 	_ease: Tween.EaseType = Tween.EASE_IN
 	) -> void:
 	var tween: Tween = tween_on_node(node, "float_tween")
-	tween.set_loops()
 	var dist: float = randfn(1.0, 1.5)
 	var dir: Vector2 = Vector2(randfn(0.0, 1.0), randfn(0.0, 1.0)).normalized()
 	var offset: Vector2 = dir * dist
@@ -138,7 +137,7 @@ static func fade_out(node: CanvasItem, t: float = 0.5) -> void:
 
 ## puzzle_node ###########################################################
 
-static func puzzle_animate_intro_from_point(puzz_node: DotHopPuzzle, min_t := 0.1, max_t := 3.0) -> Signal:
+static func puzzle_animate_intro_from_point(puzz_node: DotHopPuzzle, min_t := 0.1, max_t := 1.4) -> Signal:
 	var t: float = 0.6
 	var puzz_rect: Rect2 = puzz_node.puzzle_rect()
 

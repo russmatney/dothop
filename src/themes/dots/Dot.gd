@@ -13,7 +13,8 @@ func _ready() -> void:
 	super._ready()
 
 	# wait a bit to start animating
-	U.call_in(self, Anim.float_a_bit.bind(self, position), 1.0 + randfn(1.0, 1.0))
+	var wait_for := 1.0 + randfn(1.0, 1.0)
+	U.call_in(self, Anim.float_a_bit.bind(self, position), wait_for)
 
 ## render ###########################################################
 
