@@ -62,10 +62,13 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 		if v == true:
 			clear_nodes()
 
+@export var min_t : float = 0.1
+@export var max_t : float = 3.0
+
 @export var trigger_intro: bool = false:
 	set(v):
 		if v == true and Engine.is_editor_hint():
-			Anim.puzzle_animate_intro_from_point(self)
+			Anim.puzzle_animate_intro_from_point(self, min_t, max_t)
 
 @export var trigger_outro: bool = false:
 	set(v):

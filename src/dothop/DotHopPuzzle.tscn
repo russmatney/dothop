@@ -3,10 +3,13 @@
 [ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/dothop/DotHopPuzzle.gd" id="1_6qax4"]
 [ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_ae6vk"]
 
-[sub_resource type="Resource" id="Resource_6qax4"]
+[sub_resource type="Resource" id="Resource_xhpue"]
 script = ExtResource("2_ae6vk")
-_id = "14"
+_id = "23"
 
 [node name="DotHopPuzzle" type="Node2D" groups=["dothop_puzzle", "hotel_singletons"]]
 script = ExtResource("1_6qax4")
-theme = SubResource("Resource_6qax4")
+min_t = 0.01
+max_t = 1.9
+theme = SubResource("Resource_xhpue")
+puzzle_num = 10
