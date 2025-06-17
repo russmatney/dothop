@@ -402,7 +402,7 @@ func rebuild_nodes() -> void:
 	# trigger HUD update
 	rebuilt_nodes.emit()
 
-func setup_node_at_coord(obj_name:String, coord:Vector2) -> Node:
+func setup_node_at_coord(obj_name: String, coord: Vector2) -> Node:
 	var node: Node2D = node_for_object_name(obj_name)
 	node.add_to_group("generated", true)
 	if node is DotHopDot:
@@ -493,30 +493,6 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 
 ## grid helpers ##############################################################
 
-# returns true if the passed coord is in the level's grid
-func coord_in_grid(coord: Vector2) -> bool:
-	return coord.x >= 0 and coord.y >= 0 and \
-		coord.x < state.grid_xs and coord.y < state.grid_ys
-
-func cell_at_coord(coord: Vector2) -> PuzzleState.Cell:
-	var nodes: Array = state.cell_nodes.get(coord, [])
-	var objs: Variant = state.grid[coord.y][coord.x]
-	return PuzzleState.Cell.new(objs as Array if objs else [], coord, nodes)
-
-# returns a list of cells from the passed position in the passed direction
-# the cells are dicts with a coord, a list of objs (string names), and a list of nodes
-func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
-	if dir == Vector2.ZERO:
-		return []
-	var cells: Array = []
-	var cursor: Vector2 = coord + dir
-	var last_cursor: Variant = null
-	while coord_in_grid(cursor) and last_cursor != cursor:
-		cells.append(cell_at_coord(cursor))
-		last_cursor = cursor
-		cursor += dir
-	return cells
-
 func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
 		if "filter" in opts:
@@ -529,14 +505,6 @@ func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 	return t_nodes
 
 ## move/state-updates ##############################################################
-
-func previous_undo_coord(player: PuzzleState.Player, skip_coord: Vector2, start_at: int = 0) -> Variant:
-	# pulls the first coord from player history that does not match `skip_coord`,
-	# starting after `start_at`
-	for m: Vector2 in player.move_history.slice(start_at):
-		if m != skip_coord:
-			return m
-	return
 
 # Move the player to the passed cell's coordinate.
 # also updates the game state
@@ -557,7 +525,7 @@ func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> 
 	# NOTE start_at 1 b/c history has already been updated
 	var prev_undo_coord: Variant
 	if len(player.move_history) > 1:
-		prev_undo_coord = previous_undo_coord(player, player.coord, 1)
+		prev_undo_coord = player.previous_undo_coord(player.coord, 1)
 	if prev_undo_coord != null:
 		state.drop_undo(prev_undo_coord as Vector2)
 
@@ -635,10 +603,10 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 		return
 	# remove last move from move_history
 	var last_pos: Vector2 = player.move_history.pop_front()
-	var dest_cell: PuzzleState.Cell = cell_at_coord(last_pos)
+	var dest_cell: PuzzleState.Cell = state.cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
-	var prev_undo_coord: Variant = previous_undo_coord(player, dest_cell.coord, 0)
+	var prev_undo_coord: Variant = player.previous_undo_coord(dest_cell.coord, 0)
 	if prev_undo_coord != null:
 		state.mark_undo(prev_undo_coord as Vector2)
 	state.drop_undo(dest_cell.coord)
@@ -656,8 +624,8 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 	state.drop_player(player.coord)
 
 	if "Dotted" in state.grid[player.coord.y][player.coord.x]:
-		# undo at the current player position
-		mark_cell_undotted(cell_at_coord(player.coord))
+		# restore dot at the current player position
+		mark_cell_undotted(state.cell_at_coord(player.coord))
 	if "Goal" in state.grid[player.coord.y][player.coord.x]:
 		# unstuck when undoing from the goal
 		player.stuck = false
@@ -669,74 +637,20 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 
 ## move ##############################################################
 
-# attempt to move all players in move_dir
-# any undos (movement backwards) unwinds the last move
-# if any player is stuck, only undo is allowed
-# otherwise, the player moves to the dot or goal in the direction pressed
-# return true if the move was made successfully
-func move(move_dir: Vector2) -> PuzzleState.MoveResult:
-	if move_dir == Vector2.ZERO:
-		# don't do anything!
-		return PuzzleState.MoveResult.zero
-	if not move_dir in ALLOWED_MOVES:
-		return PuzzleState.MoveResult.move_not_allowed
-
-	var moves_to_make: Array = []
-	for p: PuzzleState.Player in state.players:
-		var cells: Array = cells_in_direction(p.coord, move_dir)
-		if len(cells) == 0:
-			if p.stuck:
-				moves_to_make.append(PuzzleState.Move.stuck(p))
-				p.node.move_attempt_stuck(move_dir)
-			else:
-				p.node.move_attempt_away_from_edge(move_dir)
-			continue
-
-		cells = cells.filter(func(c: PuzzleState.Cell) -> bool: return len(c.objs) > 0)
-		if len(cells) == 0:
-			if p.stuck:
-				moves_to_make.append(PuzzleState.Move.stuck(p))
-				p.node.move_attempt_stuck(move_dir)
-			else:
-				p.node.move_attempt_only_nulls(move_dir)
-			continue
-
-		# instead of markers, read undo based on only the player move history?
-		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: PuzzleState.Cell) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
-
-		if undo_cell_in_dir != null:
-			moves_to_make.append(PuzzleState.Move.undo(p, undo_last_move))
-		else:
-			for cell: PuzzleState.Cell in cells:
-				if p.stuck:
-					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
-					moves_to_make.append(PuzzleState.Move.stuck(p))
-					p.node.move_attempt_stuck(move_dir)
-					break
-				if "Player" in cell.objs:
-					moves_to_make.append(PuzzleState.Move.blocked_by_player(p))
-					# moving toward player animation?
-					break
-				if "Dotted" in cell.objs:
-					# play move 'blocked' animation
-					p.node.move_attempt_stuck(move_dir)
-					continue
-				if "Dot" in cell.objs:
-					moves_to_make.append(PuzzleState.Move.move_to(p, move_to_dot, cell))
-					break
-				if "Goal" in cell.objs:
-					moves_to_make.append(PuzzleState.Move.move_to(p, move_to_goal, cell))
-					break
-				Log.warn("unexpected/unhandled cell in direction", cell)
-
-	var any_move: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool: return m.type == PuzzleState.Move.MoveType.move_to)
+func apply_moves(move_dir: Vector2, moves_to_make: Array[PuzzleState.Move]) -> PuzzleState.MoveResult:
+	var any_move: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool:
+		return m.type in [PuzzleState.Move.MoveType.move_to_dot, PuzzleState.Move.MoveType.move_to_goal])
 	if any_move:
 		for p: PuzzleState.Player in state.players:
 			p.move_history.push_front(p.coord)
 
 		for m: PuzzleState.Move in moves_to_make:
-			if m.type == PuzzleState.Move.MoveType.move_to:
-				m.fn.call(m.player, m.cell)
+			# TODO consider influencing these moves with any Move.dots-to-hop
+
+			if m.type == PuzzleState.Move.MoveType.move_to_dot:
+				move_to_dot(m.player, m.cell)
+			if m.type == PuzzleState.Move.MoveType.move_to_goal:
+				move_to_goal(m.player, m.cell)
 
 		# trigger HUD update
 		player_moved.emit()
@@ -747,9 +661,76 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 		# consider only undoing ONE time? does it make a difference?
 		for m: PuzzleState.Move in moves_to_make:
 			undo_last_move(m.player)
+		# exit early for undos
 		return PuzzleState.MoveResult.undo
+
+	var any_stuck: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool:
+		return m.type in [
+			PuzzleState.Move.MoveType.stuck, PuzzleState.Move.MoveType.hop_a_dot,
+			])
+	if any_stuck:
+		for m: PuzzleState.Move in moves_to_make:
+			if m.type == PuzzleState.Move.MoveType.stuck:
+				m.player.node.move_attempt_stuck(move_dir)
+			if m.type == PuzzleState.Move.MoveType.hop_a_dot:
+				# reusing the stuck behavior here
+				m.player.node.move_attempt_stuck(move_dir)
 
 	# trigger HUD update
 	move_rejected.emit()
 
 	return PuzzleState.MoveResult.stuck
+
+func check_moves(move_dir: Vector2) -> Array[PuzzleState.Move]:
+	var moves_to_make: Array[PuzzleState.Move] = []
+	for p: PuzzleState.Player in state.players:
+		var cells: Array = state.cells_in_direction(p.coord, move_dir)
+		if len(cells) == 0:
+			moves_to_make.append(PuzzleState.Move.stuck(p))
+			continue
+
+		cells = cells.filter(func(c: PuzzleState.Cell) -> bool: return len(c.objs) > 0)
+		if len(cells) == 0:
+			moves_to_make.append(PuzzleState.Move.stuck(p))
+			continue
+
+		# instead of markers, read undo based on only the player move history?
+		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: PuzzleState.Cell) -> bool: return "Undo" in c.objs and c.coord in p.move_history))
+
+		if undo_cell_in_dir != null:
+			moves_to_make.append(PuzzleState.Move.undo(p))
+		else:
+			for cell: PuzzleState.Cell in cells:
+				if p.stuck:
+					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
+					moves_to_make.append(PuzzleState.Move.stuck(p))
+					break
+				if "Player" in cell.objs:
+					moves_to_make.append(PuzzleState.Move.blocked_by_player(p))
+					# moving toward player animation?
+					break
+				if "Dotted" in cell.objs:
+					moves_to_make.append(PuzzleState.Move.hop_a_dot(p, cell))
+					continue
+				if "Dot" in cell.objs:
+					moves_to_make.append(PuzzleState.Move.move_to_dot(p, cell))
+					break
+				if "Goal" in cell.objs:
+					moves_to_make.append(PuzzleState.Move.move_to_goal(p, cell))
+					break
+				Log.warn("unexpected/unhandled cell in direction", cell)
+
+		# if no moves to make, maybe we want to add a stuck move
+	return moves_to_make
+
+
+func move(move_dir: Vector2) -> PuzzleState.MoveResult:
+	if move_dir == Vector2.ZERO:
+		# don't do anything!
+		return PuzzleState.MoveResult.zero
+	if not move_dir in ALLOWED_MOVES:
+		return PuzzleState.MoveResult.move_not_allowed
+
+	var moves_to_make := check_moves(move_dir)
+	# Log.prn("moves to make", moves_to_make)
+	return apply_moves(move_dir, moves_to_make)

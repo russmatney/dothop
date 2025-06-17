@@ -2,6 +2,8 @@
 extends Object
 class_name PuzzleState
 
+## player
+
 class Player:
 	var coord: Vector2
 	var stuck := false
@@ -12,44 +14,66 @@ class Player:
 		coord = crd
 		node = nd
 
+	func to_pretty() -> Variant:
+		return ["P", coord, stuck, move_history]
+
+	func previous_undo_coord(skip_coord: Vector2, start_at: int = 0) -> Variant:
+		# pulls the first coord from player history that does not match `skip_coord`,
+		# starting after `start_at`
+		for m: Vector2 in move_history.slice(start_at):
+			if m != skip_coord:
+				return m
+		return
+
+
+## cell
+
 class Cell:
 	var objs: Array
 	var coord: Vector2
-	var nodes: Array[Node2D]
+	var nodes: Array[DotHopDot]
 
-	func _init(_objs: Array, _coord: Vector2, _nodes: Array) -> void:
+	func _init(_objs: Array, _coord: Vector2, _nodes: Array[DotHopDot]) -> void:
 		objs = _objs
 		coord = _coord
-		nodes.assign(_nodes)
+		nodes = _nodes
+
+## move
 
 class Move:
 	enum MoveType {
 		undo=0,
 		stuck=1,
 		blocked_by_player=2,
-		move_to=3,
+		move_to_dot=3,
+		move_to_goal=4,
+		hop_a_dot=5,
 		}
 
-	var fn: Callable
 	var player: PuzzleState.Player
 	var type: MoveType
 	var cell: PuzzleState.Cell
 
-	func _init(t: MoveType, p: PuzzleState.Player, fun: Variant = null, c: PuzzleState.Cell = null) -> void:
+	func _init(t: MoveType, p: PuzzleState.Player, c: PuzzleState.Cell = null) -> void:
 		type = t
 		player = p
-		if fun:
-			fn = fun
 		cell = c
 
-	static func undo(p: PuzzleState.Player, fun: Callable) -> Move:
-		return Move.new(MoveType.undo, p, fun)
+	func to_pretty() -> Variant:
+		return [type, player, cell]
+
+	static func undo(p: PuzzleState.Player) -> Move:
+		return Move.new(MoveType.undo, p)
 	static func stuck(p: PuzzleState.Player) -> Move:
 		return Move.new(MoveType.stuck, p)
 	static func blocked_by_player(p: PuzzleState.Player) -> Move:
 		return Move.new(MoveType.blocked_by_player, p)
-	static func move_to(p: PuzzleState.Player, fun: Callable, c: PuzzleState.Cell) -> Move:
-		return Move.new(MoveType.move_to, p, fun, c)
+	static func move_to_dot(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+		return Move.new(MoveType.move_to_dot, p, c)
+	static func move_to_goal(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+		return Move.new(MoveType.move_to_goal, p, c)
+	static func hop_a_dot(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+		return Move.new(MoveType.hop_a_dot, p, c)
 
 enum MoveResult {
 	zero=0,
@@ -59,6 +83,7 @@ enum MoveResult {
 	moved=4,
 	}
 
+## state vars
 
 var win := false
 var players: Array[Player] = []
@@ -67,6 +92,8 @@ var grid_xs: int
 var grid_ys: int
 # var cell_nodes: Dictionary[Vector2, Array[Node2D]] = {}
 var cell_nodes: Dictionary = {}
+
+## init
 
 func _init(puzzle_def: PuzzleDef, game_def: GameDef) -> void:
 	grid = []
@@ -137,6 +164,35 @@ func all_players_at_goal() -> bool:
 		return c != null and "Goal" in c
 		).all(func(c: Array) -> bool: return "Player" in c)
 
+## grid helpers
+
+# returns true if the passed coord is in the level's grid
+func coord_in_grid(coord: Vector2) -> bool:
+	return coord.x >= 0 and coord.y >= 0 and \
+		coord.x < grid_xs and coord.y < grid_ys
+
+func cell_at_coord(coord: Vector2) -> PuzzleState.Cell:
+	# TODO construct cells when creating the state?
+	var nodes: Array[DotHopDot] = []
+	var _nodes: Array = cell_nodes.get(coord, [])
+	nodes.assign(_nodes)
+	var objs: Variant = grid[coord.y][coord.x]
+	return Cell.new(objs as Array if objs else [], coord, nodes)
+
+# returns a list of cells from the passed position in the passed direction
+# the cells are dicts with a coord, a list of objs (string names), and a list of nodes
+func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
+	if dir == Vector2.ZERO:
+		return []
+	var cells: Array = []
+	var cursor: Vector2 = coord + dir
+	var last_cursor: Variant = null
+	while coord_in_grid(cursor) and last_cursor != cursor:
+		cells.append(cell_at_coord(cursor))
+		last_cursor = cursor
+		cursor += dir
+	return cells
+
 ## state updates
 
 func add_player(coord: Vector2, node: DotHopPlayer) -> void:
@@ -146,6 +202,8 @@ func add_dot(coord: Vector2, node: Node2D) -> void:
 	if not coord in cell_nodes:
 		cell_nodes[coord] = []
 	(cell_nodes[coord] as Array).append(node)
+
+## grid updates
 
 func mark_dotted(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
