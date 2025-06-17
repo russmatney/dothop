@@ -36,7 +36,7 @@ func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = 
 	else:
 		if puzzle_node.state.win:
 			return WIN
-		elif puzzle_node.all_players_at_goal():
+		elif puzzle_node.state.all_players_at_goal():
 			return STUCK_GOAL
 		else:
 			return STUCK_DOT

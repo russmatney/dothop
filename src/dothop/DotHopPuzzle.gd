@@ -124,14 +124,13 @@ class PuzzState:
 		grid_xs = len(grid[0])
 		grid_ys = len(grid)
 
+	## getters
+
 	func coord_for_dot(dot: DotHopDot) -> Vector2:
 		for coord: Vector2 in cell_nodes:
 			if dot in cell_nodes[coord]:
 				return coord
 		return Vector2.ZERO
-
-	func objs_for_coord(coord: Vector2) -> Variant:
-		return grid[int(coord.y)][int(coord.x)]
 
 	func all_coords() -> Array[Vector2]:
 		var crds: Array[Vector2] = []
@@ -140,7 +139,47 @@ class PuzzState:
 				crds.append(Vector2(x, y))
 		return crds
 
-	func add_player(coord: Vector2, node: Node2D) -> void:
+	func objs_for_coord(coord: Vector2) -> Variant:
+		return grid[int(coord.y)][int(coord.x)]
+
+	# Returns a list of cell object names
+	func all_cells() -> Array:
+		var cs: Array = []
+		for row: Array in grid:
+			for cell: Variant in row:
+				cs.append(cell)
+		return cs
+
+	# Returns true if there are no "dot" objects in the state grid
+	func all_dotted() -> bool:
+		return all_cells().all(func(c: Variant) -> bool:
+			if c == null:
+				return true
+			for obj_name: String in c:
+				if obj_name == "Dot":
+					return false
+			return true)
+
+	func dot_count(only_undotted: bool = false) -> int:
+		return len(all_cells().filter(func(c: Variant) -> bool:
+			if c == null:
+				return false
+			for obj_name: String in c:
+				if only_undotted and obj_name in ["Dot"]:
+					return true
+				elif not only_undotted and obj_name in ["Dot", "Dotted"]:
+					return true
+			return false))
+
+
+	func all_players_at_goal() -> bool:
+		return all_cells().filter(func(c: Variant) -> bool:
+			return c != null and "Goal" in c
+			).all(func(c: Array) -> bool: return "Player" in c)
+
+	## state updates
+
+	func add_player(coord: Vector2, node: DotHopPlayer) -> void:
 		players.append(Player.new(coord, node))
 
 	func add_dot(coord: Vector2, node: Node2D) -> void:
@@ -148,13 +187,43 @@ class PuzzState:
 			cell_nodes[coord] = []
 		(cell_nodes[coord] as Array).append(node)
 
+	func mark_dotted(coord: Vector2) -> void:
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].erase("Dot")
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].append("Dotted")
+
+	func mark_undotted(coord: Vector2) -> void:
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].erase("Dotted")
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].append("Dot")
+
+	func mark_undo(coord: Vector2) -> void:
+		if not "Undo" in grid[coord.y][coord.x]:
+			@warning_ignore("unsafe_method_access")
+			grid[coord.y][coord.x].append("Undo")
+
+	func drop_undo(coord: Vector2) -> void:
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].erase("Undo")
+
+	func mark_player(coord: Vector2) -> void:
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].append("Player")
+
+	func drop_player(coord: Vector2) -> void:
+		@warning_ignore("unsafe_method_access")
+		grid[coord.y][coord.x].erase("Player")
+
+
 class Player:
 	var coord: Vector2
 	var stuck := false
 	var move_history: Array = []
-	var node: Node2D
+	var node: DotHopPlayer
 
-	func _init(crd: Vector2, nd: Node) -> void:
+	func _init(crd: Vector2, nd: DotHopPlayer) -> void:
 		coord = crd
 		node = nd
 
@@ -226,8 +295,8 @@ func on_win() -> void:
 	Sounds.play(Sounds.S.complete)
 
 func on_player_moved() -> void:
-	var total_dots: float = float(dot_count() + 1)
-	var dotted: float = total_dots - float(dot_count(true)) - 1
+	var total_dots: float = float(state.dot_count() + 1)
+	var dotted: float = total_dots - float(state.dot_count(true)) - 1
 	# ensure some minimum
 	dotted = clamp(dotted, total_dots/4, total_dots)
 	if state.win:
@@ -433,7 +502,7 @@ func build_game_state() -> void:
 func rebuild_nodes() -> void:
 	clear_nodes()
 
-	var players: Array = []
+	var players: Array[DotHopPlayer] = []
 	for coord in state.all_coords():
 		var objs: Variant = state.objs_for_coord(coord)
 		if objs == null:
@@ -441,7 +510,7 @@ func rebuild_nodes() -> void:
 		for obj_name: String in objs:
 			var node: Node2D = setup_node_at_coord(obj_name, coord)
 			if node is DotHopPlayer:
-				state.add_player(coord, node)
+				state.add_player(coord, node as DotHopPlayer)
 				players.append(node)
 			elif node is DotHopDot:
 				var dot: DotHopDot = node
@@ -586,43 +655,6 @@ func cells_in_direction(coord:Vector2, dir:Vector2) -> Array:
 		cursor += dir
 	return cells
 
-# Returns a list of cell object names
-func all_cells() -> Array:
-	if state == null:
-		return []
-	var cs: Array = []
-	for row: Array in state.grid:
-		for cell: Variant in row:
-			cs.append(cell)
-	return cs
-
-# Returns true if there are no "dot" objects in the state grid
-func all_dotted() -> bool:
-	return all_cells().all(func(c: Variant) -> bool:
-		if c == null:
-			return true
-		for obj_name: String in c:
-			if obj_name == "Dot":
-				return false
-		return true)
-
-func dot_count(only_undotted: bool = false) -> int:
-	return len(all_cells().filter(func(c: Variant) -> bool:
-		if c == null:
-			return false
-		for obj_name: String in c:
-			if only_undotted and obj_name in ["Dot"]:
-				return true
-			elif not only_undotted and obj_name in ["Dot", "Dotted"]:
-				return true
-		return false))
-
-
-func all_players_at_goal() -> bool:
-	return all_cells().filter(func(c: Variant) -> bool:
-		return c != null and "Goal" in c
-		).all(func(c: Array) -> bool: return "Player" in c)
-
 func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
 		if "filter" in opts:
@@ -651,19 +683,13 @@ func previous_undo_coord(player: Player, skip_coord: Vector2, start_at: int = 0)
 func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 	# move player node
 	var move_finished_sig: Signal
-	if player.node.has_method("move_to_coord"):
-		@warning_ignore("unsafe_method_access")
-		var res: Variant = player.node.move_to_coord(cell.coord)
-		if res != null:
-			move_finished_sig = res
-	else:
-		player.node.position = cell.coord * square_size
+	var res: Variant = player.node.move_to_coord(cell.coord)
+	if res != null:
+		move_finished_sig = res
 
 	# update game state
-	@warning_ignore("unsafe_method_access")
-	state.grid[cell.coord.y][cell.coord.x].append("Player")
-	@warning_ignore("unsafe_method_access")
-	state.grid[player.coord.y][player.coord.x].erase("Player")
+	state.mark_player(cell.coord)
+	state.drop_player(player.coord)
 
 	# remove previous undo marker
 	# NOTE start_at 1 b/c history has already been updated
@@ -671,12 +697,10 @@ func move_player_to_cell(player: Player, cell: Cell) -> Signal:
 	if len(player.move_history) > 1:
 		prev_undo_coord = previous_undo_coord(player, player.coord, 1)
 	if prev_undo_coord != null:
-		@warning_ignore("unsafe_method_access")
-		state.grid[prev_undo_coord.y][prev_undo_coord.x].erase("Undo")
+		state.drop_undo(prev_undo_coord as Vector2)
 
 	# add new undo marker at current coord
-	@warning_ignore("unsafe_method_access")
-	state.grid[player.coord.y][player.coord.x].append("Undo")
+	state.mark_undo(player.coord)
 
 	# update to new coord
 	player.coord = cell.coord
@@ -699,10 +723,7 @@ func mark_cell_dotted(cell: Cell) -> void:
 		node.display_name = "Dotted"
 
 	# update game state
-	@warning_ignore("unsafe_method_access")
-	state.grid[cell.coord.y][cell.coord.x].erase("Dot")
-	@warning_ignore("unsafe_method_access")
-	state.grid[cell.coord.y][cell.coord.x].append("Dotted")
+	state.mark_dotted(cell.coord)
 
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
@@ -720,10 +741,7 @@ func mark_cell_undotted(cell: Cell) -> void:
 		node.display_name = "Dot"
 
 	# update game state
-	@warning_ignore("unsafe_method_access")
-	state.grid[cell.coord.y][cell.coord.x].erase("Dotted")
-	@warning_ignore("unsafe_method_access")
-	state.grid[cell.coord.y][cell.coord.x].append("Dot")
+	state.mark_undotted(cell.coord)
 
 ## move to dot ##############################################################
 
@@ -736,7 +754,7 @@ func move_to_dot(player: Player, cell: Cell) -> void:
 
 func move_to_goal(player: Player, cell: Cell) -> void:
 	var move_finished: Signal = move_player_to_cell(player, cell)
-	if all_dotted() and all_players_at_goal():
+	if state.all_dotted() and state.all_players_at_goal():
 		state.win = true
 		if move_finished:
 			await move_finished
@@ -760,30 +778,20 @@ func undo_last_move(player: Player) -> void:
 	# need to walk back the grid's Undo markers
 	var prev_undo_coord: Variant = previous_undo_coord(player, dest_cell.coord, 0)
 	if prev_undo_coord != null:
-		if not "Undo" in state.grid[prev_undo_coord.y][prev_undo_coord.x]:
-			@warning_ignore("unsafe_method_access")
-			state.grid[prev_undo_coord.y][prev_undo_coord.x].append("Undo")
-	@warning_ignore("unsafe_method_access")
-	state.grid[dest_cell.coord.y][dest_cell.coord.x].erase("Undo")
+		state.mark_undo(prev_undo_coord as Vector2)
+	state.drop_undo(dest_cell.coord)
 
 	if last_pos == player.coord:
-		if player.node.has_method("undo_to_same_coord"):
-			@warning_ignore("unsafe_method_access")
-			player.node.undo_to_same_coord()
+		# used in multi-hopper puzzles ('other' player stays in same place when undoing)
+		player.node.undo_to_same_coord()
 		return
 
 	# move player node
-	if player.node.has_method("undo_to_coord"):
-		@warning_ignore("unsafe_method_access")
-		player.node.undo_to_coord(dest_cell.coord)
-	else:
-		player.node.position = dest_cell.coord * square_size
+	player.node.undo_to_coord(dest_cell.coord)
 
 	# update game state
-	@warning_ignore("unsafe_method_access")
-	state.grid[dest_cell.coord.y][dest_cell.coord.x].append("Player")
-	@warning_ignore("unsafe_method_access")
-	state.grid[player.coord.y][player.coord.x].erase("Player")
+	state.mark_player(dest_cell.coord)
+	state.drop_player(player.coord)
 
 	if "Dotted" in state.grid[player.coord.y][player.coord.x]:
 		# undo at the current player position
@@ -854,26 +862,18 @@ func move(move_dir: Vector2) -> MoveResult:
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(Move.stuck(p))
-				if p.node.has_method("move_attempt_stuck"):
-					@warning_ignore("unsafe_method_access")
-					p.node.move_attempt_stuck(move_dir)
+				p.node.move_attempt_stuck(move_dir)
 			else:
-				if p.node.has_method("move_attempt_away_from_edge"):
-					@warning_ignore("unsafe_method_access")
-					p.node.move_attempt_away_from_edge(move_dir)
+				p.node.move_attempt_away_from_edge(move_dir)
 			continue
 
 		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
 			if p.stuck:
 				moves_to_make.append(Move.stuck(p))
-				if p.node.has_method("move_attempt_stuck"):
-					@warning_ignore("unsafe_method_access")
-					p.node.move_attempt_stuck(move_dir)
+				p.node.move_attempt_stuck(move_dir)
 			else:
-				if p.node.has_method("move_attempt_only_nulls"):
-					@warning_ignore("unsafe_method_access")
-					p.node.move_attempt_only_nulls(move_dir)
+				p.node.move_attempt_only_nulls(move_dir)
 			continue
 
 		# instead of markers, read undo based on only the player move history?
@@ -886,9 +886,7 @@ func move(move_dir: Vector2) -> MoveResult:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(Move.stuck(p))
-					if p.node.has_method("move_attempt_stuck"):
-						@warning_ignore("unsafe_method_access")
-						p.node.move_attempt_stuck(move_dir)
+					p.node.move_attempt_stuck(move_dir)
 					break
 				if "Player" in cell.objs:
 					moves_to_make.append(Move.blocked_by_player(p))
@@ -896,9 +894,7 @@ func move(move_dir: Vector2) -> MoveResult:
 					break
 				if "Dotted" in cell.objs:
 					# play move 'blocked' animation
-					if p.node.has_method("move_attempt_stuck"):
-						@warning_ignore("unsafe_method_access")
-						p.node.move_attempt_stuck(move_dir)
+					p.node.move_attempt_stuck(move_dir)
 					continue
 				if "Dot" in cell.objs:
 					moves_to_make.append(Move.move_to(p, move_to_dot, cell))
@@ -915,7 +911,6 @@ func move(move_dir: Vector2) -> MoveResult:
 
 		for m: Move in moves_to_make:
 			if m.type == Move.MoveType.move_to:
-				@warning_ignore("unsafe_method_access")
 				m.fn.call(m.player, m.cell)
 
 		# trigger HUD update
