@@ -111,8 +111,8 @@ func update_hud() -> void:
 		var data: Dictionary = {
 			puzzle_def=puzzle_node.puzzle_def,
 			puzzles_remaining=rem,
-			dots_total=puzzle_node.dot_count(),
-			dots_remaining=puzzle_node.dot_count(true),
+			dots_total=puzzle_node.state.dot_count(),
+			dots_remaining=puzzle_node.state.dot_count(true),
 			}
 		hud.update_state(data)
 
