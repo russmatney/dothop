@@ -1,14 +1,19 @@
 #+title: Todo
 
-* [-] refactor puzzleTheme into custom resources
+* [X] refactor puzzleTheme into custom resources
+CLOSED: [2025-06-12 Thu 17:40]
 handle save events (theme_id) across transition/refactor
-* [ ] refactor puzzleSet into custom resources
+* [X] refactor puzzleSet into custom resources
+CLOSED: [2025-06-12 Thu 17:40]
 handle save events (puzzle_id) across transition/refactor
-* [ ] enforce strict types everywhere
+* [X] enforce strict types everywhere
+CLOSED: [2025-06-12 Thu 17:40]
 * [ ] animate (shake) available next-dots
 * [ ] rewrite menu/world map
 * bugs
-** [ ] restore pause
-** [ ] tap/click to advance on 'new-puzzle-unlocked scenes'
+** [X] restore pause
+CLOSED: [2025-06-12 Thu 17:40]
+** [X] tap/click to advance on 'new-puzzle-unlocked scenes'
+CLOSED: [2025-06-12 Thu 17:40]
 ** [ ] new undo/reset buttons are grabbing focus from the controller
 * [ ] v2 'Dots' theme art

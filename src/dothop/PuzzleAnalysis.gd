@@ -16,7 +16,7 @@ func _init(node: DotHopPuzzle) -> void:
 
 ## collect_move_tree ####################################
 
-var all_dirs: Array[Vector2] = [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN]
+const all_dirs: Array[Vector2] = [Vector2.LEFT, Vector2.UP, Vector2.RIGHT, Vector2.DOWN]
 
 func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = null) -> Variant:
 	var any_moves: bool = false

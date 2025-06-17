@@ -43,14 +43,15 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	###############################################################
 	# create puzzle scene node and set values
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
-	var scene: PackedScene = opts.get("puzzle_scene", _theme.get_puzzle_scene())
+	var scene: PackedScene = opts.get("puzzle_scene", _theme.get_puzzle_scene() if _theme else null)
 	if scene == null:
 		scene = load(DotHopPuzzle.fallback_puzzle_scene)
 
 	var node: DotHopPuzzle = scene.instantiate()
 	node.game_def = _game_def
 	node.theme = _theme
-	node.theme_data = _theme.get_theme_data()
+	if _theme:
+		node.theme_data = _theme.get_theme_data()
 	node.puzzle_def = _puzzle_def
 	node.puzzle_num = _puzzle_num
 	return node
