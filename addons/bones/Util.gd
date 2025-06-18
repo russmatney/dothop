@@ -399,6 +399,9 @@ static func reverse(arr: Array) -> Array:
 	arr.reverse()
 	return arr
 
+static func remove_nulls(arr: Array) -> Array:
+	return arr.filter(func(x: Variant) -> bool: return x != null)
+
 ############################################################
 # Facing
 
