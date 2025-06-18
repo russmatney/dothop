@@ -148,7 +148,7 @@ static func puzzle_animate_intro_from_point(puzz_node: DotHopPuzzle, min_t := 0.
 	var nodes: Array = []
 	nodes.append_array((puzz_node.state.players as Array).map(
 		func (p: PuzzleState.Player) -> Node2D: return p.node))
-	nodes.append_array(puzz_node.all_cell_nodes())
+	nodes.append_array(puzz_node.state.all_cell_nodes())
 
 	for node: Node2D in nodes:
 		node.modulate.a = 0.0
@@ -175,7 +175,7 @@ static func puzzle_animate_outro_to_point(puzz_node: DotHopPuzzle) -> Signal:
 
 	var nodes: Array = []
 	nodes.append_array((puzz_node.state.players as Array).map(func (p: PuzzleState.Player) -> Node2D: return p.node))
-	nodes.append_array(puzz_node.all_cell_nodes())
+	nodes.append_array(puzz_node.state.all_cell_nodes())
 
 	for node: Node2D in nodes:
 		var delays: Array = []

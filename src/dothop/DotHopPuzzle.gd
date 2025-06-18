@@ -370,8 +370,6 @@ func build_game_state() -> void:
 	rebuild_nodes()
 
 # Adds nodes for the object_names in each cell of the grid.
-# Tracks nodes (except for players) in a state.cell_nodes dict.
-# Tracks players in state.players list.
 func rebuild_nodes() -> void:
 	clear_nodes()
 
@@ -379,7 +377,9 @@ func rebuild_nodes() -> void:
 	for coord in state.all_coords():
 		var objs: Variant = state.objs_for_coord(coord)
 		if objs == null:
+			state.add_cell(coord, [], [])
 			continue
+		var dot_nodes: Array[DotHopDot] = []
 		for obj_name: String in objs:
 			var node: Node2D = setup_node_at_coord(obj_name, coord)
 			if node is DotHopPlayer:
@@ -391,6 +391,8 @@ func rebuild_nodes() -> void:
 				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
 				add_child(dot)
 				state.add_dot(coord, dot)
+				dot_nodes.append(node)
+		state.add_cell(coord, objs as Array, dot_nodes)
 
 	# wait to add players last (so they end up on top)
 	for p: Node in players:
@@ -482,27 +484,15 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 	var cam_nodes: Array = []
 	var nodes: Array
 	if opts.get("dots_only"):
-		nodes = all_cell_nodes({filter=func(node: DotHopDot) -> bool:
+		nodes = state.all_cell_nodes({filter=func(node: DotHopDot) -> bool:
 			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
 	else:
-		nodes = all_cell_nodes()
+		nodes = state.all_cell_nodes()
 	cam_nodes.append_array(nodes)
 	for p: PuzzleState.Player in state.players:
 		cam_nodes.append(p.node)
 	return cam_nodes
 
-## grid helpers ##############################################################
-
-func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
-	var ns: Array = state.cell_nodes.values().reduce(func(agg: Array, nodes: Array) -> Array:
-		if "filter" in opts:
-			var f: Callable = opts.get("filter")
-			nodes = nodes.filter(f)
-		agg.append_array(nodes)
-		return agg, []) # if we don't provide an initial val, the first node gets through FOR FREE
-	var t_nodes: Array[Node2D] = []
-	t_nodes.assign(ns)
-	return t_nodes
 
 ## move/state-updates ##############################################################
 
@@ -545,14 +535,7 @@ func mark_cell_dotted(cell: PuzzleState.Cell) -> void:
 	if node == null:
 		Log.warn("can't mark dotted, no node found!", cell)
 		return
-
-	if node.has_method("mark_dotted"):
-		node.mark_dotted()
-	else:
-		Log.warn("some strange node loaded?")
-		node.display_name = "Dotted"
-
-	# update game state
+	node.mark_dotted()
 	state.mark_dotted(cell.coord)
 
 # converts dotted back to dot (undo)
@@ -563,13 +546,7 @@ func mark_cell_undotted(cell: PuzzleState.Cell) -> void:
 	if node == null:
 		# undoing from goal doesn't require any undotting
 		return
-
-	if node.has_method("mark_undotted"):
-		node.mark_undotted()
-	else:
-		Log.warn("some strange node loaded?")
-		node.display_name = "Dot"
-
+	node.mark_undotted()
 	# update game state
 	state.mark_undotted(cell.coord)
 
@@ -582,15 +559,15 @@ func move_to_dot(player: PuzzleState.Player, cell: PuzzleState.Cell) -> void:
 
 ## move to goal ##############################################################
 
-func move_to_goal(player: PuzzleState.Player, cell: PuzzleState.Cell) -> void:
+func move_to_goal(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
 	var move_finished: Signal = move_player_to_cell(player, cell)
-	if state.all_dotted() and state.all_players_at_goal():
+
+	if state.check_win():
 		state.win = true
-		if move_finished:
-			await move_finished
-		win.emit()
+		return move_finished
 	else:
 		player.stuck = true
+		return move_finished
 
 ## undo last move ##############################################################
 
@@ -606,9 +583,9 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 	var dest_cell: PuzzleState.Cell = state.cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
-	var prev_undo_coord: Variant = player.previous_undo_coord(dest_cell.coord, 0)
-	if prev_undo_coord != null:
-		state.mark_undo(prev_undo_coord as Vector2)
+	var pos_before_last: Variant = player.previous_undo_coord(dest_cell.coord, 0)
+	if pos_before_last != null:
+		state.mark_undo(pos_before_last as Vector2)
 	state.drop_undo(dest_cell.coord)
 
 	if last_pos == player.coord:
@@ -623,17 +600,15 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 	state.mark_player(dest_cell.coord)
 	state.drop_player(player.coord)
 
-	if "Dotted" in state.grid[player.coord.y][player.coord.x]:
+	if state.is_coord_dotted(player.coord):
 		# restore dot at the current player position
 		mark_cell_undotted(state.cell_at_coord(player.coord))
-	if "Goal" in state.grid[player.coord.y][player.coord.x]:
+	if state.is_coord_goal(player.coord):
 		# unstuck when undoing from the goal
 		player.stuck = false
 
 	# update state player position
 	player.coord = dest_cell.coord
-
-	player_undo.emit()
 
 ## move ##############################################################
 
@@ -654,13 +629,21 @@ func apply_moves(move_dir: Vector2, moves_to_make: Array[PuzzleState.Move]) -> P
 
 		# trigger HUD update
 		player_moved.emit()
+
+		if state.win:
+			# TODO i think we wait to emit this? check_win elsewhere?
+			# at least wait until the player animation is done... unless we should have a different one
+			win.emit()
 		return PuzzleState.MoveResult.moved
 
 	var any_undo: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool: return m.type == PuzzleState.Move.MoveType.undo)
 	if any_undo:
 		# consider only undoing ONE time? does it make a difference?
 		for m: PuzzleState.Move in moves_to_make:
-			undo_last_move(m.player)
+			if m.type == PuzzleState.Move.MoveType.undo:
+				undo_last_move(m.player)
+
+				player_undo.emit()
 		# exit early for undos
 		return PuzzleState.MoveResult.undo
 

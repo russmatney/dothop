@@ -33,9 +33,9 @@ class Cell:
 	var coord: Vector2
 	var nodes: Array[DotHopDot]
 
-	func _init(_objs: Array, _coord: Vector2, _nodes: Array[DotHopDot]) -> void:
-		objs = _objs
+	func _init(_coord: Vector2, _objs: Array, _nodes: Array[DotHopDot]) -> void:
 		coord = _coord
+		objs = _objs if objs else []
 		nodes = _nodes
 
 ## move
@@ -90,8 +90,9 @@ var players: Array[Player] = []
 var grid: Array
 var grid_xs: int
 var grid_ys: int
-# var cell_nodes: Dictionary[Vector2, Array[Node2D]] = {}
-var cell_nodes: Dictionary = {}
+# var nodes_by_coord: Dictionary[Vector2, Array[DotHopNode]] = {} # just the nodes
+var nodes_by_coord: Dictionary = {} # just the nodes
+var cells_by_coord: Dictionary[Vector2, Cell] = {}
 
 ## init
 
@@ -111,11 +112,24 @@ func _init(puzzle_def: PuzzleDef, game_def: GameDef) -> void:
 	grid_xs = len(grid[0])
 	grid_ys = len(grid)
 
+## state updates
+
+func add_cell(coord: Vector2, objs: Array, nodes: Array[DotHopDot]) -> void:
+	cells_by_coord[coord] = Cell.new(coord, objs, nodes)
+
+func add_player(coord: Vector2, node: DotHopPlayer) -> void:
+	players.append(Player.new(coord, node))
+
+func add_dot(coord: Vector2, node: Node2D) -> void:
+	if not coord in nodes_by_coord:
+		nodes_by_coord[coord] = []
+	(nodes_by_coord[coord] as Array).append(node)
+
 ## getters
 
 func coord_for_dot(dot: DotHopDot) -> Vector2:
-	for coord: Vector2 in cell_nodes:
-		if dot in cell_nodes[coord]:
+	for coord: Vector2 in nodes_by_coord:
+		if dot in nodes_by_coord[coord]:
 			return coord
 	return Vector2.ZERO
 
@@ -137,15 +151,16 @@ func all_cells() -> Array:
 			cs.append(cell)
 	return cs
 
-# Returns true if there are no "dot" objects in the state grid
-func all_dotted() -> bool:
-	return all_cells().all(func(c: Variant) -> bool:
-		if c == null:
-			return true
-		for obj_name: String in c:
-			if obj_name == "Dot":
-				return false
-		return true)
+func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
+	var ns: Array = nodes_by_coord.values().reduce(func(agg: Array, nodes: Array) -> Array:
+		if "filter" in opts:
+			var f: Callable = opts.get("filter")
+			nodes = nodes.filter(f)
+		agg.append_array(nodes)
+		return agg, []) # if we don't provide an initial val, the first node gets through FOR FREE
+	var t_nodes: Array[Node2D] = []
+	t_nodes.assign(ns)
+	return t_nodes
 
 func dot_count(only_undotted: bool = false) -> int:
 	return len(all_cells().filter(func(c: Variant) -> bool:
@@ -158,11 +173,31 @@ func dot_count(only_undotted: bool = false) -> int:
 				return true
 		return false))
 
+## predicates
+
+func check_win() -> bool:
+	return all_dotted() and all_players_at_goal()
+
+# Returns true if there are no "dot" objects in the state grid
+func all_dotted() -> bool:
+	return all_cells().all(func(c: Variant) -> bool:
+		if c == null:
+			return true
+		for obj_name: String in c:
+			if obj_name == "Dot":
+				return false
+		return true)
 
 func all_players_at_goal() -> bool:
 	return all_cells().filter(func(c: Variant) -> bool:
 		return c != null and "Goal" in c
 		).all(func(c: Array) -> bool: return "Player" in c)
+
+func is_coord_dotted(coord: Vector2) -> bool:
+	return "Dotted" in grid[coord.y][coord.x]
+
+func is_coord_goal(coord: Vector2) -> bool:
+	return "Goal" in grid[coord.y][coord.x]
 
 ## grid helpers
 
@@ -172,12 +207,12 @@ func coord_in_grid(coord: Vector2) -> bool:
 		coord.x < grid_xs and coord.y < grid_ys
 
 func cell_at_coord(coord: Vector2) -> PuzzleState.Cell:
-	# TODO construct cells when creating the state?
-	var nodes: Array[DotHopDot] = []
-	var _nodes: Array = cell_nodes.get(coord, [])
-	nodes.assign(_nodes)
-	var objs: Variant = grid[coord.y][coord.x]
-	return Cell.new(objs as Array if objs else [], coord, nodes)
+	var cell: Cell = cells_by_coord.get(coord)
+	# overwrite with the latest objs
+	# TODO update the cells in place instead of the grid?
+	if grid[coord.y][coord.x]:
+		cell.objs = grid[coord.y][coord.x]
+	return cell
 
 # returns a list of cells from the passed position in the passed direction
 # the cells are dicts with a coord, a list of objs (string names), and a list of nodes
@@ -193,15 +228,6 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 		cursor += dir
 	return cells
 
-## state updates
-
-func add_player(coord: Vector2, node: DotHopPlayer) -> void:
-	players.append(Player.new(coord, node))
-
-func add_dot(coord: Vector2, node: Node2D) -> void:
-	if not coord in cell_nodes:
-		cell_nodes[coord] = []
-	(cell_nodes[coord] as Array).append(node)
 
 ## grid updates
 
@@ -233,3 +259,6 @@ func mark_player(coord: Vector2) -> void:
 func drop_player(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
 	grid[coord.y][coord.x].erase("Player")
+
+##################################################################
+# public state updates
