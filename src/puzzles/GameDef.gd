@@ -44,7 +44,33 @@ func to_pretty() -> Dictionary:
 
 ## helpers ########################################3333
 
-# convert passed legend input into a list of strings
+enum Obj {
+	Dot=0,
+	Dotted=1,
+	Goal=2,
+	Player=3,
+	Undo=4,
+	}
+
+static var obj_map: Dictionary[String, Obj] = {
+	Dot=Obj.Dot,
+	Dotted=Obj.Dotted,
+	Goal=Obj.Goal,
+	Player=Obj.Player,
+	PlayerA=Obj.Player,
+	PlayerB=Obj.Player,
+	Undo=Obj.Undo,
+	}
+
+static var reverse_obj_map: Dictionary[Obj, String] = {
+	Obj.Dot: "Dot",
+	Obj.Dotted: "Dotted",
+	Obj.Goal: "Goal",
+	Obj.Player: "Player",
+	Obj.Undo: "Undo",
+	}
+
+# convert passed legend input into a list of enums
 func get_cell_objects(cell: Variant) -> Variant:
 	if cell == null:
 		return
@@ -52,10 +78,13 @@ func get_cell_objects(cell: Variant) -> Variant:
 	var objs: Array = legend.get(cell, [])
 	# duplicate, so the returned array doesn't share state with every other cell
 	objs = objs.duplicate()
-	objs = objs.map(func(n: String) -> String:
-		if n in ["PlayerA", "PlayerB"]:
-			return "Player"
+	# map to Obj enum
+	objs = objs.map(func(n: String) -> Variant:
+		if n in GameDef.obj_map:
+			return GameDef.obj_map[n]
 		else:
-			return n)
+			Log.error("Unknown object type in legend", n)
+			return null)
+	objs = U.remove_nulls(objs)
 
 	return objs

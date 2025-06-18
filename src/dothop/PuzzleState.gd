@@ -38,6 +38,16 @@ class Cell:
 		objs = _objs if objs else []
 		nodes = _nodes
 
+	func has_player() -> bool:
+		return GameDef.Obj.Player in objs
+	func has_dot() -> bool:
+		return GameDef.Obj.Dot in objs
+	func has_dotted() -> bool:
+		return GameDef.Obj.Dotted in objs
+	func has_goal() -> bool:
+		return GameDef.Obj.Goal in objs
+
+
 ## move
 
 class Move:
@@ -104,9 +114,22 @@ func _init(puzzle_def: PuzzleDef, game_def: GameDef) -> void:
 		var r: Array = []
 		for x: int in len(row):
 			var cell: Variant = puzzle_def.shape[y][x]
-			# TODO convert these objs to an enum, probably at parse-time
 			var objs: Variant = game_def.get_cell_objects(cell)
 			r.append(objs)
+			if objs:
+				# if there are objects, we need to create a cell
+				# var nodes: Array[DotHopDot] = []
+				# if "Node" in objs:
+				# 	# if there is a node, we need to add it to the nodes_by_coord
+				# 	var node: DotHopDot = game_def.get_node_for_cell(Vector2(x, y))
+				# 	nodes.append(node)
+				# 	if not Vector2(x, y) in nodes_by_coord:
+				# 		nodes_by_coord[Vector2(x, y)] = []
+				# 	(nodes_by_coord[Vector2(x, y)] as Array).append(node)
+				add_cell(Vector2(x, y), objs as Array, [])
+			else:
+				add_cell(Vector2(x, y), [], [])
+
 		grid.append(r)
 
 	grid_xs = len(grid[0])
@@ -166,10 +189,10 @@ func dot_count(only_undotted: bool = false) -> int:
 	return len(all_cells().filter(func(c: Variant) -> bool:
 		if c == null:
 			return false
-		for obj_name: String in c:
-			if only_undotted and obj_name in ["Dot"]:
+		for obj_type: GameDef.Obj in c:
+			if only_undotted and obj_type in [GameDef.Obj.Dot]:
 				return true
-			elif not only_undotted and obj_name in ["Dot", "Dotted"]:
+			elif not only_undotted and obj_type in [GameDef.Obj.Dot, GameDef.Obj.Dotted]:
 				return true
 		return false))
 
@@ -183,21 +206,21 @@ func all_dotted() -> bool:
 	return all_cells().all(func(c: Variant) -> bool:
 		if c == null:
 			return true
-		for obj_name: String in c:
-			if obj_name == "Dot":
+		for obj_type: GameDef.Obj in c:
+			if obj_type == GameDef.Obj.Dot:
 				return false
 		return true)
 
 func all_players_at_goal() -> bool:
 	return all_cells().filter(func(c: Variant) -> bool:
-		return c != null and "Goal" in c
-		).all(func(c: Array) -> bool: return "Player" in c)
+		return c != null and GameDef.Obj.Goal in c
+		).all(func(c: Array) -> bool: return GameDef.Obj.Player in c)
 
 func is_coord_dotted(coord: Vector2) -> bool:
-	return "Dotted" in grid[coord.y][coord.x]
+	return GameDef.Obj.Dotted in grid[coord.y][coord.x]
 
 func is_coord_goal(coord: Vector2) -> bool:
-	return "Goal" in grid[coord.y][coord.x]
+	return GameDef.Obj.Goal in grid[coord.y][coord.x]
 
 ## grid helpers
 
@@ -233,32 +256,32 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 
 func mark_dotted(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase("Dot")
+	grid[coord.y][coord.x].erase(GameDef.Obj.Dot)
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append("Dotted")
+	grid[coord.y][coord.x].append(GameDef.Obj.Dotted)
 
 func mark_undotted(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase("Dotted")
+	grid[coord.y][coord.x].erase(GameDef.Obj.Dotted)
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append("Dot")
+	grid[coord.y][coord.x].append(GameDef.Obj.Dot)
 
 func mark_undo(coord: Vector2) -> void:
 	if not "Undo" in grid[coord.y][coord.x]:
 		@warning_ignore("unsafe_method_access")
-		grid[coord.y][coord.x].append("Undo")
+		grid[coord.y][coord.x].append(GameDef.Obj.Undo)
 
 func drop_undo(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase("Undo")
+	grid[coord.y][coord.x].erase(GameDef.Obj.Undo)
 
 func mark_player(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append("Player")
+	grid[coord.y][coord.x].append(GameDef.Obj.Player)
 
 func drop_player(coord: Vector2) -> void:
 	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase("Player")
+	grid[coord.y][coord.x].erase(GameDef.Obj.Player)
 
 ##################################################################
 # public state updates

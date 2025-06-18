@@ -380,7 +380,7 @@ func rebuild_nodes() -> void:
 			state.add_cell(coord, [], [])
 			continue
 		var dot_nodes: Array[DotHopDot] = []
-		for obj_name: String in objs:
+		for obj_name: GameDef.Obj in objs:
 			var node: Node2D = setup_node_at_coord(obj_name, coord)
 			if node is DotHopPlayer:
 				state.add_player(coord, node as DotHopPlayer)
@@ -404,8 +404,8 @@ func rebuild_nodes() -> void:
 	# trigger HUD update
 	rebuilt_nodes.emit()
 
-func setup_node_at_coord(obj_name: String, coord: Vector2) -> Node:
-	var node: Node2D = node_for_object_name(obj_name)
+func setup_node_at_coord(obj_type: GameDef.Obj, coord: Vector2) -> Node:
+	var node: Node2D = node_for_object_name(obj_type)
 	node.add_to_group("generated", true)
 	if node is DotHopDot:
 		var dot: DotHopDot = node
@@ -419,33 +419,33 @@ func setup_node_at_coord(obj_name: String, coord: Vector2) -> Node:
 		node.ready.connect(node.set_owner.bind(self))
 	return node
 
-func node_for_object_name(obj_name: String) -> Node2D:
-	var scene: PackedScene = get_scene_for(obj_name)
+func node_for_object_name(obj_type: GameDef.Obj) -> Node2D:
+	var scene: PackedScene = get_scene_for(obj_type)
 	if not scene:
-		Log.err("No scene found for object name", obj_name)
+		Log.err("No scene found for object name", obj_type)
 		return
 	var node: Node2D = scene.instantiate()
 	if node is DotHopDot:
 		var dot: DotHopDot = node
-		dot.display_name = obj_name
-		dot.type = obj_type.get(obj_name)
+		dot.display_name = GameDef.reverse_obj_map[obj_type]
+		dot.type = to_dot_type.get(obj_type)
 	if node is DotHopPlayer:
 		var p: DotHopPlayer = node
-		p.display_name = obj_name
+		p.display_name = GameDef.reverse_obj_map[obj_type]
 	return node
 
-var obj_type: Dictionary = {
-	"Dot": DHData.dotType.Dot,
-	"Dotted": DHData.dotType.Dotted,
-	"Goal": DHData.dotType.Goal,
+var to_dot_type: Dictionary = {
+	GameDef.Obj.Dot: DHData.dotType.Dot,
+	GameDef.Obj.Dotted: DHData.dotType.Dotted,
+	GameDef.Obj.Goal: DHData.dotType.Goal,
 	}
 
-func get_scene_for(obj_name: String) -> PackedScene:
+func get_scene_for(obj_name: GameDef.Obj) -> PackedScene:
 	match obj_name:
-		"Player": return PuzzleThemeData.get_player_scene(theme_data)
-		"Dot": return PuzzleThemeData.get_dot_scene(theme_data)
-		"Dotted": return PuzzleThemeData.get_dotted_scene(theme_data)
-		"Goal": return PuzzleThemeData.get_goal_scene(theme_data)
+		GameDef.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
+		GameDef.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
+		GameDef.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
+		GameDef.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
 		_: return
 
 ## setup level ##############################################################
@@ -688,17 +688,17 @@ func check_moves(move_dir: Vector2) -> Array[PuzzleState.Move]:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
 					moves_to_make.append(PuzzleState.Move.stuck(p))
 					break
-				if "Player" in cell.objs:
+				if cell.has_player():
 					moves_to_make.append(PuzzleState.Move.blocked_by_player(p))
 					# moving toward player animation?
 					break
-				if "Dotted" in cell.objs:
+				if cell.has_dotted():
 					moves_to_make.append(PuzzleState.Move.hop_a_dot(p, cell))
 					continue
-				if "Dot" in cell.objs:
+				if cell.has_dot():
 					moves_to_make.append(PuzzleState.Move.move_to_dot(p, cell))
 					break
-				if "Goal" in cell.objs:
+				if cell.has_goal():
 					moves_to_make.append(PuzzleState.Move.move_to_goal(p, cell))
 					break
 				Log.warn("unexpected/unhandled cell in direction", cell)
