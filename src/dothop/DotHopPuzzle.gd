@@ -222,8 +222,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		hold_to_reset_puzzle()
 	elif Trolls.is_restart_released(event):
 		cancel_reset_puzzle()
-	elif Trolls.is_debug_toggle(event):
-		Log.pr(state.grid)
+	# elif Trolls.is_debug_toggle(event):
+	# 	Log.pr(state.grid)
 
 var reset_tween: Tween
 func hold_to_reset_puzzle() -> void:
@@ -374,25 +374,21 @@ func rebuild_nodes() -> void:
 	clear_nodes()
 
 	var players: Array[DotHopPlayer] = []
-	for coord in state.all_coords():
-		var objs: Variant = state.objs_for_coord(coord)
-		if objs == null:
-			state.add_cell(coord, [], [])
-			continue
+	for cell: PuzzleState.Cell in state.all_cells():
 		var dot_nodes: Array[DotHopDot] = []
-		for obj_name: GameDef.Obj in objs:
-			var node: Node2D = setup_node_at_coord(obj_name, coord)
+		for obj_name: GameDef.Obj in cell.objs:
+			var node: Node2D = setup_node_at_coord(obj_name, cell.coord)
 			if node is DotHopPlayer:
-				state.add_player(coord, node as DotHopPlayer)
+				state.add_player(cell.coord, node as DotHopPlayer)
 				players.append(node)
 			elif node is DotHopDot:
 				var dot: DotHopDot = node
 				dot.dot_pressed.connect(on_dot_pressed.bind(dot))
 				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
 				add_child(dot)
-				state.add_dot(coord, dot)
+				state.add_dot(cell.coord, dot)
 				dot_nodes.append(node)
-		state.add_cell(coord, objs as Array, dot_nodes)
+		state.set_nodes(cell, dot_nodes)
 
 	# wait to add players last (so they end up on top)
 	for p: Node in players:
@@ -468,6 +464,9 @@ func coord_pos(node: Node2D) -> Vector2:
 
 func puzzle_rect(opts: Dictionary = {}) -> Rect2:
 	var nodes: Array = puzzle_cam_nodes(opts)
+	if len(nodes) == 0:
+		Log.error("No puzzle nodes found, cannot calc puzzle Rect!")
+		return Rect2()
 	var rect: Rect2 = Rect2(coord_pos(nodes[0] as Node2D), Vector2.ZERO)
 	for node: Variant in nodes:
 		if "square_size" in node:

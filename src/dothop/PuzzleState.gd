@@ -29,14 +29,17 @@ class Player:
 ## cell
 
 class Cell:
-	var objs: Array
+	var objs: Array[GameDef.Obj]
 	var coord: Vector2
 	var nodes: Array[DotHopDot]
 
-	func _init(_coord: Vector2, _objs: Array, _nodes: Array[DotHopDot]) -> void:
+	func _init(_coord: Vector2, _objs: Array[GameDef.Obj], _nodes: Array[DotHopDot]) -> void:
 		coord = _coord
-		objs = _objs if objs else []
+		objs = _objs
 		nodes = _nodes
+
+	func to_pretty() -> Variant:
+		return [coord, objs, nodes]
 
 	func has_player() -> bool:
 		return GameDef.Obj.Player in objs
@@ -95,6 +98,8 @@ enum MoveResult {
 
 ## state vars
 
+var puzzle_def: PuzzleDef
+var game_def: GameDef
 var win := false
 var players: Array[Player] = []
 var grid: Array
@@ -106,39 +111,20 @@ var cells_by_coord: Dictionary[Vector2, Cell] = {}
 
 ## init
 
-func _init(puzzle_def: PuzzleDef, game_def: GameDef) -> void:
-	grid = []
+func _init(puzz_def: PuzzleDef, g_def: GameDef) -> void:
+	puzzle_def = puzz_def
+	game_def = g_def
 
-	for y: int in len(puzzle_def.shape):
-		var row: Array = puzzle_def.shape[y]
-		var r: Array = []
-		for x: int in len(row):
-			var cell: Variant = puzzle_def.shape[y][x]
-			var objs: Variant = game_def.get_cell_objects(cell)
-			r.append(objs)
-			if objs:
-				# if there are objects, we need to create a cell
-				# var nodes: Array[DotHopDot] = []
-				# if "Node" in objs:
-				# 	# if there is a node, we need to add it to the nodes_by_coord
-				# 	var node: DotHopDot = game_def.get_node_for_cell(Vector2(x, y))
-				# 	nodes.append(node)
-				# 	if not Vector2(x, y) in nodes_by_coord:
-				# 		nodes_by_coord[Vector2(x, y)] = []
-				# 	(nodes_by_coord[Vector2(x, y)] as Array).append(node)
-				add_cell(Vector2(x, y), objs as Array, [])
-			else:
-				add_cell(Vector2(x, y), [], [])
+	for cell: GameDef.GridCell in game_def.grid_cells(puzzle_def):
+		var coord := Vector2(cell.coord.x, cell.coord.y)
+		cells_by_coord[coord] = Cell.new(coord, cell.objs, [])
 
-		grid.append(r)
+	Log.pr(cells_by_coord)
 
-	grid_xs = len(grid[0])
-	grid_ys = len(grid)
+	grid_xs = len(puzzle_def.shape[0])
+	grid_ys = len(puzzle_def.shape)
 
 ## state updates
-
-func add_cell(coord: Vector2, objs: Array, nodes: Array[DotHopDot]) -> void:
-	cells_by_coord[coord] = Cell.new(coord, objs, nodes)
 
 func add_player(coord: Vector2, node: DotHopPlayer) -> void:
 	players.append(Player.new(coord, node))
@@ -147,6 +133,9 @@ func add_dot(coord: Vector2, node: Node2D) -> void:
 	if not coord in nodes_by_coord:
 		nodes_by_coord[coord] = []
 	(nodes_by_coord[coord] as Array).append(node)
+
+func set_nodes(cell: Cell, nodes: Array[DotHopDot]) -> void:
+	cells_by_coord[cell.coord].nodes = nodes
 
 ## getters
 
@@ -157,21 +146,19 @@ func coord_for_dot(dot: DotHopDot) -> Vector2:
 	return Vector2.ZERO
 
 func all_coords() -> Array[Vector2]:
-	var crds: Array[Vector2] = []
-	for y: int in len(grid):
-		for x: int in len(grid[y]):
-			crds.append(Vector2(x, y))
-	return crds
+	return cells_by_coord.keys()
 
-func objs_for_coord(coord: Vector2) -> Variant:
-	return grid[int(coord.y)][int(coord.x)]
+func all_cells() -> Array[Cell]:
+	return cells_by_coord.values()
 
-# Returns a list of cell object names
-func all_cells() -> Array:
+func objs_for_coord(coord: Vector2) -> Array[GameDef.Obj]:
+	return cells_by_coord[coord].objs
+
+# Returns a list of cell-object-arrays (per cell)
+func all_cell_objs() -> Array:
 	var cs: Array = []
-	for row: Array in grid:
-		for cell: Variant in row:
-			cs.append(cell)
+	for cell: Cell in cells_by_coord.values():
+		cs.append(cell.objs)
 	return cs
 
 func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
@@ -186,9 +173,7 @@ func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
 	return t_nodes
 
 func dot_count(only_undotted: bool = false) -> int:
-	return len(all_cells().filter(func(c: Variant) -> bool:
-		if c == null:
-			return false
+	return len(all_cell_objs().filter(func(c: Array[GameDef.Obj]) -> bool:
 		for obj_type: GameDef.Obj in c:
 			if only_undotted and obj_type in [GameDef.Obj.Dot]:
 				return true
@@ -203,24 +188,22 @@ func check_win() -> bool:
 
 # Returns true if there are no "dot" objects in the state grid
 func all_dotted() -> bool:
-	return all_cells().all(func(c: Variant) -> bool:
-		if c == null:
-			return true
-		for obj_type: GameDef.Obj in c:
-			if obj_type == GameDef.Obj.Dot:
-				return false
+	return all_cell_objs().all(func(objs: Array[GameDef.Obj]) -> bool:
+		if GameDef.Obj.Dot in objs:
+			return false
 		return true)
 
 func all_players_at_goal() -> bool:
-	return all_cells().filter(func(c: Variant) -> bool:
-		return c != null and GameDef.Obj.Goal in c
-		).all(func(c: Array) -> bool: return GameDef.Obj.Player in c)
+	return all_cell_objs().filter(func(c: Array[GameDef.Obj]) -> bool:
+		return GameDef.Obj.Goal in c
+		).all(func(c: Array[GameDef.Obj]) -> bool:
+			return GameDef.Obj.Player in c)
 
 func is_coord_dotted(coord: Vector2) -> bool:
-	return GameDef.Obj.Dotted in grid[coord.y][coord.x]
+	return GameDef.Obj.Dotted in cells_by_coord[coord].objs
 
 func is_coord_goal(coord: Vector2) -> bool:
-	return GameDef.Obj.Goal in grid[coord.y][coord.x]
+	return GameDef.Obj.Goal in cells_by_coord[coord].objs
 
 ## grid helpers
 
@@ -230,12 +213,7 @@ func coord_in_grid(coord: Vector2) -> bool:
 		coord.x < grid_xs and coord.y < grid_ys
 
 func cell_at_coord(coord: Vector2) -> PuzzleState.Cell:
-	var cell: Cell = cells_by_coord.get(coord)
-	# overwrite with the latest objs
-	# TODO update the cells in place instead of the grid?
-	if grid[coord.y][coord.x]:
-		cell.objs = grid[coord.y][coord.x]
-	return cell
+	return cells_by_coord.get(coord)
 
 # returns a list of cells from the passed position in the passed direction
 # the cells are dicts with a coord, a list of objs (string names), and a list of nodes
@@ -252,36 +230,28 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 	return cells
 
 
-## grid updates
+## grid cell updates
 
 func mark_dotted(coord: Vector2) -> void:
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase(GameDef.Obj.Dot)
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append(GameDef.Obj.Dotted)
+	cells_by_coord[coord].objs.erase(GameDef.Obj.Dot)
+	cells_by_coord[coord].objs.append(GameDef.Obj.Dotted)
 
 func mark_undotted(coord: Vector2) -> void:
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase(GameDef.Obj.Dotted)
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append(GameDef.Obj.Dot)
+	cells_by_coord[coord].objs.erase(GameDef.Obj.Dotted)
+	cells_by_coord[coord].objs.append(GameDef.Obj.Dot)
 
 func mark_undo(coord: Vector2) -> void:
-	if not "Undo" in grid[coord.y][coord.x]:
-		@warning_ignore("unsafe_method_access")
-		grid[coord.y][coord.x].append(GameDef.Obj.Undo)
+	if not "Undo" in cells_by_coord[coord].objs:
+		cells_by_coord[coord].objs.append(GameDef.Obj.Undo)
 
 func drop_undo(coord: Vector2) -> void:
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase(GameDef.Obj.Undo)
+	cells_by_coord[coord].objs.erase(GameDef.Obj.Undo)
 
 func mark_player(coord: Vector2) -> void:
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].append(GameDef.Obj.Player)
+	cells_by_coord[coord].objs.append(GameDef.Obj.Player)
 
 func drop_player(coord: Vector2) -> void:
-	@warning_ignore("unsafe_method_access")
-	grid[coord.y][coord.x].erase(GameDef.Obj.Player)
+	cells_by_coord[coord].objs.erase(GameDef.Obj.Player)
 
 ##################################################################
 # public state updates

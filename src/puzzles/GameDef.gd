@@ -70,6 +70,41 @@ static var reverse_obj_map: Dictionary[Obj, String] = {
 	Obj.Undo: "Undo",
 	}
 
+static func obj_name_to_type(n: String) -> Variant:
+	if n in GameDef.obj_map:
+		return GameDef.obj_map[n]
+
+	Log.error("Unknown object type in legend", n)
+	return null
+
+static func obj_type_to_name(t: Obj) -> String:
+	if t in GameDef.reverse_obj_map:
+		return GameDef.reverse_obj_map[t]
+
+	Log.error("Unknown object type in reverse map", t)
+	return "Unknown"
+
+class GridCell:
+	var coord: Vector2i
+	var objs: Array[Obj]
+
+	func _init(x: int, y: int, _objs: Array[String]) -> void:
+		coord = Vector2i(x, y)
+		var os := _objs.map(GameDef.obj_name_to_type)
+		os = U.remove_nulls(os)
+		objs.assign(os)
+
+# depends on the game def instance's parsed legend
+func grid_cells(puzzle_def: PuzzleDef) -> Array[GridCell]:
+	var cells: Array[GridCell] = []
+	for y in range(len(puzzle_def.shape)):
+		for x in range(len(puzzle_def.shape[0])):
+			var os: Array = legend.get(puzzle_def.shape[y][x], [])
+			var objs: Array[String] = []
+			objs.assign(os)
+			cells.append(GridCell.new(x, y, objs))
+	return cells
+
 # convert passed legend input into a list of enums
 func get_cell_objects(cell: Variant) -> Variant:
 	if cell == null:
@@ -79,12 +114,7 @@ func get_cell_objects(cell: Variant) -> Variant:
 	# duplicate, so the returned array doesn't share state with every other cell
 	objs = objs.duplicate()
 	# map to Obj enum
-	objs = objs.map(func(n: String) -> Variant:
-		if n in GameDef.obj_map:
-			return GameDef.obj_map[n]
-		else:
-			Log.error("Unknown object type in legend", n)
-			return null)
+	objs = objs.map(GameDef.obj_name_to_type)
 	objs = U.remove_nulls(objs)
 
 	return objs
