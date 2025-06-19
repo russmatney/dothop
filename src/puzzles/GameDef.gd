@@ -19,6 +19,23 @@ static func parse_game_def(_path: Variant, opts: Dictionary = {}) -> GameDef:
 static func parse_puzzle_def(lines: Array) -> PuzzleDef:
 	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines) as Dictionary)
 
+# finally baking the legend into the code directly
+static var default_legend := {
+	"." : ["Background"],
+	"o" : ["Dot"],
+	"t" : ["Goal"],
+	"x" : ["Player", "Dotted"], #consider dropping 'player' and supporting a clearer 'start'
+	}
+
+static func from_puzzle(puzzle: Array) -> GameDef:
+	# gross - wtf is going on with these constructors
+	var parsed_game := ParsedGame.new()
+	var puzz_def := PuzzleDef.new(parsed_game.parse_puzzle(puzzle) as Dictionary)
+	parsed_game.legend = default_legend
+	var game_def := GameDef.new(null, parsed_game)
+	game_def.puzzles = [puzz_def]
+	return game_def
+
 ## vars ########################################3333
 
 var puzzles: Array[PuzzleDef] = []

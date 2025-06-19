@@ -1,5 +1,5 @@
 extends GdUnitTestSuite
-class_name DotHopTest
+class_name DotHopPuzzleTest
 
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
 	var puz_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
@@ -10,19 +10,19 @@ func build_puzzle(puzzle: Array) -> DotHopPuzzle:
 func test_basic_puzzle_one_win() -> void:
 	var puzzle: DotHopPuzzle = build_puzzle(["xoot"])
 
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Goal, GameDef.Obj.Player]])
 	assert_that(puzzle.state.win).is_equal(true)
 
@@ -32,23 +32,23 @@ func test_basic_puzzle_one_undo() -> void:
 
 	var puzzle: DotHopPuzzle = build_puzzle(["xoot"])
 
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.LEFT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.LEFT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 
@@ -57,27 +57,27 @@ func test_basic_puzzle_one_undo() -> void:
 func test_two_player_puzzle_one_win() -> void:
 	var puzzle: DotHopPuzzle = build_puzzle(["xoot", "xoot"])
 
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Goal, GameDef.Obj.Player]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Goal, GameDef.Obj.Player]])
 	assert_that(puzzle.state.win).is_equal(true)
 	puzzle.free()
@@ -85,33 +85,33 @@ func test_two_player_puzzle_one_win() -> void:
 func test_two_player_puzzle_one_undo() -> void:
 	var puzzle: DotHopPuzzle = build_puzzle(["xoot", "xoot"])
 
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.RIGHT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.LEFT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.move(Vector2.LEFT)
-	assert_that(puzzle.state.grid[0]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dot], [GameDef.Obj.Dot], [GameDef.Obj.Goal]])
 	assert_that(puzzle.state.win).is_equal(false)
 	puzzle.free()
@@ -129,19 +129,19 @@ func test_undo_obj_is_not_duplicated() -> void:
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.UP)
 
-	assert_that(puzzle.state.grid[0]).is_equal(
-		[null, null, [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted]])
-	assert_that(puzzle.state.grid[2]).is_equal(
-		[null, null, [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo]])
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
+		[[], [], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted]])
+	assert_that(puzzle.state.get_grid_row_objs(2)).is_equal(
+		[[], [], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo]])
 
 	puzzle.move(Vector2.DOWN)
 
 	# This path was producing an extra GameDef.Obj.Undo in the state grid,
 	# when the second player didn't move during an undo
-	assert_that(puzzle.state.grid[0]).is_equal(
-		[null, null, [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted]])
-	assert_that(puzzle.state.grid[2]).is_equal(
-		[null, null, [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted, GameDef.Obj.Player]])
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
+		[[], [], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Player, GameDef.Obj.Dotted]])
+	assert_that(puzzle.state.get_grid_row_objs(2)).is_equal(
+		[[], [], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted, GameDef.Obj.Player]])
 
 	puzzle.free()
 
@@ -158,42 +158,39 @@ func test_undo_obj_is_not_added_to_other_non_moving_player() -> void:
 	puzzle.move(Vector2.LEFT)
 	puzzle.move(Vector2.LEFT)
 
-	assert_that(puzzle.state.grid[1]).is_equal(
-		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted, GameDef.Obj.Undo], null, null, [GameDef.Obj.Player, GameDef.Obj.Dotted], null, [GameDef.Obj.Dot]])
-	assert_that(puzzle.state.grid[2]).is_equal(
-		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], null, [GameDef.Obj.Dotted], null, [GameDef.Obj.Dotted], null])
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
+		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [], [], [GameDef.Obj.Player, GameDef.Obj.Dotted], [], [GameDef.Obj.Dot]])
+	assert_that(puzzle.state.get_grid_row_objs(2)).is_equal(
+		[[GameDef.Obj.Player, GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [], [GameDef.Obj.Dotted], [], [GameDef.Obj.Dotted], []])
 
 	puzzle.move(Vector2.DOWN)
 
-	assert_that(puzzle.state.grid[1]).is_equal(
-		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted, GameDef.Obj.Undo], null, null, [GameDef.Obj.Player, GameDef.Obj.Dotted], null, [GameDef.Obj.Dot]])
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
+		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [], [], [GameDef.Obj.Player, GameDef.Obj.Dotted], [], [GameDef.Obj.Dot]])
 
 	puzzle.move(Vector2.UP)
 
 	# here we should have moved the top player's undo along
-	assert_that(puzzle.state.grid[1]).is_equal(
-		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted], null, null, [GameDef.Obj.Dotted, GameDef.Obj.Undo], null, [GameDef.Obj.Dot]])
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
+		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted], [], [], [GameDef.Obj.Dotted, GameDef.Obj.Undo], [], [GameDef.Obj.Dot]])
 
 	puzzle.move(Vector2.RIGHT)
 	puzzle.move(Vector2.DOWN)
 
-	assert_that(puzzle.state.grid[0]).is_equal(
-		[null, null, null, null, [GameDef.Obj.Dotted], null, [GameDef.Obj.Dotted, GameDef.Obj.Undo]])
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(0)).is_equal(
+		[[], [], [], [], [GameDef.Obj.Dotted], [], [GameDef.Obj.Dotted, GameDef.Obj.Undo]])
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Goal], [GameDef.Obj.Dotted # extra UNDO here?
-			], null, null, [GameDef.Obj.Dotted], null, [GameDef.Obj.Player, GameDef.Obj.Dotted]])
-	assert_that(puzzle.state.grid[2]).is_equal(
-		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted], null, [GameDef.Obj.Dotted], null, [GameDef.Obj.Dotted], null])
-	assert_that(puzzle.state.grid[3]).is_equal(
-		[[GameDef.Obj.Goal, GameDef.Obj.Player], null, null, null, null, null, null])
+			], [], [], [GameDef.Obj.Dotted], [], [GameDef.Obj.Player, GameDef.Obj.Dotted]])
+	assert_that(puzzle.state.get_grid_row_objs(2)).is_equal(
+		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted], [], [GameDef.Obj.Dotted], [], [GameDef.Obj.Dotted], []])
+	assert_that(puzzle.state.get_grid_row_objs(3)).is_equal(
+		[[GameDef.Obj.Goal, GameDef.Obj.Player], [], [], [], [], [], []])
 
 	puzzle.move(Vector2.LEFT)
 	assert_that(puzzle.state.win).is_equal(true)
 
 	puzzle.free()
-
-	# assert_that(puzzle.state.grid[2],
-	# 	[null, null, [GameDef.Obj.Dotted], [GameDef.Obj.Dotted, GameDef.Obj.Undo]])
 
 func test_can_finish_puzzle_10() -> void:
 	var puzzle: DotHopPuzzle = build_puzzle([
@@ -237,14 +234,14 @@ func test_can_undo_across_dotted_cells() -> void:
 	puzzle.move(Vector2.DOWN)
 	puzzle.move(Vector2.RIGHT)
 
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Undo], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Goal, GameDef.Obj.Player]])
 	assert_that(puzzle.state.players[0].stuck).is_equal(true)
 
 	puzzle.move(Vector2.LEFT)
 
 	assert_that(puzzle.state.players[0].stuck).is_equal(false)
-	assert_that(puzzle.state.grid[1]).is_equal(
+	assert_that(puzzle.state.get_grid_row_objs(1)).is_equal(
 		[[GameDef.Obj.Dotted, GameDef.Obj.Player], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Dotted], [GameDef.Obj.Goal]])
 
 	puzzle.free()

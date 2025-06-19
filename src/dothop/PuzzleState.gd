@@ -10,7 +10,7 @@ class Player:
 	var move_history: Array = []
 	var node: DotHopPlayer
 
-	func _init(crd: Vector2, nd: DotHopPlayer) -> void:
+	func _init(crd: Vector2, nd: DotHopPlayer = null) -> void:
 		coord = crd
 		node = nd
 
@@ -49,25 +49,18 @@ class Cell:
 		return GameDef.Obj.Dotted in objs
 	func has_goal() -> bool:
 		return GameDef.Obj.Goal in objs
+	func has_undo() -> bool:
+		return GameDef.Obj.Undo in objs
 
 
 ## move
 
 class Move:
-	enum MoveType {
-		undo=0,
-		stuck=1,
-		blocked_by_player=2,
-		move_to_dot=3,
-		move_to_goal=4,
-		hop_a_dot=5,
-		}
-
-	var player: PuzzleState.Player
+	var player: Player
 	var type: MoveType
-	var cell: PuzzleState.Cell
+	var cell: Cell
 
-	func _init(t: MoveType, p: PuzzleState.Player, c: PuzzleState.Cell = null) -> void:
+	func _init(t: MoveType, p: Player, c: Cell = null) -> void:
 		type = t
 		player = p
 		cell = c
@@ -75,18 +68,27 @@ class Move:
 	func to_pretty() -> Variant:
 		return [type, player, cell]
 
-	static func undo(p: PuzzleState.Player) -> Move:
+	static func undo(p: Player) -> Move:
 		return Move.new(MoveType.undo, p)
-	static func stuck(p: PuzzleState.Player) -> Move:
+	static func stuck(p: Player) -> Move:
 		return Move.new(MoveType.stuck, p)
-	static func blocked_by_player(p: PuzzleState.Player) -> Move:
+	static func blocked_by_player(p: Player) -> Move:
 		return Move.new(MoveType.blocked_by_player, p)
-	static func move_to_dot(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+	static func move_to_dot(p: Player, c: Cell) -> Move:
 		return Move.new(MoveType.move_to_dot, p, c)
-	static func move_to_goal(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+	static func move_to_goal(p: Player, c: Cell) -> Move:
 		return Move.new(MoveType.move_to_goal, p, c)
-	static func hop_a_dot(p: PuzzleState.Player, c: PuzzleState.Cell) -> Move:
+	static func hop_a_dot(p: Player, c: Cell) -> Move:
 		return Move.new(MoveType.hop_a_dot, p, c)
+
+enum MoveType {
+	undo=0,
+	stuck=1,
+	blocked_by_player=2,
+	move_to_dot=3,
+	move_to_goal=4,
+	hop_a_dot=5,
+	}
 
 enum MoveResult {
 	zero=0,
@@ -109,6 +111,14 @@ var grid_ys: int
 var nodes_by_coord: Dictionary = {} # just the nodes
 var cells_by_coord: Dictionary[Vector2, Cell] = {}
 
+## state
+
+func to_pretty() -> Variant:
+	var _grid: Array = []
+	for row in range(grid_ys):
+		_grid.append(get_grid_row_objs(row))
+	return {state="state", grid=_grid}
+
 ## init
 
 func _init(puzz_def: PuzzleDef, g_def: GameDef) -> void:
@@ -119,15 +129,19 @@ func _init(puzz_def: PuzzleDef, g_def: GameDef) -> void:
 		var coord := Vector2(cell.coord.x, cell.coord.y)
 		cells_by_coord[coord] = Cell.new(coord, cell.objs, [])
 
-	Log.pr(cells_by_coord)
+		if GameDef.Obj.Player in cell.objs:
+			players.append(Player.new(coord))
 
 	grid_xs = len(puzzle_def.shape[0])
 	grid_ys = len(puzzle_def.shape)
 
 ## state updates
 
+# TODO rename to 'set-player-node' or some such
 func add_player(coord: Vector2, node: DotHopPlayer) -> void:
-	players.append(Player.new(coord, node))
+	for p: Player in players:
+		if p.coord == coord:
+			p.node = node
 
 func add_dot(coord: Vector2, node: Node2D) -> void:
 	if not coord in nodes_by_coord:
@@ -138,6 +152,13 @@ func set_nodes(cell: Cell, nodes: Array[DotHopDot]) -> void:
 	cells_by_coord[cell.coord].nodes = nodes
 
 ## getters
+
+func get_grid_row_objs(row: int) -> Array:
+	var row_objs: Array = []
+	for x in range(grid_xs):
+		var cell: Cell = cells_by_coord[Vector2(x, row)]
+		row_objs.append(cell.objs)
+	return row_objs
 
 func coord_for_dot(dot: DotHopDot) -> Vector2:
 	for coord: Vector2 in nodes_by_coord:
@@ -212,7 +233,7 @@ func coord_in_grid(coord: Vector2) -> bool:
 	return coord.x >= 0 and coord.y >= 0 and \
 		coord.x < grid_xs and coord.y < grid_ys
 
-func cell_at_coord(coord: Vector2) -> PuzzleState.Cell:
+func cell_at_coord(coord: Vector2) -> Cell:
 	return cells_by_coord.get(coord)
 
 # returns a list of cells from the passed position in the passed direction
@@ -241,7 +262,7 @@ func mark_undotted(coord: Vector2) -> void:
 	cells_by_coord[coord].objs.append(GameDef.Obj.Dot)
 
 func mark_undo(coord: Vector2) -> void:
-	if not "Undo" in cells_by_coord[coord].objs:
+	if not cells_by_coord[coord].has_undo():
 		cells_by_coord[coord].objs.append(GameDef.Obj.Undo)
 
 func drop_undo(coord: Vector2) -> void:
@@ -255,3 +276,52 @@ func drop_player(coord: Vector2) -> void:
 
 ##################################################################
 # public state updates
+
+func check_move(move_dir: Vector2) -> Array[Move]:
+	var moves_to_make: Array[Move] = []
+	for p: Player in players:
+		var cells: Array = cells_in_direction(p.coord, move_dir)
+		if len(cells) == 0:
+			moves_to_make.append(Move.stuck(p))
+			continue
+
+		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
+		if len(cells) == 0:
+			moves_to_make.append(Move.stuck(p))
+			continue
+
+		# instead of markers, read undo based on only the player move history?
+		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool:
+			return c.has_undo() and c.coord in p.move_history))
+
+		if undo_cell_in_dir != null:
+			moves_to_make.append(Move.undo(p))
+		else:
+			for cell: Cell in cells:
+				if p.stuck:
+					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
+					moves_to_make.append(Move.stuck(p))
+					break
+				if cell.has_player():
+					moves_to_make.append(Move.blocked_by_player(p))
+					# moving toward player animation?
+					break
+				if cell.has_dotted():
+					moves_to_make.append(Move.hop_a_dot(p, cell))
+					continue
+				if cell.has_dot():
+					moves_to_make.append(Move.move_to_dot(p, cell))
+					break
+				if cell.has_goal():
+					moves_to_make.append(Move.move_to_goal(p, cell))
+					break
+				Log.warn("unexpected/unhandled cell in direction", cell)
+
+		# if no moves to make, maybe we want to add a stuck move
+	return moves_to_make
+
+func check_all_moves() -> Dictionary:
+	var moves: Dictionary = {}
+	for dir: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
+		moves[dir] = check_move(dir)
+	return moves
