@@ -214,8 +214,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		if state == null:
 			Log.warn("No state, ignoring undo input")
 			return
-		for p: PuzzleState.Player in state.players:
-			undo_last_move(p)
+		undo_last_move()
 		restart_block_move_timer(0.1)
 
 	elif Trolls.is_restart_held(event):
@@ -245,8 +244,7 @@ func undo_pressed() -> void:
 	if state == null:
 		Log.warn("No state, ignoring undo input")
 		return
-	for p: PuzzleState.Player in state.players:
-		undo_last_move(p)
+	undo_last_move()
 
 
 ## attempt_move ##############################################################
@@ -492,184 +490,34 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 		cam_nodes.append(p.node)
 	return cam_nodes
 
-
-## move/state-updates ##############################################################
-
-# Move the player to the passed cell's coordinate.
-# also updates the game state
-# cell should have a `coord`
-# NOTE updating move_history is done after all players move
-func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
-	# move player node
-	var move_finished_sig: Signal
-	var res: Variant = player.node.move_to_coord(cell.coord)
-	if res != null:
-		move_finished_sig = res
-
-	# update game state
-	state.mark_player(cell.coord)
-	state.drop_player(player.coord)
-
-	# remove previous undo marker
-	# NOTE start_at 1 b/c history has already been updated
-	var prev_undo_coord: Variant
-	if len(player.move_history) > 1:
-		prev_undo_coord = player.previous_undo_coord(player.coord, 1)
-	if prev_undo_coord != null:
-		state.drop_undo(prev_undo_coord as Vector2)
-
-	# add new undo marker at current coord
-	state.mark_undo(player.coord)
-
-	# update to new coord
-	player.coord = cell.coord
-
-	return move_finished_sig
-
-# converts the dot at the cell's coord to a dotted one
-# depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell: PuzzleState.Cell) -> void:
-	# support multiple nodes per cell?
-	var node: DotHopDot = U.first(cell.nodes)
-	if node == null:
-		Log.warn("can't mark dotted, no node found!", cell)
-		return
-	node.mark_dotted()
-	state.mark_dotted(cell.coord)
-
-# converts dotted back to dot (undo)
-# depends on cell for `coord` and `nodes`.
-func mark_cell_undotted(cell: PuzzleState.Cell) -> void:
-	# support multiple nodes per cell?
-	var node: DotHopDot = U.first(cell.nodes)
-	if node == null:
-		# undoing from goal doesn't require any undotting
-		return
-	node.mark_undotted()
-	# update game state
-	state.mark_undotted(cell.coord)
-
-## move to dot ##############################################################
-
-func move_to_dot(player: PuzzleState.Player, cell: PuzzleState.Cell) -> void:
-	# consider handling these in the same step (depending on the animation)
-	move_player_to_cell(player, cell)
-	mark_cell_dotted(cell)
-
-## move to goal ##############################################################
-
-func move_to_goal(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
-	var move_finished: Signal = move_player_to_cell(player, cell)
-
-	if state.check_win():
-		state.win = true
-		return move_finished
-	else:
-		player.stuck = true
-		return move_finished
-
-## undo last move ##############################################################
-
-func undo_last_move(player: PuzzleState.Player) -> void:
-	# supports the solver - undo moves state.win back to false
-	state.win = false
-
-	if len(player.move_history) == 0:
-		Log.warn("Can't undo, no moves yet!")
-		return
-	# remove last move from move_history
-	var last_pos: Vector2 = player.move_history.pop_front()
-	var dest_cell: PuzzleState.Cell = state.cell_at_coord(last_pos)
-
-	# need to walk back the grid's Undo markers
-	var pos_before_last: Variant = player.previous_undo_coord(dest_cell.coord, 0)
-	if pos_before_last != null:
-		state.mark_undo(pos_before_last as Vector2)
-	state.drop_undo(dest_cell.coord)
-
-	if last_pos == player.coord:
-		# used in multi-hopper puzzles ('other' player stays in same place when undoing)
-		player.node.undo_to_same_coord()
-		return
-
-	# move player node
-	player.node.undo_to_coord(dest_cell.coord)
-
-	# update game state
-	state.mark_player(dest_cell.coord)
-	state.drop_player(player.coord)
-
-	if state.is_coord_dotted(player.coord):
-		# restore dot at the current player position
-		mark_cell_undotted(state.cell_at_coord(player.coord))
-	if state.is_coord_goal(player.coord):
-		# unstuck when undoing from the goal
-		player.stuck = false
-
-	# update state player position
-	player.coord = dest_cell.coord
-
 ## move ##############################################################
 
-func apply_moves(move_dir: Vector2, moves_to_make: Array[PuzzleState.Move]) -> PuzzleState.MoveResult:
-	var any_move: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool:
-		return m.type in [PuzzleState.MoveType.move_to_dot, PuzzleState.MoveType.move_to_goal])
-	if any_move:
-		for p: PuzzleState.Player in state.players:
-			p.move_history.push_front(p.coord)
-
-		for m: PuzzleState.Move in moves_to_make:
-			# TODO consider influencing these moves with any Move.dots-to-hop
-
-			if m.type == PuzzleState.MoveType.move_to_dot:
-				move_to_dot(m.player, m.cell)
-			if m.type == PuzzleState.MoveType.move_to_goal:
-				move_to_goal(m.player, m.cell)
-
-		# trigger HUD update
-		player_moved.emit()
-
-		if state.win:
-			# TODO i think we wait to emit this? check_win elsewhere?
-			# at least wait until the player animation is done... unless we should have a different one
-			win.emit()
-		return PuzzleState.MoveResult.moved
-
-	var any_undo: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool: return m.type == PuzzleState.MoveType.undo)
-	if any_undo:
-		# consider only undoing ONE time? does it make a difference?
-		for m: PuzzleState.Move in moves_to_make:
-			if m.type == PuzzleState.MoveType.undo:
-				undo_last_move(m.player)
-
-				player_undo.emit()
-		# exit early for undos
-		return PuzzleState.MoveResult.undo
-
-	var any_stuck: bool = moves_to_make.any(func(m: PuzzleState.Move) -> bool:
-		return m.type in [
-			PuzzleState.MoveType.stuck, PuzzleState.MoveType.hop_a_dot,
-			])
-	if any_stuck:
-		for m: PuzzleState.Move in moves_to_make:
-			if m.type == PuzzleState.MoveType.stuck:
-				m.player.node.move_attempt_stuck(move_dir)
-			if m.type == PuzzleState.MoveType.hop_a_dot:
-				# reusing the stuck behavior here
-				m.player.node.move_attempt_stuck(move_dir)
-
-	# trigger HUD update
-	move_rejected.emit()
-
-	return PuzzleState.MoveResult.stuck
-
 func move(move_dir: Vector2) -> PuzzleState.MoveResult:
-	if move_dir == Vector2.ZERO:
-		# don't do anything!
-		return PuzzleState.MoveResult.zero
 	if not move_dir in ALLOWED_MOVES:
 		return PuzzleState.MoveResult.move_not_allowed
 
-	var moves_to_make := state.check_move(move_dir)
-	# Log.prn("moves to make", moves_to_make)
-	return apply_moves(move_dir, moves_to_make)
+	var move_result := state.move(move_dir)
+
+	# TODO these should all be signals fired by PuzzleState
+	# subscribe when building the state, connect the nodes to signals
+	match move_result:
+		PuzzleState.MoveResult.moved:
+			player_moved.emit()
+
+			# TODO we need to wait emit this - ideally check in a player-movement-finished handler
+			if state.win:
+				win.emit()
+		PuzzleState.MoveResult.undo:
+			player_undo.emit()
+		PuzzleState.MoveResult.stuck:
+			move_rejected.emit()
+
+	return move_result
+
+# TODO could dry up to use apply_moves and the response here
+# but if we subscribe to signals, maybe those will just get emitted,
+# and this doesn't need to do anything?
+func undo_last_move() -> void:
+	for p: PuzzleState.Player in state.players:
+		state.undo_last_move(p)
+	player_undo.emit()

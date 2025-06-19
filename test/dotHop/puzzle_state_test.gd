@@ -52,64 +52,90 @@ func test_state_drop_player() -> void:
 
 ## check_moves
 
+func test_check_moves() -> void:
+	var state := build_state(["x"])
+	var all_moves := state.check_all_moves()
+	assert_that(all_moves[Vector2.RIGHT][0].type).is_equal([PuzzleState.MoveType.stuck])
+	assert_that(all_moves[Vector2.LEFT][0].type).is_equal([PuzzleState.MoveType.stuck])
+	assert_that(all_moves[Vector2.UP][0].type).is_equal([PuzzleState.MoveType.stuck])
+	assert_that(all_moves[Vector2.DOWN][0].type).is_equal([PuzzleState.MoveType.stuck])
+
 func test_check_move_move_to_dot() -> void:
 	var state := build_state(["xo"])
 	var moves := state.check_move(Vector2.RIGHT)
-	var move_types := moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.move_to_dot])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
 
 	state = build_state(["x", "o"])
 	moves = state.check_move(Vector2.DOWN)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.move_to_dot])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
 
 	state = build_state(["ox"])
 	moves = state.check_move(Vector2.LEFT)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.move_to_dot])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
 
 	state = build_state(["o", "x"])
 	moves = state.check_move(Vector2.UP)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.move_to_dot])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
 
 func test_check_move_move_to_goal() -> void:
 	var state := build_state(["xt"])
 	var moves := state.check_move(Vector2.RIGHT)
-	var move_types := moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.move_to_goal])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_goal)
 
 func test_check_move_stuck() -> void:
 	var state := build_state(["xo"])
 	var moves := state.check_move(Vector2.LEFT)
-	var move_types := moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
 
 	moves = state.check_move(Vector2.UP)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
 
 	moves = state.check_move(Vector2.DOWN)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
 
 	state = build_state(["x", "o"])
 	moves = state.check_move(Vector2.LEFT)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
 
 	moves = state.check_move(Vector2.UP)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
 
 	moves = state.check_move(Vector2.RIGHT)
-	move_types = moves.map(func(m: PuzzleState.Move) -> PuzzleState.MoveType: return m.type)
-	assert_array(move_types).contains_exactly_in_any_order([PuzzleState.MoveType.stuck])
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.stuck)
+
+# func test_check_move_undo() -> void:
+# 	# TODO support 'u' in the legend an undo
+# 	# TODO support 'dotted' in the legend an undo
+# 	var state := build_state(["xu"])
+# 	var moves := state.check_move(Vector2.RIGHT)
+# 	assert_int(len(moves)).is_equal(1)
+# 	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.undo)
 
 ## apply_moves
 
-# func test_apply_moves_move_to_dot() -> void:
-# 	pass
+func test_apply_moves_move_to_dot() -> void:
+	var state := build_state(["xo"])
+
+	assert_array(state.get_grid_row_objs(0)[0]).contains_exactly_in_any_order([GameDef.Obj.Dotted, GameDef.Obj.Player])
+	assert_array(state.get_grid_row_objs(0)[1]).contains_exactly_in_any_order([GameDef.Obj.Dot])
+	var moves := state.check_move(Vector2.RIGHT)
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
+	var res := state.apply_moves(moves)
+	assert_that(res).is_equal(PuzzleState.MoveResult.moved)
+	assert_array(state.get_grid_row_objs(0)[0]).contains_exactly_in_any_order([GameDef.Obj.Dotted])
+	assert_array(state.get_grid_row_objs(0)[1]).contains_exactly_in_any_order([GameDef.Obj.Dotted, GameDef.Obj.Player])
 
 ## full movement tests
 

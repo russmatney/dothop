@@ -20,11 +20,15 @@ static func parse_puzzle_def(lines: Array) -> PuzzleDef:
 	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines) as Dictionary)
 
 # finally baking the legend into the code directly
+# TODO support 'u' in the legend
+# TODO support some kind of 'dotted' in the legend
+# TODO drop 'player' in favor of 'start'
+# TODO parse directly into enums here
 static var default_legend := {
 	"." : ["Background"],
 	"o" : ["Dot"],
 	"t" : ["Goal"],
-	"x" : ["Player", "Dotted"], #consider dropping 'player' and supporting a clearer 'start'
+	"x" : ["Player", "Dotted"],
 	}
 
 static func from_puzzle(puzzle: Array) -> GameDef:
