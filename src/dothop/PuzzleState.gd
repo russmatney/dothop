@@ -342,9 +342,10 @@ func check_all_moves() -> Dictionary:
 func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
 	# move player node
 	var move_finished_sig: Signal
-	var res: Variant = player.node.move_to_coord(cell.coord)
-	if res != null:
-		move_finished_sig = res
+	if player.node != null:
+		var res: Variant = player.node.move_to_coord(cell.coord)
+		if res != null:
+			move_finished_sig = res
 
 	# update game state
 	mark_player(cell.coord)
@@ -369,25 +370,26 @@ func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> 
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
 func mark_cell_dotted(cell: PuzzleState.Cell) -> void:
+	# update game state
+	mark_dotted(cell.coord)
 	# support multiple nodes per cell?
 	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
-		Log.warn("can't mark dotted, no node found!", cell)
+		# Log.warn("can't mark dotted, no node found!", cell)
 		return
 	node.mark_dotted()
-	mark_dotted(cell.coord)
 
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
 func mark_cell_undotted(cell: PuzzleState.Cell) -> void:
+	# update game state
+	mark_undotted(cell.coord)
 	# support multiple nodes per cell?
 	var node: DotHopDot = U.first(cell.nodes)
 	if node == null:
 		# undoing from goal doesn't require any undotting
 		return
 	node.mark_undotted()
-	# update game state
-	mark_undotted(cell.coord)
 
 ## move to dot ##############################################################
 
@@ -429,11 +431,14 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 
 	if last_pos == player.coord:
 		# used in multi-hopper puzzles ('other' player stays in same place when undoing)
-		player.node.undo_to_same_coord()
+
+		if player.node != null:
+			player.node.undo_to_same_coord()
 		return
 
 	# move player node
-	player.node.undo_to_coord(dest_cell.coord)
+	if player.node != null:
+		player.node.undo_to_coord(dest_cell.coord)
 
 	# update game state
 	mark_player(dest_cell.coord)
@@ -484,10 +489,12 @@ func apply_moves(moves_to_make: Array[Move]) -> MoveResult:
 	if any_stuck:
 		for m: Move in moves_to_make:
 			if m.type == MoveType.stuck:
-				m.player.node.move_attempt_stuck(m.move_direction)
+				if m.player.node != null:
+					m.player.node.move_attempt_stuck(m.move_direction)
 			if m.type == MoveType.hop_a_dot:
 				# reusing the stuck behavior here
-				m.player.node.move_attempt_stuck(m.move_direction)
+				if m.player.node != null:
+					m.player.node.move_attempt_stuck(m.move_direction)
 
 	return MoveResult.stuck
 

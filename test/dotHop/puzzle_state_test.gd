@@ -55,10 +55,10 @@ func test_state_drop_player() -> void:
 func test_check_moves() -> void:
 	var state := build_state(["x"])
 	var all_moves := state.check_all_moves()
-	assert_that(all_moves[Vector2.RIGHT][0].type).is_equal([PuzzleState.MoveType.stuck])
-	assert_that(all_moves[Vector2.LEFT][0].type).is_equal([PuzzleState.MoveType.stuck])
-	assert_that(all_moves[Vector2.UP][0].type).is_equal([PuzzleState.MoveType.stuck])
-	assert_that(all_moves[Vector2.DOWN][0].type).is_equal([PuzzleState.MoveType.stuck])
+	assert_that(all_moves[Vector2.RIGHT][0].type).is_equal(PuzzleState.MoveType.stuck)
+	assert_that(all_moves[Vector2.LEFT][0].type).is_equal(PuzzleState.MoveType.stuck)
+	assert_that(all_moves[Vector2.UP][0].type).is_equal(PuzzleState.MoveType.stuck)
+	assert_that(all_moves[Vector2.DOWN][0].type).is_equal(PuzzleState.MoveType.stuck)
 
 func test_check_move_move_to_dot() -> void:
 	var state := build_state(["xo"])
@@ -134,7 +134,7 @@ func test_apply_moves_move_to_dot() -> void:
 	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_dot)
 	var res := state.apply_moves(moves)
 	assert_that(res).is_equal(PuzzleState.MoveResult.moved)
-	assert_array(state.get_grid_row_objs(0)[0]).contains_exactly_in_any_order([GameDef.Obj.Dotted])
+	assert_array(state.get_grid_row_objs(0)[0]).contains_exactly_in_any_order([GameDef.Obj.Dotted, GameDef.Obj.Undo])
 	assert_array(state.get_grid_row_objs(0)[1]).contains_exactly_in_any_order([GameDef.Obj.Dotted, GameDef.Obj.Player])
 
 ## full movement tests
