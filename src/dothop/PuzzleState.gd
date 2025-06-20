@@ -106,7 +106,6 @@ var puzzle_def: PuzzleDef
 var game_def: GameDef
 var win := false
 var players: Array[Player] = []
-var grid: Array
 var grid_xs: int
 var grid_ys: int
 # var nodes_by_coord: Dictionary[Vector2, Array[DotHopNode]] = {} # just the nodes
