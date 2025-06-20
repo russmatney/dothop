@@ -84,9 +84,11 @@ func analyze_game_def() -> GameDef:
 	get_game_def() # ensure cache
 	var puzzle_count: int = len(game_def.puzzles)
 	for i: int in puzzle_count:
-		var puzz_node: DotHopPuzzle = DotHopPuzzle.build_puzzle_node({game_def=game_def, puzzle_num=i})
-		puzz_node.build_game_state()
-		game_def.puzzles[i].analysis = PuzzleAnalysis.new(puzz_node).analyze()
+		if game_def.puzzles[i].analysis == null:
+			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
+			game_def.puzzles[i].analysis = PuzzleAnalysis.new({state=puzz_state}).analyze()
+		else:
+			pass # using cached analysis
 	return game_def
 
 func attach_game_def_stats() -> GameDef:

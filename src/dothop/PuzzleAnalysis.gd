@@ -8,11 +8,20 @@ const STUCK_GOAL: String = "STUCK_GOAL"
 const STUCK_DOT: String = "STUCK_DOT"
 
 var puzzle_node: DotHopPuzzle
+var puzzle_state: PuzzleState
+var move_fn: Callable
 
 ## init ####################################
 
-func _init(node: DotHopPuzzle) -> void:
-	puzzle_node = node
+func _init(opts: Dictionary) -> void:
+	puzzle_node = opts.get("node")
+	puzzle_state = opts.get("state")
+
+	if puzzle_node != null:
+		move_fn = puzzle_node.move
+		puzzle_state = puzzle_node.state
+	elif puzzle_state != null:
+		move_fn = puzzle_state.move
 
 ## collect_move_tree ####################################
 
@@ -24,19 +33,19 @@ func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = 
 		if last_move is Vector2 and dir == -1 * last_move:
 			continue # skip 'undos'
 
-		var move_res: PuzzleState.MoveResult = puzzle_node.move(dir)
+		var move_res: PuzzleState.MoveResult = move_fn.call(dir)
 		if move_res == PuzzleState.MoveResult.moved:
 			any_moves = true
 			current_move_dict[dir] = collect_move_tree({}, dir)
-			puzzle_node.move(-1 * dir) # undo
+			move_fn.call(-1 * dir) # undo
 
 	if any_moves:
 		# we made a move, return this move-tree
 		return current_move_dict
 	else:
-		if puzzle_node.state.win:
+		if puzzle_state.win:
 			return WIN
-		elif puzzle_node.state.all_players_at_goal():
+		elif puzzle_state.all_players_at_goal():
 			return STUCK_GOAL
 		else:
 			return STUCK_DOT
@@ -103,7 +112,7 @@ func analyze() -> PuzzleAnalysis:
 	if solvable:
 		dot_count = len(winning_paths[0])
 
-	width = puzzle_node.puzzle_def.width
-	height = puzzle_node.puzzle_def.height
+	width = puzzle_state.grid_width
+	height = puzzle_state.grid_height
 
 	return self
