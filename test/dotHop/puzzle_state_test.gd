@@ -187,6 +187,8 @@ func test_apply_moves_stuck() -> void:
 	assert_array(state.get_grid_row_objs(0)[1]).is_equal([])
 	assert_bool(state.win).is_false()
 
+func test_apply_moves_signal_test() -> void:
+	pass
 
 ## full movement tests
 

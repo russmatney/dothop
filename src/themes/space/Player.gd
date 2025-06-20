@@ -18,9 +18,9 @@ func on_anim_finished() -> void:
 
 ## move #########################################################
 
-func move_to_coord(coord: Vector2) -> Signal:
+func move_to_coord(coord: Vector2) -> void:
 	anim.play("moving")
-	return super.move_to_coord(coord)
+	super.move_to_coord(coord)
 
 ## move attempts #########################################################
 

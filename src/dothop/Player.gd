@@ -15,6 +15,8 @@ var label : RichTextLabel
 var color_rect : ColorRect
 var current_coord: Vector2
 
+signal move_finished
+
 ## Log.pp #########################################################
 
 func data() -> Dictionary:
@@ -50,10 +52,11 @@ func set_initial_coord(coord: Vector2) -> void:
 
 ## move #########################################################
 
-func move_to_coord(coord: Vector2) -> Variant:
+func move_to_coord(coord: Vector2) -> void:
 	current_coord = coord
 	position = coord * square_size
-	return
+
+	move_finished.emit()
 
 ## undo #########################################################
 

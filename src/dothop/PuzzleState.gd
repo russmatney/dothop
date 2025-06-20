@@ -8,11 +8,14 @@ class Player:
 	var coord: Vector2
 	var stuck := false
 	var move_history: Array = []
-	var node: DotHopPlayer
 
-	func _init(crd: Vector2, nd: DotHopPlayer = null) -> void:
+	signal move_to_cell(c: Cell)
+	signal undo_to_cell(c: Cell)
+	signal undo_to_same_cell(c: Cell)
+	signal move_attempt_stuck(dir: Vector2)
+
+	func _init(crd: Vector2) -> void:
 		coord = crd
-		node = nd
 
 	func to_pretty() -> Variant:
 		return ["P", coord, stuck, move_history]
@@ -31,15 +34,16 @@ class Player:
 class Cell:
 	var objs: Array[GameDef.Obj]
 	var coord: Vector2
-	var nodes: Array[DotHopDot]
 
-	func _init(_coord: Vector2, _objs: Array[GameDef.Obj], _nodes: Array[DotHopDot]) -> void:
+	signal mark_dotted
+	signal mark_undotted
+
+	func _init(_coord: Vector2, _objs: Array[GameDef.Obj]) -> void:
 		coord = _coord
 		objs = _objs
-		nodes = _nodes
 
 	func to_pretty() -> Variant:
-		return [coord, objs, nodes]
+		return [coord, objs]
 
 	func has_player() -> bool:
 		return GameDef.Obj.Player in objs
@@ -47,8 +51,12 @@ class Cell:
 		return GameDef.Obj.Dot in objs
 	func has_dotted() -> bool:
 		return GameDef.Obj.Dotted in objs
+	func has_dot_or_dotted() -> bool:
+		return has_dot() or has_dotted()
 	func has_goal() -> bool:
 		return GameDef.Obj.Goal in objs
+	func has_dot_or_dotted_or_goal() -> bool:
+		return has_dot_or_dotted() or has_goal()
 	func has_undo() -> bool:
 		return GameDef.Obj.Undo in objs
 
@@ -106,17 +114,15 @@ var puzzle_def: PuzzleDef
 var game_def: GameDef
 var win := false
 var players: Array[Player] = []
-var grid_xs: int
-var grid_ys: int
-# var nodes_by_coord: Dictionary[Vector2, Array[DotHopNode]] = {} # just the nodes
-var nodes_by_coord: Dictionary = {} # just the nodes
+var grid_width: int
+var grid_height: int
 var cells_by_coord: Dictionary[Vector2, Cell] = {}
 
 ## state
 
 func to_pretty() -> Variant:
 	var _grid: Array = []
-	for row in range(grid_ys):
+	for row in range(grid_height):
 		_grid.append(get_grid_row_objs(row))
 	return {state="state", grid=_grid}
 
@@ -128,80 +134,39 @@ func _init(puzz_def: PuzzleDef, g_def: GameDef) -> void:
 
 	for cell: GameDef.GridCell in game_def.grid_cells(puzzle_def):
 		var coord := Vector2(cell.coord.x, cell.coord.y)
-		cells_by_coord[coord] = Cell.new(coord, cell.objs, [])
+		cells_by_coord[coord] = Cell.new(coord, cell.objs)
 
-		if GameDef.Obj.Player in cell.objs:
+		if cells_by_coord[coord].has_player():
 			players.append(Player.new(coord))
 
-	grid_xs = len(puzzle_def.shape[0])
-	grid_ys = len(puzzle_def.shape)
-
-## state updates
-
-# TODO rename to 'set-player-node' or some such
-func add_player(coord: Vector2, node: DotHopPlayer) -> void:
-	for p: Player in players:
-		if p.coord == coord:
-			p.node = node
-
-# TODO drop this?
-func add_dot(coord: Vector2, node: Node2D) -> void:
-	if not coord in nodes_by_coord:
-		nodes_by_coord[coord] = []
-	(nodes_by_coord[coord] as Array).append(node)
-
-func set_nodes(cell: Cell, nodes: Array[DotHopDot]) -> void:
-	cells_by_coord[cell.coord].nodes = nodes
+	grid_width = len(puzzle_def.shape[0])
+	grid_height = len(puzzle_def.shape)
 
 ## getters
 
 func get_grid_row_objs(row: int) -> Array:
 	var row_objs: Array = []
-	for x in range(grid_xs):
+	for x in range(grid_width):
 		var cell: Cell = cells_by_coord[Vector2(x, row)]
 		row_objs.append(cell.objs)
 	return row_objs
 
-func coord_for_dot(dot: DotHopDot) -> Vector2:
-	for coord: Vector2 in nodes_by_coord:
-		if dot in nodes_by_coord[coord]:
-			return coord
-	return Vector2.ZERO
-
-func all_coords() -> Array[Vector2]:
-	return cells_by_coord.keys()
-
 func all_cells() -> Array[Cell]:
 	return cells_by_coord.values()
 
-func objs_for_coord(coord: Vector2) -> Array[GameDef.Obj]:
-	return cells_by_coord[coord].objs
-
-# Returns a list of cell-object-arrays (per cell)
+# Returns a list of cell-object-arrays (an array per cell)
 func all_cell_objs() -> Array:
 	var cs: Array = []
 	for cell: Cell in cells_by_coord.values():
 		cs.append(cell.objs)
 	return cs
 
-func all_cell_nodes(opts: Dictionary = {}) -> Array[Node2D]:
-	var ns: Array = nodes_by_coord.values().reduce(func(agg: Array, nodes: Array) -> Array:
-		if "filter" in opts:
-			var f: Callable = opts.get("filter")
-			nodes = nodes.filter(f)
-		agg.append_array(nodes)
-		return agg, []) # if we don't provide an initial val, the first node gets through FOR FREE
-	var t_nodes: Array[Node2D] = []
-	t_nodes.assign(ns)
-	return t_nodes
-
 func dot_count(only_undotted: bool = false) -> int:
-	return len(all_cell_objs().filter(func(c: Array[GameDef.Obj]) -> bool:
-		for obj_type: GameDef.Obj in c:
-			if only_undotted and obj_type in [GameDef.Obj.Dot]:
-				return true
-			elif not only_undotted and obj_type in [GameDef.Obj.Dot, GameDef.Obj.Dotted]:
-				return true
+	return len(all_cells().filter(func(c: Cell) -> bool:
+		if only_undotted and c.has_dot():
+			return true
+		elif not only_undotted and c.has_dot_or_dotted():
+			return true
 		return false))
 
 ## predicates
@@ -211,29 +176,19 @@ func check_win() -> bool:
 
 # Returns true if there are no "dot" objects in the state grid
 func all_dotted() -> bool:
-	return all_cell_objs().all(func(objs: Array[GameDef.Obj]) -> bool:
-		if GameDef.Obj.Dot in objs:
-			return false
-		return true)
+	return all_cells().all(func(c: Cell) -> bool: return not c.has_dot())
 
 func all_players_at_goal() -> bool:
-	return all_cell_objs().filter(func(c: Array[GameDef.Obj]) -> bool:
-		return GameDef.Obj.Goal in c
-		).all(func(c: Array[GameDef.Obj]) -> bool:
-			return GameDef.Obj.Player in c)
-
-func is_coord_dotted(coord: Vector2) -> bool:
-	return GameDef.Obj.Dotted in cells_by_coord[coord].objs
-
-func is_coord_goal(coord: Vector2) -> bool:
-	return GameDef.Obj.Goal in cells_by_coord[coord].objs
+	return all_cells()\
+		.filter(func(c: Cell) -> bool: return c.has_goal())\
+		.all(func(c: Cell) -> bool: return c.has_player())
 
 ## grid helpers
 
 # returns true if the passed coord is in the level's grid
 func coord_in_grid(coord: Vector2) -> bool:
 	return coord.x >= 0 and coord.y >= 0 and \
-		coord.x < grid_xs and coord.y < grid_ys
+		coord.x < grid_width and coord.y < grid_height
 
 func cell_at_coord(coord: Vector2) -> Cell:
 	return cells_by_coord.get(coord)
@@ -254,6 +209,7 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 
 
 ## grid cell updates
+# these should probably live on the Cell class
 
 func mark_dotted(coord: Vector2) -> void:
 	cells_by_coord[coord].objs.erase(GameDef.Obj.Dot)
@@ -322,7 +278,7 @@ func check_move(move_dir: Vector2) -> Array[Move]:
 					break
 				Log.warn("unexpected/unhandled cell in direction", cell)
 
-		# if no moves to make, maybe we want to add a stuck move
+	# if no moves to make, maybe we want to add a stuck move
 	return moves_to_make
 
 func check_all_moves() -> Dictionary:
@@ -338,13 +294,9 @@ func check_all_moves() -> Dictionary:
 # also updates the game state
 # cell should have a `coord`
 # NOTE updating move_history is done after all players move
-func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
-	# move player node
-	var move_finished_sig: Signal
-	if player.node != null:
-		var res: Variant = player.node.move_to_coord(cell.coord)
-		if res != null:
-			move_finished_sig = res
+func move_player_to_cell(player: Player, cell: Cell) -> void:
+	# move the player node
+	player.move_to_cell.emit(cell)
 
 	# update game state
 	mark_player(cell.coord)
@@ -364,63 +316,51 @@ func move_player_to_cell(player: PuzzleState.Player, cell: PuzzleState.Cell) -> 
 	# update to new coord
 	player.coord = cell.coord
 
-	return move_finished_sig
-
 # converts the dot at the cell's coord to a dotted one
 # depends on cell for `coord` and `nodes`.
-func mark_cell_dotted(cell: PuzzleState.Cell) -> void:
+func mark_cell_dotted(cell: Cell) -> void:
 	# update game state
 	mark_dotted(cell.coord)
-	# support multiple nodes per cell?
-	var node: DotHopDot = U.first(cell.nodes)
-	if node == null:
-		# Log.warn("can't mark dotted, no node found!", cell)
-		return
-	node.mark_dotted()
+	cell.mark_dotted.emit()
 
 # converts dotted back to dot (undo)
 # depends on cell for `coord` and `nodes`.
-func mark_cell_undotted(cell: PuzzleState.Cell) -> void:
+func mark_cell_undotted(cell: Cell) -> void:
 	# update game state
 	mark_undotted(cell.coord)
-	# support multiple nodes per cell?
-	var node: DotHopDot = U.first(cell.nodes)
-	if node == null:
-		# undoing from goal doesn't require any undotting
-		return
-	node.mark_undotted()
+	cell.mark_undotted.emit()
 
 ## move to dot ##############################################################
 
-func move_to_dot(player: PuzzleState.Player, cell: PuzzleState.Cell) -> void:
+func move_to_dot(player: Player, cell: Cell) -> void:
 	# consider handling these in the same step (depending on the animation)
 	move_player_to_cell(player, cell)
 	mark_cell_dotted(cell)
 
 ## move to goal ##############################################################
 
-func move_to_goal(player: PuzzleState.Player, cell: PuzzleState.Cell) -> Signal:
-	var move_finished: Signal = move_player_to_cell(player, cell)
+func move_to_goal(player: Player, cell: Cell) -> void:
+	move_player_to_cell(player, cell)
 
 	if check_win():
 		win = true
-		return move_finished
 	else:
 		player.stuck = true
-		return move_finished
 
 ## undo last move ##############################################################
 
-func undo_last_move(player: PuzzleState.Player) -> void:
+func undo_last_move(player: Player) -> void:
 	# supports the solver - undo moves state.win back to false
 	win = false
 
 	if len(player.move_history) == 0:
 		Log.warn("Can't undo, no moves yet!")
 		return
+
 	# remove last move from move_history
 	var last_pos: Vector2 = player.move_history.pop_front()
-	var dest_cell: PuzzleState.Cell = cell_at_coord(last_pos)
+	var current_cell: Cell = cell_at_coord(player.coord)
+	var dest_cell: Cell = cell_at_coord(last_pos)
 
 	# need to walk back the grid's Undo markers
 	var pos_before_last: Variant = player.previous_undo_coord(dest_cell.coord, 0)
@@ -429,24 +369,21 @@ func undo_last_move(player: PuzzleState.Player) -> void:
 	drop_undo(dest_cell.coord)
 
 	if last_pos == player.coord:
-		# used in multi-hopper puzzles ('other' player stays in same place when undoing)
-
-		if player.node != null:
-			player.node.undo_to_same_coord()
+		# occurs in multi-hopper puzzles ('other' player stays in same place when undoing)
+		player.undo_to_same_cell.emit(dest_cell)
 		return
 
 	# move player node
-	if player.node != null:
-		player.node.undo_to_coord(dest_cell.coord)
+	player.undo_to_cell.emit(dest_cell)
 
 	# update game state
 	mark_player(dest_cell.coord)
 	drop_player(player.coord)
 
-	if is_coord_dotted(player.coord):
+	if current_cell.has_dotted():
 		# restore dot at the current player position
-		mark_cell_undotted(cell_at_coord(player.coord))
-	if is_coord_goal(player.coord):
+		mark_cell_undotted(current_cell)
+	if current_cell.has_goal():
 		# unstuck when undoing from the goal
 		player.stuck = false
 
@@ -488,22 +425,19 @@ func apply_moves(moves_to_make: Array[Move]) -> MoveResult:
 	if any_stuck:
 		for m: Move in moves_to_make:
 			if m.type == MoveType.stuck:
-				if m.player.node != null:
-					m.player.node.move_attempt_stuck(m.move_direction)
+				m.player.move_attempt_stuck.emit(m.move_direction)
 			if m.type == MoveType.hop_a_dot:
 				# reusing the stuck behavior here
-				if m.player.node != null:
-					m.player.node.move_attempt_stuck(m.move_direction)
+				m.player.move_attempt_stuck.emit(m.move_direction)
 
 	return MoveResult.stuck
 
-
 ## move ##############################################################
 
-func move(move_dir: Vector2) -> PuzzleState.MoveResult:
+func move(move_dir: Vector2) -> MoveResult:
 	if move_dir == Vector2.ZERO:
 		# don't do anything!
-		return PuzzleState.MoveResult.zero
+		return MoveResult.zero
 
 	var moves_to_make := check_move(move_dir)
 	# Log.prn("moves to make", moves_to_make)

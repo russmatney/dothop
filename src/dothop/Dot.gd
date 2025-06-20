@@ -15,6 +15,7 @@ var display_name: String = "dot"
 var label: RichTextLabel
 var color_rect: ColorRect
 var area: Area2D
+var current_coord: Vector2
 
 signal dot_pressed
 signal mouse_entered
@@ -26,6 +27,9 @@ func data() -> Variant:
 	return {name=display_name, node=str(self), global_pos=self.get_global_position()}
 
 ## ready #########################################################
+
+func _enter_tree() -> void:
+	add_to_group("dot", true)
 
 func _ready() -> void:
 	U.set_optional_nodes(self, {
@@ -51,7 +55,6 @@ func ensure_area() -> void:
 
 ## set_initial_coord #########################################################
 
-var current_coord: Vector2
 func set_initial_coord(coord: Vector2) -> void:
 	current_coord = coord
 	position = coord * square_size

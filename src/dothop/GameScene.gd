@@ -78,7 +78,7 @@ func rebuild_puzzle() -> void:
 		nav_to_world_map()
 		return
 
-	puzzle_node.win.connect(on_puzzle_win)
+	puzzle_node.win.connect(on_puzzle_win, CONNECT_ONE_SHOT)
 	puzzle_node.ready.connect(update_hud)
 
 	puzzle_node.player_moved.connect(func() -> void:

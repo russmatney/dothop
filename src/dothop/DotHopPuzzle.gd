@@ -99,6 +99,7 @@ var dhcam: DotHopCam
 
 # um what no let's get some types here
 var state: PuzzleState
+var player_nodes: Array = []
 
 signal win
 
@@ -330,7 +331,7 @@ func process_move_queue(skip_check:=false) -> void:
 
 	var dot: DotHopDot = move_queue[0]
 	var player: PuzzleState.Player = state.players[0]
-	var dir := (state.coord_for_dot(dot) - player.coord).normalized()
+	var dir := (dot.current_coord - player.coord).normalized()
 
 	if dir == Vector2.ZERO:
 		move_queue.pop_front()
@@ -367,30 +368,43 @@ func build_game_state() -> void:
 	state = PuzzleState.new(puzzle_def, game_def)
 	rebuild_nodes()
 
-# Adds nodes for the object_names in each cell of the grid.
+# (Re)Creates dot and player nodes, attaches state signals
 func rebuild_nodes() -> void:
 	clear_nodes()
 
-	var players: Array[DotHopPlayer] = []
 	for cell: PuzzleState.Cell in state.all_cells():
-		var dot_nodes: Array[DotHopDot] = []
-		for obj_name: GameDef.Obj in cell.objs:
-			var node: Node2D = setup_node_at_coord(obj_name, cell.coord)
-			if node is DotHopPlayer:
-				state.add_player(cell.coord, node as DotHopPlayer)
-				players.append(node)
-			elif node is DotHopDot:
-				var dot: DotHopDot = node
+		for obj: GameDef.Obj in cell.objs:
+			if obj in [GameDef.Obj.Dot, GameDef.Obj.Goal, GameDef.Obj.Dotted]:
+				var dot: DotHopDot = setup_node_at_coord(obj, cell.coord)
 				dot.dot_pressed.connect(on_dot_pressed.bind(dot))
 				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
-				add_child(dot)
-				state.add_dot(cell.coord, dot)
-				dot_nodes.append(node)
-		state.set_nodes(cell, dot_nodes)
 
-	# wait to add players last (so they end up on top)
-	for p: Node in players:
-		add_child(p)
+				cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
+				cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
+
+				add_child(dot)
+			else:
+				if not obj in [GameDef.Obj.Player, GameDef.Obj.Undo]:
+					Log.pr("skipping setup for obj: ", obj)
+
+
+	player_nodes = []
+	for p: PuzzleState.Player in state.players:
+		var p_node: DotHopPlayer = setup_node_at_coord(GameDef.Obj.Player, p.coord)
+
+		# setup state player signals
+		p.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.move_to_coord(cell.coord))
+		p.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.undo_to_coord(cell.coord))
+		p.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: p_node.undo_to_same_coord())
+		p.move_attempt_stuck.connect(func(dir: Vector2) -> void: p_node.move_attempt_stuck(dir))
+
+		# connect to move finished signal
+		# we might want to track out-standing moves here, rather than just checking on one
+		p_node.move_finished.connect(func() -> void: player_move_finished())
+
+		# wait to add players last (so they end up on top)
+		add_child(p_node)
+		player_nodes.append(p_node)
 
 	if dhcam != null:
 		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
@@ -481,14 +495,19 @@ func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
 	var cam_nodes: Array = []
 	var nodes: Array
 	if opts.get("dots_only"):
-		nodes = state.all_cell_nodes({filter=func(node: DotHopDot) -> bool:
-			return "type" in node and node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
+		nodes = all_dot_nodes({filter=func(node: DotHopDot) -> bool:
+			return node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
 	else:
-		nodes = state.all_cell_nodes()
+		nodes = all_dot_nodes()
 	cam_nodes.append_array(nodes)
-	for p: PuzzleState.Player in state.players:
-		cam_nodes.append(p.node)
 	return cam_nodes
+
+func all_dot_nodes(opts: Dictionary = {}) -> Array:
+	var dots: Array = U.get_children_in_group(self, "dot", true)
+	if "filter" in opts:
+		var f: Callable = opts.get("filter")
+		dots = dots.filter(f)
+	return dots
 
 ## move ##############################################################
 
@@ -498,21 +517,22 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 
 	var move_result := state.move(move_dir)
 
-	# TODO these should all be signals fired by PuzzleState
-	# subscribe when building the state, connect the nodes to signals
 	match move_result:
 		PuzzleState.MoveResult.moved:
 			player_moved.emit()
-
-			# TODO we need to wait emit this - ideally check in a player-movement-finished handler
-			if state.win:
-				win.emit()
 		PuzzleState.MoveResult.undo:
 			player_undo.emit()
 		PuzzleState.MoveResult.stuck:
 			move_rejected.emit()
 
 	return move_result
+
+# Fires when the player move_to_coord animation finishes
+# NOTE this does NOT fire on undos or stucks
+func player_move_finished() -> void:
+	if state.win:
+		# TODO fires too early if you move quickly
+		win.emit()
 
 # TODO could dry up to use apply_moves and the response here
 # but if we subscribe to signals, maybe those will just get emitted,

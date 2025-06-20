@@ -109,11 +109,21 @@ class GridCell:
 	var coord: Vector2i
 	var objs: Array[Obj]
 
+
 	func _init(x: int, y: int, _objs: Array[String]) -> void:
 		coord = Vector2i(x, y)
 		var os := _objs.map(GameDef.obj_name_to_type)
 		os = U.remove_nulls(os)
 		objs.assign(os)
+
+	# func has_player():
+	# 	return Obj.Player in objs
+	# func has_goal():
+	# 	return Obj.Goal in objs
+	# func has_dot():
+	# 	return Obj.Dot in objs
+	# func has_dotted():
+	# 	return Obj.Dotted in objs
 
 # depends on the game def instance's parsed legend
 func grid_cells(puzzle_def: PuzzleDef) -> Array[GridCell]:
