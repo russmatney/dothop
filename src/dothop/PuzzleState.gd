@@ -113,9 +113,10 @@ enum MoveResult {
 var puzzle_def: PuzzleDef
 var game_def: GameDef
 var win := false
-var players: Array[Player] = []
 var grid_width: int
 var grid_height: int
+
+var players: Array[Player] = []
 var cells_by_coord: Dictionary[Vector2, Cell] = {}
 
 ## state
