@@ -125,7 +125,7 @@ func test_all_puzzles_solvable_via_node() -> void:
 
 		# run for a random one for each puzzle set
 		# (the puzzle solutions are tested thoroughly by the previous test)
-		var i: int = randi_range(0, puzzle_count)
+		var i: int = randi_range(0, puzzle_count - 1)
 
 		var puzz_node := DotHopPuzzle.build_puzzle_node({
 			game_def=game_def,
