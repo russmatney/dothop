@@ -294,8 +294,9 @@ func check_all_moves() -> Dictionary:
 # Move the player to the passed cell's coordinate.
 # also updates the game state
 # cell should have a `coord`
-# NOTE updating move_history is done after all players move
 func move_player_to_cell(player: Player, cell: Cell) -> void:
+	player.move_history.push_front(player.coord)
+
 	# move the player node
 	player.move_to_cell.emit(cell)
 
@@ -394,16 +395,40 @@ func undo_last_move(player: Player) -> void:
 #############################
 ## apply_moves
 
+# TODO multi-hopper unit test for undo + new hop
 func apply_moves(moves_to_make: Array[Move]) -> MoveResult:
+	# TODO what moves should be applied in different game modes?
+	# maybe there are player types that move or don't move on undo?
+	# or maybe undo or move always overwrites?
+
+	# var reses : Array[MoveResult] = []
+	# for m: Move in moves_to_make:
+	# 	if m.type == MoveType.move_to_dot:
+	# 		# TODO consider influencing with any Move.dots-to-hop
+	# 		move_to_dot(m.player, m.cell)
+	# 		reses.append(MoveResult.moved)
+	# 	if m.type == MoveType.move_to_goal:
+	# 		# TODO consider influencing with any Move.dots-to-hop
+	# 		move_to_goal(m.player, m.cell)
+	# 		reses.append(MoveResult.moved)
+	# 	if m.type == MoveType.undo:
+	# 		undo_last_move(m.player)
+	# 		reses.append(MoveResult.undo)
+	# 	if m.type == MoveType.stuck:
+	# 		m.player.move_attempt_stuck.emit(m.move_direction)
+	# 		reses.append(MoveResult.stuck)
+	# 	if m.type == MoveType.hop_a_dot:
+	# 		# reusing the stuck behavior here
+	# 		m.player.move_attempt_stuck.emit(m.move_direction)
+	# 		reses.append(MoveResult.stuck)
+	# # return reses
+	# return reses[0]
+
 	var any_move: bool = moves_to_make.any(func(m: Move) -> bool:
 		return m.type in [MoveType.move_to_dot, MoveType.move_to_goal])
 	if any_move:
-		for p: Player in players:
-			p.move_history.push_front(p.coord)
-
 		for m: Move in moves_to_make:
 			# TODO consider influencing these moves with any Move.dots-to-hop
-
 			if m.type == MoveType.move_to_dot:
 				move_to_dot(m.player, m.cell)
 			if m.type == MoveType.move_to_goal:
@@ -413,12 +438,10 @@ func apply_moves(moves_to_make: Array[Move]) -> MoveResult:
 
 	var any_undo: bool = moves_to_make.any(func(m: Move) -> bool: return m.type == MoveType.undo)
 	if any_undo:
-		# consider only undoing ONE time? does it make a difference?
 		for m: Move in moves_to_make:
 			if m.type == MoveType.undo:
 				undo_last_move(m.player)
 
-		# exit early for undos
 		return MoveResult.undo
 
 	var any_stuck: bool = moves_to_make.any(func(m: Move) -> bool:

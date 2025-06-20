@@ -19,7 +19,7 @@ y = PlayerB and Dotted
 PUZZLES
 =======
 
-symmetry
+message "symmetry"
 
 ..........
 .o.o..o.o.
@@ -28,3 +28,21 @@ symmetry
 ..........
 ..x....t..
 ..........
+
+message "two hoppers!"
+
+..oo
+txoo
+..oo
+txoo
+
+....o.o
+tx..o.o
+oo.o.x.
+t......
+
+....o.o
+tx..o.o
+......t
+oo.o.x.
+oo.o..o
