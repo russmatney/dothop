@@ -226,10 +226,12 @@ func test_move_hopped_a_dot() -> void:
 	state.move(Vector2.UP)
 
 	var moves := state.check_move(Vector2.RIGHT)
-	assert_int(len(moves)).is_equal(3)
-	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.hop_a_dot)
-	assert_that(moves[1].type).is_equal(PuzzleState.MoveType.hop_a_dot)
-	assert_that(moves[2].type).is_equal(PuzzleState.MoveType.move_to_goal)
+	assert_int(len(moves)).is_equal(1)
+	assert_that(moves[0].type).is_equal(PuzzleState.MoveType.move_to_goal)
+	assert_int(len(moves[0].hopped_cells)).is_equal(2)
+	assert_array(moves[0].hopped_cells.map(
+		func(c: PuzzleState.Cell) -> Vector2: return c.coord))\
+		.contains_exactly_in_any_order([Vector2(1, 0), Vector2(2, 0)])
 
 	var res := state.apply_moves(moves)
 	assert_that(res).is_equal(PuzzleState.MoveResult.moved)
