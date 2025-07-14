@@ -91,7 +91,6 @@ class Move:
 	func move_to_goal(c: Cell) -> void:
 		type = MoveType.move_to_goal
 		cell = c
-
 	func add_dot_to_hop(c: Cell) -> void:
 		hopped_cells.append(c)
 
@@ -246,13 +245,11 @@ func drop_player(coord: Vector2) -> void:
 func check_move(move_dir: Vector2) -> Array[Move]:
 	var moves_to_make: Array[Move] = []
 	for p: Player in players:
+		# create a move attempt
 		var mv: Move = Move.new(move_dir, p)
-		var cells: Array = cells_in_direction(p.coord, move_dir)
-		if len(cells) == 0:
-			mv.mark_stuck()
-			moves_to_make.append(mv)
-			continue
 
+		# grab cells in that direction
+		var cells: Array = cells_in_direction(p.coord, move_dir)
 		# drop empty cells
 		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
@@ -260,31 +257,29 @@ func check_move(move_dir: Vector2) -> Array[Move]:
 			moves_to_make.append(mv)
 			continue
 
-		# check for _any_ undo cells first
+		# check for any undo cells first
+		# it's probably easier to prevent moving 'backwards'
 		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool:
 			return c.has_undo() and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
 			mv.mark_undo()
+		elif p.stuck:
+			mv.mark_stuck()
 		else:
 			for cell: Cell in cells:
-				if p.stuck:
-					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
-					mv.mark_stuck()
-					break
 				if cell.has_player():
 					mv.mark_blocked_by_player()
-					# moving toward player animation?
 					break
-				if cell.has_dotted():
-					mv.add_dot_to_hop(cell)
-					continue
 				if cell.has_dot():
 					mv.move_to_dot(cell)
 					break
 				if cell.has_goal():
 					mv.move_to_goal(cell)
 					break
+				if cell.has_dotted():
+					mv.add_dot_to_hop(cell)
+					continue
 				Log.warn("unexpected/unhandled cell in direction", cell)
 		moves_to_make.append(mv)
 
