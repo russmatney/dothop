@@ -69,35 +69,39 @@ class Move:
 	var type: MoveType
 	var cell: Cell
 
-	func _init(dir: Vector2, t: MoveType, p: Player, c: Cell = null) -> void:
+	var hopped_cells: Array[Cell] = []
+
+	func _init(dir: Vector2, p: Player) -> void:
 		move_direction = dir
-		type = t
+		type = MoveType.unknown
 		player = p
-		cell = c
 
 	func to_pretty() -> Variant:
 		return [type, player, cell]
 
-	static func undo(dir: Vector2, p: Player) -> Move:
-		return Move.new(dir, MoveType.undo, p)
-	static func stuck(dir: Vector2, p: Player) -> Move:
-		return Move.new(dir, MoveType.stuck, p)
-	static func blocked_by_player(dir: Vector2, p: Player) -> Move:
-		return Move.new(dir, MoveType.blocked_by_player, p)
-	static func move_to_dot(dir: Vector2, p: Player, c: Cell) -> Move:
-		return Move.new(dir, MoveType.move_to_dot, p, c)
-	static func move_to_goal(dir: Vector2, p: Player, c: Cell) -> Move:
-		return Move.new(dir, MoveType.move_to_goal, p, c)
-	static func hop_a_dot(dir: Vector2, p: Player, c: Cell) -> Move:
-		return Move.new(dir, MoveType.hop_a_dot, p, c)
+	func mark_undo() -> void:
+		type = MoveType.undo
+	func mark_stuck() -> void:
+		type = MoveType.stuck
+	func mark_blocked_by_player() -> void:
+		type = MoveType.blocked_by_player
+	func move_to_dot(c: Cell) -> void:
+		type = MoveType.move_to_dot
+		cell = c
+	func move_to_goal(c: Cell) -> void:
+		type = MoveType.move_to_goal
+		cell = c
+
+	func add_dot_to_hop(c: Cell) -> void:
+		hopped_cells.append(c)
 
 enum MoveType {
-	undo=0,
+	unknown=0,
 	stuck=1,
 	blocked_by_player=2,
 	move_to_dot=3,
 	move_to_goal=4,
-	hop_a_dot=5,
+	undo=5,
 	}
 
 enum MoveResult {
@@ -242,42 +246,47 @@ func drop_player(coord: Vector2) -> void:
 func check_move(move_dir: Vector2) -> Array[Move]:
 	var moves_to_make: Array[Move] = []
 	for p: Player in players:
+		var mv: Move = Move.new(move_dir, p)
 		var cells: Array = cells_in_direction(p.coord, move_dir)
 		if len(cells) == 0:
-			moves_to_make.append(Move.stuck(move_dir, p))
+			mv.mark_stuck()
+			moves_to_make.append(mv)
 			continue
 
+		# drop empty cells
 		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
-			moves_to_make.append(Move.stuck(move_dir, p))
+			mv.mark_stuck()
+			moves_to_make.append(mv)
 			continue
 
-		# instead of markers, read undo based on only the player move history?
+		# check for _any_ undo cells first
 		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool:
 			return c.has_undo() and c.coord in p.move_history))
 
 		if undo_cell_in_dir != null:
-			moves_to_make.append(Move.undo(move_dir, p))
+			mv.mark_undo()
 		else:
 			for cell: Cell in cells:
 				if p.stuck:
 					# Log.warn("stuck, didn't see an undo in dir", move_dir, p.move_history)
-					moves_to_make.append(Move.stuck(move_dir, p))
+					mv.mark_stuck()
 					break
 				if cell.has_player():
-					moves_to_make.append(Move.blocked_by_player(move_dir, p))
+					mv.mark_blocked_by_player()
 					# moving toward player animation?
 					break
 				if cell.has_dotted():
-					moves_to_make.append(Move.hop_a_dot(move_dir, p, cell))
+					mv.add_dot_to_hop(cell)
 					continue
 				if cell.has_dot():
-					moves_to_make.append(Move.move_to_dot(move_dir, p, cell))
+					mv.move_to_dot(cell)
 					break
 				if cell.has_goal():
-					moves_to_make.append(Move.move_to_goal(move_dir, p, cell))
+					mv.move_to_goal(cell)
 					break
 				Log.warn("unexpected/unhandled cell in direction", cell)
+		moves_to_make.append(mv)
 
 	# if no moves to make, maybe we want to add a stuck move
 	return moves_to_make
@@ -445,14 +454,14 @@ func apply_moves(moves_to_make: Array[Move]) -> MoveResult:
 		return MoveResult.undo
 
 	var any_stuck: bool = moves_to_make.any(func(m: Move) -> bool:
-		return m.type in [MoveType.stuck, MoveType.hop_a_dot])
+		return m.type in [MoveType.stuck])
 	if any_stuck:
 		for m: Move in moves_to_make:
 			if m.type == MoveType.stuck:
 				m.player.move_attempt_stuck.emit(m.move_direction)
-			if m.type == MoveType.hop_a_dot:
-				# reusing the stuck behavior here
-				m.player.move_attempt_stuck.emit(m.move_direction)
+			# TODO restore! was reusing the stuck animation here when moving toward hopped dots
+			# if m.type == MoveType.hop_a_dot:
+			# 	m.player.move_attempt_stuck.emit(m.move_direction)
 
 	return MoveResult.stuck
 
