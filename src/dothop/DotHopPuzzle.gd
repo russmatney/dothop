@@ -165,6 +165,10 @@ func _ready() -> void:
 
 	input_block_timer_done.connect(reattempt_blocked_move)
 
+	# ideally this would fire after the nodes are ready
+	# prolly a race-case here
+	state.emit_possible_cells.call_deferred()
+
 func on_win() -> void:
 	Sounds.play(Sounds.S.complete)
 
@@ -381,12 +385,20 @@ func rebuild_nodes() -> void:
 
 				cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
 				cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
+				cell.show_possible_next_move.connect(func() -> void:
+					Log.pr("possible next move!", cell)
+					dot.show_possible_next_move())
+				cell.show_possible_undo.connect(func() -> void:
+					Log.pr("possible undo!", cell)
+					dot.show_possible_undo())
+				cell.remove_possible_next_move.connect(func() -> void:
+					Log.pr("no longer possible!", cell)
+					dot.remove_possible_next_move())
 
 				add_child(dot)
 			else:
 				if not obj in [GameDef.Obj.Player, GameDef.Obj.Undo]:
 					Log.pr("skipping setup for obj: ", obj)
-
 
 	player_nodes = []
 	for p: PuzzleState.Player in state.players:

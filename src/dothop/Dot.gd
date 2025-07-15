@@ -95,3 +95,14 @@ func mark_dotted() -> void:
 func mark_undotted() -> void:
 	type = DHData.dotType.Dot
 	render()
+
+## state changes #########################################################
+
+func show_possible_next_move() -> void:
+	pass
+
+func show_possible_undo() -> void:
+	pass
+
+func remove_possible_next_move() -> void:
+	pass

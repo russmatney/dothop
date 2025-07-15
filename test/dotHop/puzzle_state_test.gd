@@ -212,13 +212,24 @@ func test_possible_moves_multiple() -> void:
 	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
 	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2(1, 0), Vector2(0, 1)])
 
-func test_possible_moves_updates() -> void:
+func test_possible_moves_updates_and_undo() -> void:
 	var state := build_state(["xoo"])
-
 	state.move(Vector2.RIGHT)
-
 	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
 	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2.ZERO, Vector2(2, 0)])
+
+func test_possible_moves_updates_and_undo_more_complex() -> void:
+	var state := build_state([
+		"txo",
+		"o.o",
+		])
+
+	state.move(Vector2.RIGHT)
+	state.move(Vector2.DOWN)
+	state.move(Vector2.LEFT)
+
+	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
+	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2.ZERO, Vector2(2, 1)])
 
 func test_reemit_possible_move_signals() -> void:
 	# TODO test cell-fired signals are emitted

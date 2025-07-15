@@ -35,3 +35,20 @@ func render() -> void:
 				set_z_index(0)
 				anim.play("goal")
 				U.set_random_frame(anim)
+
+## state changes #########################################################
+
+var tween: Tween
+
+func show_possible_next_move() -> void:
+	tween = Anim.scale_up_down_up(self, 0.9)
+	tween.set_loops()
+
+func show_possible_undo() -> void:
+	tween = Anim.scale_down_up(self, 1.9)
+	tween.set_loops()
+
+func remove_possible_next_move() -> void:
+	if tween:
+		tween.kill()
+	scale = Vector2.ONE

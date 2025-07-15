@@ -95,21 +95,24 @@ static func float_a_bit(node: CanvasItem, og_position: Vector2, t: float = 0.8,
 
 # Scales
 
-static func scale_up_down_up(node: CanvasItem, t: float) -> void:
+static func scale_up_down_up(node: CanvasItem, t: float) -> Tween:
 	var tween: Tween = tween_on_node(node, "scale_tween")
 	tween.tween_property(node, "scale", 1.3*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "scale", 0.8*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "scale", 1.0*Vector2.ONE, t/4).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	return tween
 
-static func scale_down_up(node: CanvasItem, t: float) -> void:
+static func scale_down_up(node: CanvasItem, t: float) -> Tween:
 	var tween: Tween = tween_on_node(node, "scale_tween")
 	tween.tween_property(node, "scale", 0.8*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	return tween
 
-static func scale_up_down(node: CanvasItem, t: float) -> void:
+static func scale_up_down(node: CanvasItem, t: float) -> Tween:
 	var tween: Tween = tween_on_node(node, "scale_tween")
 	tween.tween_property(node, "scale", 1.3*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 	tween.tween_property(node, "scale", 1.0*Vector2.ONE, t/2).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	return tween
 
 # Hops
 

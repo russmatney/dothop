@@ -161,6 +161,8 @@ func _init(puzz_def: PuzzleDef, g_def: GameDef) -> void:
 	grid_width = len(puzzle_def.shape[0])
 	grid_height = len(puzzle_def.shape)
 
+	update_possible_moves()
+
 ## getters
 
 func get_grid_row_objs(row: int) -> Array:
@@ -278,7 +280,7 @@ func check_move(move_dir: Vector2) -> Array[Move]:
 			return c.has_undo() and c.coord in p.move_history))
 
 		if undo_cell != null:
-			mv.mark_undo(undo_cell)
+			mv.mark_undo(undo_cell as Cell)
 		elif p.stuck:
 			mv.mark_stuck()
 		else:
@@ -307,7 +309,6 @@ func check_all_moves() -> Dictionary:
 		moves[dir] = check_move(dir)
 	return moves
 
-# TODO call immediately after building state - maybe need a re-fire-signals helper for callables attached later?
 # may need to set flags on cells instead of using a seperate list
 func update_possible_moves() -> void:
 	# reset exiting next-moves
@@ -323,9 +324,19 @@ func update_possible_moves() -> void:
 
 	for mv: Move in moves:
 		if mv.is_move():
-			mv.cell.show_possible_next_move.emit()
+			possible_move_cells.append(mv.cell)
 		if mv.is_undo():
-			mv.cell.show_possible_undo.emit()
+			possible_move_cells.append(mv.cell)
+
+	emit_possible_cells()
+
+func emit_possible_cells() -> void:
+	# consider flags on cells instead?
+	for c: Cell in possible_move_cells:
+		if c.has_undo():
+			c.show_possible_undo.emit()
+		else:
+			c.show_possible_next_move.emit()
 
 #############################
 ## apply_moves helpers
