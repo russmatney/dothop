@@ -187,8 +187,43 @@ func test_apply_moves_stuck() -> void:
 	assert_array(state.get_grid_row_objs(0)[1]).is_equal([])
 	assert_bool(state.win).is_false()
 
-func test_apply_moves_signal_test() -> void:
+func test_apply_moves_signal() -> void:
+	# TODO ensure expected cell and player callables are fired
 	pass
+
+
+## possible next moves
+
+func test_possible_moves_basic_dot() -> void:
+	var state := build_state(["xo"])
+	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
+	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2(1, 0)])
+
+func test_possible_moves_basic_goal() -> void:
+	var state := build_state(["xt"])
+	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
+	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2(1, 0)])
+
+func test_possible_moves_multiple() -> void:
+	var state := build_state([
+		"xo",
+		"o.",
+		])
+	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
+	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2(1, 0), Vector2(0, 1)])
+
+func test_possible_moves_updates() -> void:
+	var state := build_state(["xoo"])
+
+	state.move(Vector2.RIGHT)
+
+	var possible_move_coords := state.possible_move_cells.map(func(c: PuzzleState.Cell) -> Vector2: return c.coord)
+	assert_array(possible_move_coords).contains_exactly_in_any_order([Vector2.ZERO, Vector2(2, 0)])
+
+func test_reemit_possible_move_signals() -> void:
+	# TODO test cell-fired signals are emitted
+	pass
+
 
 ## full movement tests
 

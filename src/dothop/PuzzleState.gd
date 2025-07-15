@@ -38,6 +38,10 @@ class Cell:
 	signal mark_dotted
 	signal mark_undotted
 
+	signal show_possible_next_move
+	signal show_possible_undo
+	signal remove_possible_next_move
+
 	func _init(_coord: Vector2, _objs: Array[GameDef.Obj]) -> void:
 		coord = _coord
 		objs = _objs
@@ -79,8 +83,9 @@ class Move:
 	func to_pretty() -> Variant:
 		return [type, player, cell]
 
-	func mark_undo() -> void:
+	func mark_undo(c: Cell) -> void:
 		type = MoveType.undo
+		cell = c
 	func mark_stuck() -> void:
 		type = MoveType.stuck
 	func mark_blocked_by_player() -> void:
@@ -93,6 +98,15 @@ class Move:
 		cell = c
 	func add_dot_to_hop(c: Cell) -> void:
 		hopped_cells.append(c)
+
+	func is_move() -> bool:
+		return type in [MoveType.move_to_dot, MoveType.move_to_goal]
+	func is_undo() -> bool:
+		return type == MoveType.undo
+	func is_stuck() -> bool:
+		return type == MoveType.stuck
+	func is_blocked() -> bool:
+		return type in [MoveType.blocked_by_player]
 
 enum MoveType {
 	unknown=0,
@@ -121,6 +135,7 @@ var grid_height: int
 
 var players: Array[Player] = []
 var cells_by_coord: Dictionary[Vector2, Cell] = {}
+var possible_move_cells: Array[Cell] = []
 
 ## state
 
@@ -259,11 +274,11 @@ func check_move(move_dir: Vector2) -> Array[Move]:
 
 		# check for any undo cells first
 		# it's probably easier to prevent moving 'backwards'
-		var undo_cell_in_dir: Variant = U.first(cells.filter(func(c: Cell) -> bool:
+		var undo_cell: Variant = U.first(cells.filter(func(c: Cell) -> bool:
 			return c.has_undo() and c.coord in p.move_history))
 
-		if undo_cell_in_dir != null:
-			mv.mark_undo()
+		if undo_cell != null:
+			mv.mark_undo(undo_cell)
 		elif p.stuck:
 			mv.mark_stuck()
 		else:
@@ -291,6 +306,26 @@ func check_all_moves() -> Dictionary:
 	for dir: Vector2 in [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]:
 		moves[dir] = check_move(dir)
 	return moves
+
+# TODO call immediately after building state - maybe need a re-fire-signals helper for callables attached later?
+# may need to set flags on cells instead of using a seperate list
+func update_possible_moves() -> void:
+	# reset exiting next-moves
+	for cell: Cell in possible_move_cells:
+		cell.remove_possible_next_move.emit()
+	possible_move_cells = []
+
+	# gather and flatten moves
+	var moves_by_dir := check_all_moves()
+	var moves: Array[Move] = []
+	for mvs: Array[Move] in moves_by_dir.values():
+		moves.append_array(mvs)
+
+	for mv: Move in moves:
+		if mv.is_move():
+			mv.cell.show_possible_next_move.emit()
+		if mv.is_undo():
+			mv.cell.show_possible_undo.emit()
 
 #############################
 ## apply_moves helpers
@@ -469,4 +504,9 @@ func move(move_dir: Vector2) -> MoveResult:
 
 	var moves_to_make := check_move(move_dir)
 	# Log.prn("moves to make", moves_to_make)
-	return apply_moves(moves_to_make)
+	var res := apply_moves(moves_to_make)
+
+	# resets and updates new possible cells
+	update_possible_moves()
+
+	return res
