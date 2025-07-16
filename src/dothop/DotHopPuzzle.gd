@@ -385,15 +385,9 @@ func rebuild_nodes() -> void:
 
 				cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
 				cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
-				cell.show_possible_next_move.connect(func() -> void:
-					Log.pr("possible next move!", cell)
-					dot.show_possible_next_move())
-				cell.show_possible_undo.connect(func() -> void:
-					Log.pr("possible undo!", cell)
-					dot.show_possible_undo())
-				cell.remove_possible_next_move.connect(func() -> void:
-					Log.pr("no longer possible!", cell)
-					dot.remove_possible_next_move())
+				cell.show_possible_next_move.connect(func() -> void: dot.show_possible_next_move())
+				cell.show_possible_undo.connect(func() -> void: dot.show_possible_undo())
+				cell.remove_possible_next_move.connect(func() -> void: dot.remove_possible_next_move())
 
 				add_child(dot)
 			else:

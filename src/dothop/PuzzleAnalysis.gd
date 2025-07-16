@@ -1,11 +1,64 @@
 extends Object
 class_name PuzzleAnalysis
 
-## vars ####################################
 
-const WIN: String = "WIN"
-const STUCK_GOAL: String = "STUCK_GOAL"
-const STUCK_DOT: String = "STUCK_DOT"
+class MovePath:
+	enum Result {INCOMPLETE = 0,WIN = 1, STUCK_GOAL = 2, STUCK_DOT = 3}
+
+	var moves: Array[Vector2]
+	var result: Result = Result.INCOMPLETE
+	var choices: int = 0
+
+	func _init(mvs: Array[Vector2]) -> void:
+		moves = mvs
+
+	func to_pretty() -> Variant:
+		return {moves=len(moves), choices=choices, result=result}
+
+	func add_step(mv: Vector2) -> void:
+		moves.append(mv)
+	func add_choice() -> void:
+		choices += 1
+
+	static func is_end_result(x: Variant) -> bool:
+		return x in [Result.WIN, Result.STUCK_GOAL, Result.STUCK_DOT]
+	func mark_result(res: Result) -> void:
+		result = res
+
+	func duplicate() -> MovePath:
+		var new_mp := MovePath.new(moves)
+		new_mp.result = result
+		new_mp.choices = choices
+		return new_mp
+
+	func is_winning() -> bool:
+		return result == Result.WIN
+	func is_stuck_dot() -> bool:
+		return result == Result.STUCK_DOT
+	func is_stuck_goal() -> bool:
+		return result == Result.STUCK_GOAL
+
+	func turn_count() -> int:
+		var ct := 0
+		var last: Variant = null
+		for move: Vector2 in moves:
+			if move == last:
+				continue
+			last = move
+			ct += 1
+		return ct
+
+	func choice_count() -> int:
+		var ct := 0
+		var last: Variant = null
+		for move: Variant in moves:
+			if move == last:
+				continue
+			last = move
+			ct += 1
+		return ct
+
+## vars ####################################
 
 var puzzle_node: DotHopPuzzle
 var puzzle_state: PuzzleState
@@ -44,31 +97,42 @@ func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = 
 		return current_move_dict
 	else:
 		if puzzle_state.win:
-			return WIN
+			return MovePath.Result.WIN
 		elif puzzle_state.all_players_at_goal():
-			return STUCK_GOAL
+			return MovePath.Result.STUCK_GOAL
 		else:
-			return STUCK_DOT
+			return MovePath.Result.STUCK_DOT
 
 ## collect_paths ####################################
 
-func collect_paths(_move_tree: Variant, current_path: Array = [], _paths: Array = []) -> Array:
+func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: Array[MovePath] = []) -> Array[MovePath]:
 	if not _move_tree is Dictionary:
 		# this is a test-only edge case, but if we can't make moves from the start...
-		var new_path: Array = current_path.duplicate()
-		new_path.append(_move_tree)
-		_paths.append(new_path)
+		_paths.append(MovePath.new([]))
 		return _paths
 
-	for dir: Vector2 in (_move_tree as Dictionary).keys():
-		var new_path: Array = current_path.duplicate() # new path for each move
-		new_path.append(dir)
+	if current_path == null:
+		current_path = MovePath.new([])
 
-		var node: Variant = _move_tree[dir]
-		if node is Dictionary:
-			collect_paths(node, new_path, _paths)
-		elif node == WIN or node == STUCK_DOT or node == STUCK_GOAL:
-			new_path.append(node)
+	if len((_move_tree as Dictionary).keys()) > 1:
+		# differentiate between choice-2s and choice-3s?
+		current_path.add_choice()
+
+		Log.pr("added choice to current path", current_path)
+
+	for dir: Vector2 in (_move_tree as Dictionary).keys():
+		var new_path: MovePath = current_path.duplicate() # new path for each move
+		new_path.add_step(dir)
+
+		# this is either the move tree or a MovePath.Result
+		var res: Variant = _move_tree[dir]
+		if res is Dictionary:
+			# eep! we're modifying the MovePath in-place.
+			collect_paths(res, new_path, _paths)
+		elif MovePath.is_end_result(res):
+			# i wonder what happens to this casted enum (null -> 0? or crash?)
+			new_path.mark_result(res as MovePath.Result)
+			Log.pr("adding finished path to _paths", new_path)
 			_paths.append(new_path)
 
 	return _paths
@@ -76,7 +140,7 @@ func collect_paths(_move_tree: Variant, current_path: Array = [], _paths: Array 
 ## analyze ####################################
 
 var move_tree: Variant #: Dictionary | String
-var paths: Array
+var paths: Array[MovePath]
 
 var winning_paths: Array
 var stuck_dot_paths: Array
@@ -94,13 +158,16 @@ var stuck_path_count : int
 var stuck_dot_path_count : int
 var stuck_goal_path_count : int
 
+var least_choices_count: int = 0
+var most_choices_count: int = 0
+
 func analyze() -> PuzzleAnalysis:
 	move_tree = collect_move_tree()
 	paths = collect_paths(move_tree)
 
-	winning_paths = paths.filter(func(p: Array) -> bool: return p[-1] == WIN)
-	stuck_dot_paths = paths.filter(func(p: Array) -> bool: return p[-1] == STUCK_DOT)
-	stuck_goal_paths = paths.filter(func(p: Array) -> bool: return p[-1] == STUCK_GOAL)
+	winning_paths = paths.filter(func(p: MovePath) -> bool: return p.is_winning())
+	stuck_dot_paths = paths.filter(func(p: MovePath) -> bool: return p.is_stuck_dot())
+	stuck_goal_paths = paths.filter(func(p: MovePath) -> bool: return p.is_stuck_goal())
 
 	path_count = len(paths)
 	winning_path_count = len(winning_paths)
@@ -110,9 +177,25 @@ func analyze() -> PuzzleAnalysis:
 
 	solvable = len(winning_paths) > 0
 	if solvable:
-		dot_count = len(winning_paths[0])
+		dot_count = len(winning_paths[0].moves)
+
+	for p: MovePath in winning_paths:
+		var ct := p.choice_count()
+		if ct > most_choices_count:
+			most_choices_count = ct
+		if least_choices_count == 0 or ct < least_choices_count:
+			least_choices_count = ct
 
 	width = puzzle_state.grid_width
 	height = puzzle_state.grid_height
 
 	return self
+
+func to_pretty() -> Variant:
+	return {
+		"dot count" = dot_count,
+		"winning paths" = winning_path_count,
+		"total paths" = path_count,
+		"width" = width,
+		"height" = height,
+		}
