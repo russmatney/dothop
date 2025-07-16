@@ -113,46 +113,46 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 
 ## test in-game puzzles ##################################################
 
-# func test_all_puzzles_solvable_via_state() -> void:
-# 	var sets := Store.get_puzzle_sets()
-# 	assert_int(len(sets)).is_greater(3) # make sure we get some
+func test_all_puzzles_solvable_via_state() -> void:
+	var sets := Store.get_puzzle_sets()
+	assert_int(len(sets)).is_greater(3) # make sure we get some
 
-# 	for x in range(len(sets)):
-# 		var puzzle_set: PuzzleSet = sets[x]
-# 		var game_def := puzzle_set.get_game_def()
-# 		var puzzle_count := len(game_def.puzzles)
-# 		assert_int(puzzle_count).is_greater(0)
-# 		for i in puzzle_count:
-# 			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
-# 			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
-# 			Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
-# 			if not solve.solvable:
-# 				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
-# 			assert_bool(solve.solvable).is_true()
+	for x in range(len(sets)):
+		var puzzle_set: PuzzleSet = sets[x]
+		var game_def := puzzle_set.get_game_def()
+		var puzzle_count := len(game_def.puzzles)
+		assert_int(puzzle_count).is_greater(0)
+		for i in puzzle_count:
+			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
+			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
+			Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+			if not solve.solvable:
+				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
+			assert_bool(solve.solvable).is_true()
 
-# func test_all_puzzles_solvable_via_node() -> void:
-# 	var sets := Store.get_puzzle_sets()
-# 	assert_int(len(sets)).is_greater(3) # make sure we get some
+func test_all_puzzles_solvable_via_node() -> void:
+	var sets := Store.get_puzzle_sets()
+	assert_int(len(sets)).is_greater(3) # make sure we get some
 
-# 	for puzzle_set: PuzzleSet in sets:
-# 		var game_def := puzzle_set.get_game_def()
-# 		var puzzle_count := len(game_def.puzzles)
-# 		assert_int(puzzle_count).is_greater(0)
+	for puzzle_set: PuzzleSet in sets:
+		var game_def := puzzle_set.get_game_def()
+		var puzzle_count := len(game_def.puzzles)
+		assert_int(puzzle_count).is_greater(0)
 
-# 		# run for a random one for each puzzle set
-# 		# (the puzzle solutions are tested thoroughly by the previous test)
-# 		var i: int = randi_range(0, puzzle_count - 1)
+		# run for a random one for each puzzle set
+		# (the puzzle solutions are tested thoroughly by the previous test)
+		var i: int = randi_range(0, puzzle_count - 1)
 
-# 		var puzz_node := DotHopPuzzle.build_puzzle_node({
-# 			game_def=game_def,
-# 			puzzle_num=i,
-# 			})
-# 		puzz_node.build_game_state()
+		var puzz_node := DotHopPuzzle.build_puzzle_node({
+			game_def=game_def,
+			puzzle_num=i,
+			})
+		puzz_node.build_game_state()
 
-# 		var solve := PuzzleAnalysis.new({node=puzz_node}).analyze()
-# 		Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
-# 		if not solve.solvable:
-# 			Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
-# 		assert_bool(solve.solvable).is_true()
+		var solve := PuzzleAnalysis.new({node=puzz_node}).analyze()
+		Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+		if not solve.solvable:
+			Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
+		assert_bool(solve.solvable).is_true()
 
-# 		puzz_node.free()
+		puzz_node.free()
