@@ -26,7 +26,8 @@ class MovePath:
 		result = res
 
 	func duplicate() -> MovePath:
-		var new_mp := MovePath.new(moves)
+		# ermagerd don't forget to dupe the array
+		var new_mp := MovePath.new(moves.duplicate())
 		new_mp.result = result
 		new_mp.choices = choices
 		return new_mp
@@ -42,20 +43,12 @@ class MovePath:
 		var ct := 0
 		var last: Variant = null
 		for move: Vector2 in moves:
-			if move == last:
+			if last == null:
+				last = move
 				continue
+			if last != move:
+				ct += 1
 			last = move
-			ct += 1
-		return ct
-
-	func choice_count() -> int:
-		var ct := 0
-		var last: Variant = null
-		for move: Variant in moves:
-			if move == last:
-				continue
-			last = move
-			ct += 1
 		return ct
 
 ## vars ####################################
@@ -118,8 +111,6 @@ func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: A
 		# differentiate between choice-2s and choice-3s?
 		current_path.add_choice()
 
-		Log.pr("added choice to current path", current_path)
-
 	for dir: Vector2 in (_move_tree as Dictionary).keys():
 		var new_path: MovePath = current_path.duplicate() # new path for each move
 		new_path.add_step(dir)
@@ -132,7 +123,6 @@ func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: A
 		elif MovePath.is_end_result(res):
 			# i wonder what happens to this casted enum (null -> 0? or crash?)
 			new_path.mark_result(res as MovePath.Result)
-			Log.pr("adding finished path to _paths", new_path)
 			_paths.append(new_path)
 
 	return _paths
@@ -160,6 +150,8 @@ var stuck_goal_path_count : int
 
 var least_choices_count: int = 0
 var most_choices_count: int = 0
+var least_turns_count: int = 0
+var most_turns_count: int = 0
 
 func analyze() -> PuzzleAnalysis:
 	move_tree = collect_move_tree()
@@ -180,11 +172,17 @@ func analyze() -> PuzzleAnalysis:
 		dot_count = len(winning_paths[0].moves)
 
 	for p: MovePath in winning_paths:
-		var ct := p.choice_count()
-		if ct > most_choices_count:
-			most_choices_count = ct
-		if least_choices_count == 0 or ct < least_choices_count:
-			least_choices_count = ct
+		var choice_ct := p.choices
+		if choice_ct > most_choices_count:
+			most_choices_count = choice_ct
+		if least_choices_count == 0 or choice_ct < least_choices_count:
+			least_choices_count = choice_ct
+
+		var turn_ct := p.turn_count()
+		if turn_ct > most_turns_count:
+			most_turns_count = turn_ct
+		if least_turns_count == 0 or turn_ct < least_turns_count:
+			least_turns_count = turn_ct
 
 	width = puzzle_state.grid_width
 	height = puzzle_state.grid_height
@@ -193,9 +191,13 @@ func analyze() -> PuzzleAnalysis:
 
 func to_pretty() -> Variant:
 	return {
+		"width" = width,
+		"height" = height,
 		"dot count" = dot_count,
 		"winning paths" = winning_path_count,
 		"total paths" = path_count,
-		"width" = width,
-		"height" = height,
+		"most_choices_count" = most_choices_count,
+		"least_choices_count" = least_choices_count,
+		"most_turns_count" = most_turns_count,
+		"least_turns_count" = least_turns_count,
 		}

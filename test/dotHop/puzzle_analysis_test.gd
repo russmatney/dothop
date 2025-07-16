@@ -45,6 +45,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			solvable=true,
 			path_count=1, winning_path_count=1, stuck_path_count=0,
 			least_choices_count=0, most_choices_count=0,
+			least_turns_count=0, most_turns_count=0,
 			}],
 		[[
 			"x.",
@@ -53,6 +54,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			solvable=true,
 			path_count=1, winning_path_count=1, stuck_path_count=0,
 			least_choices_count=0, most_choices_count=0,
+			least_turns_count=1, most_turns_count=1,
 			}],
 		[[
 			"oxot",
@@ -61,6 +63,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			solvable=true,
 			path_count=7, winning_path_count=2, stuck_path_count=5,
 			least_choices_count=1, most_choices_count=2,
+			least_turns_count=4, most_turns_count=4,
 			}],
 		[[
 			".x..", # branch from not-the-start
@@ -70,11 +73,23 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			solvable=true,
 			path_count=7, winning_path_count=2, stuck_path_count=5,
 			least_choices_count=1, most_choices_count=2,
+			least_turns_count=5, most_turns_count=5,
+			}],
+		[[
+			"..x..", # prove turn counts can be different
+			"oooo.",
+			"oooot"
+			], {
+			solvable=true,
+			path_count=18, winning_path_count=4, stuck_path_count=14,
+			least_choices_count=3, most_choices_count=4,
+			least_turns_count=5, most_turns_count=7,
 			}],
 		[["x.", ".t"], {
 			solvable=false,
 			path_count=1, winning_path_count=0, stuck_path_count=1,
 			least_choices_count=0, most_choices_count=0,
+			least_turns_count=0, most_turns_count=0,
 			}],
 		[[
 			"o.oo.",
@@ -83,7 +98,8 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			], {
 			solvable=true,
 			path_count=22, winning_path_count=2, stuck_path_count=20,
-			least_choices_count=1, most_choices_count=3,
+			least_choices_count=3, most_choices_count=3,
+			least_turns_count=6, most_turns_count=6,
 			}],
 	]) -> void:
 	var puzzle := build_puzzle(puzz)
@@ -91,8 +107,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 	var result := PuzzleAnalysis.new({node=puzzle}).analyze()
 
 	for k: String in expected_result:
-		Log.pr("testing key:", k)
-		assert_that(expected_result[k]).is_equal(result.get(k))
+		assert_that(expected_result[k]).append_failure_message(k).is_equal(result.get(k))
 
 	puzzle.free()
 
