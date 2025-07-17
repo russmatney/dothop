@@ -125,7 +125,20 @@ func test_all_puzzles_solvable_via_state() -> void:
 		for i in puzzle_count:
 			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
 			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
-			Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+			# Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+			var choice_s := str(solve.least_choices_count, " / ", solve.most_choices_count)
+			var turn_s := str(solve.least_turns_count, " / ", solve.most_turns_count)
+			if solve.winning_path_count == 1 or solve.least_choices_count == solve.most_choices_count:
+				choice_s = str(solve.least_choices_count)
+			if solve.winning_path_count == 1 or solve.least_turns_count == solve.most_turns_count:
+				turn_s = str(solve.least_turns_count)
+			Log.pr(str(" | ", puzzle_set.get_display_name(),
+				" | [", x+1, "-", i+1, "](#_", x+1, "-", i+1, ") | ",
+				solve.dot_count, " | ",
+				solve.winning_path_count, " / ", solve.path_count, " | ",
+				choice_s, " | ",
+				turn_s, " | ",
+				" | "))
 			if not solve.solvable:
 				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
 			assert_bool(solve.solvable).is_true()
