@@ -40,6 +40,17 @@ class PuzzCtx:
 	func path_sum() -> String:
 		return str(solve.winning_path_count, " / ", solve.path_count)
 
+	func puzzle_lines() -> Array[String]:
+		var lines : Array[String] = []
+		for row: Array in state.puzzle_def.shape:
+			var line := "".join(row.map(func(cell: Variant) -> String:
+				return str(cell) if cell != null else "."))
+			lines.append(line)
+		return lines
+
+	func raw_puzzle_lines() -> Array:
+		return state.puzzle_def.shape
+
 	func table_line() -> String:
 		var p_id := puzzle_id()
 		var world_name := puzzle_set.get_display_name()
@@ -62,7 +73,12 @@ class PuzzCtx:
 		data["world_name"] = puzzle_set.get_display_name()
 		data["puzzle_id"] = puzzle_id()
 
-		# TODO add sum table_line fields
+		data["puzzle_lines"] = puzzle_lines()
+		data["raw_puzzle_lines"] = raw_puzzle_lines()
+
+		data["path_sum"] = path_sum()
+		data["choice_sum"] = choice_sum()
+		data["turn_sum"] = turn_sum()
 
 		# join fields with table seperator
 		return data
