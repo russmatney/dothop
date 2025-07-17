@@ -46,3 +46,14 @@ tx..o.o
 ......t
 oo.o.x.
 oo.o..o
+
+message "Extremely difficult puzzle!!"
+stat_line "27 dots | 1/45978 wins/paths | 14 choices  | 16 turns"
+
+.o.oo..
+oooooo.
+..oto..
+o..oo.o
+.o.oxo.
+oo..o.o
+.o.o.oo

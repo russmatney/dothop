@@ -100,12 +100,3 @@ oox........o.o
 ooo.......o...
 
 
-message "Extra!!"
-
-.o.oo..
-oooooo.
-..oto..
-o..oo.o
-.o.oxo.
-oo..o.o
-.o.o.oo
