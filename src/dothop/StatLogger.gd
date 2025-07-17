@@ -1,6 +1,8 @@
 extends Object
 class_name StatLogger
 
+static func md_link(txt: String, uri: String) -> String:
+	return str("[", txt, "](", uri, ")")
 
 ## public
 
@@ -22,23 +24,48 @@ class PuzzCtx:
 		solve = PuzzleAnalysis.new({state=state}).analyze()
 		Log.info(["Finished analyzing puzzle:", puzzle_set.get_display_name(), puzzle_i])
 
-	func table_line() -> String:
-		var choice_s := str(solve.least_choices_count, " / ", solve.most_choices_count)
-		var turn_s := str(solve.least_turns_count, " / ", solve.most_turns_count)
+	func puzzle_id() -> String:
+		return str(world_i+1, "-", puzzle_i+1)
+
+	func choice_sum() -> String:
 		if solve.winning_path_count == 1 or solve.least_choices_count == solve.most_choices_count:
-			choice_s = str(solve.least_choices_count)
+			return str(solve.least_choices_count)
+		return str(solve.least_choices_count, " / ", solve.most_choices_count)
+
+	func turn_sum() -> String:
 		if solve.winning_path_count == 1 or solve.least_turns_count == solve.most_turns_count:
-			turn_s = str(solve.least_turns_count)
+			return str(solve.least_turns_count)
+		return str(solve.least_turns_count, " / ", solve.most_turns_count)
+
+	func path_sum() -> String:
+		return str(solve.winning_path_count, " / ", solve.path_count)
+
+	func table_line() -> String:
+		var p_id := puzzle_id()
+		var world_name := puzzle_set.get_display_name()
+
+		# fields with table seperator
+		# maybe re-use json_data.values()? or otherwise go data-driven
+		return str(" | ", " | ".join([
+			# md links for blog post
+			StatLogger.md_link(world_name, str("#", world_name)),
+			StatLogger.md_link(p_id, str("#_", p_id)),
+			solve.dot_count,
+			path_sum(),
+			choice_sum(),
+			turn_sum(),
+			]), " | ")
+
+	func json_data() -> Dictionary:
+		var data: Dictionary = solve.to_pretty()
+
+		data["world_name"] = puzzle_set.get_display_name()
+		data["puzzle_id"] = puzzle_id()
+
+		# TODO add sum table_line fields
 
 		# join fields with table seperator
-		return " | ".join([
-			puzzle_set.get_display_name(),
-			str("[", world_i+1, "-", puzzle_i+1, "](#_", world_i+1, "-", puzzle_i+1, ")"),
-			solve.dot_count,
-			solve.winning_path_count, " / ", solve.path_count,
-			choice_s,
-			turn_s,
-			])
+		return data
 
 
 static func build_puzzle_ctxs() -> Array[PuzzCtx]:
@@ -62,12 +89,25 @@ static func log_puzzle_data() -> void:
 
 	var puzzle_ctxs := build_puzzle_ctxs()
 
+	var json_data : Array[Dictionary] = []
+	var md_table : Array[String] = []
+
 	for ctx in puzzle_ctxs:
-		# TODO parallelize
+		# TODO parallelize/background the analysis
 		ctx.analyze()
 
-		var table_line := ctx.table_line()
+		md_table.append(ctx.table_line())
+		json_data.append(ctx.json_data())
 
-		Log.pr(table_line)
+	var json_data_path := "res://data/puzzle_data.json"
+	Log.info("Writing Puzzle Data to", json_data_path)
+	var json_blob := JSON.stringify(json_data, "  ")
+	var json_file := FileAccess.open(json_data_path, FileAccess.WRITE)
+	json_file.store_string(json_blob)
+	Log.info("JSON Puzzle Data written to", json_data_path)
 
-		# TODO write data files to disk
+	var md_table_path := "res://data/puzzle_data.md"
+	Log.info("Writing Puzzle Data to", md_table_path)
+	var md_file := FileAccess.open(md_table_path, FileAccess.WRITE)
+	md_file.store_string("\n".join(md_table))
+	Log.info("Markdown Puzzle Data written to", md_table_path)
