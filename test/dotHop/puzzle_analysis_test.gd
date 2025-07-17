@@ -62,7 +62,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			], {
 			solvable=true,
 			path_count=7, winning_path_count=2, stuck_path_count=5,
-			least_choices_count=1, most_choices_count=2,
+			least_choices_count=1, most_choices_count=1,
 			least_turns_count=4, most_turns_count=4,
 			}],
 		[[
@@ -72,7 +72,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			], {
 			solvable=true,
 			path_count=7, winning_path_count=2, stuck_path_count=5,
-			least_choices_count=1, most_choices_count=2,
+			least_choices_count=1, most_choices_count=1,
 			least_turns_count=5, most_turns_count=5,
 			}],
 		[[
@@ -82,7 +82,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 			], {
 			solvable=true,
 			path_count=18, winning_path_count=4, stuck_path_count=14,
-			least_choices_count=3, most_choices_count=4,
+			least_choices_count=2, most_choices_count=3,
 			least_turns_count=5, most_turns_count=7,
 			}],
 		[["x.", ".t"], {
@@ -107,7 +107,7 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 	var result := PuzzleAnalysis.new({node=puzzle}).analyze()
 
 	for k: String in expected_result:
-		assert_that(expected_result[k]).append_failure_message(k).is_equal(result.get(k))
+		assert_that(expected_result[k]).append_failure_message(str(k, " | ", puzz[0])).is_equal(result.get(k))
 
 	puzzle.free()
 

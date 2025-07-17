@@ -107,7 +107,15 @@ func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: A
 	if current_path == null:
 		current_path = MovePath.new([])
 
-	if len((_move_tree as Dictionary).keys()) > 1:
+	var filtered_mt := {}
+	for dir: Vector2 in (_move_tree as Dictionary).keys():
+		# ignore choices that would hit the goal early
+		# TODO this should be behind a flag
+		# (so game modes can early-exit puzzles if they want)
+		if _move_tree[dir] is Dictionary or _move_tree[dir] != MovePath.Result.STUCK_GOAL:
+			filtered_mt[dir] = _move_tree[dir]
+
+	if len((filtered_mt as Dictionary).keys()) > 1:
 		# differentiate between choice-2s and choice-3s?
 		current_path.add_choice()
 
