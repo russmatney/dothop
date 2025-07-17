@@ -80,6 +80,9 @@ class PuzzCtx:
 		data["choice_sum"] = choice_sum()
 		data["turn_sum"] = turn_sum()
 
+		data["world_i"] = world_i
+		data["puzzle_i"] = puzzle_i
+
 		# join fields with table seperator
 		return data
 

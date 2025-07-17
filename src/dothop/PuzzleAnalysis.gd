@@ -201,9 +201,9 @@ func to_pretty() -> Variant:
 	return {
 		"width" = width,
 		"height" = height,
-		"dot count" = dot_count,
-		"winning paths" = winning_path_count,
-		"total paths" = path_count,
+		"dot_count" = dot_count,
+		"winning_paths" = winning_path_count,
+		"total_paths" = path_count,
 		"most_choices_count" = most_choices_count,
 		"least_choices_count" = least_choices_count,
 		"most_turns_count" = most_turns_count,

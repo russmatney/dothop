@@ -1,13 +1,14 @@
 [
   {
     "choice_sum": "0",
-    "dot count": 4,
+    "dot_count": 4,
     "height": 3,
     "least_choices_count": 0,
     "least_turns_count": 0,
     "most_choices_count": 0,
     "most_turns_count": 0,
     "path_sum": "1 / 1",
+    "puzzle_i": 0,
     "puzzle_id": "1-1",
     "puzzle_lines": [
       ".......",
@@ -43,21 +44,23 @@
         null
       ]
     ],
-    "total paths": 1,
+    "total_paths": 1,
     "turn_sum": "0",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "0",
-    "dot count": 5,
+    "dot_count": 5,
     "height": 3,
     "least_choices_count": 0,
     "least_turns_count": 4,
     "most_choices_count": 0,
     "most_turns_count": 4,
     "path_sum": "1 / 1",
+    "puzzle_i": 1,
     "puzzle_id": "1-2",
     "puzzle_lines": [
       "...o..t",
@@ -93,21 +96,23 @@
         null
       ]
     ],
-    "total paths": 1,
+    "total_paths": 1,
     "turn_sum": "4",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "1",
-    "dot count": 6,
+    "dot_count": 6,
     "height": 3,
     "least_choices_count": 1,
     "least_turns_count": 4,
     "most_choices_count": 1,
     "most_turns_count": 4,
     "path_sum": "1 / 4",
+    "puzzle_i": 2,
     "puzzle_id": "1-3",
     "puzzle_lines": [
       "o.o..o",
@@ -140,21 +145,23 @@
         null
       ]
     ],
-    "total paths": 4,
+    "total_paths": 4,
     "turn_sum": "4",
     "width": 6,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "0",
-    "dot count": 7,
+    "dot_count": 7,
     "height": 4,
     "least_choices_count": 0,
     "least_turns_count": 6,
     "most_choices_count": 0,
     "most_turns_count": 6,
     "path_sum": "1 / 3",
+    "puzzle_i": 3,
     "puzzle_id": "1-4",
     "puzzle_lines": [
       ".o.o...",
@@ -200,21 +207,23 @@
         null
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "6",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "1",
-    "dot count": 5,
+    "dot_count": 5,
     "height": 3,
     "least_choices_count": 1,
     "least_turns_count": 4,
     "most_choices_count": 1,
     "most_turns_count": 4,
     "path_sum": "1 / 3",
+    "puzzle_i": 4,
     "puzzle_id": "1-5",
     "puzzle_lines": [
       "o.o....",
@@ -250,21 +259,23 @@
         "t"
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "4",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "3",
-    "dot count": 9,
+    "dot_count": 9,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 6,
     "most_choices_count": 3,
     "most_turns_count": 6,
     "path_sum": "2 / 22",
+    "puzzle_i": 5,
     "puzzle_id": "1-6",
     "puzzle_lines": [
       "o..o.o.",
@@ -310,21 +321,23 @@
         null
       ]
     ],
-    "total paths": 22,
+    "total_paths": 22,
     "turn_sum": "6",
     "width": 7,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "3 / 4",
-    "dot count": 8,
+    "dot_count": 8,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 3,
     "most_choices_count": 4,
     "most_turns_count": 7,
     "path_sum": "2 / 12",
+    "puzzle_i": 6,
     "puzzle_id": "1-7",
     "puzzle_lines": [
       "x.ooo",
@@ -362,21 +375,23 @@
         null
       ]
     ],
-    "total paths": 12,
+    "total_paths": 12,
     "turn_sum": "3 / 7",
     "width": 5,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "3",
-    "dot count": 8,
+    "dot_count": 8,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 7,
     "most_choices_count": 3,
     "most_turns_count": 7,
     "path_sum": "1 / 7",
+    "puzzle_i": 7,
     "puzzle_id": "1-8",
     "puzzle_lines": [
       "...oo",
@@ -414,21 +429,23 @@
         null
       ]
     ],
-    "total paths": 7,
+    "total_paths": 7,
     "turn_sum": "7",
     "width": 5,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "2",
-    "dot count": 12,
+    "dot_count": 12,
     "height": 4,
     "least_choices_count": 2,
     "least_turns_count": 9,
     "most_choices_count": 2,
     "most_turns_count": 9,
     "path_sum": "1 / 30",
+    "puzzle_i": 8,
     "puzzle_id": "1-9",
     "puzzle_lines": [
       "oo..o.o",
@@ -474,21 +491,23 @@
         "o"
       ]
     ],
-    "total paths": 30,
+    "total_paths": 30,
     "turn_sum": "9",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "3",
-    "dot count": 11,
+    "dot_count": 11,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 9,
     "most_choices_count": 3,
     "most_turns_count": 9,
     "path_sum": "1 / 19",
+    "puzzle_i": 9,
     "puzzle_id": "1-10",
     "puzzle_lines": [
       ".o....o",
@@ -534,21 +553,23 @@
         "o"
       ]
     ],
-    "total paths": 19,
+    "total_paths": 19,
     "turn_sum": "9",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "5",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 4,
     "least_choices_count": 5,
     "least_turns_count": 11,
     "most_choices_count": 5,
     "most_turns_count": 11,
     "path_sum": "1 / 105",
+    "puzzle_i": 10,
     "puzzle_id": "1-11",
     "puzzle_lines": [
       "oo..o.o",
@@ -594,21 +615,23 @@
         "o"
       ]
     ],
-    "total paths": 105,
+    "total_paths": 105,
     "turn_sum": "11",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "5 / 7",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 4,
     "least_choices_count": 5,
     "least_turns_count": 9,
     "most_choices_count": 7,
     "most_turns_count": 12,
     "path_sum": "8 / 105",
+    "puzzle_i": 11,
     "puzzle_id": "1-12",
     "puzzle_lines": [
       "oo..o.o",
@@ -654,21 +677,23 @@
         "o"
       ]
     ],
-    "total paths": 105,
+    "total_paths": 105,
     "turn_sum": "9 / 12",
     "width": 7,
-    "winning paths": 8,
+    "winning_paths": 8,
+    "world_i": 0,
     "world_name": "Them Dots"
   },
   {
     "choice_sum": "1",
-    "dot count": 5,
+    "dot_count": 5,
     "height": 2,
     "least_choices_count": 1,
     "least_turns_count": 3,
     "most_choices_count": 1,
     "most_turns_count": 3,
     "path_sum": "1 / 4",
+    "puzzle_i": 0,
     "puzzle_id": "2-1",
     "puzzle_lines": [
       "ooo",
@@ -686,21 +711,23 @@
         "t"
       ]
     ],
-    "total paths": 4,
+    "total_paths": 4,
     "turn_sum": "3",
     "width": 3,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "1",
-    "dot count": 8,
+    "dot_count": 8,
     "height": 3,
     "least_choices_count": 1,
     "least_turns_count": 5,
     "most_choices_count": 1,
     "most_turns_count": 5,
     "path_sum": "1 / 4",
+    "puzzle_i": 1,
     "puzzle_id": "2-2",
     "puzzle_lines": [
       "oo....o",
@@ -736,21 +763,23 @@
         "t"
       ]
     ],
-    "total paths": 4,
+    "total_paths": 4,
     "turn_sum": "5",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "1",
-    "dot count": 11,
+    "dot_count": 11,
     "height": 4,
     "least_choices_count": 1,
     "least_turns_count": 8,
     "most_choices_count": 1,
     "most_turns_count": 8,
     "path_sum": "1 / 11",
+    "puzzle_i": 2,
     "puzzle_id": "2-3",
     "puzzle_lines": [
       ".ot.o.o",
@@ -796,21 +825,23 @@
         "o"
       ]
     ],
-    "total paths": 11,
+    "total_paths": 11,
     "turn_sum": "8",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "2",
-    "dot count": 12,
+    "dot_count": 12,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 9,
     "most_choices_count": 2,
     "most_turns_count": 9,
     "path_sum": "1 / 12",
+    "puzzle_i": 3,
     "puzzle_id": "2-4",
     "puzzle_lines": [
       ".o.o..o",
@@ -866,21 +897,23 @@
         null
       ]
     ],
-    "total paths": 12,
+    "total_paths": 12,
     "turn_sum": "9",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "3",
-    "dot count": 11,
+    "dot_count": 11,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 10,
     "most_choices_count": 3,
     "most_turns_count": 10,
     "path_sum": "1 / 17",
+    "puzzle_i": 4,
     "puzzle_id": "2-5",
     "puzzle_lines": [
       "o..o..",
@@ -922,21 +955,23 @@
         null
       ]
     ],
-    "total paths": 17,
+    "total_paths": 17,
     "turn_sum": "10",
     "width": 6,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "4",
-    "dot count": 12,
+    "dot_count": 12,
     "height": 4,
     "least_choices_count": 4,
     "least_turns_count": 7,
     "most_choices_count": 4,
     "most_turns_count": 7,
     "path_sum": "1 / 41",
+    "puzzle_i": 5,
     "puzzle_id": "2-6",
     "puzzle_lines": [
       ".o.o..o",
@@ -982,21 +1017,23 @@
         "o"
       ]
     ],
-    "total paths": 41,
+    "total_paths": 41,
     "turn_sum": "7",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "3",
-    "dot count": 13,
+    "dot_count": 13,
     "height": 4,
     "least_choices_count": 3,
     "least_turns_count": 9,
     "most_choices_count": 3,
     "most_turns_count": 9,
     "path_sum": "2 / 45",
+    "puzzle_i": 6,
     "puzzle_id": "2-7",
     "puzzle_lines": [
       "..o.o..o",
@@ -1046,21 +1083,23 @@
         "o"
       ]
     ],
-    "total paths": 45,
+    "total_paths": 45,
     "turn_sum": "9",
     "width": 8,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "4",
-    "dot count": 15,
+    "dot_count": 15,
     "height": 4,
     "least_choices_count": 4,
     "least_turns_count": 7,
     "most_choices_count": 4,
     "most_turns_count": 10,
     "path_sum": "2 / 125",
+    "puzzle_i": 7,
     "puzzle_id": "2-8",
     "puzzle_lines": [
       ".o..o.o.",
@@ -1110,21 +1149,23 @@
         "o"
       ]
     ],
-    "total paths": 125,
+    "total_paths": 125,
     "turn_sum": "7 / 10",
     "width": 8,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "5",
-    "dot count": 18,
+    "dot_count": 18,
     "height": 5,
     "least_choices_count": 5,
     "least_turns_count": 10,
     "most_choices_count": 5,
     "most_turns_count": 10,
     "path_sum": "1 / 147",
+    "puzzle_i": 8,
     "puzzle_id": "2-9",
     "puzzle_lines": [
       "o.....oo",
@@ -1185,21 +1226,23 @@
         null
       ]
     ],
-    "total paths": 147,
+    "total_paths": 147,
     "turn_sum": "10",
     "width": 8,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "5 / 8",
-    "dot count": 19,
+    "dot_count": 19,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 17,
     "most_choices_count": 8,
     "most_turns_count": 17,
     "path_sum": "7 / 286",
+    "puzzle_i": 9,
     "puzzle_id": "2-10",
     "puzzle_lines": [
       "......o.o..",
@@ -1289,21 +1332,23 @@
         null
       ]
     ],
-    "total paths": 286,
+    "total_paths": 286,
     "turn_sum": "17",
     "width": 11,
-    "winning paths": 7,
+    "winning_paths": 7,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "6 / 7",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 6,
     "least_turns_count": 13,
     "most_choices_count": 7,
     "most_turns_count": 16,
     "path_sum": "5 / 671",
+    "puzzle_i": 10,
     "puzzle_id": "2-11",
     "puzzle_lines": [
       "...o..o...",
@@ -1387,21 +1432,23 @@
         null
       ]
     ],
-    "total paths": 671,
+    "total_paths": 671,
     "turn_sum": "13 / 16",
     "width": 10,
-    "winning paths": 5,
+    "winning_paths": 5,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "7 / 9",
-    "dot count": 23,
+    "dot_count": 23,
     "height": 6,
     "least_choices_count": 7,
     "least_turns_count": 11,
     "most_choices_count": 9,
     "most_turns_count": 14,
     "path_sum": "4 / 1738",
+    "puzzle_i": 11,
     "puzzle_id": "2-12",
     "puzzle_lines": [
       "...o..o.oo",
@@ -1485,21 +1532,23 @@
         null
       ]
     ],
-    "total paths": 1738,
+    "total_paths": 1738,
     "turn_sum": "11 / 14",
     "width": 10,
-    "winning paths": 4,
+    "winning_paths": 4,
+    "world_i": 1,
     "world_name": "A Spring in your Hop"
   },
   {
     "choice_sum": "1",
-    "dot count": 7,
+    "dot_count": 7,
     "height": 3,
     "least_choices_count": 1,
     "least_turns_count": 6,
     "most_choices_count": 1,
     "most_turns_count": 6,
     "path_sum": "2 / 3",
+    "puzzle_i": 0,
     "puzzle_id": "3-1",
     "puzzle_lines": [
       "....o..o",
@@ -1538,21 +1587,23 @@
         "o"
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "6",
     "width": 8,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 8,
+    "dot_count": 8,
     "height": 4,
     "least_choices_count": 2,
     "least_turns_count": 5,
     "most_choices_count": 3,
     "most_turns_count": 6,
     "path_sum": "3 / 11",
+    "puzzle_i": 1,
     "puzzle_id": "3-2",
     "puzzle_lines": [
       ".o...o.",
@@ -1598,21 +1649,23 @@
         null
       ]
     ],
-    "total paths": 11,
+    "total_paths": 11,
     "turn_sum": "5 / 6",
     "width": 7,
-    "winning paths": 3,
+    "winning_paths": 3,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 10,
+    "dot_count": 10,
     "height": 4,
     "least_choices_count": 2,
     "least_turns_count": 8,
     "most_choices_count": 3,
     "most_turns_count": 8,
     "path_sum": "2 / 6",
+    "puzzle_i": 2,
     "puzzle_id": "3-3",
     "puzzle_lines": [
       "o..ooo.",
@@ -1658,21 +1711,23 @@
         null
       ]
     ],
-    "total paths": 6,
+    "total_paths": 6,
     "turn_sum": "8",
     "width": 7,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 13,
+    "dot_count": 13,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 11,
     "most_choices_count": 3,
     "most_turns_count": 11,
     "path_sum": "3 / 20",
+    "puzzle_i": 3,
     "puzzle_id": "3-4",
     "puzzle_lines": [
       "o.....o",
@@ -1728,21 +1783,23 @@
         "o"
       ]
     ],
-    "total paths": 20,
+    "total_paths": 20,
     "turn_sum": "11",
     "width": 7,
-    "winning paths": 3,
+    "winning_paths": 3,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "2",
-    "dot count": 10,
+    "dot_count": 10,
     "height": 4,
     "least_choices_count": 2,
     "least_turns_count": 8,
     "most_choices_count": 2,
     "most_turns_count": 8,
     "path_sum": "2 / 7",
+    "puzzle_i": 4,
     "puzzle_id": "3-5",
     "puzzle_lines": [
       "..oo....o",
@@ -1796,21 +1853,23 @@
         null
       ]
     ],
-    "total paths": 7,
+    "total_paths": 7,
     "turn_sum": "8",
     "width": 9,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "3",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 5,
     "least_choices_count": 3,
     "least_turns_count": 12,
     "most_choices_count": 3,
     "most_turns_count": 12,
     "path_sum": "2 / 12",
+    "puzzle_i": 5,
     "puzzle_id": "3-6",
     "puzzle_lines": [
       ".o..o....",
@@ -1876,21 +1935,23 @@
         null
       ]
     ],
-    "total paths": 12,
+    "total_paths": 12,
     "turn_sum": "12",
     "width": 9,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "3",
-    "dot count": 16,
+    "dot_count": 16,
     "height": 5,
     "least_choices_count": 3,
     "least_turns_count": 12,
     "most_choices_count": 3,
     "most_turns_count": 12,
     "path_sum": "1 / 24",
+    "puzzle_i": 6,
     "puzzle_id": "3-7",
     "puzzle_lines": [
       ".....ooo.",
@@ -1956,21 +2017,23 @@
         null
       ]
     ],
-    "total paths": 24,
+    "total_paths": 24,
     "turn_sum": "12",
     "width": 9,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "3 / 4",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 6,
     "least_choices_count": 3,
     "least_turns_count": 11,
     "most_choices_count": 4,
     "most_turns_count": 11,
     "path_sum": "2 / 44",
+    "puzzle_i": 7,
     "puzzle_id": "3-8",
     "puzzle_lines": [
       "...o.oo....",
@@ -2060,21 +2123,23 @@
         null
       ]
     ],
-    "total paths": 44,
+    "total_paths": 44,
     "turn_sum": "11",
     "width": 11,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "1",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 6,
     "least_choices_count": 1,
     "least_turns_count": 11,
     "most_choices_count": 1,
     "most_turns_count": 11,
     "path_sum": "1 / 8",
+    "puzzle_i": 8,
     "puzzle_id": "3-9",
     "puzzle_lines": [
       "......oo...",
@@ -2164,21 +2229,23 @@
         null
       ]
     ],
-    "total paths": 8,
+    "total_paths": 8,
     "turn_sum": "11",
     "width": 11,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "5 / 10",
-    "dot count": 23,
+    "dot_count": 23,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 11,
     "most_choices_count": 10,
     "most_turns_count": 19,
     "path_sum": "17 / 399",
+    "puzzle_i": 9,
     "puzzle_id": "3-10",
     "puzzle_lines": [
       ".oo.ooo.o...",
@@ -2274,21 +2341,23 @@
         null
       ]
     ],
-    "total paths": 399,
+    "total_paths": 399,
     "turn_sum": "11 / 19",
     "width": 12,
-    "winning paths": 17,
+    "winning_paths": 17,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "5 / 8",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 5,
     "least_choices_count": 5,
     "least_turns_count": 13,
     "most_choices_count": 8,
     "most_turns_count": 15,
     "path_sum": "6 / 582",
+    "puzzle_i": 10,
     "puzzle_id": "3-11",
     "puzzle_lines": [
       "....oo..o.",
@@ -2359,21 +2428,23 @@
         "o"
       ]
     ],
-    "total paths": 582,
+    "total_paths": 582,
     "turn_sum": "13 / 15",
     "width": 10,
-    "winning paths": 6,
+    "winning_paths": 6,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "9 / 10",
-    "dot count": 19,
+    "dot_count": 19,
     "height": 5,
     "least_choices_count": 9,
     "least_turns_count": 17,
     "most_choices_count": 10,
     "most_turns_count": 17,
     "path_sum": "4 / 610",
+    "puzzle_i": 11,
     "puzzle_id": "3-12",
     "puzzle_lines": [
       "oo....o.o.",
@@ -2444,21 +2515,23 @@
         null
       ]
     ],
-    "total paths": 610,
+    "total_paths": 610,
     "turn_sum": "17",
     "width": 10,
-    "winning paths": 4,
+    "winning_paths": 4,
+    "world_i": 2,
     "world_name": "That's Just Beachy"
   },
   {
     "choice_sum": "1",
-    "dot count": 4,
+    "dot_count": 4,
     "height": 2,
     "least_choices_count": 1,
     "least_turns_count": 3,
     "most_choices_count": 1,
     "most_turns_count": 3,
     "path_sum": "1 / 3",
+    "puzzle_i": 0,
     "puzzle_id": "4-1",
     "puzzle_lines": [
       "oo.",
@@ -2476,21 +2549,23 @@
         "t"
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "3",
     "width": 3,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "1",
-    "dot count": 10,
+    "dot_count": 10,
     "height": 4,
     "least_choices_count": 1,
     "least_turns_count": 6,
     "most_choices_count": 1,
     "most_turns_count": 6,
     "path_sum": "1 / 14",
+    "puzzle_i": 1,
     "puzzle_id": "4-2",
     "puzzle_lines": [
       "o.o.o",
@@ -2528,21 +2603,23 @@
         null
       ]
     ],
-    "total paths": 14,
+    "total_paths": 14,
     "turn_sum": "6",
     "width": 5,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 11,
+    "dot_count": 11,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 8,
     "most_choices_count": 3,
     "most_turns_count": 8,
     "path_sum": "3 / 24",
+    "puzzle_i": 2,
     "puzzle_id": "4-3",
     "puzzle_lines": [
       "o.o..",
@@ -2588,21 +2665,23 @@
         null
       ]
     ],
-    "total paths": 24,
+    "total_paths": 24,
     "turn_sum": "8",
     "width": 5,
-    "winning paths": 3,
+    "winning_paths": 3,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "2",
-    "dot count": 12,
+    "dot_count": 12,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 10,
     "most_choices_count": 2,
     "most_turns_count": 10,
     "path_sum": "1 / 7",
+    "puzzle_i": 3,
     "puzzle_id": "4-4",
     "puzzle_lines": [
       ".o.o...",
@@ -2658,21 +2737,23 @@
         null
       ]
     ],
-    "total paths": 7,
+    "total_paths": 7,
     "turn_sum": "10",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "5 / 7",
-    "dot count": 15,
+    "dot_count": 15,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 10,
     "most_choices_count": 7,
     "most_turns_count": 13,
     "path_sum": "5 / 118",
+    "puzzle_i": 4,
     "puzzle_id": "4-5",
     "puzzle_lines": [
       "o.o...",
@@ -2732,21 +2813,23 @@
         "o"
       ]
     ],
-    "total paths": 118,
+    "total_paths": 118,
     "turn_sum": "10 / 13",
     "width": 6,
-    "winning paths": 5,
+    "winning_paths": 5,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "4 / 5",
-    "dot count": 17,
+    "dot_count": 17,
     "height": 5,
     "least_choices_count": 4,
     "least_turns_count": 12,
     "most_choices_count": 5,
     "most_turns_count": 13,
     "path_sum": "4 / 165",
+    "puzzle_i": 5,
     "puzzle_id": "4-6",
     "puzzle_lines": [
       ".o...oo.",
@@ -2807,21 +2890,23 @@
         null
       ]
     ],
-    "total paths": 165,
+    "total_paths": 165,
     "turn_sum": "12 / 13",
     "width": 8,
-    "winning paths": 4,
+    "winning_paths": 4,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "8 / 13",
-    "dot count": 21,
+    "dot_count": 21,
     "height": 6,
     "least_choices_count": 8,
     "least_turns_count": 8,
     "most_choices_count": 13,
     "most_turns_count": 19,
     "path_sum": "173 / 4985",
+    "puzzle_i": 6,
     "puzzle_id": "4-7",
     "puzzle_lines": [
       "o.o....",
@@ -2887,21 +2972,23 @@
         "o"
       ]
     ],
-    "total paths": 4985,
+    "total_paths": 4985,
     "turn_sum": "8 / 19",
     "width": 7,
-    "winning paths": 173,
+    "winning_paths": 173,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "5 / 9",
-    "dot count": 18,
+    "dot_count": 18,
     "height": 5,
     "least_choices_count": 5,
     "least_turns_count": 11,
     "most_choices_count": 9,
     "most_turns_count": 15,
     "path_sum": "13 / 265",
+    "puzzle_i": 7,
     "puzzle_id": "4-8",
     "puzzle_lines": [
       "ooo.oooo",
@@ -2962,21 +3049,23 @@
         null
       ]
     ],
-    "total paths": 265,
+    "total_paths": 265,
     "turn_sum": "11 / 15",
     "width": 8,
-    "winning paths": 13,
+    "winning_paths": 13,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "7 / 9",
-    "dot count": 22,
+    "dot_count": 22,
     "height": 5,
     "least_choices_count": 7,
     "least_turns_count": 13,
     "most_choices_count": 9,
     "most_turns_count": 16,
     "path_sum": "7 / 1579",
+    "puzzle_i": 8,
     "puzzle_id": "4-9",
     "puzzle_lines": [
       "ooo..oo..",
@@ -3042,21 +3131,23 @@
         null
       ]
     ],
-    "total paths": 1579,
+    "total_paths": 1579,
     "turn_sum": "13 / 16",
     "width": 9,
-    "winning paths": 7,
+    "winning_paths": 7,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "2",
-    "dot count": 15,
+    "dot_count": 15,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 10,
     "most_choices_count": 2,
     "most_turns_count": 10,
     "path_sum": "1 / 14",
+    "puzzle_i": 9,
     "puzzle_id": "4-10",
     "puzzle_lines": [
       "....o.ooo",
@@ -3122,21 +3213,23 @@
         "x"
       ]
     ],
-    "total paths": 14,
+    "total_paths": 14,
     "turn_sum": "10",
     "width": 9,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "7 / 10",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 5,
     "least_choices_count": 7,
     "least_turns_count": 12,
     "most_choices_count": 10,
     "most_turns_count": 18,
     "path_sum": "41 / 1512",
+    "puzzle_i": 10,
     "puzzle_id": "4-11",
     "puzzle_lines": [
       ".o..o....",
@@ -3202,21 +3295,23 @@
         "o"
       ]
     ],
-    "total paths": 1512,
+    "total_paths": 1512,
     "turn_sum": "12 / 18",
     "width": 9,
-    "winning paths": 41,
+    "winning_paths": 41,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "7 / 9",
-    "dot count": 21,
+    "dot_count": 21,
     "height": 6,
     "least_choices_count": 7,
     "least_turns_count": 12,
     "most_choices_count": 9,
     "most_turns_count": 15,
     "path_sum": "12 / 1584",
+    "puzzle_i": 11,
     "puzzle_id": "4-12",
     "puzzle_lines": [
       ".o...oo",
@@ -3282,21 +3377,23 @@
         "o"
       ]
     ],
-    "total paths": 1584,
+    "total_paths": 1584,
     "turn_sum": "12 / 15",
     "width": 7,
-    "winning paths": 12,
+    "winning_paths": 12,
+    "world_i": 3,
     "world_name": "Leaf Me Alone"
   },
   {
     "choice_sum": "0",
-    "dot count": 4,
+    "dot_count": 4,
     "height": 5,
     "least_choices_count": 0,
     "least_turns_count": 0,
     "most_choices_count": 0,
     "most_turns_count": 0,
     "path_sum": "1 / 1",
+    "puzzle_i": 0,
     "puzzle_id": "5-1",
     "puzzle_lines": [
       ".x.",
@@ -3332,21 +3429,23 @@
         null
       ]
     ],
-    "total paths": 1,
+    "total_paths": 1,
     "turn_sum": "0",
     "width": 3,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "1",
-    "dot count": 7,
+    "dot_count": 7,
     "height": 4,
     "least_choices_count": 1,
     "least_turns_count": 5,
     "most_choices_count": 1,
     "most_turns_count": 5,
     "path_sum": "1 / 3",
+    "puzzle_i": 1,
     "puzzle_id": "5-2",
     "puzzle_lines": [
       ".o.o...",
@@ -3392,21 +3491,23 @@
         null
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "5",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "0",
-    "dot count": 10,
+    "dot_count": 10,
     "height": 4,
     "least_choices_count": 0,
     "least_turns_count": 6,
     "most_choices_count": 0,
     "most_turns_count": 6,
     "path_sum": "1 / 1",
+    "puzzle_i": 2,
     "puzzle_id": "5-3",
     "puzzle_lines": [
       "xo......",
@@ -3456,21 +3557,23 @@
         "t"
       ]
     ],
-    "total paths": 1,
+    "total_paths": 1,
     "turn_sum": "6",
     "width": 8,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 8,
+    "dot_count": 8,
     "height": 3,
     "least_choices_count": 2,
     "least_turns_count": 7,
     "most_choices_count": 3,
     "most_turns_count": 7,
     "path_sum": "2 / 10",
+    "puzzle_i": 3,
     "puzzle_id": "5-4",
     "puzzle_lines": [
       ".o.o.oo",
@@ -3506,21 +3609,23 @@
         "t"
       ]
     ],
-    "total paths": 10,
+    "total_paths": 10,
     "turn_sum": "7",
     "width": 7,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "4 / 7",
-    "dot count": 16,
+    "dot_count": 16,
     "height": 5,
     "least_choices_count": 4,
     "least_turns_count": 15,
     "most_choices_count": 7,
     "most_turns_count": 15,
     "path_sum": "7 / 123",
+    "puzzle_i": 4,
     "puzzle_id": "5-5",
     "puzzle_lines": [
       "oo..o.o",
@@ -3576,21 +3681,23 @@
         null
       ]
     ],
-    "total paths": 123,
+    "total_paths": 123,
     "turn_sum": "15",
     "width": 7,
-    "winning paths": 7,
+    "winning_paths": 7,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "5 / 7",
-    "dot count": 16,
+    "dot_count": 16,
     "height": 5,
     "least_choices_count": 5,
     "least_turns_count": 12,
     "most_choices_count": 7,
     "most_turns_count": 12,
     "path_sum": "2 / 113",
+    "puzzle_i": 5,
     "puzzle_id": "5-6",
     "puzzle_lines": [
       "...o..o",
@@ -3646,21 +3753,23 @@
         "o"
       ]
     ],
-    "total paths": 113,
+    "total_paths": 113,
     "turn_sum": "12",
     "width": 7,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "2",
-    "dot count": 17,
+    "dot_count": 17,
     "height": 6,
     "least_choices_count": 2,
     "least_turns_count": 12,
     "most_choices_count": 2,
     "most_turns_count": 12,
     "path_sum": "1 / 28",
+    "puzzle_i": 6,
     "puzzle_id": "5-7",
     "puzzle_lines": [
       "....o.o...",
@@ -3744,21 +3853,23 @@
         null
       ]
     ],
-    "total paths": 28,
+    "total_paths": 28,
     "turn_sum": "12",
     "width": 10,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "5 / 7",
-    "dot count": 18,
+    "dot_count": 18,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 15,
     "most_choices_count": 7,
     "most_turns_count": 16,
     "path_sum": "5 / 215",
+    "puzzle_i": 7,
     "puzzle_id": "5-8",
     "puzzle_lines": [
       ".oo.o.o",
@@ -3824,21 +3935,23 @@
         null
       ]
     ],
-    "total paths": 215,
+    "total_paths": 215,
     "turn_sum": "15 / 16",
     "width": 7,
-    "winning paths": 5,
+    "winning_paths": 5,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "7 / 11",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 7,
     "least_turns_count": 13,
     "most_choices_count": 11,
     "most_turns_count": 17,
     "path_sum": "10 / 1422",
+    "puzzle_i": 8,
     "puzzle_id": "5-9",
     "puzzle_lines": [
       ".oo.o.t",
@@ -3904,21 +4017,23 @@
         null
       ]
     ],
-    "total paths": 1422,
+    "total_paths": 1422,
     "turn_sum": "13 / 17",
     "width": 7,
-    "winning paths": 10,
+    "winning_paths": 10,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "5 / 6",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 15,
     "most_choices_count": 6,
     "most_turns_count": 15,
     "path_sum": "2 / 156",
+    "puzzle_i": 9,
     "puzzle_id": "5-10",
     "puzzle_lines": [
       "...o.o.o...",
@@ -4008,21 +4123,23 @@
         null
       ]
     ],
-    "total paths": 156,
+    "total_paths": 156,
     "turn_sum": "15",
     "width": 11,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "6 / 8",
-    "dot count": 18,
+    "dot_count": 18,
     "height": 6,
     "least_choices_count": 6,
     "least_turns_count": 13,
     "most_choices_count": 8,
     "most_turns_count": 14,
     "path_sum": "5 / 316",
+    "puzzle_i": 10,
     "puzzle_id": "5-11",
     "puzzle_lines": [
       "o.o........",
@@ -4112,21 +4229,23 @@
         null
       ]
     ],
-    "total paths": 316,
+    "total_paths": 316,
     "turn_sum": "13 / 14",
     "width": 11,
-    "winning paths": 5,
+    "winning_paths": 5,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "5 / 9",
-    "dot count": 21,
+    "dot_count": 21,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 17,
     "most_choices_count": 9,
     "most_turns_count": 20,
     "path_sum": "4 / 120",
+    "puzzle_i": 11,
     "puzzle_id": "5-12",
     "puzzle_lines": [
       "...o......o...",
@@ -4234,21 +4353,23 @@
         null
       ]
     ],
-    "total paths": 120,
+    "total_paths": 120,
     "turn_sum": "17 / 20",
     "width": 14,
-    "winning paths": 4,
+    "winning_paths": 4,
+    "world_i": 4,
     "world_name": "Snow Way"
   },
   {
     "choice_sum": "1",
-    "dot count": 7,
+    "dot_count": 7,
     "height": 3,
     "least_choices_count": 1,
     "least_turns_count": 6,
     "most_choices_count": 1,
     "most_turns_count": 6,
     "path_sum": "1 / 3",
+    "puzzle_i": 0,
     "puzzle_id": "6-1",
     "puzzle_lines": [
       ".oo..",
@@ -4278,21 +4399,23 @@
         null
       ]
     ],
-    "total paths": 3,
+    "total_paths": 3,
     "turn_sum": "6",
     "width": 5,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "3",
-    "dot count": 9,
+    "dot_count": 9,
     "height": 3,
     "least_choices_count": 3,
     "least_turns_count": 6,
     "most_choices_count": 3,
     "most_turns_count": 6,
     "path_sum": "1 / 18",
+    "puzzle_i": 1,
     "puzzle_id": "6-2",
     "puzzle_lines": [
       ".ooo.",
@@ -4322,21 +4445,23 @@
         null
       ]
     ],
-    "total paths": 18,
+    "total_paths": 18,
     "turn_sum": "6",
     "width": 5,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "2 / 3",
-    "dot count": 14,
+    "dot_count": 14,
     "height": 5,
     "least_choices_count": 2,
     "least_turns_count": 9,
     "most_choices_count": 3,
     "most_turns_count": 9,
     "path_sum": "3 / 20",
+    "puzzle_i": 2,
     "puzzle_id": "6-3",
     "puzzle_lines": [
       "oo...o.o",
@@ -4397,21 +4522,23 @@
         null
       ]
     ],
-    "total paths": 20,
+    "total_paths": 20,
     "turn_sum": "9",
     "width": 8,
-    "winning paths": 3,
+    "winning_paths": 3,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "5",
-    "dot count": 15,
+    "dot_count": 15,
     "height": 5,
     "least_choices_count": 5,
     "least_turns_count": 11,
     "most_choices_count": 5,
     "most_turns_count": 11,
     "path_sum": "1 / 87",
+    "puzzle_i": 3,
     "puzzle_id": "6-4",
     "puzzle_lines": [
       ".x.o.t.",
@@ -4467,21 +4594,23 @@
         "o"
       ]
     ],
-    "total paths": 87,
+    "total_paths": 87,
     "turn_sum": "11",
     "width": 7,
-    "winning paths": 1,
+    "winning_paths": 1,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "5 / 6",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 14,
     "most_choices_count": 6,
     "most_turns_count": 17,
     "path_sum": "5 / 142",
+    "puzzle_i": 4,
     "puzzle_id": "6-5",
     "puzzle_lines": [
       ".o..o.o..",
@@ -4559,21 +4688,23 @@
         null
       ]
     ],
-    "total paths": 142,
+    "total_paths": 142,
     "turn_sum": "14 / 17",
     "width": 9,
-    "winning paths": 5,
+    "winning_paths": 5,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "4 / 5",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 4,
     "least_turns_count": 16,
     "most_choices_count": 5,
     "most_turns_count": 16,
     "path_sum": "2 / 166",
+    "puzzle_i": 5,
     "puzzle_id": "6-6",
     "puzzle_lines": [
       "..o.o.o..",
@@ -4651,21 +4782,23 @@
         null
       ]
     ],
-    "total paths": 166,
+    "total_paths": 166,
     "turn_sum": "16",
     "width": 9,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "4",
-    "dot count": 18,
+    "dot_count": 18,
     "height": 6,
     "least_choices_count": 4,
     "least_turns_count": 16,
     "most_choices_count": 4,
     "most_turns_count": 16,
     "path_sum": "2 / 68",
+    "puzzle_i": 6,
     "puzzle_id": "6-7",
     "puzzle_lines": [
       "..o....o.",
@@ -4743,21 +4876,23 @@
         null
       ]
     ],
-    "total paths": 68,
+    "total_paths": 68,
     "turn_sum": "16",
     "width": 9,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "6 / 8",
-    "dot count": 19,
+    "dot_count": 19,
     "height": 6,
     "least_choices_count": 6,
     "least_turns_count": 13,
     "most_choices_count": 8,
     "most_turns_count": 14,
     "path_sum": "9 / 516",
+    "puzzle_i": 7,
     "puzzle_id": "6-8",
     "puzzle_lines": [
       "oo...o.o",
@@ -4829,21 +4964,23 @@
         null
       ]
     ],
-    "total paths": 516,
+    "total_paths": 516,
     "turn_sum": "13 / 14",
     "width": 8,
-    "winning paths": 9,
+    "winning_paths": 9,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "5",
-    "dot count": 17,
+    "dot_count": 17,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 13,
     "most_choices_count": 5,
     "most_turns_count": 13,
     "path_sum": "2 / 68",
+    "puzzle_i": 8,
     "puzzle_id": "6-9",
     "puzzle_lines": [
       "oo...o..o",
@@ -4921,21 +5058,23 @@
         "o"
       ]
     ],
-    "total paths": 68,
+    "total_paths": 68,
     "turn_sum": "13",
     "width": 9,
-    "winning paths": 2,
+    "winning_paths": 2,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "5 / 7",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 5,
     "least_turns_count": 11,
     "most_choices_count": 7,
     "most_turns_count": 17,
     "path_sum": "10 / 660",
+    "puzzle_i": 9,
     "puzzle_id": "6-10",
     "puzzle_lines": [
       "o..o....",
@@ -5007,21 +5146,23 @@
         "o"
       ]
     ],
-    "total paths": 660,
+    "total_paths": 660,
     "turn_sum": "11 / 17",
     "width": 8,
-    "winning paths": 10,
+    "winning_paths": 10,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "7 / 8",
-    "dot count": 20,
+    "dot_count": 20,
     "height": 6,
     "least_choices_count": 7,
     "least_turns_count": 11,
     "most_choices_count": 8,
     "most_turns_count": 17,
     "path_sum": "6 / 672",
+    "puzzle_i": 10,
     "puzzle_id": "6-11",
     "puzzle_lines": [
       "o.....o..",
@@ -5099,21 +5240,23 @@
         "o"
       ]
     ],
-    "total paths": 672,
+    "total_paths": 672,
     "turn_sum": "11 / 17",
     "width": 9,
-    "winning paths": 6,
+    "winning_paths": 6,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   },
   {
     "choice_sum": "8 / 9",
-    "dot count": 23,
+    "dot_count": 23,
     "height": 7,
     "least_choices_count": 8,
     "least_turns_count": 14,
     "most_choices_count": 9,
     "most_turns_count": 16,
     "path_sum": "3 / 4936",
+    "puzzle_i": 11,
     "puzzle_id": "6-12",
     "puzzle_lines": [
       "..o.oo.",
@@ -5189,10 +5332,11 @@
         "o"
       ]
     ],
-    "total paths": 4936,
+    "total_paths": 4936,
     "turn_sum": "14 / 16",
     "width": 7,
-    "winning paths": 3,
+    "winning_paths": 3,
+    "world_i": 5,
     "world_name": "Get Outer Here"
   }
 ]
