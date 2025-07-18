@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://cmo1rrcv4a4wx"
+path="res://.godot/imported/dothop-tutorial.puzz-4417221920ed1b78baff5f2d45e2038d.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-tutorial.puzz"
+dest_files=["res://.godot/imported/dothop-tutorial.puzz-4417221920ed1b78baff5f2d45e2038d.res"]
+
+[params]
+

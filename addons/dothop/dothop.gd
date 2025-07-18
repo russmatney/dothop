@@ -2,17 +2,24 @@
 extends EditorPlugin
 
 
-var puzzle_data_btn: Button = Button.new()
+var export_puzzle_data_btn: Button = Button.new()
+
+var puzzle_import_plugin
 
 func _enter_tree() -> void:
-	puzzle_data_btn.pressed.connect(log_puzzle_data)
-	puzzle_data_btn.text = "D"
-	add_control_to_container(CONTAINER_TOOLBAR, puzzle_data_btn)
-	puzzle_data_btn.get_parent().move_child(puzzle_data_btn, puzzle_data_btn.get_index() - 2)
+	export_puzzle_data_btn.pressed.connect(log_puzzle_data)
+	export_puzzle_data_btn.text = "D"
+	add_control_to_container(CONTAINER_TOOLBAR, export_puzzle_data_btn)
+	export_puzzle_data_btn.get_parent().move_child(export_puzzle_data_btn, export_puzzle_data_btn.get_index() - 2)
+
+	puzzle_import_plugin = preload("puzzle_import.gd").new()
+	add_import_plugin(puzzle_import_plugin)
 
 
 func _exit_tree() -> void:
-	remove_control_from_container(CONTAINER_TOOLBAR, puzzle_data_btn)
+	remove_control_from_container(CONTAINER_TOOLBAR, export_puzzle_data_btn)
+	remove_import_plugin(puzzle_import_plugin)
+	puzzle_import_plugin = null
 
 
 func log_puzzle_data() -> void:

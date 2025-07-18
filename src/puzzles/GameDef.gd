@@ -55,6 +55,7 @@ func _init(_path: Variant, _parsed: ParsedGame) -> void:
 		path = _path
 	parsed = _parsed
 	legend = parsed.legend
+	meta = parsed.prelude
 	puzzles.assign(parsed.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
 		return PuzzleDef.new(puzzle)))
 
