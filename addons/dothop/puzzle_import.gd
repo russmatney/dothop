@@ -41,8 +41,8 @@ func _get_option_visibility(s: String, sn: StringName, d: Dictionary) -> bool:
 func _get_priority() -> float:
 	return 1.0
 
-# func _can_import_threaded() -> bool:
-# 	return true
+func _can_import_threaded() -> bool:
+	return true
 
 func _get_import_order() -> int:
 	return 1
@@ -56,16 +56,11 @@ func _import(source_file: String, save_path: String, options: Dictionary, r_plat
 	if file == null:
 		return FileAccess.get_open_error()
 
-	var puzzle_set = PuzzleSetData.new()
+	Log.pr("importing", source_file)
 
 	var parsed_game: ParsedGame = ParsedGame.parse(file.get_as_text())
-	Log.pr("importing", source_file)
-	var game_def := GameDef.new(source_file, parsed_game)
+	var puzzle_set := PuzzleSetData.create(source_file, parsed_game)
 
-	puzzle_set.path = source_file
-	puzzle_set.game_def = game_def
-	Log.pr("parsing puzzle set with meta", game_def.meta)
-	if "world_name" in game_def.meta:
-		puzzle_set.display_name = game_def.meta.get("world_name")
+	Log.pr("puzzle_set", puzzle_set)
 
 	return ResourceSaver.save(puzzle_set, "%s.%s" % [save_path, _get_save_extension()])

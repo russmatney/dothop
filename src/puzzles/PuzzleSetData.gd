@@ -2,25 +2,24 @@
 extends Resource
 class_name PuzzleSetData
 
-# @export_tool_button("Parse puzzle txt file") var parse_action: Variant = parse
-
 @export var display_name: String
-@export_file("*.txt") var path: String
-var game_def: GameDef
+@export var source_file: String
+
+var parsed_game: ParsedGame
+var puzzle_defs: Array[PuzzleDef] = []
 
 ## to pretty
 
 func to_pretty() -> Variant:
-	return [path, game_def]
+	return [source_file, display_name]
 
-## parse
+## create ##################################################################
 
-func parse() -> void:
-	game_def = GameDef.parse_game_def(path)
-	Log.pr(self)
-
-func parse_game_def() -> GameDef:
-	game_def = GameDef.parse_game_def(path)
-	return game_def
-
-## helpers
+static func create(file: String, parsed: ParsedGame = null) -> PuzzleSetData:
+	var psd := PuzzleSetData.new()
+	psd.source_file = file
+	psd.parsed_game = parsed
+	psd.display_name = psd.parsed_game.prelude.get("title", "Unnamed")
+	psd.puzzle_defs.assign(psd.parsed_game.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
+		return PuzzleDef.new(puzzle)))
+	return psd

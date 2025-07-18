@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://pe84x7eikk01"
+path="res://.godot/imported/dothop-spring.puzz-5e5146fc30b38141ae05d2b4decd15a3.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-spring.puzz"
+dest_files=["res://.godot/imported/dothop-spring.puzz-5e5146fc30b38141ae05d2b4decd15a3.res"]
+
+[params]
+

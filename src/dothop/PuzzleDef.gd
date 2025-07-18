@@ -2,6 +2,10 @@
 extends Object
 class_name PuzzleDef
 
+# helpful for supporting some tests
+static func parse(lines: Array) -> PuzzleDef:
+	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines) as Dictionary)
+
 ## vars ########################################3333
 
 var shape: Array

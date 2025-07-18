@@ -9,51 +9,35 @@ const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 ## static ##########################################################################
 
 static var fallback_puzzle_scene: String = "res://src/dothop/DotHopPuzzle.tscn"
-static var fallback_puzzle_set_data: String = "res://src/puzzles/Tutorial.tres"
+static var fallback_puzzle_set_data: String = "res://src/puzzles/dothop-tutorial.puzz"
 
-# Builds and returns a "puzzle_scene" node.
-#
-# A raw puzzle or puzzle_num can be specified to load/pick a puzzle for a particular game_def.
-# `puzzle_scene` should be set according to the current theme.
+static func test_puzzle_node(_opts: Dictionary) -> DotHopPuzzle:
+	# var puzzle: Array = opts.get("puzzle") # raw puzzle input
+
+	var scene: PackedScene = load(DotHopPuzzle.fallback_puzzle_scene)
+	var node: DotHopPuzzle = scene.instantiate()
+	# TODO assign things....
+	return node
+
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
-	# parse/ensure game def ######################################333
-	# parse the puzzle script game, set game_def
-	var _game_def: GameDef = opts.get("game_def")
-	if not _game_def:
-		Log.info("no game def passed, using fallback")
-		var psd : PuzzleSetData = load(fallback_puzzle_set_data)
-		_game_def = psd.parse_game_def()
+	var psd: PuzzleSetData = opts.get("puzzle_set_data")
+	if psd == null:
+		psd = load(fallback_puzzle_set_data)
 
-	# parse/ensure puzzle def ####################################
-	# parse/pick the puzzle to load
-	var puzzle: Variant = opts.get("puzzle") # used to pass puzzles in tests
-	# default to loading the first puzzle
-	var _puzzle_num: int = opts.get("puzzle_num", 0)
-	var _puzzle_def: PuzzleDef
-
-	if puzzle is Array:
-		_puzzle_def = GameDef.parse_puzzle_def(puzzle as Array)
-	elif _puzzle_num != null:
-		_puzzle_def = _game_def.puzzles[_puzzle_num]
-
+	var _puzzle_def: PuzzleDef = opts.get("puzzle_def")
 	if _puzzle_def == null or _puzzle_def.shape == null:
-		Log.warn("Could not determine _puzzle_def, cannot build_puzzle_node()")
+		Log.error("Couldn't build puzzle node, no puzzle_def passed", opts)
 		return
 
-	###############################################################
-	# create puzzle scene node and set values
 	var _theme: PuzzleTheme = opts.get("puzzle_theme")
-	var scene: PackedScene = opts.get("puzzle_scene", _theme.get_puzzle_scene() if _theme else null)
+	var scene: PackedScene = _theme.get_puzzle_scene()
 	if scene == null:
 		scene = load(DotHopPuzzle.fallback_puzzle_scene)
 
 	var node: DotHopPuzzle = scene.instantiate()
-	node.game_def = _game_def
-	node.theme = _theme
-	if _theme:
-		node.theme_data = _theme.get_theme_data()
+	node.theme_data = _theme.get_theme_data()
 	node.puzzle_def = _puzzle_def
-	node.puzzle_num = _puzzle_num
+	node.puzzle_set_data = psd
 	return node
 
 ## vars ##############################################################
@@ -78,22 +62,14 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 @export var debugging: bool = false
 
-@export var theme: PuzzleTheme
 var theme_data: PuzzleThemeData
-var game_def : GameDef
+var puzzle_set_data : PuzzleSetData
 var puzzle_def : PuzzleDef :
 	set(ld):
 		puzzle_def = ld
 		if Engine.is_editor_hint():
 			build_game_state()
 @export var square_size: int = 32
-
-@export var puzzle_num : int :
-	set(pn):
-		puzzle_num = pn
-		if Engine.is_editor_hint():
-			if game_def:
-				puzzle_def = game_def.puzzles[pn]
 
 var dhcam: DotHopCam
 
@@ -128,13 +104,10 @@ func _ready() -> void:
 	if puzzle_def == null:
 		Log.info("no puzzle_def, loading fallback", name)
 		var psd : PuzzleSetData = load(fallback_puzzle_set_data)
-		game_def = psd.parse_game_def()
-		puzzle_def = game_def.puzzles[0]
+		puzzle_def = psd.puzzle_defs[0]
 
-	if theme_data == null and theme != null:
-		theme_data = theme.get_theme_data()
-		if theme_data == null:
-			Log.warn("Puzzle Scene running with no theme data!")
+	if theme_data == null:
+		Log.warn("Puzzle Scene running with no theme data!")
 
 	if randomize_layout:
 		reverse_ys = U.rand_of([true, false])
@@ -369,7 +342,7 @@ func reattempt_blocked_move() -> void:
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
 func build_game_state() -> void:
-	state = PuzzleState.new(puzzle_def, game_def)
+	state = PuzzleState.new(puzzle_def, puzzle_set_data)
 	rebuild_nodes()
 
 # (Re)Creates dot and player nodes, attaches state signals

@@ -15,13 +15,9 @@ static func parse_game_def(_path: Variant, opts: Dictionary = {}) -> GameDef:
 	var parsed_game: ParsedGame = ParsedGame.parse(contents)
 	return GameDef.new(_path, parsed_game)
 
-# helpful for supporting some tests
-static func parse_puzzle_def(lines: Array) -> PuzzleDef:
-	return PuzzleDef.new(ParsedGame.new().parse_puzzle(lines) as Dictionary)
-
 # finally baking the legend into the code directly
-# TODO support 'u' in the legend
-# TODO support some kind of 'dotted' in the legend
+# TODO support 'u' in the legend (for easier undo tests?)
+# TODO support some kind of 'dotted' in the legend (maybe d?)
 # TODO drop 'player' in favor of 'start'
 # TODO parse directly into enums here
 static var default_legend := {
@@ -127,11 +123,11 @@ class GridCell:
 	# 	return Obj.Dotted in objs
 
 # depends on the game def instance's parsed legend
-func grid_cells(puzzle_def: PuzzleDef) -> Array[GridCell]:
+static func grid_cells(puzzle_def: PuzzleDef) -> Array[GridCell]:
 	var cells: Array[GridCell] = []
 	for y in range(len(puzzle_def.shape)):
 		for x in range(len(puzzle_def.shape[0])):
-			var os: Array = legend.get(puzzle_def.shape[y][x], [])
+			var os: Array = default_legend.get(puzzle_def.shape[y][x], [])
 			var objs: Array[String] = []
 			objs.assign(os)
 			cells.append(GridCell.new(x, y, objs))

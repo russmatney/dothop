@@ -4,10 +4,9 @@ class_name DotHopGame
 ## vars #####################################################################
 
 @export var puzzle_set: PuzzleSet
+@export var puzzle_set_data: PuzzleSetData
 
-var game_def: GameDef
 var puzzle_node: DotHopPuzzle
-var puzzle_scene: PackedScene
 var puzzle_theme: PuzzleTheme
 @export var puzzle_num: int = 0
 
@@ -18,12 +17,14 @@ var hud: HUD
 ## ready #####################################################################
 
 func _ready() -> void:
+	if puzzle_set_data == null:
+		Log.error("No puzzle set data, can't run game scene")
+
 	if puzzle_set == null:
 		puzzle_set = Store.get_puzzle_sets()[0]
 
 	if puzzle_set != null:
 		puzzle_theme = puzzle_set.get_theme()
-		game_def = puzzle_set.get_game_def()
 	else:
 		Log.warn("no puzzle_set, cannot start GameScene")
 
@@ -67,9 +68,8 @@ func rebuild_puzzle() -> void:
 
 	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		# should we pass in the puzzle set here?
-		game_def=game_def,
-		puzzle_num=puzzle_num,
+		puzzle_set_data=puzzle_set_data,
+		puzzle_def=puzzle_set_data.puzzle_defs[puzzle_num],
 		puzzle_theme=puzzle_theme,
 		})
 
@@ -90,11 +90,15 @@ func rebuild_puzzle() -> void:
 		hud.restart_fade_in_controls_tween())
 	puzzle_node.move_rejected.connect(func() -> void:
 		update_hud()
-		hud.show_controls(true))
-	puzzle_node.move_input_blocked.connect(update_hud)
+		hud.show_controls(true)
+		DotHop.notif("Move Rejected", {id="move_reaction"}))
+	puzzle_node.move_input_blocked.connect(func() -> void:
+		update_hud()
+		DotHop.notif("Move Blocked", {id="move_reaction"}))
 	puzzle_node.rebuilt_nodes.connect(func() -> void:
 		update_hud()
-		Anim.puzzle_animate_intro_from_point(puzzle_node))
+		Anim.puzzle_animate_intro_from_point(puzzle_node)
+		DotHop.notif("Puzzle Rebuilt", {id="puzzle_rebuilt"}))
 
 	add_child.call_deferred(puzzle_node)
 	puzzle_node.ready.connect(func() -> void:
@@ -157,7 +161,7 @@ func on_puzzle_win() -> void:
 		await show_unlock_jumbo(ps)
 
 	if already_complete:
-		var end_of_puzzle_set: bool = puzzle_num + 1 >= len(game_def.puzzles)
+		var end_of_puzzle_set: bool = puzzle_num + 1 >= len(puzzle_set_data.puzzle_defs)
 		if end_of_puzzle_set:
 			DotHop.notif("All puzzles complete!")
 			await show_puzzle_set_complete_jumbo()
