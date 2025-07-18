@@ -47,9 +47,9 @@ func _on_notification(notif: Dictionary) -> void:
 	var found_existing: bool = false
 	if id != null:
 		if id in id_notifs:
-			var l: Node = id_notifs[id]
-			if is_instance_valid(l) and not l.is_queued_for_deletion():
-				lbl = l
+			var l: Variant = id_notifs[id]
+			if is_instance_valid(l) and l is Node and not (l as Node).is_queued_for_deletion():
+				lbl = l as Node
 				found_existing = true
 			else:
 				id_notifs.erase(id)
