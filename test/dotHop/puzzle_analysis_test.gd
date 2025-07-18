@@ -3,7 +3,7 @@ class_name PuzzleAnalysisTest
 
 
 func build_puzzle(puzzle: Array) -> DotHopPuzzle:
-	var puzzle_node := DotHopPuzzle.build_puzzle_node({puzzle=puzzle})
+	var puzzle_node := DotHopPuzzle.test_puzzle_node(puzzle)
 	puzzle_node.build_game_state()
 	return puzzle_node
 
@@ -116,6 +116,8 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 func test_all_puzzles_solvable_via_state() -> void:
 	var sets := Store.get_puzzle_sets()
 	assert_int(len(sets)).is_greater(3) # make sure we get some
+
+	# TODO refactor to pull all puzzles from the puzzle store
 
 	for x in range(len(sets)):
 		var puzzle_set: PuzzleSet = sets[x]

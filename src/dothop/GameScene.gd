@@ -68,7 +68,6 @@ func rebuild_puzzle() -> void:
 
 	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_set_data=puzzle_set_data,
 		puzzle_def=puzzle_set_data.puzzle_defs[puzzle_num],
 		puzzle_theme=puzzle_theme,
 		})

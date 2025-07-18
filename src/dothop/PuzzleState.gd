@@ -128,7 +128,6 @@ enum MoveResult {
 ## state vars
 
 var puzzle_def: PuzzleDef
-var puzzle_set_data: PuzzleSetData
 var win := false
 var grid_width: int
 var grid_height: int
@@ -147,9 +146,8 @@ func to_pretty() -> Variant:
 
 ## init
 
-func _init(puzz_def: PuzzleDef, psd: PuzzleSetData) -> void:
+func _init(puzz_def: PuzzleDef) -> void:
 	puzzle_def = puzz_def
-	puzzle_set_data = psd
 
 	for cell: GameDef.GridCell in GameDef.grid_cells(puzzle_def):
 		var coord := Vector2(cell.coord.x, cell.coord.y)

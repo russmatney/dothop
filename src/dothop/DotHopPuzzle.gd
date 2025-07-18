@@ -10,34 +10,29 @@ const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
 static var fallback_puzzle_scene: String = "res://src/dothop/DotHopPuzzle.tscn"
 static var fallback_puzzle_set_data: String = "res://src/puzzles/dothop-tutorial.puzz"
+static var fallback_theme_data: String = "res://src/themes/DebugThemeData.tres"
 
-static func test_puzzle_node(_opts: Dictionary) -> DotHopPuzzle:
-	# var puzzle: Array = opts.get("puzzle") # raw puzzle input
-
+static func test_puzzle_node(puzzle: Array) -> DotHopPuzzle:
 	var scene: PackedScene = load(DotHopPuzzle.fallback_puzzle_scene)
 	var node: DotHopPuzzle = scene.instantiate()
-	# TODO assign things....
+
+	node.theme_data = load(fallback_theme_data)
+	node.puzzle_def = PuzzleDef.parse(puzzle)
 	return node
 
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
-	var psd: PuzzleSetData = opts.get("puzzle_set_data")
-	if psd == null:
-		psd = load(fallback_puzzle_set_data)
-
 	var _puzzle_def: PuzzleDef = opts.get("puzzle_def")
+	var _theme: PuzzleTheme = opts.get("puzzle_theme")
+
 	if _puzzle_def == null or _puzzle_def.shape == null:
 		Log.error("Couldn't build puzzle node, no puzzle_def passed", opts)
 		return
 
-	var _theme: PuzzleTheme = opts.get("puzzle_theme")
 	var scene: PackedScene = _theme.get_puzzle_scene()
-	if scene == null:
-		scene = load(DotHopPuzzle.fallback_puzzle_scene)
-
 	var node: DotHopPuzzle = scene.instantiate()
+
 	node.theme_data = _theme.get_theme_data()
 	node.puzzle_def = _puzzle_def
-	node.puzzle_set_data = psd
 	return node
 
 ## vars ##############################################################
@@ -63,7 +58,6 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 @export var debugging: bool = false
 
 var theme_data: PuzzleThemeData
-var puzzle_set_data : PuzzleSetData
 var puzzle_def : PuzzleDef :
 	set(ld):
 		puzzle_def = ld
@@ -342,7 +336,7 @@ func reattempt_blocked_move() -> void:
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
 func build_game_state() -> void:
-	state = PuzzleState.new(puzzle_def, puzzle_set_data)
+	state = PuzzleState.new(puzzle_def)
 	rebuild_nodes()
 
 # (Re)Creates dot and player nodes, attaches state signals
