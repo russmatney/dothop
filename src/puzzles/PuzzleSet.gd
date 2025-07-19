@@ -7,8 +7,14 @@ class_name PuzzleSet
 func get_puzzle_script_path() -> String:
 	return get_string("puzzle_script_path")
 
+var cached_psd: PuzzleSetData
+
 func get_puzzle_set_data() -> PuzzleSetData:
-	return get_resource("puzzle_set_data")
+	if cached_psd != null:
+		return cached_psd
+	cached_psd = get_resource("puzzle_set_data")
+	cached_psd.setup()
+	return cached_psd
 
 func get_display_name() -> String:
 	return get_string("display_name")
@@ -57,8 +63,6 @@ func data() -> Variant:
 ## computed ############################################
 
 func get_puzzles() -> Array[PuzzleDef]:
-	# ensure puzzles are parsed
-	get_puzzle_set_data().setup()
 	return get_puzzle_set_data().puzzle_defs.filter(func(puzz: PuzzleDef) -> bool: return puzz.shape != null)
 
 func get_puzzle(idx: int) -> PuzzleDef:
@@ -83,12 +87,10 @@ func analyze_puzzles() -> PuzzleSetData:
 
 func attach_gameplay_data() -> PuzzleSetData:
 	var psd := get_puzzle_set_data()
-	Log.pr("psd to attach data to:", psd, psd.puzzle_defs)
 	for i: int in len(psd.puzzle_defs):
 		var puzzle_def: PuzzleDef = psd.puzzle_defs[i]
 		puzzle_def.is_completed = completed_puzzle(i)
 		puzzle_def.is_skipped = skipped_puzzle(i)
-		Log.pr("updated puzzle_def with gameplay stats", puzzle_def)
 	return psd
 
 ## actions ############################################

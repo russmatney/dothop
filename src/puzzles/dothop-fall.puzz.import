@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://p14qpyi7ofxg"
+path="res://.godot/imported/dothop-fall.puzz-f5730cb2b24b9f962d403f164f565cd1.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-fall.puzz"
+dest_files=["res://.godot/imported/dothop-fall.puzz-f5730cb2b24b9f962d403f164f565cd1.res"]
+
+[params]
+

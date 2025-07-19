@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://day5so78n1hui"
+path="res://.godot/imported/dothop-summer.puzz-d7b38cb634802af3603522f7dfd55418.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-summer.puzz"
+dest_files=["res://.godot/imported/dothop-summer.puzz-d7b38cb634802af3603522f7dfd55418.res"]
+
+[params]
+

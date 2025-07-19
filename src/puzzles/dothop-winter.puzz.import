@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://chwytcrhrwr2u"
+path="res://.godot/imported/dothop-winter.puzz-330356f672d8db6d614360f23814ed26.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-winter.puzz"
+dest_files=["res://.godot/imported/dothop-winter.puzz-330356f672d8db6d614360f23814ed26.res"]
+
+[params]
+

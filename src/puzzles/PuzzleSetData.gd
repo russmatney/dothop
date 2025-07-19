@@ -18,6 +18,9 @@ func to_pretty() -> Variant:
 # we aren't yet serializing puzzle_defs and parsed_games (tho we could!)
 # this would be a performance boost and we'd skip calling 'setup()' in places
 func setup() -> void:
+	if len(puzzle_defs) > 0:
+		Log.warn("Skipping PuzzleSetData setup, already have puzzle_defs", self)
+		return
 	Log.pr("Setting up PuzzleSetData", self)
 	if parsed_game == null:
 		var file := FileAccess.open(source_file, FileAccess.READ)

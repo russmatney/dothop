@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="PuzzleSetData" load_steps=2 format=3 uid="uid://14487kqsfq43"]
-
-[ext_resource type="Script" uid="uid://da6smb2xg6x4f" path="res://src/puzzles/PuzzleSetData.gd" id="1_kqf35"]
-
-[resource]
-script = ExtResource("1_kqf35")
-display_name = "Space"
-path = "res://src/puzzles/dothop-space.txt"
-metadata/_custom_type_script = "uid://da6smb2xg6x4f"

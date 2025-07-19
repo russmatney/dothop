@@ -313,10 +313,6 @@
 						"type": "int",
 						"value": -1
 					},
-					"puzzle_set_data": {
-						"type": "resource",
-						"value": "res://src/puzzles/Space.tres"
-					},
 					"puzzles_to_unlock": {
 						"type": "int",
 						"value": 46
@@ -366,7 +362,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": "res://src/puzzles/Fall.tres"
+						"value": ""
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -548,7 +544,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": "res://src/puzzles/Summer.tres"
+						"value": ""
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -654,7 +650,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": "res://src/puzzles/Winter.tres"
+						"value": ""
 					},
 					"puzzles_to_unlock": {
 						"type": "int",

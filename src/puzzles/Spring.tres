@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="PuzzleSetData" load_steps=2 format=3 uid="uid://choqcktrop0ks"]
-
-[ext_resource type="Script" uid="uid://da6smb2xg6x4f" path="res://src/puzzles/PuzzleSetData.gd" id="1_wu2y6"]
-
-[resource]
-script = ExtResource("1_wu2y6")
-display_name = "Spring"
-path = "res://src/puzzles/dothop-spring.txt"
-metadata/_custom_type_script = "uid://da6smb2xg6x4f"

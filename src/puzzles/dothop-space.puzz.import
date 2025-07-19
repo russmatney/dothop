@@ -1,0 +1,14 @@
+[remap]
+
+importer="dothop.puzzle_set"
+type="Resource"
+uid="uid://dqxju2fduy5dq"
+path="res://.godot/imported/dothop-space.puzz-09680210af7451e5a5d491dc17a0e8af.res"
+
+[deps]
+
+source_file="res://src/puzzles/dothop-space.puzz"
+dest_files=["res://.godot/imported/dothop-space.puzz-09680210af7451e5a5d491dc17a0e8af.res"]
+
+[params]
+
