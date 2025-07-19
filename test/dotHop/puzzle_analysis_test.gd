@@ -120,7 +120,7 @@ func test_all_puzzles_solvable_via_state() -> void:
 	# TODO refactor to pull all puzzles from a PuzzleStore
 
 	for x in range(len(sets)):
-		var puzzle_set: PuzzleSet = sets[x]
+		var puzzle_set: PuzzleWorld = sets[x]
 		var psd := puzzle_set.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)
@@ -149,7 +149,7 @@ func test_all_puzzles_solvable_via_node() -> void:
 	var sets := Store.get_puzzle_sets()
 	assert_int(len(sets)).is_greater(3) # make sure we get some
 
-	for puzzle_set: PuzzleSet in sets:
+	for puzzle_set: PuzzleWorld in sets:
 		var psd := puzzle_set.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)

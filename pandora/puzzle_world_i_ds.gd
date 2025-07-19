@@ -1,5 +1,5 @@
 # Do not modify! Auto-generated file.
-class_name PuzzleSetIDs
+class_name PuzzleWorldIDs
 
 
 const THEMDOTS = "16"

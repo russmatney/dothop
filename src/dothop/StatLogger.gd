@@ -7,13 +7,13 @@ static func md_link(txt: String, uri: String) -> String:
 ## public
 
 class PuzzCtx:
-	var puzzle_set: PuzzleSet
+	var puzzle_set: PuzzleWorld
 	var world_i: int
 	var puzzle_i: int
 	var state: PuzzleState
 	var solve: PuzzleAnalysis
 
-	func _init(_state: PuzzleState, _set: PuzzleSet, wi: int, pi: int) -> void:
+	func _init(_state: PuzzleState, _set: PuzzleWorld, wi: int, pi: int) -> void:
 		state = _state
 		puzzle_set = _set
 		world_i = wi
@@ -92,7 +92,7 @@ static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 	var sets := Store.get_puzzle_sets()
 
 	for world_i in range(len(sets)):
-		var puzzle_set: PuzzleSet = sets[world_i]
+		var puzzle_set: PuzzleWorld = sets[world_i]
 		var psd := puzzle_set.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 

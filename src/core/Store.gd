@@ -51,10 +51,10 @@ func initial_events() -> Array[Event]:
 
 ## repository ###########################################
 
-func get_puzzle_sets() -> Array[PuzzleSet]:
+func get_puzzle_sets() -> Array[PuzzleWorld]:
 	return state.puzzle_sets
 
-func find_puzzle_set(ps: PuzzleSet) -> PuzzleSet:
+func find_puzzle_set(ps: PuzzleWorld) -> PuzzleWorld:
 	return state.find_puzzle_set(ps)
 
 func get_themes() -> Array[PuzzleTheme]:
@@ -75,7 +75,7 @@ func find_event(filter_fn: Callable) -> Event:
 
 ## events ###########################################
 
-func complete_puzzle_set(puz: PuzzleSet) -> void:
+func complete_puzzle_set(puz: PuzzleWorld) -> void:
 	var event: PuzzleSetCompleted = find_event(func(ev: Event) -> bool: return PuzzleSetCompleted.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
@@ -85,7 +85,7 @@ func complete_puzzle_set(puz: PuzzleSet) -> void:
 		events.append(event)
 	save_game()
 
-func complete_puzzle_index(puz: PuzzleSet, idx: int) -> void:
+func complete_puzzle_index(puz: PuzzleWorld, idx: int) -> void:
 	var event: PuzzleCompleted = find_event(func(ev: Event) -> bool: return PuzzleCompleted.is_matching_event(ev, puz, idx))
 	if event:
 		event.inc_count()
@@ -102,12 +102,12 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int) -> void:
 		state.apply_event(skip_event)
 
 	@warning_ignore("unsafe_method_access")
-	var p: PuzzleSet = state.find_puzzle_set(event.get_puzzle_set() as PuzzleSet)
+	var p: PuzzleWorld = state.find_puzzle_set(event.get_puzzle_set() as PuzzleWorld)
 	p.attach_gameplay_data()
 
 	save_game()
 
-func skip_puzzle(puz: PuzzleSet, idx: int) -> void:
+func skip_puzzle(puz: PuzzleWorld, idx: int) -> void:
 	var event: PuzzleSkipped = find_event(func(ev: Event) -> bool: return PuzzleSkipped.is_matching_event(ev, puz, idx))
 	if event:
 		event.inc_count()
@@ -121,7 +121,7 @@ func skip_puzzle(puz: PuzzleSet, idx: int) -> void:
 
 	save_game()
 
-func unlock_puzzle_set(puz: PuzzleSet) -> void:
+func unlock_puzzle_set(puz: PuzzleWorld) -> void:
 	var event: Event = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
@@ -134,8 +134,8 @@ func unlock_puzzle_set(puz: PuzzleSet) -> void:
 	save_game()
 
 # Deprecated
-func unlock_next_puzzle_set(puz: PuzzleSet) -> void:
-	var next: PuzzleSet = puz.get_next_puzzle_set()
+func unlock_next_puzzle_set(puz: PuzzleWorld) -> void:
+	var next: PuzzleWorld = puz.get_next_puzzle_set()
 	if next:
 		unlock_puzzle_set(next)
 	else:
@@ -143,7 +143,7 @@ func unlock_next_puzzle_set(puz: PuzzleSet) -> void:
 
 func unlock_all_puzzle_sets() -> void:
 	Log.warn("Unlocking all puzzle sets!")
-	for ps: PuzzleSet in state.puzzle_sets:
+	for ps: PuzzleWorld in state.puzzle_sets:
 		var event: PuzzleSetUnlocked = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, ps))
 		if event:
 			continue

@@ -13,7 +13,7 @@ extends CanvasLayer
 @onready var next_puzzle_set_button: Button = $%NextPuzzleSetButton
 @onready var previous_puzzle_set_button: Button = $%PreviousPuzzleSetButton
 
-var current_puzzle_set: PuzzleSet
+var current_puzzle_set: PuzzleWorld
 var current_puzzle_set_idx: int = 0
 var current_puzzle_index: int = 0
 @onready var puzzle_sets: Array = Store.get_puzzle_sets()
@@ -61,7 +61,7 @@ func _ready() -> void:
 
 	var next_to_complete_puzzle_idx: int = 0
 	for i: int in len(puzzle_sets):
-		var ps: PuzzleSet = puzzle_sets[i]
+		var ps: PuzzleWorld = puzzle_sets[i]
 		if not ps.is_completed():
 			next_to_complete_puzzle_idx = i
 			break
@@ -103,7 +103,7 @@ func attempt_move_to_puzzle_set(delta: int) -> void:
 	if len(puzzle_sets) <= next_puzzle_set_idx or next_puzzle_set_idx == -1:
 		Log.warn("Next Puzzle set index out of bounds! aborting attempted move.")
 		return
-	var next_puzzle_set: PuzzleSet = puzzle_sets[next_puzzle_set_idx]
+	var next_puzzle_set: PuzzleWorld = puzzle_sets[next_puzzle_set_idx]
 
 	current_puzzle_set_idx = next_puzzle_set_idx
 	current_puzzle_set = next_puzzle_set
@@ -124,7 +124,7 @@ func previous_puzzle_set_exists() -> bool:
 @onready var game_scene: PackedScene = preload("res://src/dothop/GameScene.tscn")
 
 func start_selected_puzzle() -> void:
-	var ps: PuzzleSet = current_puzzle_set
+	var ps: PuzzleWorld = current_puzzle_set
 	var idx: int = current_puzzle_index
 	var already_complete: bool = current_puzzle_set.is_completed()
 	Navi.nav_to(game_scene, {setup=func(g: DotHopGame) -> void:
@@ -148,7 +148,7 @@ func on_level_icon_gui_input(event: InputEvent) -> void:
 
 ## show puzzle set ################################################
 
-func show_puzzle_set(puzzle_set: PuzzleSet) -> void:
+func show_puzzle_set(puzzle_set: PuzzleWorld) -> void:
 	# update puzzle map
 	var markers: Array = puzzle_map.get_markers()
 	for m: PuzzleMapMarker in markers:
@@ -281,7 +281,7 @@ func hide_puzzle_cursor() -> void:
 
 ## update labels/buttons ################################################
 
-func update_puzzle_label(puzzle_set: PuzzleSet) -> void:
+func update_puzzle_label(puzzle_set: PuzzleWorld) -> void:
 	var puzzles: Array = puzzle_set.get_puzzles()
 	var total: int = len(puzzles)
 	var complete: int = len(puzzles.filter(func(p: PuzzleDef) -> bool: return p.is_completed))

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://i8awxopqtodu" path="res://src/menus/worldmap/PuzzleMap.gd" id="1_4t3eb"]
 [ext_resource type="Script" uid="uid://cm0dfxcjdcr7v" path="res://src/menus/worldmap/PuzzleMapMarker.gd" id="2_jhjra"]
 [ext_resource type="Texture2D" uid="uid://c0bbwjpu7vnq4" path="res://assets/worldmap/world_map_island1_sheet.png" id="2_uod71"]
-[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleSet.gd" id="3_386ps"]
+[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="3_386ps"]
 [ext_resource type="Texture2D" uid="uid://dmqftljhwi6wh" path="res://assets/worldmap/world_map_island2_sheet.png" id="3_vh7x8"]
 [ext_resource type="Texture2D" uid="uid://bqvpqj8apcxqj" path="res://assets/worldmap/world_map_island3_sheet.png" id="4_sxfhr"]
 [ext_resource type="Texture2D" uid="uid://1gqhpapggxjr" path="res://assets/worldmap/world_map_island4_sheet.png" id="5_n2dda"]

@@ -2,7 +2,7 @@
 extends Object
 class_name GameState
 
-var puzzle_sets: Array[PuzzleSet] = []
+var puzzle_sets: Array[PuzzleWorld] = []
 var themes: Array[PuzzleTheme] = []
 
 ## new #######################################################
@@ -30,18 +30,18 @@ func apply_events(events: Array) -> void:
 
 func apply_event(event: Event) -> void:
 	if event is PuzzleSetCompleted:
-		var ps: PuzzleSet = find_puzzle_set((event as PuzzleSetCompleted).get_puzzle_set())
+		var ps: PuzzleWorld = find_puzzle_set((event as PuzzleSetCompleted).get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
 		ps.mark_complete()
 	elif event is PuzzleCompleted:
-		var ps: PuzzleSet = find_puzzle_set((event as PuzzleCompleted).get_puzzle_set())
+		var ps: PuzzleWorld = find_puzzle_set((event as PuzzleCompleted).get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
 		ps.mark_puzzle_complete((event as PuzzleCompleted).get_puzzle_index())
 		ps.update_max_index((event as PuzzleCompleted).get_puzzle_index())
 	elif event is PuzzleSkipped:
-		var ps: PuzzleSet = find_puzzle_set((event as PuzzleSkipped).get_puzzle_set())
+		var ps: PuzzleWorld = find_puzzle_set((event as PuzzleSkipped).get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
 		if (event as PuzzleSkipped).is_active():
@@ -49,7 +49,7 @@ func apply_event(event: Event) -> void:
 		else:
 			ps.mark_puzzle_not_skipped((event as PuzzleSkipped).get_puzzle_index())
 	elif event is PuzzleSetUnlocked:
-		var ps: PuzzleSet = find_puzzle_set((event as PuzzleSetUnlocked).get_puzzle_set())
+		var ps: PuzzleWorld = find_puzzle_set((event as PuzzleSetUnlocked).get_puzzle_set())
 		if not ps:
 			Log.warn("Could not apply event! No puzzle_set found.", event)
 		ps.unlock()
@@ -63,20 +63,20 @@ func apply_event(event: Event) -> void:
 
 ## initial states #######################################################
 
-func initial_puzzle_sets() -> Array[PuzzleSet]:
-	var ent: PuzzleSet = Pandora.get_entity(PuzzleSetIDs.THEMDOTS)
+func initial_puzzle_sets() -> Array[PuzzleWorld]:
+	var ent: PuzzleWorld = Pandora.get_entity(PuzzleWorldIDs.THEMDOTS)
 	if ent == null:
-		Log.warn("no THEMDOTS PuzzleSet entity found. Is Pandora data loaded?")
+		Log.warn("no THEMDOTS PuzzleWorld entity found. Is Pandora data loaded?")
 		return []
 	var pss: Array = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
-		.map(func(e: PandoraEntity) -> PuzzleSet: return e.instantiate())\
-		.filter(func(e: PuzzleSet) -> bool:
+		.map(func(e: PandoraEntity) -> PuzzleWorld: return e.instantiate())\
+		.filter(func(e: PuzzleWorld) -> bool:
 			if OS.has_feature("demo"):
 				return e.allowed_in_demo()
 			return true)
-	var ps: Array[PuzzleSet] = []
+	var ps: Array[PuzzleWorld] = []
 	ps.assign(pss)
-	ps.sort_custom(func(a: PuzzleSet, b: PuzzleSet) -> bool: return a.get_sort_order() < b.get_sort_order())
+	ps.sort_custom(func(a: PuzzleWorld, b: PuzzleWorld) -> bool: return a.get_sort_order() < b.get_sort_order())
 	return ps
 
 func initial_themes() -> Array[PuzzleTheme]:
@@ -92,8 +92,8 @@ func initial_themes() -> Array[PuzzleTheme]:
 
 ## helpers #######################################################
 
-func find_puzzle_set(ps: PuzzleSet) -> Variant:
-	for puzz: PuzzleSet in puzzle_sets:
+func find_puzzle_set(ps: PuzzleWorld) -> Variant:
+	for puzz: PuzzleWorld in puzzle_sets:
 		# assumes puzzle_set instances and entities are 1:1, which seems fine
 		if puzz.get_entity_id() == ps.get_entity_id():
 			return puzz
@@ -109,5 +109,5 @@ func find_theme(theme: PuzzleTheme) -> Variant:
 ## stats ###########################################################
 
 func attach_gameplay_data() -> void:
-	for ps: PuzzleSet in puzzle_sets:
+	for ps: PuzzleWorld in puzzle_sets:
 		ps.attach_gameplay_data()

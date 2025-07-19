@@ -5,7 +5,7 @@ class_name PuzzleComplete
 ## vars ############################################################
 
 @onready var puzzle_progress_panel: PuzzleProgressPanel = $%PuzzleProgressPanel
-var puzzle_set: PuzzleSet
+var puzzle_set: PuzzleWorld
 var start_puzzle_num: int
 var end_puzzle_num: int
 

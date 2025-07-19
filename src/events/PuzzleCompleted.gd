@@ -2,8 +2,8 @@
 extends Event
 class_name PuzzleCompleted
 
-func get_puzzle_set() -> PuzzleSet:
-	return Pandora.get_entity(get_string("puzzle_set_id")) as PuzzleSet
+func get_puzzle_set() -> PuzzleWorld:
+	return Pandora.get_entity(get_string("puzzle_set_id")) as PuzzleWorld
 
 func get_puzzle_set_id() -> String:
 	return get_string("puzzle_set_id")
@@ -19,7 +19,7 @@ func data() -> Variant:
 		})
 	return d
 
-static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int) -> PuzzleCompleted:
+static func new_event(puzzle_set: PuzzleWorld, puzzle_idx: int) -> PuzzleCompleted:
 	var event: PuzzleCompleted = Pandora.get_entity(EventIds.PUZZLECOMPLETEDEVENT).instantiate()
 	event.set_string("puzzle_set_id", puzzle_set.get_entity_id())
 	event.set_integer("puzzle_idx", puzzle_idx)
@@ -29,7 +29,7 @@ static func new_event(puzzle_set: PuzzleSet, puzzle_idx: int) -> PuzzleCompleted
 		})
 	return event
 
-static func is_matching_event(event: Event, puzzle_set: PuzzleSet, idx: int) -> bool:
+static func is_matching_event(event: Event, puzzle_set: PuzzleWorld, idx: int) -> bool:
 	if not event is PuzzleCompleted:
 		return false
 	return (event as PuzzleCompleted).get_puzzle_set_id() == puzzle_set.get_entity_id() and \

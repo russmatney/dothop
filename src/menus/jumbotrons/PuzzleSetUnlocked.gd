@@ -4,7 +4,7 @@ class_name PuzzleUnlocked
 
 ## vars ############################################################
 
-var puzzle_set: PuzzleSet
+var puzzle_set: PuzzleWorld
 @onready var icon_container: Control = $%IconContainer
 @onready var icon: TextureRect = $%NextPuzzleIcon
 @onready var bg_image: TextureRect = $%BackgroundTexture

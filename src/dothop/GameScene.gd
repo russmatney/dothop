@@ -3,7 +3,7 @@ class_name DotHopGame
 
 ## vars #####################################################################
 
-@export var puzzle_set: PuzzleSet
+@export var puzzle_set: PuzzleWorld
 
 var puzzle_node: DotHopPuzzle
 var puzzle_theme: PuzzleTheme
@@ -196,7 +196,7 @@ func on_puzzle_win() -> void:
 	puzzle_set = Store.find_puzzle_set(puzzle_set)
 	var completed_puzzle_set: bool = puzzle_set.get_puzzles().all(func(pd: PuzzleDef) -> bool: return pd.is_completed)
 
-	var puzz_sets: Array[PuzzleSet] = Store.get_puzzle_sets()
+	var puzz_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
 	var stats: Dictionary = DHData.calc_stats(puzz_sets)
 	var opts: Dictionary = {stats=stats}
 	if completed_puzzle_set:
@@ -208,11 +208,11 @@ func on_puzzle_win() -> void:
 	# fetch again after completing puzzle sets
 	puzz_sets = Store.get_puzzle_sets()
 	var to_unlock: Array = []
-	for puzz_set: PuzzleSet in puzz_sets:
+	for puzz_set: PuzzleWorld in puzz_sets:
 		if not puzz_set.is_unlocked() and puzz_set.get_puzzles_to_unlock() <= stats.puzzles_completed:
 			to_unlock.append(puzz_set)
 
-	for ps: PuzzleSet in to_unlock:
+	for ps: PuzzleWorld in to_unlock:
 		Store.unlock_puzzle_set(ps)
 		await show_unlock_jumbo(ps)
 
@@ -253,20 +253,20 @@ func on_puzzle_win() -> void:
 
 # TODO omg move to achievements class or anywhere else
 func update_achievements(opts: Dictionary = {}) -> void:
-	var complete_puzzle_set: PuzzleSet = opts.get("complete_puzzle_set")
+	var complete_puzzle_set: PuzzleWorld = opts.get("complete_puzzle_set")
 
 	if complete_puzzle_set:
 		match (complete_puzzle_set.get_entity_id()):
-			PuzzleSetIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
-			PuzzleSetIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
-			PuzzleSetIDs.THATSJUSTBEACHY: GodotSteam.set_thats_just_beachy_complete()
-			PuzzleSetIDs.LEAFMEALONE: GodotSteam.set_leaf_me_alone_complete()
-			PuzzleSetIDs.SNOWWAY: GodotSteam.set_snow_way_complete()
-			PuzzleSetIDs.GETOUTERHERE:
+			PuzzleWorldIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
+			PuzzleWorldIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
+			PuzzleWorldIDs.THATSJUSTBEACHY: GodotSteam.set_thats_just_beachy_complete()
+			PuzzleWorldIDs.LEAFMEALONE: GodotSteam.set_leaf_me_alone_complete()
+			PuzzleWorldIDs.SNOWWAY: GodotSteam.set_snow_way_complete()
+			PuzzleWorldIDs.GETOUTERHERE:
 				GodotSteam.set_get_outer_here_complete()
 
-	var puzzle_sets: Array[PuzzleSet] = Store.get_puzzle_sets()
-	var all_complete: bool = puzzle_sets.all(func(ps: PuzzleSet) -> bool: return ps.is_completed())
+	var puzzle_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
+	var all_complete: bool = puzzle_sets.all(func(ps: PuzzleWorld) -> bool: return ps.is_completed())
 	if all_complete:
 		GodotSteam.set_all_puzzles_complete()
 
@@ -343,7 +343,7 @@ func show_puzzle_set_complete_jumbo() -> Signal:
 
 ## unlock jumbo #####################################################################
 
-func show_unlock_jumbo(puzz_set: PuzzleSet) -> Signal:
+func show_unlock_jumbo(puzz_set: PuzzleWorld) -> Signal:
 	var instance: PuzzleUnlocked = PuzzleSetUnlockedScene.instantiate()
 	instance.puzzle_set = puzz_set
 	return Jumbotron.jumbo_notif({pause=false, instance=instance})

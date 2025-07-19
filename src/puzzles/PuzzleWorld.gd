@@ -1,6 +1,6 @@
 @tool
 extends PandoraEntity
-class_name PuzzleSet
+class_name PuzzleWorld
 
 ## properties ##########################################
 
@@ -37,7 +37,7 @@ func is_unlocked() -> bool:
 func allowed_in_demo() -> bool:
 	return get_bool("allowed_in_demo")
 
-func get_next_puzzle_set() -> PuzzleSet:
+func get_next_puzzle_set() -> PuzzleWorld:
 	return get_reference("next_set")
 
 func get_max_completed_puzzle_index() -> int:

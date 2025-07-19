@@ -8,7 +8,7 @@ extends GdUnitTestSuite
 func test_initial_store_puzzle_data() -> void:
 	Store.reset_game_data()
 
-	var p_ent := Pandora.get_entity(PuzzleSetIDs.THEMDOTS)
+	var p_ent := Pandora.get_entity(PuzzleWorldIDs.THEMDOTS)
 	var puzzle_ents := Pandora.get_all_entities(Pandora.get_category(p_ent._category_id))
 	assert_int(len(puzzle_ents)).is_greater(2)
 
@@ -18,11 +18,11 @@ func test_initial_store_puzzle_data() -> void:
 	assert_that(len(sets)).is_equal(len(puzzle_ents))
 
 	# at least one unlocked puzzle set
-	var unlocked := sets.filter(func(ent: PuzzleSet) -> bool: return ent.is_unlocked())
+	var unlocked := sets.filter(func(ent: PuzzleWorld) -> bool: return ent.is_unlocked())
 	assert_int(len(unlocked)).is_greater(0)
 
 	# all but one set point to a next_puzzle_set
-	var have_next := sets.filter(func(ent: PuzzleSet) -> PuzzleSet: return ent.get_next_puzzle_set())
+	var have_next := sets.filter(func(ent: PuzzleWorld) -> PuzzleWorld: return ent.get_next_puzzle_set())
 	assert_that(len(have_next)).is_equal(len(sets) - 1)
 
 func test_initial_store_theme_data() -> void:
@@ -50,7 +50,7 @@ func test_completing_puzzle_set() -> void:
 
 	# get an unlocked puzzle and it's 'next' puzzle
 	var sets := Store.get_puzzle_sets()
-	var first: PuzzleSet = sets.filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	var first: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 	Store.complete_puzzle_set(first)
 
 	assert_bool(first.is_completed()).is_true()
@@ -67,7 +67,7 @@ func test_unlocking_puzzle_set() -> void:
 
 	# get an locked puzzle and it's 'next' puzzle
 	var sets := Store.get_puzzle_sets()
-	var first: PuzzleSet = sets.filter(func(e: PuzzleSet) -> bool: return not e.is_unlocked())[0]
+	var first: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
 	var first_id := first.get_entity_id()
 
 	# ensure it's not unlocked already!
@@ -104,7 +104,7 @@ func test_completing_a_puzzle(indexes: Array, test_parameters: Variant = [[[0]],
 	assert_that(len(Store.events)).is_equal(0)
 
 	var sets := Store.get_puzzle_sets()
-	var puz_set: PuzzleSet = sets.filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	var idx: int = indexes[-1]
 
@@ -134,8 +134,8 @@ func test_skipping_a_puzzle() -> void:
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
-	var puz_set: PuzzleSet = Store.get_puzzle_sets()\
-		.filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	var puz_set: PuzzleWorld = Store.get_puzzle_sets()\
+		.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	Store.complete_puzzle_index(puz_set, 0)
 	Store.complete_puzzle_index(puz_set, 1)
@@ -172,7 +172,7 @@ func test_skipping_a_puzzle() -> void:
 	Store.complete_puzzle_index(puz_set, 2)
 
 	# refetching from the store to get the updated data
-	puz_set = Store.get_puzzle_sets().filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	puz_set = Store.get_puzzle_sets().filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 	puz_defs = puz_set.get_puzzles()
 
 	assert_bool(puz_defs[0].is_completed).is_true()
@@ -199,7 +199,7 @@ func test_complete_puzzle_idx_dupe_events_increment_count() -> void:
 	assert_that(len(Store.events)).is_equal(0)
 
 	var sets := Store.get_puzzle_sets()
-	var puz_set: PuzzleSet = sets.filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	Store.complete_puzzle_index(puz_set, 0)
 	Store.complete_puzzle_index(puz_set, 0)
@@ -222,7 +222,7 @@ func test_puzzle_set_complete_and_unlock_dupe_events_increment_count() -> void:
 	assert_that(len(Store.events)).is_equal(0)
 
 	var sets := Store.get_puzzle_sets()
-	var puz_set: PuzzleSet = sets.filter(func(e: PuzzleSet) -> bool: return not e.is_completed())[0]
+	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	Store.complete_puzzle_set(puz_set)
 	Store.complete_puzzle_set(puz_set)

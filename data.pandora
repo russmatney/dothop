@@ -6,10 +6,10 @@
 				"_generate_ids": true,
 				"_icon_color": "e3f756ff",
 				"_id": "1",
-				"_ids_generation_class": "PuzzleSetIDs",
+				"_ids_generation_class": "PuzzleWorldIDs",
 				"_index": 0,
-				"_name": "PuzzleSet",
-				"_script_path": "res://src/puzzles/PuzzleSet.gd"
+				"_name": "PuzzleWorld",
+				"_script_path": "res://src/puzzles/PuzzleWorld.gd"
 			},
 			{
 				"_category_id": "",

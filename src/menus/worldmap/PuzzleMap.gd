@@ -11,11 +11,11 @@ extends WorldMap
 @export var y_buffer: float = 24
 
 class PSMap:
-	var puzzle_set: PuzzleSet
+	var puzzle_set: PuzzleWorld
 	var pos: Vector2
 	var size: Vector2
 
-	func _init(ps: PuzzleSet) -> void:
+	func _init(ps: PuzzleWorld) -> void:
 		puzzle_set = ps
 
 	func center() -> Vector2:
@@ -28,7 +28,7 @@ class PSMap:
 
 func _ready() -> void:
 	ps_maps = []
-	for ps: PuzzleSet in puzzle_sets:
+	for ps: PuzzleWorld in puzzle_sets:
 		ps_maps.append(PSMap.new(ps))
 
 	render()

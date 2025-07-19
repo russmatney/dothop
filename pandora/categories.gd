@@ -2,7 +2,7 @@
 class_name PandoraCategories
 
 
-const PUZZLESET = "1"
+const PUZZLEWORLD = "1"
 const PUZZLETHEME = "3"
 const EVENT = "28"
 

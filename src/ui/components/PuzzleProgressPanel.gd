@@ -7,7 +7,7 @@ class_name PuzzleProgressPanel
 @onready var panel_container: PanelContainer = $%PuzzlePanelContainer
 @onready var puzzle_set_icon: TextureRect = $%PuzzleSetIcon
 @onready var animated_container: AnimatedVBoxContainer = $%AnimatedVBoxContainer
-var puzzle_set: PuzzleSet
+var puzzle_set: PuzzleWorld
 var start_puzzle_num: int
 var end_puzzle_num: int
 

@@ -3,7 +3,7 @@ extends CanvasLayer
 
 ## vars ######################################################
 
-@onready var puzzle_sets: Array[PuzzleSet] = Store.get_puzzle_sets()
+@onready var puzzle_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
 
 @onready var puzzle_set_grid: GridContainer = $%PuzzleSetGrid
 @onready var puzzles_grid: GridContainer = $%PuzzlesGrid
@@ -43,16 +43,16 @@ func render() -> void:
 
 ## on ######################################################
 
-func on_puzzle_set_button_pressed(ps: PuzzleSet) -> void:
+func on_puzzle_set_button_pressed(ps: PuzzleWorld) -> void:
 	# Log.pr("puzzle_set button pressed", ps)
 	select_puzzle_set(ps)
 
-func on_puzzle_button_pressed(ps: PuzzleSet, p: PuzzleDef) -> void:
+func on_puzzle_button_pressed(ps: PuzzleWorld, p: PuzzleDef) -> void:
 	select_puzzle(ps, p)
 
 ## select ######################################################
 
-func select_puzzle_set(ps: PuzzleSet) -> void:
+func select_puzzle_set(ps: PuzzleWorld) -> void:
 	ps.analyze_puzzles() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first: Variant = null
@@ -77,7 +77,7 @@ func select_puzzle_set(ps: PuzzleSet) -> void:
 	if first:
 		select_puzzle(ps, first as PuzzleDef)
 
-func select_puzzle(ps: PuzzleSet, puzzle_def: PuzzleDef) -> void:
+func select_puzzle(ps: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	Log.pr("Puzzle selected", puzzle_def)
 	var w := puzzle_def.width
 	var h := puzzle_def.height

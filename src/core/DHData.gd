@@ -18,13 +18,13 @@ enum Obj {
 static var puzzle_group: StringName = "dothop_puzzle"
 static var reset_hold_t: float = 0.4
 
-static func calc_stats(puzzle_sets: Array[PuzzleSet]) -> Dictionary:
+static func calc_stats(puzzle_sets: Array[PuzzleWorld]) -> Dictionary:
 	var total_puzzles: int = 0
 	var puzzles_completed: int = 0
 	var total_dots: int = 0
 	var dots_hopped: int = 0
 
-	for ps: PuzzleSet in puzzle_sets:
+	for ps: PuzzleWorld in puzzle_sets:
 		for p: PuzzleDef in ps.get_puzzles():
 			total_dots += p.dot_count()
 			total_puzzles += 1
