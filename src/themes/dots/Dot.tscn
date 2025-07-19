@@ -45,7 +45,7 @@ animations = [{
 
 [node name="Dot" type="Node2D" groups=["dot"]]
 z_index = 1
-position = Vector2(-0.786688, 1.08865)
+position = Vector2(-1.15251, 0.872946)
 script = ExtResource("1_pofn5")
 
 [node name="ColorRect" type="ColorRect" parent="."]
@@ -76,6 +76,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_jxtuu")
 animation = &"dot"
+frame_progress = 0.824234
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

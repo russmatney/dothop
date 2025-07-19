@@ -14,6 +14,7 @@ var height: int
 var idx: int
 var meta: Dictionary
 var message: String
+
 var analysis: PuzzleAnalysis
 
 var is_completed: bool

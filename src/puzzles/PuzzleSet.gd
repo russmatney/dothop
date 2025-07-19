@@ -57,6 +57,8 @@ func data() -> Variant:
 ## computed ############################################
 
 func get_puzzles() -> Array[PuzzleDef]:
+	# ensure puzzles are parsed
+	get_puzzle_set_data().setup()
 	return get_puzzle_set_data().puzzle_defs.filter(func(puzz: PuzzleDef) -> bool: return puzz.shape != null)
 
 func get_puzzle(idx: int) -> PuzzleDef:

@@ -2,6 +2,15 @@ extends GdUnitTestSuite
 class_name PuzzleSetDataTest
 
 ################################################################
+# load state
+
+func test_tutorial_puzzles() -> void:
+	var tut_puzz_data: PuzzleSetData = load("res://src/puzzles/dothop-tutorial.puzz")
+	tut_puzz_data.setup()
+	assert_str(tut_puzz_data.display_name).is_equal("Them Dots")
+	assert_int(len(tut_puzz_data.puzzle_defs)).is_equal(12)
+
+################################################################
 # parsers/constructors
 
 func test_expected_puzzle_count() -> void:
