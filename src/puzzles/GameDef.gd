@@ -2,19 +2,7 @@
 extends Object
 class_name GameDef
 
-static func parse_game_def(_path: Variant, opts: Dictionary = {}) -> GameDef:
-	var contents: String = opts.get("contents", "")
-	if _path != null:
-		if not FileAccess.file_exists(_path as String):
-			Log.error("Path does not exist! returning nil", _path)
-			return
-		# could make sure file exists
-		var file: FileAccess = FileAccess.open(_path as String, FileAccess.READ)
-		contents = file.get_as_text()
-
-	var parsed_game: ParsedGame = ParsedGame.parse(contents)
-	return GameDef.new(_path, parsed_game)
-
+# TODO punt this to DHData
 # finally baking the legend into the code directly
 # TODO support 'u' in the legend (for easier undo tests?)
 # TODO support some kind of 'dotted' in the legend (maybe d?)
@@ -27,15 +15,6 @@ static var default_legend := {
 	"x" : ["Player", "Dotted"],
 	}
 
-static func from_puzzle(puzzle: Array) -> GameDef:
-	# gross - wtf is going on with these constructors
-	var parsed_game := ParsedGame.new()
-	var puzz_def := PuzzleDef.new(parsed_game.parse_puzzle(puzzle) as Dictionary)
-	parsed_game.legend = default_legend
-	var game_def := GameDef.new(null, parsed_game)
-	game_def.puzzles = [puzz_def]
-	return game_def
-
 ## vars ########################################3333
 
 var puzzles: Array[PuzzleDef] = []
@@ -43,22 +22,6 @@ var legend: Dictionary
 var meta: Dictionary
 var parsed: ParsedGame
 var path: String
-
-## init ########################################3333
-
-func _init(_path: Variant, _parsed: ParsedGame) -> void:
-	if _path != null:
-		path = _path
-	parsed = _parsed
-	legend = parsed.legend
-	meta = parsed.prelude
-	puzzles.assign(parsed.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
-		return PuzzleDef.new(puzzle)))
-
-## to_pretty ########################################3333
-
-func to_pretty() -> Dictionary:
-	return {path=path, obj=str(self), puzzles=len(puzzles)}
 
 ## helpers ########################################3333
 
@@ -132,17 +95,3 @@ static func grid_cells(puzzle_def: PuzzleDef) -> Array[GridCell]:
 			objs.assign(os)
 			cells.append(GridCell.new(x, y, objs))
 	return cells
-
-# convert passed legend input into a list of enums
-func get_cell_objects(cell: Variant) -> Variant:
-	if cell == null:
-		return
-
-	var objs: Array = legend.get(cell, [])
-	# duplicate, so the returned array doesn't share state with every other cell
-	objs = objs.duplicate()
-	# map to Obj enum
-	objs = objs.map(GameDef.obj_name_to_type)
-	objs = U.remove_nulls(objs)
-
-	return objs
