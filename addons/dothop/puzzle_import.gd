@@ -55,12 +55,6 @@ func _import(source_file: String, save_path: String, options: Dictionary, r_plat
 	var file = FileAccess.open(source_file, FileAccess.READ)
 	if file == null:
 		return FileAccess.get_open_error()
-
-	Log.pr("importing", source_file)
-
-	var parsed_game: ParsedGame = ParsedGame.parse(file.get_as_text())
-	var puzzle_set := PuzzleSetData.create(source_file, parsed_game)
-
-	Log.pr("puzzle_set", puzzle_set)
-
-	return ResourceSaver.save(puzzle_set, "%s.%s" % [save_path, _get_save_extension()])
+	var psd := PuzzleSetData.from_path(source_file)
+	Log.pr("Imported Puzzle Set Data", psd)
+	return ResourceSaver.save(psd, "%s.%s" % [save_path, _get_save_extension()])

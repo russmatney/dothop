@@ -313,6 +313,10 @@
 						"type": "int",
 						"value": -1
 					},
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/dothop-space.puzz"
+					},
 					"puzzles_to_unlock": {
 						"type": "int",
 						"value": 46
@@ -362,7 +366,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": ""
+						"value": "res://src/puzzles/dothop-fall.puzz"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -544,7 +548,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": ""
+						"value": "res://src/puzzles/dothop-summer.puzz"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",
@@ -650,7 +654,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": ""
+						"value": "res://src/puzzles/dothop-winter.puzz"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",

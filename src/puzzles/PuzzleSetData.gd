@@ -43,7 +43,7 @@ static func from_contents(contents: String) -> PuzzleSetData:
 static func from_path(path: String) -> PuzzleSetData:
 	var file := FileAccess.open(path, FileAccess.READ)
 	if file == null:
-		Log.error("FileAccess error while creating puzzle set data", FileAccess.get_open_error(), path)
+		Log.error("FileAccess error while parsing puzzle data", FileAccess.get_open_error(), path)
 		return
 
 	var parsed := ParsedGame.parse(file.get_as_text())
