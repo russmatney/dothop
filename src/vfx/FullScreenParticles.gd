@@ -14,5 +14,5 @@ func _ready() -> void:
 
 	if process_material is ParticleProcessMaterial:
 		var mat: ParticleProcessMaterial = process_material
-		Log.pr("setting box extents", Vector3(size.x, size.y, 1.0))
+		# Log.pr("setting box extents", Vector3(size.x, size.y, 1.0))
 		mat.set_emission_box_extents(Vector3(size.x, size.y, 1.0))

@@ -46,7 +46,6 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 var puzzle_def: PuzzleDef
 var theme_data: PuzzleThemeData
 
-var dhcam: DotHopCam
 var state: PuzzleState
 # apparently used in Anim?
 var player_nodes: Array = []
@@ -93,10 +92,6 @@ func _ready() -> void:
 		puzzle_def.shuffle_puzzle_layout()
 
 	build_game_state()
-
-	# fallback cam setup for running this scene directly
-	if not Engine.is_editor_hint() and is_inside_tree():
-		dhcam = DotHopCam.ensure_camera(self)
 
 	input_block_timer_done.connect(reattempt_blocked_move)
 
@@ -305,10 +300,7 @@ func rebuild_nodes() -> void:
 		add_child(p_node) # add players after dots for z-indexing
 		player_nodes.append(p_node)
 
-	if dhcam != null:
-		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
-
-	# trigger HUD update, etc
+	# trigger HUD, camera, etc updates
 	rebuilt_nodes.emit()
 
 # TODO i suspect alot of this setup/connect can move to a Dot.gd node _ready() impl
@@ -378,7 +370,7 @@ func get_scene_for(obj_name: GameDef.Obj) -> PackedScene:
 		GameDef.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
 		_: return
 
-## setup level ##############################################################
+## node utils ##############################################################
 
 func clear_nodes() -> void:
 	for ch: Variant in get_children():
@@ -390,46 +382,27 @@ func clear_nodes() -> void:
 			ci.set_visible(false)
 			ci.queue_free()
 
-func coord_pos(node: Node2D) -> Vector2:
-	if node.has_method("current_position"):
-		return node.call("current_position")
-	else:
-		return node.position
-
-func puzzle_rect(opts: Dictionary = {}) -> Rect2:
-	var nodes: Array = puzzle_cam_nodes(opts)
-	if len(nodes) == 0:
-		Log.error("No puzzle nodes found, cannot calc puzzle Rect!")
-		return Rect2()
-	var rect: Rect2 = Rect2(coord_pos(nodes[0] as Node2D), Vector2.ZERO)
-	for node: Variant in nodes:
-		if "square_size" in node:
-			# scale might also be a factor
-			var bot_right: Vector2 = coord_pos(node as Node2D) + node.square_size * Vector2.ONE * 1.0
-			# why the half here?
-			var top_left_half: Vector2 = coord_pos(node as Node2D) - node.square_size * Vector2.ONE * 0.5
-			rect = rect.expand(bot_right).expand(top_left_half)
-		else:
-			rect = rect.expand(coord_pos(node as Node2D))
-	return rect
-
-func puzzle_cam_nodes(opts: Dictionary = {}) -> Array:
-	var cam_nodes: Array = []
-	var nodes: Array
-	if opts.get("dots_only"):
-		nodes = all_dot_nodes({filter=func(node: DotHopDot) -> bool:
-			return node.type in [DHData.dotType.Dot, DHData.dotType.Goal]})
-	else:
-		nodes = all_dot_nodes()
-	cam_nodes.append_array(nodes)
-	return cam_nodes
-
-func all_dot_nodes(opts: Dictionary = {}) -> Array:
-	var dots: Array = U.get_children_in_group(self, "dot", true)
-	if "filter" in opts:
-		var f: Callable = opts.get("filter")
-		dots = dots.filter(f)
+func all_dot_nodes() -> Array[DotHopDot]:
+	var dots: Array[DotHopDot] = []
+	dots.assign(U.get_children_in_group(self, "dot", true))
 	return dots
+
+func puzzle_rect() -> Rect2:
+	var dots := all_dot_nodes()
+	dots = dots.filter(func(node: DotHopDot) -> bool:
+			return node.type in [DHData.dotType.Dot, DHData.dotType.Goal])
+	if len(dots) == 0:
+		Log.error("No puzzle dots found, cannot calc puzzle Rect!")
+		return Rect2()
+
+	var rect: Rect2 = Rect2(dots[0].current_position(), Vector2.ZERO)
+	for dot: DotHopDot in dots:
+		# scale might also be a factor
+		var bot_right: Vector2 = dot.current_position() + dot.square_size * Vector2.ONE * 1.0
+		# why the half here?
+		var top_left_half: Vector2 = dot.current_position() - dot.square_size * Vector2.ONE * 0.5
+		rect = rect.expand(bot_right).expand(top_left_half)
+	return rect
 
 ## move ##############################################################
 

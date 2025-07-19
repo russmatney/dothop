@@ -4,7 +4,6 @@ class_name DotHopGame
 ## vars #####################################################################
 
 @export var puzzle_set: PuzzleSet
-@export var puzzle_set_data: PuzzleSetData
 
 var puzzle_node: DotHopPuzzle
 var puzzle_theme: PuzzleTheme
@@ -13,14 +12,13 @@ var puzzle_theme: PuzzleTheme
 var already_complete: bool = false
 
 var hud: HUD
+var dhcam: DotHopCam
 
 ## ready #####################################################################
 
 func _ready() -> void:
-	if puzzle_set_data == null:
-		Log.error("No puzzle set data, can't run game scene")
-
 	if puzzle_set == null:
+		Log.warn("No puzzle set, grabbing fallback from store")
 		puzzle_set = Store.get_puzzle_sets()[0]
 
 	if puzzle_set != null:
@@ -31,6 +29,12 @@ func _ready() -> void:
 	rebuild_puzzle()
 
 	hud = get_node_or_null("HUD")
+
+	if not Engine.is_editor_hint() and is_inside_tree():
+		dhcam = DotHopCam.ensure_camera(self)
+		puzzle_node.rebuilt_nodes.connect(func() -> void:
+			dhcam.center_on_rect(puzzle_node.puzzle_rect()),
+			CONNECT_DEFERRED)
 
 	# TODO add music controls and toasts
 	SoundManager.stop_music(1.0)
@@ -68,7 +72,7 @@ func rebuild_puzzle() -> void:
 
 	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_def=puzzle_set_data.puzzle_defs[puzzle_num],
+		puzzle_def=puzzle_set.get_puzzles()[puzzle_num],
 		puzzle_theme=puzzle_theme,
 		})
 
@@ -213,7 +217,7 @@ func on_puzzle_win() -> void:
 		await show_unlock_jumbo(ps)
 
 	if already_complete:
-		var end_of_puzzle_set: bool = puzzle_num + 1 >= len(puzzle_set_data.puzzle_defs)
+		var end_of_puzzle_set: bool = puzzle_num + 1 >= len(puzzle_set.get_puzzles())
 		if end_of_puzzle_set:
 			DotHop.notif("All puzzles complete!")
 			await show_puzzle_set_complete_jumbo()
