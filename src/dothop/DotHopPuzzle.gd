@@ -178,6 +178,41 @@ func dot_pressed(node: DotHopDot) -> void:
 		Log.info("Cannot move to dot", node, node.current_coord)
 		# TODO shake the tapped dot
 
+## move ##############################################################
+
+const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
+
+func move(move_dir: Vector2) -> PuzzleState.MoveResult:
+	if not move_dir in ALLOWED_MOVES:
+		return PuzzleState.MoveResult.move_not_allowed
+
+	var move_result := state.move(move_dir)
+
+	match move_result:
+		PuzzleState.MoveResult.moved:
+			player_moved.emit()
+		PuzzleState.MoveResult.undo:
+			player_undo.emit()
+		PuzzleState.MoveResult.stuck:
+			move_rejected.emit()
+
+	return move_result
+
+# Fires when the player move_to_coord animation finishes
+# NOTE this does NOT fire on undos or stucks
+func player_move_finished() -> void:
+	if state.win:
+		# TODO fires too early rn if you move quickly
+		win.emit()
+
+# TODO could dry up to use apply_moves and the response here
+# but if we subscribe to signals, maybe those will just get emitted,
+# and this doesn't need to do anything?
+func undo_last_move() -> void:
+	for p: PuzzleState.Player in state.players:
+		state.undo_last_move(p)
+	player_undo.emit()
+
 ## attempt_move ##############################################################
 
 var block_move_input: bool
@@ -284,18 +319,18 @@ func rebuild_nodes() -> void:
 	clear_nodes()
 
 	for cell: PuzzleState.Cell in state.all_cells():
-		for obj: GameDef.Obj in cell.objs:
-			if obj in [GameDef.Obj.Dot, GameDef.Obj.Goal, GameDef.Obj.Dotted]:
+		for obj: DHData.Obj in cell.objs:
+			if obj in [DHData.Obj.Dot, DHData.Obj.Goal, DHData.Obj.Dotted]:
 				var dot: DotHopDot = setup_node_at_coord(obj, cell.coord)
 				connect_dot_signals(dot, cell, obj)
 				add_child(dot)
 			else:
-				if not obj in [GameDef.Obj.Player, GameDef.Obj.Undo]:
+				if not obj in [DHData.Obj.Player, DHData.Obj.Undo]:
 					Log.warn("skipping setup for unhandled obj: ", obj)
 
 	player_nodes = []
 	for p: PuzzleState.Player in state.players:
-		var p_node: DotHopPlayer = setup_node_at_coord(GameDef.Obj.Player, p.coord)
+		var p_node: DotHopPlayer = setup_node_at_coord(DHData.Obj.Player, p.coord)
 		connect_player_signals(p_node, p)
 		add_child(p_node) # add players after dots for z-indexing
 		player_nodes.append(p_node)
@@ -303,8 +338,11 @@ func rebuild_nodes() -> void:
 	# trigger HUD, camera, etc updates
 	rebuilt_nodes.emit()
 
-# TODO i suspect alot of this setup/connect can move to a Dot.gd node _ready() impl
-func connect_dot_signals(dot: DotHopDot, cell: PuzzleState.Cell, _obj: GameDef.Obj) -> void:
+## state connection helpers
+# i suspect alot of this setup/connect can move to a Dot.gd node _ready() impl
+# but it implies at least assigning a 'cell'/'obj'/'p_state' to the node before ready can run
+
+func connect_dot_signals(dot: DotHopDot, cell: PuzzleState.Cell, _obj: DHData.Obj) -> void:
 	dot.dot_pressed.connect(dot_pressed.bind(dot))
 	dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
 
@@ -325,8 +363,10 @@ func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -
 	# we might want to track out-standing moves here, rather than just checking on one
 	p_node.move_finished.connect(func() -> void: player_move_finished())
 
+## obj -> node setup helpers
+## implies world/theme integration
 
-func setup_node_at_coord(obj_type: GameDef.Obj, coord: Vector2) -> Node:
+func setup_node_at_coord(obj_type: DHData.Obj, coord: Vector2) -> Node:
 	var node: Node2D = node_for_object_name(obj_type)
 	node.add_to_group("generated", true)
 	if node is DotHopDot:
@@ -341,7 +381,7 @@ func setup_node_at_coord(obj_type: GameDef.Obj, coord: Vector2) -> Node:
 		node.ready.connect(node.set_owner.bind(self))
 	return node
 
-func node_for_object_name(obj_type: GameDef.Obj) -> Node2D:
+func node_for_object_name(obj_type: DHData.Obj) -> Node2D:
 	var scene: PackedScene = get_scene_for(obj_type)
 	if not scene:
 		Log.err("No scene found for object name", obj_type)
@@ -349,28 +389,28 @@ func node_for_object_name(obj_type: GameDef.Obj) -> Node2D:
 	var node: Node2D = scene.instantiate()
 	if node is DotHopDot:
 		var dot: DotHopDot = node
-		dot.display_name = GameDef.reverse_obj_map[obj_type]
+		dot.display_name = DHData.Legend.reverse_obj_map[obj_type]
 		dot.type = to_dot_type.get(obj_type)
 	if node is DotHopPlayer:
 		var p: DotHopPlayer = node
-		p.display_name = GameDef.reverse_obj_map[obj_type]
+		p.display_name = DHData.Legend.reverse_obj_map[obj_type]
 	return node
 
 var to_dot_type: Dictionary = {
-	GameDef.Obj.Dot: DHData.dotType.Dot,
-	GameDef.Obj.Dotted: DHData.dotType.Dotted,
-	GameDef.Obj.Goal: DHData.dotType.Goal,
+	DHData.Obj.Dot: DHData.dotType.Dot,
+	DHData.Obj.Dotted: DHData.dotType.Dotted,
+	DHData.Obj.Goal: DHData.dotType.Goal,
 	}
 
-func get_scene_for(obj_name: GameDef.Obj) -> PackedScene:
+func get_scene_for(obj_name: DHData.Obj) -> PackedScene:
 	match obj_name:
-		GameDef.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
-		GameDef.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
-		GameDef.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
-		GameDef.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
+		DHData.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
+		DHData.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
+		DHData.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
+		DHData.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
 		_: return
 
-## node utils ##############################################################
+## misc utils ##############################################################
 
 func clear_nodes() -> void:
 	for ch: Variant in get_children():
@@ -403,38 +443,3 @@ func puzzle_rect() -> Rect2:
 		var top_left_half: Vector2 = dot.current_position() - dot.square_size * Vector2.ONE * 0.5
 		rect = rect.expand(bot_right).expand(top_left_half)
 	return rect
-
-## move ##############################################################
-
-const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
-
-func move(move_dir: Vector2) -> PuzzleState.MoveResult:
-	if not move_dir in ALLOWED_MOVES:
-		return PuzzleState.MoveResult.move_not_allowed
-
-	var move_result := state.move(move_dir)
-
-	match move_result:
-		PuzzleState.MoveResult.moved:
-			player_moved.emit()
-		PuzzleState.MoveResult.undo:
-			player_undo.emit()
-		PuzzleState.MoveResult.stuck:
-			move_rejected.emit()
-
-	return move_result
-
-# Fires when the player move_to_coord animation finishes
-# NOTE this does NOT fire on undos or stucks
-func player_move_finished() -> void:
-	if state.win:
-		# TODO fires too early rn if you move quickly
-		win.emit()
-
-# TODO could dry up to use apply_moves and the response here
-# but if we subscribe to signals, maybe those will just get emitted,
-# and this doesn't need to do anything?
-func undo_last_move() -> void:
-	for p: PuzzleState.Player in state.players:
-		state.undo_last_move(p)
-	player_undo.emit()

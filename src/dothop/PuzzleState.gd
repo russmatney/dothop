@@ -32,7 +32,7 @@ class Player:
 ## cell
 
 class Cell:
-	var objs: Array[GameDef.Obj]
+	var objs: Array[DHData.Obj]
 	var coord: Vector2
 
 	signal mark_dotted
@@ -42,7 +42,7 @@ class Cell:
 	signal show_possible_undo
 	signal remove_possible_next_move
 
-	func _init(_coord: Vector2, _objs: Array[GameDef.Obj]) -> void:
+	func _init(_coord: Vector2, _objs: Array[DHData.Obj]) -> void:
 		coord = _coord
 		objs = _objs
 
@@ -50,19 +50,19 @@ class Cell:
 		return [coord, objs]
 
 	func has_player() -> bool:
-		return GameDef.Obj.Player in objs
+		return DHData.Obj.Player in objs
 	func has_dot() -> bool:
-		return GameDef.Obj.Dot in objs
+		return DHData.Obj.Dot in objs
 	func has_dotted() -> bool:
-		return GameDef.Obj.Dotted in objs
+		return DHData.Obj.Dotted in objs
 	func has_dot_or_dotted() -> bool:
 		return has_dot() or has_dotted()
 	func has_goal() -> bool:
-		return GameDef.Obj.Goal in objs
+		return DHData.Obj.Goal in objs
 	func has_dot_or_dotted_or_goal() -> bool:
 		return has_dot_or_dotted() or has_goal()
 	func has_undo() -> bool:
-		return GameDef.Obj.Undo in objs
+		return DHData.Obj.Undo in objs
 
 
 ## move
@@ -149,15 +149,13 @@ func to_pretty() -> Variant:
 func _init(puzz_def: PuzzleDef) -> void:
 	puzzle_def = puzz_def
 
-	for cell: GameDef.GridCell in GameDef.grid_cells(puzzle_def):
-		var coord := Vector2(cell.coord.x, cell.coord.y)
-		cells_by_coord[coord] = Cell.new(coord, cell.objs)
-
-		if cells_by_coord[coord].has_player():
-			players.append(Player.new(coord))
-
 	grid_width = len(puzzle_def.shape[0])
 	grid_height = len(puzzle_def.shape)
+
+	for cell: Cell in puzzle_def.state_cells():
+		cells_by_coord[cell.coord] = cell
+		if cell.has_player():
+			players.append(Player.new(cell.coord))
 
 	update_possible_moves()
 
@@ -221,7 +219,9 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 	var cursor: Vector2 = coord + dir
 	var last_cursor: Variant = null
 	while coord_in_grid(cursor) and last_cursor != cursor:
-		cells.append(cell_at_coord(cursor))
+		var c: Variant = cell_at_coord(cursor)
+		if c != null:
+			cells.append(c)
 		last_cursor = cursor
 		cursor += dir
 	return cells
@@ -231,25 +231,25 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 # these should probably live on the Cell class
 
 func mark_dotted(coord: Vector2) -> void:
-	cells_by_coord[coord].objs.erase(GameDef.Obj.Dot)
-	cells_by_coord[coord].objs.append(GameDef.Obj.Dotted)
+	cells_by_coord[coord].objs.erase(DHData.Obj.Dot)
+	cells_by_coord[coord].objs.append(DHData.Obj.Dotted)
 
 func mark_undotted(coord: Vector2) -> void:
-	cells_by_coord[coord].objs.erase(GameDef.Obj.Dotted)
-	cells_by_coord[coord].objs.append(GameDef.Obj.Dot)
+	cells_by_coord[coord].objs.erase(DHData.Obj.Dotted)
+	cells_by_coord[coord].objs.append(DHData.Obj.Dot)
 
 func mark_undo(coord: Vector2) -> void:
 	if not cells_by_coord[coord].has_undo():
-		cells_by_coord[coord].objs.append(GameDef.Obj.Undo)
+		cells_by_coord[coord].objs.append(DHData.Obj.Undo)
 
 func drop_undo(coord: Vector2) -> void:
-	cells_by_coord[coord].objs.erase(GameDef.Obj.Undo)
+	cells_by_coord[coord].objs.erase(DHData.Obj.Undo)
 
 func mark_player(coord: Vector2) -> void:
-	cells_by_coord[coord].objs.append(GameDef.Obj.Player)
+	cells_by_coord[coord].objs.append(DHData.Obj.Player)
 
 func drop_player(coord: Vector2) -> void:
-	cells_by_coord[coord].objs.erase(GameDef.Obj.Player)
+	cells_by_coord[coord].objs.erase(DHData.Obj.Player)
 
 ##################################################################
 # public state updates

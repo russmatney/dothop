@@ -33,6 +33,34 @@ func _init(raw: Dictionary) -> void:
 	if "idx" in raw:
 		idx = raw.idx
 
+## all_coords ####################################################
+
+func all_coords() -> Array[Vector2]:
+	var coords: Array[Vector2] = []
+	for y in range(len(shape)):
+		for x in range(len(shape[0])):
+			coords.append(Vector2(x, y))
+	return coords
+
+## state_cells ####################################################
+
+# converts the puzzle's raw shape into a list of PuzzleState.Cell
+func state_cells() -> Array[PuzzleState.Cell]:
+	var cells: Array[PuzzleState.Cell] = []
+	for coord in all_coords():
+		var obj_name: Variant = shape[coord.y][coord.x]
+		if obj_name == null:
+			continue # tho we prolly crashed on the array lookup already
+		# after much debate about where to bake in this legend data....
+		var objs: Array[DHData.Obj] = DHData.Legend.get_objs(obj_name as String)
+		if len(objs) == 0:
+			continue # nothing found in the legend for this
+		cells.append(PuzzleState.Cell.new(coord, objs))
+	Log.pr("any null cells?", cells)
+	return cells
+
+## rotate ####################################################
+
 func rotate() -> void:
 	var new_shape: Array = []
 	for row: Array in shape:
