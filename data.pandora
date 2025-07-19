@@ -266,13 +266,6 @@
 						"type": "int",
 						"value": -1
 					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "26",
-							"_type": 0
-						}
-					},
 					"puzzle_set_data": {
 						"type": "resource",
 						"value": "res://src/puzzles/dothop-tutorial.puzz"
@@ -356,13 +349,6 @@
 					"max_completed_puzzle_idx": {
 						"type": "int",
 						"value": -1
-					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "27",
-							"_type": 0
-						}
 					},
 					"puzzle_set_data": {
 						"type": "resource",
@@ -539,13 +525,6 @@
 						"type": "int",
 						"value": -1
 					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "18",
-							"_type": 0
-						}
-					},
 					"puzzle_set_data": {
 						"type": "resource",
 						"value": "res://src/puzzles/dothop-summer.puzz"
@@ -594,13 +573,6 @@
 						"type": "int",
 						"value": -1
 					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "25",
-							"_type": 0
-						}
-					},
 					"puzzle_set_data": {
 						"type": "resource",
 						"value": "res://src/puzzles/dothop-spring.puzz"
@@ -644,13 +616,6 @@
 					"max_completed_puzzle_idx": {
 						"type": "int",
 						"value": -1
-					},
-					"next_set": {
-						"type": "reference",
-						"value": {
-							"_entity_id": "17",
-							"_type": 0
-						}
 					},
 					"puzzle_set_data": {
 						"type": "resource",
@@ -799,13 +764,6 @@
 				"_id": "20",
 				"_name": "is_unlocked",
 				"_type": "bool"
-			},
-			{
-				"_category_id": "1",
-				"_default_value": null,
-				"_id": "21",
-				"_name": "next_set",
-				"_type": "reference"
 			},
 			{
 				"_category_id": "28",

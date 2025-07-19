@@ -133,14 +133,6 @@ func unlock_world(puz: PuzzleWorld) -> void:
 	# save update events for later reloading
 	save_game()
 
-# Deprecated
-func unlock_next_world(puz: PuzzleWorld) -> void:
-	var next: PuzzleWorld = puz.get_next_world()
-	if next:
-		unlock_world(next)
-	else:
-		Log.warn("No next puzzle to unlock!", puz)
-
 func unlock_all_worlds() -> void:
 	Log.warn("Unlocking all puzzle worlds!")
 	for ps: PuzzleWorld in state.worlds:

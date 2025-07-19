@@ -21,10 +21,6 @@ func test_initial_store_puzzle_data() -> void:
 	var unlocked := sets.filter(func(ent: PuzzleWorld) -> bool: return ent.is_unlocked())
 	assert_int(len(unlocked)).is_greater(0)
 
-	# all but one set point to a next_world
-	var have_next := sets.filter(func(ent: PuzzleWorld) -> PuzzleWorld: return ent.get_next_world())
-	assert_that(len(have_next)).is_equal(len(sets) - 1)
-
 func test_initial_store_theme_data() -> void:
 	Store.reset_game_data()
 
@@ -227,8 +223,6 @@ func test_world_complete_and_unlock_dupe_events_increment_count() -> void:
 	Store.complete_world(puz_set)
 	Store.complete_world(puz_set)
 	Store.complete_world(puz_set)
-	Store.unlock_next_world(puz_set)
-	Store.unlock_next_world(puz_set)
 
 	assert_that(len(Store.events)).is_equal(2)
 	var ev := Store.events[0]
@@ -236,7 +230,3 @@ func test_world_complete_and_unlock_dupe_events_increment_count() -> void:
 	assert_that(ev.get_world().get_entity_id()).is_equal(puz_set.get_entity_id())
 	assert_that(ev.get_count()).is_equal(3)
 
-	ev = Store.events[1]
-	@warning_ignore("unsafe_method_access")
-	assert_that(ev.get_world().get_entity_id()).is_equal(puz_set.get_next_world().get_entity_id())
-	assert_that(ev.get_count()).is_equal(2)
