@@ -1,17 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=4 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/GameScene.gd" id="1_ak4mv"]
-[ext_resource type="Script" uid="uid://8q73873xik7s" path="res://addons/pandora/model/entity.gd" id="2_us7bg"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
 [ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/core/DotHopCam.tscn" id="6_76inj"]
 
-[sub_resource type="Resource" id="Resource_tesnb"]
-script = ExtResource("2_us7bg")
-_id = "16"
-
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
-puzzle_set = SubResource("Resource_tesnb")
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 

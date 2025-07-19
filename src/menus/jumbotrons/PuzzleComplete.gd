@@ -5,7 +5,7 @@ class_name PuzzleComplete
 ## vars ############################################################
 
 @onready var puzzle_progress_panel: PuzzleProgressPanel = $%PuzzleProgressPanel
-var puzzle_set: PuzzleWorld
+var world: PuzzleWorld
 var start_puzzle_num: int
 var end_puzzle_num: int
 
@@ -18,13 +18,13 @@ func _ready() -> void:
 ## build puzzle list ############################################################
 
 func render() -> void:
-	if not puzzle_set:
-		# puzzle_set = Store.get_puzzle_sets()[0]
+	if not world:
+		# world = Store.get_worlds()[0]
 		Log.warn("No puzzle set found on PuzzleComplete scene")
 		return
 
 	puzzle_progress_panel.render({
-		puzzle_set=puzzle_set,
+		world=world,
 		start_puzzle_num=start_puzzle_num,
 		end_puzzle_num=end_puzzle_num,
 		})

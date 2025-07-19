@@ -37,7 +37,7 @@ func load_game() -> void:
 	state = GameState.new(events)
 
 	Log.pr("Loaded data", {
-		events=len(events), puzzle_sets=len(state.puzzle_sets), themes=len(state.themes)
+		events=len(events), worlds=len(state.worlds), themes=len(state.themes)
 		})
 
 func reset_game_data() -> void:
@@ -51,11 +51,11 @@ func initial_events() -> Array[Event]:
 
 ## repository ###########################################
 
-func get_puzzle_sets() -> Array[PuzzleWorld]:
-	return state.puzzle_sets
+func get_worlds() -> Array[PuzzleWorld]:
+	return state.worlds
 
-func find_puzzle_set(ps: PuzzleWorld) -> PuzzleWorld:
-	return state.find_puzzle_set(ps)
+func find_world(world: PuzzleWorld) -> PuzzleWorld:
+	return state.find_world(world)
 
 func get_themes() -> Array[PuzzleTheme]:
 	return state.themes
@@ -75,12 +75,12 @@ func find_event(filter_fn: Callable) -> Event:
 
 ## events ###########################################
 
-func complete_puzzle_set(puz: PuzzleWorld) -> void:
-	var event: PuzzleSetCompleted = find_event(func(ev: Event) -> bool: return PuzzleSetCompleted.is_matching_event(ev, puz))
+func complete_world(puz: PuzzleWorld) -> void:
+	var event: WorldCompleted = find_event(func(ev: Event) -> bool: return WorldCompleted.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
 	elif not event:
-		event = PuzzleSetCompleted.new_event(puz)
+		event = WorldCompleted.new_event(puz)
 		state.apply_event(event)
 		events.append(event)
 	save_game()
@@ -102,7 +102,7 @@ func complete_puzzle_index(puz: PuzzleWorld, idx: int) -> void:
 		state.apply_event(skip_event)
 
 	@warning_ignore("unsafe_method_access")
-	var p: PuzzleWorld = state.find_puzzle_set(event.get_puzzle_set() as PuzzleWorld)
+	var p: PuzzleWorld = state.find_world(event.get_world() as PuzzleWorld)
 	p.attach_gameplay_data()
 
 	save_game()
@@ -121,12 +121,12 @@ func skip_puzzle(puz: PuzzleWorld, idx: int) -> void:
 
 	save_game()
 
-func unlock_puzzle_set(puz: PuzzleWorld) -> void:
-	var event: Event = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, puz))
+func unlock_world(puz: PuzzleWorld) -> void:
+	var event: Event = find_event(func(ev: Event) -> bool: return WorldUnlocked.is_matching_event(ev, puz))
 	if event:
 		event.inc_count()
 	elif not event:
-		event = PuzzleSetUnlocked.new_event(puz)
+		event = WorldUnlocked.new_event(puz)
 		state.apply_event(event)
 		events.append(event)
 
@@ -134,20 +134,20 @@ func unlock_puzzle_set(puz: PuzzleWorld) -> void:
 	save_game()
 
 # Deprecated
-func unlock_next_puzzle_set(puz: PuzzleWorld) -> void:
-	var next: PuzzleWorld = puz.get_next_puzzle_set()
+func unlock_next_world(puz: PuzzleWorld) -> void:
+	var next: PuzzleWorld = puz.get_next_world()
 	if next:
-		unlock_puzzle_set(next)
+		unlock_world(next)
 	else:
 		Log.warn("No next puzzle to unlock!", puz)
 
-func unlock_all_puzzle_sets() -> void:
-	Log.warn("Unlocking all puzzle sets!")
-	for ps: PuzzleWorld in state.puzzle_sets:
-		var event: PuzzleSetUnlocked = find_event(func(ev: Event) -> bool: return PuzzleSetUnlocked.is_matching_event(ev, ps))
+func unlock_all_worlds() -> void:
+	Log.warn("Unlocking all puzzle worlds!")
+	for ps: PuzzleWorld in state.worlds:
+		var event: WorldUnlocked = find_event(func(ev: Event) -> bool: return WorldUnlocked.is_matching_event(ev, ps))
 		if event:
 			continue
-		event = PuzzleSetUnlocked.new_event(ps)
+		event = WorldUnlocked.new_event(ps)
 		state.apply_event(event)
 		events.append(event)
 	save_game()

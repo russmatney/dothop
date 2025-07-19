@@ -3,9 +3,9 @@ extends CanvasLayer
 
 ## vars ######################################################
 
-@onready var puzzle_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
+@onready var worlds: Array[PuzzleWorld] = Store.get_worlds()
 
-@onready var puzzle_set_grid: GridContainer = $%PuzzleSetGrid
+@onready var world_grid: GridContainer = $%PuzzleSetGrid
 @onready var puzzles_grid: GridContainer = $%PuzzlesGrid
 @onready var current_puzzle_label: RichTextLabel = $%CurrentPuzzleLabel
 @onready var current_puzzle_analysis_label: RichTextLabel = $%CurrentPuzzleAnalysisLabel
@@ -16,14 +16,14 @@ var puzzle_node: DotHopPuzzle
 
 func _ready() -> void:
 	render()
-	if len(puzzle_sets) > 0:
-		select_puzzle_set(puzzle_sets[0])
+	if len(worlds) > 0:
+		select_world(worlds[0])
 
 ## render ######################################################
 
 func render() -> void:
-	U.remove_children(puzzle_set_grid)
-	for ps in puzzle_sets:
+	U.remove_children(world_grid)
+	for ps in worlds:
 		Log.pr("rendering puzzle set", ps.get_display_name())
 
 		var dot_texture := ps.get_theme().get_dot_icon()
@@ -38,21 +38,21 @@ func render() -> void:
 		button.set_texture_disabled(dotted_texture)
 
 		# button.text = ps.get_display_name()
-		button.pressed.connect(on_puzzle_set_button_pressed.bind(ps))
-		puzzle_set_grid.add_child(button)
+		button.pressed.connect(on_world_button_pressed.bind(ps))
+		world_grid.add_child(button)
 
 ## on ######################################################
 
-func on_puzzle_set_button_pressed(ps: PuzzleWorld) -> void:
-	# Log.pr("puzzle_set button pressed", ps)
-	select_puzzle_set(ps)
+func on_world_button_pressed(ps: PuzzleWorld) -> void:
+	# Log.pr("world button pressed", ps)
+	select_world(ps)
 
 func on_puzzle_button_pressed(ps: PuzzleWorld, p: PuzzleDef) -> void:
 	select_puzzle(ps, p)
 
 ## select ######################################################
 
-func select_puzzle_set(ps: PuzzleWorld) -> void:
+func select_world(ps: PuzzleWorld) -> void:
 	ps.analyze_puzzles() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first: Variant = null

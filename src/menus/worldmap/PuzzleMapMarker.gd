@@ -2,12 +2,12 @@
 extends Marker2D
 class_name PuzzleMapMarker
 
-@export var puzzle_set: PuzzleWorld
+@export var world: PuzzleWorld
 
 func _get_configuration_warnings() -> PackedStringArray:
-	if puzzle_set == null:
-		return ["No puzzle_set assigned!"]
+	if world == null:
+		return ["No world assigned!"]
 	return []
 
 func to_printable() -> Variant:
-	return {puzzle_set=puzzle_set, "self"=str(self)}
+	return {world=world, "self"=str(self)}

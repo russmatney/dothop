@@ -29,11 +29,11 @@ func _ready() -> void:
 	render_version()
 
 func render_puzzle_stats() -> void:
-	var stats := DHData.calc_stats(Store.get_puzzle_sets())
+	var stats := DHData.calc_stats(Store.get_worlds())
 
 	Log.info("Puzzle stats!", {
 		events=len(Store.get_events()),
-		puzzle_sets=len(Store.get_puzzle_sets()),
+		worlds=len(Store.get_worlds()),
 		puzzles_completed=stats.puzzles_completed,
 		total_puzzles=stats.total_puzzles,
 		dots_hopped=stats.dots_hopped,

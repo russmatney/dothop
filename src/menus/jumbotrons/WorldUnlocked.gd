@@ -4,7 +4,7 @@ class_name PuzzleUnlocked
 
 ## vars ############################################################
 
-var puzzle_set: PuzzleWorld
+var world: PuzzleWorld
 @onready var icon_container: Control = $%IconContainer
 @onready var icon: TextureRect = $%NextPuzzleIcon
 @onready var bg_image: TextureRect = $%BackgroundTexture
@@ -25,16 +25,16 @@ func _ready() -> void:
 func render() -> void:
 	Sounds.play(Sounds.S.gong)
 
-	if puzzle_set:
-		var _theme: PuzzleTheme = puzzle_set.get_theme()
+	if world:
+		var _theme: PuzzleTheme = world.get_theme()
 
 		icon.set_texture(_theme.get_player_icon())
 
-		header.text = "[center][color=crimson]%s[/color]\nUnlocked!" % puzzle_set.get_display_name()
+		header.text = "[center][color=crimson]%s[/color]\nUnlocked!" % world.get_display_name()
 
 		var tag_line: bool = false
 		# TODO support per puzzle set taglines
-		# var tag_line = puzzle_set.get_tag_line()
+		# var tag_line = world.get_tag_line()
 		if tag_line:
 			body.text = "[center]%s" % tag_line
 		else:
@@ -49,7 +49,7 @@ func render() -> void:
 	else:
 		header.text = "[center]Dang, that was the [color=crimson]last puzzle[/color]!"
 		body.text = "[center]Congrations,\nand thanks for playing!"
-		icon.set_texture(Store.get_puzzle_sets()[0].get_theme().get_player_icon())
+		icon.set_texture(Store.get_worlds()[0].get_theme().get_player_icon())
 
 	if not Engine.is_editor_hint():
 		animate_puzzle_icon()

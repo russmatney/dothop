@@ -40,10 +40,10 @@ func center_map() -> void:
 			.set_delay(0.1)
 
 # Returns an array of puzzle map markers
-# does not include markers without assigned puzzle_sets
+# does not include markers without assigned worlds
 func get_markers() -> Array:
 	var ms: Array = []
 	for ch: Node in get_children():
-		if ch is PuzzleMapMarker and (ch as PuzzleMapMarker).puzzle_set != null:
+		if ch is PuzzleMapMarker and (ch as PuzzleMapMarker).world != null:
 			ms.append(ch)
 	return ms

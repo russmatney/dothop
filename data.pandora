@@ -37,14 +37,14 @@
 				"_id": "32",
 				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "PuzzleSetCompleted",
+				"_name": "WorldCompleted",
 				"_property_overrides": {
 					"display_name": {
 						"type": "string",
-						"value": "Puzzle Set Completed"
+						"value": "World Completed"
 					}
 				},
-				"_script_path": "res://src/events/PuzzleSetCompleted.gd"
+				"_script_path": "res://src/events/WorldCompleted.gd"
 			},
 			{
 				"_category_id": "28",
@@ -52,14 +52,14 @@
 				"_id": "33",
 				"_ids_generation_class": "EventIds",
 				"_index": 0,
-				"_name": "PuzzleSetUnlocked",
+				"_name": "WorldUnlocked",
 				"_property_overrides": {
 					"display_name": {
 						"type": "string",
-						"value": "Puzzle Set Unlocked"
+						"value": "World Unlocked"
 					}
 				},
-				"_script_path": "res://src/events/PuzzleSetUnlocked.gd"
+				"_script_path": "res://src/events/WorldUnlocked.gd"
 			},
 			{
 				"_category_id": "28",
@@ -682,14 +682,14 @@
 				"_icon_color": "ffffff00",
 				"_id": "40",
 				"_index": 0,
-				"_name": "PuzzleSetCompletedEvent"
+				"_name": "WorldCompletedEvent"
 			},
 			{
 				"_category_id": "33",
 				"_icon_color": "ffffff00",
 				"_id": "41",
 				"_index": 0,
-				"_name": "PuzzleSetUnlockedEvent"
+				"_name": "WorldUnlockedEvent"
 			},
 			{
 				"_category_id": "34",
@@ -839,14 +839,14 @@
 				"_category_id": "32",
 				"_default_value": "",
 				"_id": "43",
-				"_name": "puzzle_set_id",
+				"_name": "world_id",
 				"_type": "string"
 			},
 			{
 				"_category_id": "33",
 				"_default_value": "",
 				"_id": "44",
-				"_name": "puzzle_set_id",
+				"_name": "world_id",
 				"_type": "string"
 			},
 			{
@@ -905,7 +905,7 @@
 				"_category_id": "55",
 				"_default_value": "",
 				"_id": "56",
-				"_name": "puzzle_set_id",
+				"_name": "world_id",
 				"_type": "string"
 			},
 			{
@@ -947,7 +947,7 @@
 				"_category_id": "64",
 				"_default_value": "",
 				"_id": "65",
-				"_name": "puzzle_set_id",
+				"_name": "world_id",
 				"_type": "string"
 			},
 			{

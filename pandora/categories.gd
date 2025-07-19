@@ -8,8 +8,8 @@ const EVENT = "28"
 
 
 class EventCategories:
-	const PUZZLESETCOMPLETED = "32"
-	const PUZZLESETUNLOCKED = "33"
+	const WORLDCOMPLETED = "32"
+	const WORLDUNLOCKED = "33"
 	const THEMEUNLOCKED = "34"
 	const PUZZLECOMPLETED = "55"
 	const PUZZLESKIPPED = "64"

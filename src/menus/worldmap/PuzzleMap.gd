@@ -4,31 +4,31 @@ extends WorldMap
 ## props ##################################################
 
 @onready var in_editor: bool = Engine.is_editor_hint()
-@onready var puzzle_sets: Array = Store.get_puzzle_sets()
+@onready var worlds: Array = Store.get_worlds()
 @onready var ps_maps: Array[PSMap]
 
 @export var x_buffer: float = 48
 @export var y_buffer: float = 24
 
 class PSMap:
-	var puzzle_set: PuzzleWorld
+	var world: PuzzleWorld
 	var pos: Vector2
 	var size: Vector2
 
 	func _init(ps: PuzzleWorld) -> void:
-		puzzle_set = ps
+		world = ps
 
 	func center() -> Vector2:
 		return pos + (size / 2)
 
 	func to_pretty() -> Variant:
-		return {ps=puzzle_set, pos=pos, size=size}
+		return {ps=world, pos=pos, size=size}
 
 ## ready ##################################################
 
 func _ready() -> void:
 	ps_maps = []
-	for ps: PuzzleWorld in puzzle_sets:
+	for ps: PuzzleWorld in worlds:
 		ps_maps.append(PSMap.new(ps))
 
 	render()
@@ -47,7 +47,7 @@ func render() -> void:
 	var acc_x: float = 0
 	var acc_y: float = 0
 	for psmap: PSMap in ps_maps:
-		var worldmap_island: Texture2D = psmap.puzzle_set.get_worldmap_island_texture()
+		var worldmap_island: Texture2D = psmap.world.get_worldmap_island_texture()
 
 		psmap.size = worldmap_island.get_size()
 		psmap.pos = Vector2(acc_x, acc_y)
@@ -74,7 +74,7 @@ func render() -> void:
 
 		# create marker
 		var marker: PuzzleMapMarker = PuzzleMapMarker.new()
-		marker.puzzle_set = psmap.puzzle_set
+		marker.world = psmap.world
 		marker.position = psmap.center()
 		marker.ready.connect(func() -> void:
 			marker.set_owner(self)

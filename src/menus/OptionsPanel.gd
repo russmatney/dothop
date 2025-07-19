@@ -22,7 +22,7 @@ func _ready() -> void:
 		Store.reset_game_data()
 		GodotSteam.set_from_the_top())
 	data_unlock_conf.confirmed.connect(func() -> void:
-		Store.unlock_all_puzzle_sets()
+		Store.unlock_all_worlds()
 		GodotSteam.set_cheater_cheater_pumpkin_eater())
 	clear_achievements_conf.confirmed.connect(func() -> void:
 		GodotSteam.clear_all_achievements())

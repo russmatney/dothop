@@ -3,7 +3,7 @@ class_name DotHopGame
 
 ## vars #####################################################################
 
-@export var puzzle_set: PuzzleWorld
+@export var world: PuzzleWorld
 
 var puzzle_node: DotHopPuzzle
 var puzzle_theme: PuzzleTheme
@@ -17,14 +17,14 @@ var dhcam: DotHopCam
 ## ready #####################################################################
 
 func _ready() -> void:
-	if puzzle_set == null:
+	if world == null:
 		Log.warn("No puzzle set, grabbing fallback from store")
-		puzzle_set = Store.get_puzzle_sets()[0]
+		world = Store.get_worlds()[0]
 
-	if puzzle_set != null:
-		puzzle_theme = puzzle_set.get_theme()
+	if world != null:
+		puzzle_theme = world.get_theme()
 	else:
-		Log.warn("no puzzle_set, cannot start GameScene")
+		Log.warn("no world, cannot start GameScene")
 
 	rebuild_puzzle()
 
@@ -72,7 +72,7 @@ func rebuild_puzzle() -> void:
 
 	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_def=puzzle_set.get_puzzles()[puzzle_num],
+		puzzle_def=world.get_puzzles()[puzzle_num],
 		puzzle_theme=puzzle_theme,
 		})
 
@@ -166,7 +166,7 @@ func sound_on_rebuilt_nodes() -> void:
 
 func update_hud() -> void:
 	if hud and puzzle_node:
-		var rem: int = len(puzzle_set.get_puzzles().filter(func(p: PuzzleDef) -> bool: return not p.is_completed))
+		var rem: int = len(world.get_puzzles().filter(func(p: PuzzleDef) -> bool: return not p.is_completed))
 		var data: Dictionary = {
 			puzzle_def=puzzle_node.puzzle_def,
 			puzzles_remaining=rem,
@@ -185,42 +185,42 @@ func change_theme(theme: PuzzleTheme) -> void:
 ## win #####################################################################
 
 var PuzzleCompleteScene: PackedScene = preload("res://src/menus/jumbotrons/PuzzleComplete.tscn")
-var PuzzleSetUnlockedScene: PackedScene = preload("res://src/menus/jumbotrons/PuzzleSetUnlocked.tscn")
+var WorldUnlockedScene: PackedScene = preload("res://src/menus/jumbotrons/WorldUnlocked.tscn")
 var ProgressPanelScene: PackedScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
 func on_puzzle_win() -> void:
-	Log.info("Puzzle complete!", puzzle_set.get_display_name(), "-", puzzle_num)
-	Store.complete_puzzle_index(puzzle_set, puzzle_num)
+	Log.info("Puzzle complete!", world.get_display_name(), "-", puzzle_num)
+	Store.complete_puzzle_index(world, puzzle_num)
 
-	# refresh puzzle_set data
-	puzzle_set = Store.find_puzzle_set(puzzle_set)
-	var completed_puzzle_set: bool = puzzle_set.get_puzzles().all(func(pd: PuzzleDef) -> bool: return pd.is_completed)
+	# refresh world data
+	world = Store.find_world(world)
+	var completed_world: bool = world.get_puzzles().all(func(pd: PuzzleDef) -> bool: return pd.is_completed)
 
-	var puzz_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
-	var stats: Dictionary = DHData.calc_stats(puzz_sets)
+	var worlds: Array[PuzzleWorld] = Store.get_worlds()
+	var stats: Dictionary = DHData.calc_stats(worlds)
 	var opts: Dictionary = {stats=stats}
-	if completed_puzzle_set:
-		Store.complete_puzzle_set(puzzle_set)
-		opts["complete_puzzle_set"] = puzzle_set
+	if completed_world:
+		Store.complete_world(world)
+		opts["complete_world"] = world
 	# fires achievement update (dot counts, completed puzzle set)
 	update_achievements(opts)
 
 	# fetch again after completing puzzle sets
-	puzz_sets = Store.get_puzzle_sets()
+	worlds = Store.get_worlds()
 	var to_unlock: Array = []
-	for puzz_set: PuzzleWorld in puzz_sets:
-		if not puzz_set.is_unlocked() and puzz_set.get_puzzles_to_unlock() <= stats.puzzles_completed:
-			to_unlock.append(puzz_set)
+	for w: PuzzleWorld in worlds:
+		if not w.is_unlocked() and w.get_puzzles_to_unlock() <= stats.puzzles_completed:
+			to_unlock.append(w)
 
 	for ps: PuzzleWorld in to_unlock:
-		Store.unlock_puzzle_set(ps)
+		Store.unlock_world(ps)
 		await show_unlock_jumbo(ps)
 
 	if already_complete:
-		var end_of_puzzle_set: bool = puzzle_num + 1 >= len(puzzle_set.get_puzzles())
-		if end_of_puzzle_set:
+		var end_of_world: bool = puzzle_num + 1 >= len(world.get_puzzles())
+		if end_of_world:
 			DotHop.notif("All puzzles complete!")
-			await show_puzzle_set_complete_jumbo()
+			await show_world_complete_jumbo()
 			nav_to_world_map()
 		else:
 			var next_puzzle_num: int = puzzle_num + 1
@@ -231,12 +231,12 @@ func on_puzzle_win() -> void:
 		DotHop.notif("All puzzles complete!")
 		await show_no_more_puzzles_jumbo()
 		nav_to_credits()
-	elif completed_puzzle_set:
+	elif completed_world:
 		DotHop.notif("Completed puzzle set!")
-		await show_puzzle_set_complete_jumbo()
+		await show_world_complete_jumbo()
 		nav_to_world_map()
 	else:
-		var puzzles: Array[PuzzleDef] = puzzle_set.get_puzzles()
+		var puzzles: Array[PuzzleDef] = world.get_puzzles()
 		var next_puzzle_num: int
 		for i: int in range(puzzle_num, len(puzzles) + puzzle_num):
 			i = i % len(puzzles)
@@ -253,10 +253,10 @@ func on_puzzle_win() -> void:
 
 # TODO omg move to achievements class or anywhere else
 func update_achievements(opts: Dictionary = {}) -> void:
-	var complete_puzzle_set: PuzzleWorld = opts.get("complete_puzzle_set")
+	var complete_world: PuzzleWorld = opts.get("complete_world")
 
-	if complete_puzzle_set:
-		match (complete_puzzle_set.get_entity_id()):
+	if complete_world:
+		match (complete_world.get_entity_id()):
 			PuzzleWorldIDs.THEMDOTS: GodotSteam.set_them_dots_complete()
 			PuzzleWorldIDs.SPRINGINYOURHOP: GodotSteam.set_spring_in_your_hop_complete()
 			PuzzleWorldIDs.THATSJUSTBEACHY: GodotSteam.set_thats_just_beachy_complete()
@@ -265,8 +265,8 @@ func update_achievements(opts: Dictionary = {}) -> void:
 			PuzzleWorldIDs.GETOUTERHERE:
 				GodotSteam.set_get_outer_here_complete()
 
-	var puzzle_sets: Array[PuzzleWorld] = Store.get_puzzle_sets()
-	var all_complete: bool = puzzle_sets.all(func(ps: PuzzleWorld) -> bool: return ps.is_completed())
+	var worlds: Array[PuzzleWorld] = Store.get_worlds()
+	var all_complete: bool = worlds.all(func(ps: PuzzleWorld) -> bool: return ps.is_completed())
 	if all_complete:
 		GodotSteam.set_all_puzzles_complete()
 
@@ -311,7 +311,7 @@ func show_progress_toast(next_puzzle_num: int) -> void:
 	var lock_puzz_num: int = puzzle_num
 	panel.ready.connect(func() -> void:
 		panel.render({
-			puzzle_set=puzzle_set,
+			world=world,
 			start_puzzle_num=lock_puzz_num,
 			end_puzzle_num=next_puzzle_num
 			}))
@@ -323,8 +323,8 @@ func show_progress_toast(next_puzzle_num: int) -> void:
 
 ## all puzzles jumbo #####################################################################
 
-func show_puzzle_set_complete_jumbo() -> Signal:
-	var header: String = "[color=crimson]%s[/color] Complete!" % puzzle_set.get_display_name()
+func show_world_complete_jumbo() -> Signal:
+	var header: String = "[color=crimson]%s[/color] Complete!" % world.get_display_name()
 	# var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var body: String = U.rand_of([
 		"Be proud! For you are a NERD",
@@ -333,7 +333,7 @@ func show_puzzle_set_complete_jumbo() -> Signal:
 		])
 
 	var instance: PuzzleComplete = PuzzleCompleteScene.instantiate()
-	instance.puzzle_set = puzzle_set
+	instance.world = world
 	instance.start_puzzle_num = puzzle_num - 1
 	instance.end_puzzle_num = puzzle_num
 
@@ -343,13 +343,13 @@ func show_puzzle_set_complete_jumbo() -> Signal:
 
 ## unlock jumbo #####################################################################
 
-func show_unlock_jumbo(puzz_set: PuzzleWorld) -> Signal:
-	var instance: PuzzleUnlocked = PuzzleSetUnlockedScene.instantiate()
-	instance.puzzle_set = puzz_set
+func show_unlock_jumbo(w: PuzzleWorld) -> Signal:
+	var instance: PuzzleUnlocked = WorldUnlockedScene.instantiate()
+	instance.world = w
 	return Jumbotron.jumbo_notif({pause=false, instance=instance})
 
 ## no more puzzles jumbo #####################################################################
 
 func show_no_more_puzzles_jumbo() -> Signal:
-	var instance: Node = PuzzleSetUnlockedScene.instantiate()
+	var instance: Node = WorldUnlockedScene.instantiate()
 	return Jumbotron.jumbo_notif({pause=false, instance=instance})

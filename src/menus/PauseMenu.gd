@@ -56,12 +56,12 @@ func on_visibility_changed() -> void:
 				puzzle_progress_panel.hide()
 			_:
 				[worldmap_button, theme_button].map(U.enable_button)
-				if "puzzle_set" in get_tree().current_scene:
-					var ps := (get_tree().current_scene as DotHopGame).puzzle_set
+				if "world" in get_tree().current_scene: # duh.....wut? don't do this.
+					var w := (get_tree().current_scene as DotHopGame).world
 					var pn := (get_tree().current_scene as DotHopGame).puzzle_num
 					secondary_margin.show()
 					puzzle_progress_panel.show()
-					puzzle_progress_panel.render({puzzle_set=ps, start_puzzle_num=pn})
+					puzzle_progress_panel.render({world=w, start_puzzle_num=pn})
 		resume_button.visibility_changed.connect(func() -> void: resume_button.grab_focus())
 
 ## input ###################################################################

@@ -37,7 +37,7 @@ func is_unlocked() -> bool:
 func allowed_in_demo() -> bool:
 	return get_bool("allowed_in_demo")
 
-func get_next_puzzle_set() -> PuzzleWorld:
+func get_next_world() -> PuzzleWorld:
 	return get_reference("next_set")
 
 func get_max_completed_puzzle_index() -> int:

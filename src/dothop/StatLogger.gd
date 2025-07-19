@@ -7,7 +7,7 @@ static func md_link(txt: String, uri: String) -> String:
 ## public
 
 class PuzzCtx:
-	var puzzle_set: PuzzleWorld
+	var world: PuzzleWorld
 	var world_i: int
 	var puzzle_i: int
 	var state: PuzzleState
@@ -15,14 +15,14 @@ class PuzzCtx:
 
 	func _init(_state: PuzzleState, _set: PuzzleWorld, wi: int, pi: int) -> void:
 		state = _state
-		puzzle_set = _set
+		world = _set
 		world_i = wi
 		puzzle_i = pi
 
 	func analyze() -> void:
-		Log.info(["Analyzing puzzle:", puzzle_set.get_display_name(), puzzle_i])
+		Log.info(["Analyzing puzzle:", world.get_display_name(), puzzle_i])
 		solve = PuzzleAnalysis.new({state=state}).analyze()
-		Log.info(["Finished analyzing puzzle:", puzzle_set.get_display_name(), puzzle_i])
+		Log.info(["Finished analyzing puzzle:", world.get_display_name(), puzzle_i])
 
 	func puzzle_id() -> String:
 		return str(world_i+1, "-", puzzle_i+1)
@@ -53,7 +53,7 @@ class PuzzCtx:
 
 	func table_line() -> String:
 		var p_id := puzzle_id()
-		var world_name := puzzle_set.get_display_name()
+		var world_name := world.get_display_name()
 
 		# fields with table seperator
 		# maybe re-use json_data.values()? or otherwise go data-driven
@@ -70,7 +70,7 @@ class PuzzCtx:
 	func json_data() -> Dictionary:
 		var data: Dictionary = solve.to_pretty()
 
-		data["world_name"] = puzzle_set.get_display_name()
+		data["world_name"] = world.get_display_name()
 		data["puzzle_id"] = puzzle_id()
 
 		data["puzzle_lines"] = puzzle_lines()
@@ -89,16 +89,16 @@ class PuzzCtx:
 
 static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 	var ctxs: Array[PuzzCtx] = []
-	var sets := Store.get_puzzle_sets()
+	var worlds := Store.get_worlds()
 
-	for world_i in range(len(sets)):
-		var puzzle_set: PuzzleWorld = sets[world_i]
-		var psd := puzzle_set.get_puzzle_set_data()
+	for world_i in range(len(worlds)):
+		var world: PuzzleWorld = worlds[world_i]
+		var psd := world.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 
 		for puzzle_i in puzzle_count:
 			var puzz_state := PuzzleState.new(psd.puzzle_defs[puzzle_i])
-			ctxs.append(PuzzCtx.new(puzz_state, puzzle_set, world_i, puzzle_i))
+			ctxs.append(PuzzCtx.new(puzz_state, world, world_i, puzzle_i))
 
 	return ctxs
 

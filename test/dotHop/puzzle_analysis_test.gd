@@ -114,27 +114,27 @@ func test_puzzle_solver_analysis(puzz: Array, expected_result: Dictionary, test_
 ## test in-game puzzles ##################################################
 
 func test_all_puzzles_solvable_via_state() -> void:
-	var sets := Store.get_puzzle_sets()
-	assert_int(len(sets)).is_greater(3) # make sure we get some
+	var worlds := Store.get_worlds()
+	assert_int(len(worlds)).is_greater(3) # make sure we get some
 
 	# TODO refactor to pull all puzzles from a PuzzleStore
 
-	for x in range(len(sets)):
-		var puzzle_set: PuzzleWorld = sets[x]
-		var psd := puzzle_set.get_puzzle_set_data()
+	for x in range(len(worlds)):
+		var world: PuzzleWorld = worlds[x]
+		var psd := world.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)
 		for i in puzzle_count:
 			var puzz_state := PuzzleState.new(psd.puzzle_defs[i])
 			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
-			# Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+			# Log.pr(["Puzzle:", world.get_display_name(), i, solve])
 			var choice_s := str(solve.least_choices_count, " / ", solve.most_choices_count)
 			var turn_s := str(solve.least_turns_count, " / ", solve.most_turns_count)
 			if solve.winning_path_count == 1 or solve.least_choices_count == solve.most_choices_count:
 				choice_s = str(solve.least_choices_count)
 			if solve.winning_path_count == 1 or solve.least_turns_count == solve.most_turns_count:
 				turn_s = str(solve.least_turns_count)
-			Log.pr(str(" | ", puzzle_set.get_display_name(),
+			Log.pr(str(" | ", world.get_display_name(),
 				" | [", x+1, "-", i+1, "](#_", x+1, "-", i+1, ") | ",
 				solve.dot_count, " | ",
 				solve.winning_path_count, " / ", solve.path_count, " | ",
@@ -142,15 +142,15 @@ func test_all_puzzles_solvable_via_state() -> void:
 				turn_s, " | ",
 				" | "))
 			if not solve.solvable:
-				Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
+				Log.pr("Unsolvable puzzle!!", world.get_display_name(), "num:", i)
 			assert_bool(solve.solvable).is_true()
 
 func test_all_puzzles_solvable_via_node() -> void:
-	var sets := Store.get_puzzle_sets()
-	assert_int(len(sets)).is_greater(3) # make sure we get some
+	var worlds := Store.get_worlds()
+	assert_int(len(worlds)).is_greater(3) # make sure we get some
 
-	for puzzle_set: PuzzleWorld in sets:
-		var psd := puzzle_set.get_puzzle_set_data()
+	for world: PuzzleWorld in worlds:
+		var psd := world.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)
 
@@ -164,9 +164,9 @@ func test_all_puzzles_solvable_via_node() -> void:
 		puzz_node.build_game_state()
 
 		var solve := PuzzleAnalysis.new({node=puzz_node}).analyze()
-		Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
+		Log.pr(["Puzzle:", world.get_display_name(), i, solve])
 		if not solve.solvable:
-			Log.pr("Unsolvable puzzle!!", puzzle_set.get_display_name(), "num:", i)
+			Log.pr("Unsolvable puzzle!!", world.get_display_name(), "num:", i)
 		assert_bool(solve.solvable).is_true()
 
 		puzz_node.free()
