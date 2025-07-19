@@ -93,11 +93,11 @@ static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 
 	for world_i in range(len(sets)):
 		var puzzle_set: PuzzleSet = sets[world_i]
-		var game_def := puzzle_set.get_game_def()
-		var puzzle_count := len(game_def.puzzles)
+		var psd := puzzle_set.get_puzzle_set_data()
+		var puzzle_count := len(psd.puzzle_defs)
 
 		for puzzle_i in puzzle_count:
-			var puzz_state := PuzzleState.new(game_def.puzzles[puzzle_i], game_def)
+			var puzz_state := PuzzleState.new(psd.puzzle_defs[puzzle_i])
 			ctxs.append(PuzzCtx.new(puzz_state, puzzle_set, world_i, puzzle_i))
 
 	return ctxs

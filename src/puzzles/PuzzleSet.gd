@@ -56,19 +56,8 @@ func data() -> Variant:
 
 ## computed ############################################
 
-# BEWARE OF CACHING!
-var game_def: GameDef
-
-# returns a cached game_def, or parses a new one
-func get_game_def() -> GameDef:
-	if game_def != null:
-		return game_def
-
-	game_def = get_puzzle_set_data().parse_game_def()
-	return game_def
-
 func get_puzzles() -> Array[PuzzleDef]:
-	return get_game_def().puzzles.filter(func(puzz: PuzzleDef) -> bool: return puzz.shape != null)
+	return get_puzzle_set_data().puzzle_defs.filter(func(puzz: PuzzleDef) -> bool: return puzz.shape != null)
 
 func get_puzzle(idx: int) -> PuzzleDef:
 	var puzzs: Array[PuzzleDef] = get_puzzles()
@@ -78,27 +67,27 @@ func get_puzzle(idx: int) -> PuzzleDef:
 		Log.warn("Requested out of range puzzle index", idx, self)
 		return
 
-# Attach an "analysis" to each level_def (game_def.puzzles[])
-# returns the game_def
-func analyze_game_def() -> GameDef:
-	get_game_def() # ensure cache
-	var puzzle_count: int = len(game_def.puzzles)
+# Attach an "analysis" to each puzzle_def
+func analyze_puzzles() -> PuzzleSetData:
+	var psd := get_puzzle_set_data()
+	var puzzle_count: int = len(psd.puzzle_defs)
 	for i: int in puzzle_count:
-		if game_def.puzzles[i].analysis == null:
-			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
-			game_def.puzzles[i].analysis = PuzzleAnalysis.new({state=puzz_state}).analyze()
+		if psd.puzzle_defs[i].analysis == null:
+			var puzz_state := PuzzleState.new(psd.puzzle_defs[i])
+			psd.puzzle_defs[i].analysis = PuzzleAnalysis.new({state=puzz_state}).analyze()
 		else:
 			pass # using cached analysis
-	return game_def
+	return psd
 
-func attach_game_def_stats() -> GameDef:
-	get_game_def() # ensure cache
-	var puzzle_count: int = len(game_def.puzzles)
-	for i: int in puzzle_count:
-		var puzzle_def: PuzzleDef = game_def.puzzles[i]
+func attach_gameplay_data() -> PuzzleSetData:
+	var psd := get_puzzle_set_data()
+	Log.pr("psd to attach data to:", psd, psd.puzzle_defs)
+	for i: int in len(psd.puzzle_defs):
+		var puzzle_def: PuzzleDef = psd.puzzle_defs[i]
 		puzzle_def.is_completed = completed_puzzle(i)
 		puzzle_def.is_skipped = skipped_puzzle(i)
-	return game_def
+		Log.pr("updated puzzle_def with gameplay stats", puzzle_def)
+	return psd
 
 ## actions ############################################
 

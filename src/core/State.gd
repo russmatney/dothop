@@ -11,7 +11,7 @@ func _init(events: Array = []) -> void:
 	puzzle_sets = initial_puzzle_sets()
 	themes = initial_themes()
 	apply_events(events)
-	compute_stats()
+	attach_gameplay_data()
 
 ## apply events #######################################################
 
@@ -108,6 +108,7 @@ func find_theme(theme: PuzzleTheme) -> Variant:
 
 ## stats ###########################################################
 
-func compute_stats() -> void:
+func attach_gameplay_data() -> void:
+	Log.pr("attaching gameplay data")
 	for ps: PuzzleSet in puzzle_sets:
-		ps.attach_game_def_stats()
+		ps.attach_gameplay_data()

@@ -53,7 +53,7 @@ func on_puzzle_button_pressed(ps: PuzzleSet, p: PuzzleDef) -> void:
 ## select ######################################################
 
 func select_puzzle_set(ps: PuzzleSet) -> void:
-	ps.analyze_game_def() # trigger solver analysis for whole puzzle set
+	ps.analyze_puzzles() # trigger solver analysis for whole puzzle set
 	U.remove_children(puzzles_grid)
 	var first: Variant = null
 	for puzzle_def in ps.get_puzzles():
@@ -108,9 +108,8 @@ func select_puzzle(ps: PuzzleSet, puzzle_def: PuzzleDef) -> void:
 
 	var theme := ps.get_theme()
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		game_def=ps.get_game_def(),
+		puzzle_def=puzzle_def,
 		puzzle_theme=theme,
-		puzzle_num=puzzle_def.idx,
 		})
 	puzzle_node.ready.connect(func() -> void: Anim.puzzle_animate_intro_from_point(puzzle_node))
 

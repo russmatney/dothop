@@ -3,8 +3,7 @@ class_name PuzzleStateTest
 
 
 func build_state(puzzle: Array) -> PuzzleState:
-	var game_def := GameDef.from_puzzle(puzzle)
-	return PuzzleState.new(game_def.puzzles[0], game_def)
+	return PuzzleState.new(PuzzleDef.parse(puzzle))
 
 ## basic state updates
 

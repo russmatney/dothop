@@ -275,7 +275,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": "res://src/puzzles/Tutorial.tres"
+						"value": "res://src/puzzles/dothop-tutorial.puzz"
 					},
 					"theme": {
 						"type": "reference",
@@ -603,7 +603,7 @@
 					},
 					"puzzle_set_data": {
 						"type": "resource",
-						"value": "res://src/puzzles/Spring.tres"
+						"value": "res://src/puzzles/dothop-spring.puzz"
 					},
 					"puzzles_to_unlock": {
 						"type": "int",

@@ -2,7 +2,9 @@ extends GdUnitTestSuite
 
 func parse() -> ParsedGame:
 	var path := "res://test/puzz/simple_block_pushing_game.ps"
-	return GameDef.parse_game_def(path).parsed
+	var file: FileAccess = FileAccess.open(path, FileAccess.READ)
+	var contents := file.get_as_text()
+	return ParsedGame.parse(contents)
 
 var parsed: ParsedGame
 

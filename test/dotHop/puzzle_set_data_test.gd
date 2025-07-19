@@ -1,8 +1,11 @@
 extends GdUnitTestSuite
-class_name GameDefTest
+class_name PuzzleSetDataTest
+
+################################################################
+# parsers/constructors
 
 func test_expected_puzzle_count() -> void:
-	var parsed: GameDef = GameDef.parse_game_def(null, {contents="
+	var psd: PuzzleSetData = PuzzleSetData.from_contents("
 title DotHop
 author Russell Matney
 
@@ -30,12 +33,13 @@ ox.o.ot
 ...o.o.
 .......
 
-"}) # note the extra empty line! ^
+")
 
-	assert_int(len(parsed.puzzles)).is_equal(2)
+	assert_int(len(psd.puzzle_defs)).is_equal(2)
+	assert_str(psd.display_name).is_equal("DotHop")
 
 func test_puzzle_def_metadata() -> void:
-	var parsed: GameDef = GameDef.parse_game_def(null, {contents="
+	var psd: PuzzleSetData = PuzzleSetData.from_contents("
 title DotHop
 author Russell Matney
 
@@ -73,11 +77,11 @@ o..o.o.
 ox.o.ot
 ...o.o.
 .......
-"})
-	assert_int(len(parsed.puzzles)).is_equal(3)
-	var puzz_one: PuzzleDef = parsed.puzzles[0]
-	var puzz_two: PuzzleDef = parsed.puzzles[1]
-	var puzz_three: PuzzleDef = parsed.puzzles[2]
+")
+	assert_int(len(psd.puzzle_defs)).is_equal(3)
+	var puzz_one: PuzzleDef = psd.puzzle_defs[0]
+	var puzz_two: PuzzleDef = psd.puzzle_defs[1]
+	var puzz_three: PuzzleDef = psd.puzzle_defs[2]
 
 	assert_bool(puzz_one.meta.first).is_true()
 	assert_that(puzz_one.meta.name).is_equal("First puzzle")
@@ -87,3 +91,5 @@ ox.o.ot
 
 	assert_that(puzz_three.meta.post_message).is_equal("Puzzle complete!")
 	assert_that(puzz_three.meta.post_message_body).is_equal("That was an easy one | Congrats, Nerd.")
+
+################################################################

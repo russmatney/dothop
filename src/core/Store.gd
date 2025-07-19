@@ -103,7 +103,7 @@ func complete_puzzle_index(puz: PuzzleSet, idx: int) -> void:
 
 	@warning_ignore("unsafe_method_access")
 	var p: PuzzleSet = state.find_puzzle_set(event.get_puzzle_set() as PuzzleSet)
-	p.attach_game_def_stats()
+	p.attach_gameplay_data()
 
 	save_game()
 
@@ -117,7 +117,7 @@ func skip_puzzle(puz: PuzzleSet, idx: int) -> void:
 		events.append(event)
 
 	# recompute completes/skips on puzzle_defs
-	puz.attach_game_def_stats()
+	puz.attach_gameplay_data()
 
 	save_game()
 

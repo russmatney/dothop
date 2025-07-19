@@ -117,15 +117,15 @@ func test_all_puzzles_solvable_via_state() -> void:
 	var sets := Store.get_puzzle_sets()
 	assert_int(len(sets)).is_greater(3) # make sure we get some
 
-	# TODO refactor to pull all puzzles from the puzzle store
+	# TODO refactor to pull all puzzles from a PuzzleStore
 
 	for x in range(len(sets)):
 		var puzzle_set: PuzzleSet = sets[x]
-		var game_def := puzzle_set.get_game_def()
-		var puzzle_count := len(game_def.puzzles)
+		var psd := puzzle_set.get_puzzle_set_data()
+		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)
 		for i in puzzle_count:
-			var puzz_state := PuzzleState.new(game_def.puzzles[i], game_def)
+			var puzz_state := PuzzleState.new(psd.puzzle_defs[i])
 			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
 			# Log.pr(["Puzzle:", puzzle_set.get_display_name(), i, solve])
 			var choice_s := str(solve.least_choices_count, " / ", solve.most_choices_count)
@@ -150,8 +150,8 @@ func test_all_puzzles_solvable_via_node() -> void:
 	assert_int(len(sets)).is_greater(3) # make sure we get some
 
 	for puzzle_set: PuzzleSet in sets:
-		var game_def := puzzle_set.get_game_def()
-		var puzzle_count := len(game_def.puzzles)
+		var psd := puzzle_set.get_puzzle_set_data()
+		var puzzle_count := len(psd.puzzle_defs)
 		assert_int(puzzle_count).is_greater(0)
 
 		# run for a random one for each puzzle set
@@ -159,8 +159,7 @@ func test_all_puzzles_solvable_via_node() -> void:
 		var i: int = randi_range(0, puzzle_count - 1)
 
 		var puzz_node := DotHopPuzzle.build_puzzle_node({
-			game_def=game_def,
-			puzzle_num=i,
+			puzzle_def=psd.puzzle_defs[i]
 			})
 		puzz_node.build_game_state()
 
