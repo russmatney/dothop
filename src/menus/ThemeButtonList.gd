@@ -9,7 +9,6 @@ func _ready() -> void:
 			label=th.get_display_name(),
 			fn=func() -> void:
 			var game := get_tree().current_scene
-			Log.pr("current_scene (game)", game)
 			if game.name == "DotHopGame":
 				@warning_ignore("unsafe_method_access")
 				game.change_theme(th)

@@ -105,7 +105,7 @@ var just_logged_blocked_input: bool = false
 func _unhandled_input(event: InputEvent) -> void:
 	if state != null and state.win:
 		if not just_logged_blocked_input:
-			Log.pr("Blocking input events b/c we're in a win state")
+			Log.info("Blocking input events b/c we're in a win state")
 			just_logged_blocked_input = true
 		return
 	just_logged_blocked_input = false
@@ -129,8 +129,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		cancel_reset_puzzle()
 	elif Trolls.is_shuffle(event):
 		shuffle_pressed()
-	# elif Trolls.is_debug_toggle(event):
-	# 	Log.pr(state.grid)
 
 var reset_tween: Tween
 func hold_to_reset_puzzle() -> void:

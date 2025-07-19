@@ -31,7 +31,7 @@ func _ready() -> void:
 func render_puzzle_stats() -> void:
 	var stats := DHData.calc_stats(Store.get_puzzle_sets())
 
-	Log.pr("Puzzle stats!", {
+	Log.info("Puzzle stats!", {
 		events=len(Store.get_events()),
 		puzzle_sets=len(Store.get_puzzle_sets()),
 		puzzles_completed=stats.puzzles_completed,

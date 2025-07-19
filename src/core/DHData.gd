@@ -71,10 +71,4 @@ class Legend:
 	static func get_objs(letter: String) -> Array[Obj]:
 		var objs: Array[Obj] = []
 		objs.assign(Legend.default.get(letter, []) as Array)
-		Log.pr("got objs for letter", letter, objs)
 		return objs
-
-		# # TODO any reason to do this in two steps? str -> [str] -> [objs] vs str -> [objs]?
-		# var obj_names : Array[String] = default.get(letter, [])
-		# objs.assign(obj_names.map(func(nm: String) -> Obj: return obj_map.get(nm)))
-		# return objs

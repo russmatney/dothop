@@ -7,7 +7,7 @@ var export_puzzle_data_btn: Button = Button.new()
 var puzzle_import_plugin
 
 func _enter_tree() -> void:
-	export_puzzle_data_btn.pressed.connect(log_puzzle_data)
+	export_puzzle_data_btn.pressed.connect(export_puzzle_data)
 	export_puzzle_data_btn.text = "D"
 	add_control_to_container(CONTAINER_TOOLBAR, export_puzzle_data_btn)
 	export_puzzle_data_btn.get_parent().move_child(export_puzzle_data_btn, export_puzzle_data_btn.get_index() - 2)
@@ -22,9 +22,9 @@ func _exit_tree() -> void:
 	puzzle_import_plugin = null
 
 
-func log_puzzle_data() -> void:
+func export_puzzle_data() -> void:
 	print("-------------------------------------------------")
 	Log.info("[PrintPuzzleData]", Time.get_time_string_from_system())
 	var edited_scene := EditorInterface.get_edited_scene_root()
-	StatLogger.log_puzzle_data()
+	StatLogger.export_puzzle_data()
 	print("-------------------------------------------------")

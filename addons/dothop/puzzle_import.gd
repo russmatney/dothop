@@ -56,5 +56,5 @@ func _import(source_file: String, save_path: String, options: Dictionary, r_plat
 	if file == null:
 		return FileAccess.get_open_error()
 	var psd := PuzzleSetData.from_path(source_file)
-	Log.pr("Imported Puzzle Set Data", psd)
+	Log.info("Imported Puzzle Set Data", psd)
 	return ResourceSaver.save(psd, "%s.%s" % [save_path, _get_save_extension()])

@@ -189,7 +189,7 @@ var PuzzleSetUnlockedScene: PackedScene = preload("res://src/menus/jumbotrons/Pu
 var ProgressPanelScene: PackedScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
 func on_puzzle_win() -> void:
-	Log.pr("Puzzle complete! %s" % puzzle_set.get_display_name())
+	Log.info("Puzzle complete!", puzzle_set.get_display_name(), "-", puzzle_num)
 	Store.complete_puzzle_index(puzzle_set, puzzle_num)
 
 	# refresh puzzle_set data

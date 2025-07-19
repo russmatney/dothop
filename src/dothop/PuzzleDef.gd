@@ -56,7 +56,6 @@ func state_cells() -> Array[PuzzleState.Cell]:
 		if len(objs) == 0:
 			continue # nothing found in the legend for this
 		cells.append(PuzzleState.Cell.new(coord, objs))
-	Log.pr("any null cells?", cells)
 	return cells
 
 ## rotate ####################################################

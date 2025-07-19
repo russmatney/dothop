@@ -103,8 +103,8 @@ static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 	return ctxs
 
 
-static func log_puzzle_data() -> void:
-	Log.pr("Logging puzzle data!")
+static func export_puzzle_data() -> void:
+	Log.info("Exporting puzzle data!")
 
 	var puzzle_ctxs := build_puzzle_ctxs()
 

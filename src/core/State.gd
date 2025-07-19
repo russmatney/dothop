@@ -109,6 +109,5 @@ func find_theme(theme: PuzzleTheme) -> Variant:
 ## stats ###########################################################
 
 func attach_gameplay_data() -> void:
-	Log.pr("attaching gameplay data")
 	for ps: PuzzleSet in puzzle_sets:
 		ps.attach_gameplay_data()
