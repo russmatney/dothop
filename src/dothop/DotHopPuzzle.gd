@@ -48,6 +48,7 @@ var theme_data: PuzzleThemeData
 
 var dhcam: DotHopCam
 var state: PuzzleState
+# apparently used in Anim?
 var player_nodes: Array = []
 
 signal win
@@ -82,6 +83,9 @@ func _ready() -> void:
 		Log.error("no puzzle_def!", name)
 		return
 
+	# a Log-based validation warning would be nice
+	# maybe Log.gd's direction is toward a godot-devlog-companion
+	# e.g. Log.ensure(theme_data, "Puzzle Scene running with no theme data!")
 	if theme_data == null:
 		Log.warn("Puzzle Scene running with no theme data!")
 
@@ -94,47 +98,11 @@ func _ready() -> void:
 	if not Engine.is_editor_hint() and is_inside_tree():
 		dhcam = DotHopCam.ensure_camera(self)
 
-	win.connect(on_win)
-	player_moved.connect(on_player_moved)
-	player_undo.connect(on_player_undo)
-	move_rejected.connect(on_move_rejected)
-	move_input_blocked.connect(on_move_input_blocked)
-	rebuilt_nodes.connect(on_rebuilt_nodes)
-
 	input_block_timer_done.connect(reattempt_blocked_move)
 
 	# ideally this would fire after the nodes are ready
 	# prolly a race-case here
 	state.emit_possible_cells.call_deferred()
-
-func on_win() -> void:
-	Sounds.play(Sounds.S.complete)
-
-func on_player_moved() -> void:
-	var total_dots: float = float(state.dot_count() + 1)
-	var dotted: float = total_dots - float(state.dot_count(true)) - 1
-	# ensure some minimum
-	dotted = clamp(dotted, total_dots/4, total_dots)
-	if state.win:
-		dotted += 1
-	Sounds.play(Sounds.S.dot_collected, {scale_range=total_dots, scale_note=dotted, interrupt=true})
-
-func on_player_undo() -> void:
-	Sounds.play(Sounds.S.minimize)
-
-func on_move_rejected() -> void:
-	Sounds.play(Sounds.S.showjumbotron)
-
-func on_move_input_blocked() -> void:
-	pass
-
-func on_rebuilt_nodes() -> void:
-	Sounds.play(Sounds.S.maximize)
-
-## process ##############################################################
-
-# func _process(_delta: float) -> void:
-# 	process_move_queue()
 
 ## input ##############################################################
 
@@ -197,6 +165,24 @@ func undo_pressed() -> void:
 		return
 	undo_last_move()
 
+func dot_pressed(node: DotHopDot) -> void:
+	# calc move_vec for tapped dot with first player
+	var first_player_coord: Variant
+	for p: PuzzleState.Player in state.players:
+		if p.coord != null:
+			first_player_coord = p.coord
+			break
+	if first_player_coord == null:
+		Log.warn("Cannot move to dot, no player coord found")
+		return
+
+	var move_vec: Vector2 = node.current_coord - first_player_coord
+	if move_vec.x == 0 or move_vec.y == 0:
+		attempt_move(move_vec.normalized())
+	else:
+		Log.info("Cannot move to dot", node, node.current_coord)
+		# TODO shake the tapped dot
+
 ## attempt_move ##############################################################
 
 var block_move_input: bool
@@ -228,24 +214,6 @@ func restart_block_move_timer(t: float = 0.2) -> void:
 		block_move_input = false
 		input_block_timer_done.emit()
 		).set_delay(t)
-
-func on_dot_pressed(node: DotHopDot) -> void:
-	# calc move_vec for tapped dot with first player
-	var first_player_coord: Variant
-	for p: PuzzleState.Player in state.players:
-		if p.coord != null:
-			first_player_coord = p.coord
-			break
-	if first_player_coord == null:
-		Log.warn("Cannot move to dot, no player coord found")
-		return
-
-	var move_vec: Vector2 = node.current_coord - first_player_coord
-	if move_vec.x == 0 or move_vec.y == 0:
-		attempt_move(move_vec.normalized())
-	else:
-		Log.info("Cannot move to dot", node, node.current_coord)
-		# TODO shake the tapped dot
 
 ## move_queue ##############################################################
 
@@ -309,7 +277,6 @@ func reattempt_blocked_move() -> void:
 	if processing_move_queue:
 		process_move_queue(true)
 
-
 ## state/grid ##############################################################
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
@@ -325,43 +292,47 @@ func rebuild_nodes() -> void:
 		for obj: GameDef.Obj in cell.objs:
 			if obj in [GameDef.Obj.Dot, GameDef.Obj.Goal, GameDef.Obj.Dotted]:
 				var dot: DotHopDot = setup_node_at_coord(obj, cell.coord)
-				dot.dot_pressed.connect(on_dot_pressed.bind(dot))
-				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
-
-				cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
-				cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
-				cell.show_possible_next_move.connect(func() -> void: dot.show_possible_next_move())
-				cell.show_possible_undo.connect(func() -> void: dot.show_possible_undo())
-				cell.remove_possible_next_move.connect(func() -> void: dot.remove_possible_next_move())
-
+				connect_dot_signals(dot, cell, obj)
 				add_child(dot)
 			else:
 				if not obj in [GameDef.Obj.Player, GameDef.Obj.Undo]:
-					Log.pr("skipping setup for obj: ", obj)
+					Log.warn("skipping setup for unhandled obj: ", obj)
 
 	player_nodes = []
 	for p: PuzzleState.Player in state.players:
 		var p_node: DotHopPlayer = setup_node_at_coord(GameDef.Obj.Player, p.coord)
-
-		# setup state player signals
-		p.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.move_to_coord(cell.coord))
-		p.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.undo_to_coord(cell.coord))
-		p.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: p_node.undo_to_same_coord())
-		p.move_attempt_stuck.connect(func(dir: Vector2) -> void: p_node.move_attempt_stuck(dir))
-
-		# connect to move finished signal
-		# we might want to track out-standing moves here, rather than just checking on one
-		p_node.move_finished.connect(func() -> void: player_move_finished())
-
-		# wait to add players last (so they end up on top)
-		add_child(p_node)
+		connect_player_signals(p_node, p)
+		add_child(p_node) # add players after dots for z-indexing
 		player_nodes.append(p_node)
 
 	if dhcam != null:
 		dhcam.center_on_rect(puzzle_rect({dots_only=true}))
 
-	# trigger HUD update
+	# trigger HUD update, etc
 	rebuilt_nodes.emit()
+
+# TODO i suspect alot of this setup/connect can move to a Dot.gd node _ready() impl
+func connect_dot_signals(dot: DotHopDot, cell: PuzzleState.Cell, _obj: GameDef.Obj) -> void:
+	dot.dot_pressed.connect(dot_pressed.bind(dot))
+	dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
+
+	cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
+	cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
+	cell.show_possible_next_move.connect(func() -> void: dot.show_possible_next_move())
+	cell.show_possible_undo.connect(func() -> void: dot.show_possible_undo())
+	cell.remove_possible_next_move.connect(func() -> void: dot.remove_possible_next_move())
+
+func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -> void:
+	# setup state player signals
+	p_state.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.move_to_coord(cell.coord))
+	p_state.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.undo_to_coord(cell.coord))
+	p_state.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: p_node.undo_to_same_coord())
+	p_state.move_attempt_stuck.connect(func(dir: Vector2) -> void: p_node.move_attempt_stuck(dir))
+
+	# connect to move finished signal
+	# we might want to track out-standing moves here, rather than just checking on one
+	p_node.move_finished.connect(func() -> void: player_move_finished())
+
 
 func setup_node_at_coord(obj_type: GameDef.Obj, coord: Vector2) -> Node:
 	var node: Node2D = node_for_object_name(obj_type)
@@ -484,7 +455,7 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 # NOTE this does NOT fire on undos or stucks
 func player_move_finished() -> void:
 	if state.win:
-		# TODO fires too early if you move quickly
+		# TODO fires too early rn if you move quickly
 		win.emit()
 
 # TODO could dry up to use apply_moves and the response here
