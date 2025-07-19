@@ -115,6 +115,17 @@ focus_mode = 1
 theme = ExtResource("8_2plpm")
 text = "Menu"
 
+[node name="Shuffle" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShuffleButton" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/Shuffle"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+theme = ExtResource("8_2plpm")
+text = "Shuffle"
+
 [node name="UndoControlHint" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2

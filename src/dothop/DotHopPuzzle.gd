@@ -2,14 +2,9 @@
 extends Node2D
 class_name DotHopPuzzle
 
-# TODO move all vector2 to vector2i?
-
-const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
-
 ## static ##########################################################################
 
 static var fallback_puzzle_scene: String = "res://src/dothop/DotHopPuzzle.tscn"
-static var fallback_puzzle_set_data: String = "res://src/puzzles/dothop-tutorial.puzz"
 static var fallback_theme_data: String = "res://src/themes/DebugThemeData.tres"
 
 static func test_puzzle_node(puzzle: Array) -> DotHopPuzzle:
@@ -37,37 +32,21 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 ## vars ##############################################################
 
-@export var clear: bool = false:
-	set(v):
-		if v == true:
-			clear_nodes()
+@export_tool_button("Clear") var clear_action: Callable = clear_nodes
+@export_tool_button("Play Intro") var trigger_intro: Callable =\
+	Anim.puzzle_animate_intro_from_point.bind(self, min_t, max_t)
+@export_tool_button("Play Outro") var trigger_outro: Callable =\
+	Anim.puzzle_animate_outro_to_point.bind(self)
 
 @export var min_t : float = 0.1
 @export var max_t : float = 1.0
-
-@export var trigger_intro: bool = false:
-	set(v):
-		if v == true and Engine.is_editor_hint():
-			Anim.puzzle_animate_intro_from_point(self, min_t, max_t)
-
-@export var trigger_outro: bool = false:
-	set(v):
-		if v == true and Engine.is_editor_hint():
-			Anim.puzzle_animate_outro_to_point(self)
-
 @export var debugging: bool = false
-
-var theme_data: PuzzleThemeData
-var puzzle_def : PuzzleDef :
-	set(ld):
-		puzzle_def = ld
-		if Engine.is_editor_hint():
-			build_game_state()
 @export var square_size: int = 32
 
-var dhcam: DotHopCam
+var puzzle_def: PuzzleDef
+var theme_data: PuzzleThemeData
 
-# um what no let's get some types here
+var dhcam: DotHopCam
 var state: PuzzleState
 var player_nodes: Array = []
 
@@ -80,6 +59,10 @@ signal move_rejected
 signal move_input_blocked
 signal rebuilt_nodes
 
+# fallbacks
+@export var fallback_puzzle_set_data: PuzzleSetData
+@export var fallback_puzzle_def: int = 0
+
 ## enter_tree ##############################################################
 
 func _init() -> void:
@@ -88,40 +71,28 @@ func _init() -> void:
 ## ready ##############################################################
 
 @export var randomize_layout: bool = true
-var reverse_ys: bool = false
-var reverse_xs: bool = false
-var rotate_shape: bool = false
 
-# PuzzleScene.ready()
-# in the local-testing case, we want to look up and assign a theme-data
 func _ready() -> void:
 	if puzzle_def == null:
-		Log.info("no puzzle_def, loading fallback", name)
-		var psd : PuzzleSetData = load(fallback_puzzle_set_data)
-		puzzle_def = psd.puzzle_defs[0]
+		# TODO fetch from the PuzzleStore? do we even need a fallback?
+		puzzle_def = fallback_puzzle_set_data.puzzle_defs[0]
+		Log.warn("No puzzle_def set, using fallback", puzzle_def)
+
+	if puzzle_def == null:
+		Log.error("no puzzle_def!", name)
+		return
 
 	if theme_data == null:
 		Log.warn("Puzzle Scene running with no theme data!")
 
 	if randomize_layout:
-		reverse_ys = U.rand_of([true, false])
-		reverse_xs = U.rand_of([true, false])
-		rotate_shape = U.rand_of([true, false, false, false])
+		puzzle_def.shuffle_puzzle_layout()
 
+	build_game_state()
+
+	# fallback cam setup for running this scene directly
 	if not Engine.is_editor_hint() and is_inside_tree():
 		dhcam = DotHopCam.ensure_camera(self)
-
-	if puzzle_def:
-		if reverse_ys:
-			puzzle_def.shape.reverse()
-		if reverse_xs:
-			for row: Array in puzzle_def.shape:
-				row.reverse()
-		if rotate_shape:
-			# don't rotate very wide puzzles
-			if puzzle_def.width <= 6:
-				puzzle_def.rotate()
-		build_game_state()
 
 	win.connect(on_win)
 	player_moved.connect(on_player_moved)
@@ -193,6 +164,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		hold_to_reset_puzzle()
 	elif Trolls.is_restart_released(event):
 		cancel_reset_puzzle()
+	elif Trolls.is_shuffle(event):
+		shuffle_pressed()
 	# elif Trolls.is_debug_toggle(event):
 	# 	Log.pr(state.grid)
 
@@ -209,6 +182,12 @@ func cancel_reset_puzzle() -> void:
 		return
 	reset_tween.kill()
 
+## actions ##############################################################
+
+func shuffle_pressed() -> void:
+	puzzle_def.shuffle_puzzle_layout()
+	build_game_state()
+
 func reset_pressed() -> void:
 	build_game_state()
 
@@ -217,7 +196,6 @@ func undo_pressed() -> void:
 		Log.warn("No state, ignoring undo input")
 		return
 	undo_last_move()
-
 
 ## attempt_move ##############################################################
 
@@ -483,6 +461,8 @@ func all_dot_nodes(opts: Dictionary = {}) -> Array:
 	return dots
 
 ## move ##############################################################
+
+const ALLOWED_MOVES := [Vector2.LEFT, Vector2.RIGHT, Vector2.UP, Vector2.DOWN]
 
 func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 	if not move_dir in ALLOWED_MOVES:

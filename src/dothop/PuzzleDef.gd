@@ -71,3 +71,20 @@ func dot_count() -> int:
 				ct += 1
 	_dot_count = ct
 	return _dot_count
+
+## shuffle the internal puzzle shape ########################################3333
+
+func shuffle_puzzle_layout(opts: Dictionary = {}) -> void:
+	var reverse_ys: bool = opts.get("reverse_ys", U.rand_of([true, false]))
+	var reverse_xs: bool = opts.get("reverse_xs", U.rand_of([true, false]))
+	var rotate_shape: bool = opts.get("rotate_shape", U.rand_of([true, false, false, false]))
+
+	if reverse_ys:
+		shape.reverse()
+	if reverse_xs:
+		for row: Array in shape:
+			row.reverse()
+	if rotate_shape:
+		# don't rotate very wide puzzles
+		if width <= 6:
+			rotate()

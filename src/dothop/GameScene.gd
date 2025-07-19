@@ -104,7 +104,8 @@ func rebuild_puzzle() -> void:
 		Anim.puzzle_animate_intro_from_point(puzzle_node)
 		if hud:
 			hud.reset_pressed.connect(puzzle_node.reset_pressed)
-			hud.undo_pressed.connect(puzzle_node.undo_pressed))
+			hud.undo_pressed.connect(puzzle_node.undo_pressed)
+			hud.shuffle_pressed.connect(puzzle_node.shuffle_pressed))
 
 ## update hud #####################################################################
 

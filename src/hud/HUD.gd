@@ -18,9 +18,11 @@ class_name HUD
 @onready var undo_button: Button = $%UndoButton
 @onready var reset_button: Button = $%ResetButton
 @onready var pause_button: Button = $%PauseButton
+@onready var shuffle_button: Button = $%ShuffleButton
 
 signal undo_pressed
 signal reset_pressed
+signal shuffle_pressed
 
 var puzzle_def: PuzzleDef
 
@@ -36,6 +38,7 @@ func _ready() -> void:
 	reset_button.pressed.connect(func() -> void: reset_pressed.emit())
 	undo_button.pressed.connect(func() -> void: undo_pressed.emit())
 	pause_button.pressed.connect(DotHop.maybe_pause)
+	shuffle_button.pressed.connect(func() -> void: shuffle_pressed.emit())
 
 func set_control_icons() -> void:
 	undo_input_icon.set_icon_for_action("ui_undo")

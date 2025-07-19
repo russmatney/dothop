@@ -118,6 +118,9 @@ static func is_cycle_next_action(event: InputEvent) -> bool:
 static func is_cycle_prev_action(event: InputEvent) -> bool:
 	return is_event(event, "cycle_previous_action")
 
+static func is_shuffle(event: InputEvent) -> bool:
+	return is_event(event, "shuffle")
+
 static func is_pause(event: InputEvent) -> bool:
 	return is_event(event, "pause")
 
