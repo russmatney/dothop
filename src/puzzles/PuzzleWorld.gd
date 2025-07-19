@@ -34,9 +34,6 @@ func is_completed() -> bool:
 func is_unlocked() -> bool:
 	return get_bool("is_unlocked")
 
-func allowed_in_demo() -> bool:
-	return get_bool("allowed_in_demo")
-
 func get_max_completed_puzzle_index() -> int:
 	return get_integer("max_completed_puzzle_idx")
 

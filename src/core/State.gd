@@ -69,11 +69,7 @@ func initial_worlds() -> Array[PuzzleWorld]:
 		Log.warn("no THEMDOTS PuzzleWorld entity found. Is Pandora data loaded?")
 		return []
 	var pss: Array = Pandora.get_all_entities(Pandora.get_category(ent._category_id))\
-		.map(func(e: PandoraEntity) -> PuzzleWorld: return e.instantiate())\
-		.filter(func(e: PuzzleWorld) -> bool:
-			if OS.has_feature("demo"):
-				return e.allowed_in_demo()
-			return true)
+		.map(func(e: PandoraEntity) -> PuzzleWorld: return e.instantiate())
 	var ws: Array[PuzzleWorld] = []
 	ws.assign(pss)
 	ws.sort_custom(func(a: PuzzleWorld, b: PuzzleWorld) -> bool: return a.get_sort_order() < b.get_sort_order())
