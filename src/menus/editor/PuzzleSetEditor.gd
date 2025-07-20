@@ -23,61 +23,61 @@ func _ready() -> void:
 
 func render() -> void:
 	U.remove_children(world_grid)
-	for ps in worlds:
-		Log.pr("rendering puzzle set", ps.get_display_name())
+	for world in worlds:
+		Log.pr("rendering puzzle set", world.get_display_name())
 
-		var dot_texture := ps.get_theme().get_dot_icon()
-		var dotted_texture := ps.get_theme().get_dotted_icon()
-		var player_texture := ps.get_theme().get_player_icon()
 		var button := TextureButton.new()
 		button.custom_minimum_size = Vector2(64, 64)
 		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
 
-		button.set_texture_normal(player_texture)
-		button.set_texture_hover(dot_texture)
-		button.set_texture_disabled(dotted_texture)
+		var td := world.get_theme_data()
+		button.set_texture_normal(td.player_icon)
+		button.set_texture_hover(td.dot_icon)
+		button.set_texture_disabled(td.dotted_icon)
 
-		# button.text = ps.get_display_name()
-		button.pressed.connect(on_world_button_pressed.bind(ps))
+		# button.text = world.get_display_name()
+		button.pressed.connect(on_world_button_pressed.bind(world))
 		world_grid.add_child(button)
 
 ## on ######################################################
 
-func on_world_button_pressed(ps: PuzzleWorld) -> void:
-	# Log.pr("world button pressed", ps)
-	select_world(ps)
+func on_world_button_pressed(world: PuzzleWorld) -> void:
+	# Log.pr("world button pressed", world)
+	select_world(world)
 
-func on_puzzle_button_pressed(ps: PuzzleWorld, p: PuzzleDef) -> void:
-	select_puzzle(ps, p)
+func on_puzzle_button_pressed(world: PuzzleWorld, p: PuzzleDef) -> void:
+	select_puzzle(world, p)
 
 ## select ######################################################
 
-func select_world(ps: PuzzleWorld) -> void:
-	ps.analyze_puzzles() # trigger solver analysis for whole puzzle set
+func select_world(world: PuzzleWorld) -> void:
+	# TODO run in the background
+	world.analyze_puzzles() # trigger solver analysis for whole puzzle set
+
 	U.remove_children(puzzles_grid)
 	var first: Variant = null
-	for puzzle_def in ps.get_puzzles():
+	for puzzle_def in world.get_puzzles():
 		if not first:
 			first = puzzle_def
-		# var bg_music = ps.get_theme().get_background_music()
-		var dot_texture := ps.get_theme().get_dot_icon()
-		var dotted_texture := ps.get_theme().get_dotted_icon()
-		var player_texture := ps.get_theme().get_player_icon()
+
+		# var bg_music = world.get_theme_data().background_music
+
 		var texture := TextureButton.new()
 		texture.custom_minimum_size = Vector2(96, 96)
 		texture.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
 
-		texture.set_texture_hover(player_texture)
-		texture.set_texture_normal(dot_texture)
-		texture.set_texture_disabled(dotted_texture)
+		var td := world.get_theme_data()
+		texture.set_texture_hover(td.player_icon)
+		texture.set_texture_normal(td.dot_icon)
+		texture.set_texture_disabled(td.dotted_icon)
 
-		texture.pressed.connect(on_puzzle_button_pressed.bind(ps, puzzle_def))
+		texture.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))
 
 		puzzles_grid.add_child(texture)
 	if first:
-		select_puzzle(ps, first as PuzzleDef)
+		select_puzzle(world, first as PuzzleDef)
 
-func select_puzzle(ps: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
+func select_puzzle(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	Log.pr("Puzzle selected", puzzle_def)
 	var w := puzzle_def.width
 	var h := puzzle_def.height
@@ -85,7 +85,7 @@ func select_puzzle(ps: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	var idx := puzzle_def.idx # not necessarily the order, which puzzle-sets can overwrite
 	var analysis := puzzle_def.analysis
 
-	current_puzzle_label.text = "[center]%s # %s" % [ps.get_display_name(), idx + 1]
+	current_puzzle_label.text = "[center]%s # %s" % [world.get_display_name(), idx + 1]
 	var detail := "w: %s, h: %s" % [w, h]
 	if msg:
 		detail += " msg: %s" % msg
@@ -106,10 +106,8 @@ func select_puzzle(ps: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 		await outro_complete
 		puzzle_node.queue_free()
 
-	var theme := ps.get_theme()
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_def=puzzle_def,
-		puzzle_theme=theme,
+		world=world, puzzle_def=puzzle_def,
 		})
 	puzzle_node.ready.connect(func() -> void: Anim.puzzle_animate_intro_from_point(puzzle_node))
 

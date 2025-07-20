@@ -1,14 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://qkaayvt6sph0"]
+[gd_scene load_steps=12 format=3 uid="uid://qkaayvt6sph0"]
 
 [ext_resource type="Script" uid="uid://2nn8tbu7xdh2" path="res://src/themes/dots/DotsPuzzle.gd" id="1_g1ytu"]
-[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_5gqre"]
 [ext_resource type="Texture2D" uid="uid://ugd75ukbs7fi" path="res://src/themes/dots/assets/particles1.png" id="3_jw15r"]
 [ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="4_kqnyn"]
 [ext_resource type="Texture2D" uid="uid://oxaukdq7njj8" path="res://src/themes/dots/assets/particles2.png" id="5_jw15r"]
-
-[sub_resource type="Resource" id="Resource_5rmsa"]
-script = ExtResource("2_5gqre")
-_id = "13"
 
 [sub_resource type="Curve" id="Curve_5ym1h"]
 _data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -44,7 +39,6 @@ turbulence_enabled = true
 
 [node name="DotsPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_g1ytu")
-theme = SubResource("Resource_5rmsa")
 
 [node name="Bg" type="ColorRect" parent="."]
 offset_left = -1314.0

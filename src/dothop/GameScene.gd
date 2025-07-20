@@ -4,10 +4,10 @@ class_name DotHopGame
 ## vars #####################################################################
 
 @export var world: PuzzleWorld
+@export var puzzle_num: int = 0
 
 var puzzle_node: DotHopPuzzle
-var puzzle_theme: PuzzleTheme
-@export var puzzle_num: int = 0
+var puzzle_theme_data: PuzzleThemeData
 
 var already_complete: bool = false
 
@@ -22,7 +22,7 @@ func _ready() -> void:
 		world = Store.get_worlds()[0]
 
 	if world != null:
-		puzzle_theme = world.get_theme()
+		puzzle_theme_data = world.get_theme_data()
 	else:
 		Log.warn("no world, cannot start GameScene")
 
@@ -38,7 +38,7 @@ func _ready() -> void:
 
 	# TODO add music controls and toasts
 	SoundManager.stop_music(1.0)
-	var songs: Array[AudioStream] = puzzle_theme.get_theme_data().get_music_tracks()
+	var songs: Array[AudioStream] = puzzle_theme_data.get_music_tracks()
 	if len(songs) > 0:
 		SoundManager.play_music(songs[0], 2.0)
 
@@ -72,8 +72,8 @@ func rebuild_puzzle() -> void:
 
 	# load current puzzle
 	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		puzzle_def=world.get_puzzles()[puzzle_num],
-		puzzle_theme=puzzle_theme,
+		world=world, puzzle_def=world.get_puzzles()[puzzle_num],
+		theme_data=puzzle_theme_data
 		})
 
 	if puzzle_node == null:
@@ -178,8 +178,9 @@ func update_hud() -> void:
 ## load theme #####################################################################
 
 func change_theme(theme: PuzzleTheme) -> void:
-	if puzzle_theme != theme:
-		puzzle_theme = theme
+	var td := theme.get_theme_data()
+	if puzzle_theme_data != td:
+		puzzle_theme_data = td
 		rebuild_puzzle()
 
 ## win #####################################################################

@@ -5,7 +5,7 @@ extends WorldMap
 
 @onready var in_editor: bool = Engine.is_editor_hint()
 @onready var worlds: Array = Store.get_worlds()
-@onready var ps_maps: Array[PSMap]
+@onready var world_maps: Array[PSMap]
 
 @export var x_buffer: float = 48
 @export var y_buffer: float = 24
@@ -27,9 +27,9 @@ class PSMap:
 ## ready ##################################################
 
 func _ready() -> void:
-	ps_maps = []
-	for ps: PuzzleWorld in worlds:
-		ps_maps.append(PSMap.new(ps))
+	world_maps = []
+	for world: PuzzleWorld in worlds:
+		world_maps.append(PSMap.new(world))
 
 	render()
 
@@ -46,18 +46,19 @@ func render() -> void:
 
 	var acc_x: float = 0
 	var acc_y: float = 0
-	for psmap: PSMap in ps_maps:
-		var worldmap_island: Texture2D = psmap.world.get_worldmap_island_texture()
+	for world_map: PSMap in world_maps:
+		Log.pr("getting worldmap texture", world_map)
+		var worldmap_island: Texture2D = world_map.world.get_worldmap_island_texture()
 
-		psmap.size = worldmap_island.get_size()
-		psmap.pos = Vector2(acc_x, acc_y)
+		world_map.size = worldmap_island.get_size()
+		world_map.pos = Vector2(acc_x, acc_y)
 
-		acc_x += psmap.size.x + x_buffer
-		acc_y += psmap.size.y + y_buffer
+		acc_x += world_map.size.x + x_buffer
+		acc_y += world_map.size.y + y_buffer
 
 		# create world node
 		var world: Node2D = Node2D.new()
-		world.position = psmap.pos
+		world.position = world_map.pos
 		world.ready.connect(func() -> void:
 			world.set_owner(self)
 			world.add_to_group(gen_key, true))
@@ -66,7 +67,7 @@ func render() -> void:
 		# worldmap island texture
 		var texture_rect: TextureRect = TextureRect.new()
 		texture_rect.set_texture(worldmap_island)
-		texture_rect.position = psmap.pos
+		texture_rect.position = world_map.pos
 		texture_rect.ready.connect(func() -> void:
 			texture_rect.set_owner(self)
 			texture_rect.add_to_group(gen_key, true))
@@ -74,8 +75,8 @@ func render() -> void:
 
 		# create marker
 		var marker: PuzzleMapMarker = PuzzleMapMarker.new()
-		marker.world = psmap.world
-		marker.position = psmap.center()
+		marker.world = world_map.world
+		marker.position = world_map.center()
 		marker.ready.connect(func() -> void:
 			marker.set_owner(self)
 			marker.add_to_group(gen_key, true))

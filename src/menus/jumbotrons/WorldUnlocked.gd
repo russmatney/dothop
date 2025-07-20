@@ -26,10 +26,9 @@ func render() -> void:
 	Sounds.play(Sounds.S.gong)
 
 	if world:
-		var _theme: PuzzleTheme = world.get_theme()
+		var td: PuzzleThemeData = world.get_theme_data()
 
-		icon.set_texture(_theme.get_player_icon())
-
+		icon.set_texture(td.player_icon)
 		header.text = "[center][color=crimson]%s[/color]\nUnlocked!" % world.get_display_name()
 
 		var tag_line: bool = false
@@ -49,7 +48,7 @@ func render() -> void:
 	else:
 		header.text = "[center]Dang, that was the [color=crimson]last puzzle[/color]!"
 		body.text = "[center]Congrations,\nand thanks for playing!"
-		icon.set_texture(Store.get_worlds()[0].get_theme().get_player_icon())
+		icon.set_texture(Store.get_worlds()[0].get_theme_data().player_icon)
 
 	if not Engine.is_editor_hint():
 		animate_puzzle_icon()

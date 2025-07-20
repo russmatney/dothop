@@ -16,6 +16,12 @@ func get_puzzle_set_data() -> PuzzleSetData:
 	cached_psd.setup()
 	return cached_psd
 
+func get_theme_data() -> PuzzleThemeData:
+	return get_resource("theme_data")
+
+func get_puzzle_scene() -> PackedScene:
+	return get_theme_data().puzzle_scene
+
 func get_display_name() -> String:
 	return get_string("display_name")
 
@@ -49,7 +55,6 @@ func data() -> Variant:
 	return {
 		puzzle_set_data=get_puzzle_set_data(),
 		name=get_display_name(),
-		theme=get_theme().get_display_name(),
 		completed=is_completed(),
 		unlocked=is_unlocked(),
 		}

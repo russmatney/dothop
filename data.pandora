@@ -250,10 +250,6 @@
 				"_index": 0,
 				"_name": "ThemDots",
 				"_property_overrides": {
-					"allowed_in_demo": {
-						"type": "bool",
-						"value": true
-					},
 					"display_name": {
 						"type": "string",
 						"value": "Them Dots"
@@ -277,6 +273,10 @@
 							"_type": 0
 						}
 					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/dots/DotsThemeData.tres"
+					},
 					"worldmap_island_texture": {
 						"type": "resource",
 						"value": "res://assets/worldmap/world_map_island1_sheet.png"
@@ -290,10 +290,6 @@
 				"_index": 0,
 				"_name": "GetOuterHere",
 				"_property_overrides": {
-					"allowed_in_demo": {
-						"type": "bool",
-						"value": false
-					},
 					"display_name": {
 						"type": "string",
 						"value": "Get Outer Here"
@@ -324,6 +320,10 @@
 							"_entity_id": "14",
 							"_type": 0
 						}
+					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/space/SpaceThemeData.tres"
 					},
 					"worldmap_island_texture": {
 						"type": "resource",
@@ -368,6 +368,10 @@
 							"_entity_id": "15",
 							"_type": 0
 						}
+					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/spring/SpringThemeData.tres"
 					},
 					"worldmap_island_texture": {
 						"type": "resource",
@@ -544,6 +548,10 @@
 							"_type": 0
 						}
 					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/summer/SummerThemeData.tres"
+					},
 					"worldmap_island_texture": {
 						"type": "resource",
 						"value": "res://assets/worldmap/world_map_island4_sheet.png"
@@ -557,10 +565,6 @@
 				"_index": 0,
 				"_name": "SpringInYourHop",
 				"_property_overrides": {
-					"allowed_in_demo": {
-						"type": "bool",
-						"value": true
-					},
 					"display_name": {
 						"type": "string",
 						"value": "A Spring in your Hop"
@@ -591,6 +595,10 @@
 							"_entity_id": "23",
 							"_type": 0
 						}
+					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/spring/SpringThemeData.tres"
 					},
 					"worldmap_island_texture": {
 						"type": "resource",
@@ -635,6 +643,10 @@
 							"_entity_id": "22",
 							"_type": 0
 						}
+					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/winter/WinterThemeData.tres"
 					},
 					"worldmap_island_texture": {
 						"type": "resource",
@@ -711,6 +723,39 @@
 					"puzzle_theme_data": {
 						"type": "resource",
 						"value": "res://src/themes/pumpkins/PumpkinsThemeData.tres"
+					}
+				}
+			},
+			{
+				"_category_id": "1",
+				"_icon_color": "ffffff00",
+				"_id": "73.0",
+				"_index": 0,
+				"_name": "ExtraExtra",
+				"_property_overrides": {
+					"display_name": {
+						"type": "string",
+						"value": "Extra! Extra!"
+					},
+					"max_completed_puzzle_idx": {
+						"type": "int",
+						"value": -1
+					},
+					"puzzle_set_data": {
+						"type": "resource",
+						"value": "res://src/puzzles/dothop-extra.puzz"
+					},
+					"puzzles_to_unlock": {
+						"type": "int",
+						"value": 1
+					},
+					"sort_order": {
+						"type": "int",
+						"value": 7
+					},
+					"theme_data": {
+						"type": "resource",
+						"value": "res://src/themes/AllTheDots.tres"
 					}
 				}
 			}
@@ -816,7 +861,7 @@
 			},
 			{
 				"_category_id": "1",
-				"_default_value": null,
+				"_default_value": "res://assets/worldmap/world_map_island9_sheet.png",
 				"_id": "46",
 				"_name": "worldmap_island_texture",
 				"_type": "resource"
@@ -895,13 +940,6 @@
 				"_type": "resource"
 			},
 			{
-				"_category_id": "1",
-				"_default_value": false,
-				"_id": "63",
-				"_name": "allowed_in_demo",
-				"_type": "bool"
-			},
-			{
 				"_category_id": "64",
 				"_default_value": "",
 				"_id": "65",
@@ -945,12 +983,19 @@
 				"_id": "72.0",
 				"_name": "puzzle_set_data",
 				"_type": "resource"
+			},
+			{
+				"_category_id": "1",
+				"_default_value": null,
+				"_id": "74.0",
+				"_name": "theme_data",
+				"_type": "resource"
 			}
 		]
 	},
 	"_id_generator": {
 		"_ids_by_context": {
-			"default": 72.0
+			"default": 74.0
 		}
 	}
 }

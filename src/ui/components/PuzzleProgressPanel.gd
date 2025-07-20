@@ -52,7 +52,7 @@ func render(opts: Dictionary) -> void:
 		Log.warn("No puzzle set found in PuzzleProgressPanel")
 		return
 
-	var ps_theme: PuzzleTheme = world.get_theme()
+	var td: PuzzleThemeData = world.get_theme_data()
 
 	var start_puzzle_icon: TextureRect
 	var end_puzzle_icon: TextureRect
@@ -62,18 +62,18 @@ func render(opts: Dictionary) -> void:
 		var icon: TextureRect = TextureRect.new()
 		icon.set_custom_minimum_size(icon_size * Vector2.ONE)
 		if world.completed_puzzle(i):
-			icon.set_texture(ps_theme.get_dot_icon())
+			icon.set_texture(td.dot_icon)
 			icon.set_focus_mode(Control.FOCUS_ALL)
 		elif world.skipped_puzzle(i):
 			# TODO differentiate skipped puzzle!
-			icon.set_texture(ps_theme.get_dot_icon()) # TODO use skipped icon
+			icon.set_texture(td.dot_icon) # TODO use skipped icon
 			icon.set_focus_mode(Control.FOCUS_ALL)
 			icon.set_modulate(Color(0.8, 0.8, 0.8, 0.8))
 		elif world.can_play_puzzle(i):
 			icon.set_focus_mode(Control.FOCUS_ALL)
-			icon.set_texture(ps_theme.get_goal_icon())
+			icon.set_texture(td.goal_icon)
 		else:
-			icon.set_texture(ps_theme.get_dotted_icon())
+			icon.set_texture(td.dotted_icon)
 			icon.set_modulate(Color(0.5, 0.5, 0.5, 0.5))
 
 		# TODO collect each step?
@@ -84,7 +84,7 @@ func render(opts: Dictionary) -> void:
 
 		puzzle_list.add_child(icon)
 
-	world_icon.set_texture(ps_theme.get_player_icon())
+	world_icon.set_texture(td.player_icon)
 	world_icon.modulate.a = 0.0
 
 	if start_puzzle_icon and end_puzzle_icon:

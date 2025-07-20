@@ -51,8 +51,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Dot" type="Node2D"]
+[node name="Dot" type="Node2D" groups=["dot"]]
 z_index = 1
+position = Vector2(-0.427879, -0.316671)
 script = ExtResource("1_jnnoi")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -61,6 +62,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_2plvb")
 animation = &"dot"
 autoplay = "dot"
+frame_progress = 0.00637691
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

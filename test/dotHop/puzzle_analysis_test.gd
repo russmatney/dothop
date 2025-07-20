@@ -149,6 +149,7 @@ func test_all_puzzles_solvable_via_node() -> void:
 	var worlds := Store.get_worlds()
 	assert_int(len(worlds)).is_greater(3) # make sure we get some
 
+	# test ONE random puzzle from each world
 	for world: PuzzleWorld in worlds:
 		var psd := world.get_puzzle_set_data()
 		var puzzle_count := len(psd.puzzle_defs)
@@ -158,9 +159,7 @@ func test_all_puzzles_solvable_via_node() -> void:
 		# (the puzzle solutions are tested thoroughly by the previous test)
 		var i: int = randi_range(0, puzzle_count - 1)
 
-		var puzz_node := DotHopPuzzle.build_puzzle_node({
-			puzzle_def=psd.puzzle_defs[i]
-			})
+		var puzz_node := DotHopPuzzle.build_puzzle_node({world=world, puzzle_def=psd.puzzle_defs[i]})
 		puzz_node.build_game_state()
 
 		var solve := PuzzleAnalysis.new({node=puzz_node}).analyze()

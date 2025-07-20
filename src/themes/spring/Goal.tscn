@@ -18,7 +18,8 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Goal" type="Node2D"]
+[node name="Goal" type="Node2D" groups=["dot"]]
+position = Vector2(2.47252, -0.260228)
 script = ExtResource("1_wbkvj")
 type = 2
 
@@ -27,6 +28,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_j3utu")
 animation = &"goal"
+frame_progress = 0.60351
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

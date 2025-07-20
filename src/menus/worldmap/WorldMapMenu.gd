@@ -171,8 +171,7 @@ func show_world(world: PuzzleWorld) -> void:
 		locked_puzzle_label.text = "Complete [color=crimson]%s[/color]\nmore puzzles\nto unlock!" % str(remaining)
 		Anim.fade_in(locked_puzzle_label)
 
-	var theme: PuzzleTheme = world.get_theme()
-	var theme_data: PuzzleThemeData = theme.get_theme_data()
+	var theme_data: PuzzleThemeData = world.get_theme_data()
 	var first_puzzle_icon: TextureRect = null
 	var next_puzzle_icon: TextureRect = null
 
