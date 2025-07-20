@@ -3,6 +3,7 @@ extends CanvasLayer
 
 @onready var start_button: Button = $%StartButton
 @onready var options_button: Button = $%OptionsButton
+@onready var puzzle_browser_button: Button = $%PuzzleBrowserButton
 @onready var credits_button: Button = $%CreditsButton
 @onready var quit_button: Button = $%QuitButton
 @onready var puzzle_stats_label: RichTextLabel = $%PuzzleStatsLabel
@@ -10,6 +11,7 @@ extends CanvasLayer
 
 @onready var world_map: PackedScene = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
 @onready var options_menu: PackedScene = preload("res://src/menus/OptionsPanel.tscn")
+@onready var puzzle_browser_menu: PackedScene = preload("res://src/menus/editor/PuzzleSetEditor.tscn")
 @onready var credits_menu: PackedScene = preload("res://src/menus/Credits.tscn")
 
 func _ready() -> void:
@@ -22,6 +24,7 @@ func _ready() -> void:
 
 	start_button.pressed.connect(func() -> void: Navi.nav_to(world_map))
 	options_button.pressed.connect(func() -> void: Navi.nav_to(options_menu))
+	puzzle_browser_button.pressed.connect(func() -> void: Navi.nav_to(puzzle_browser_menu))
 	credits_button.pressed.connect(func() -> void: Navi.nav_to(credits_menu))
 	quit_button.pressed.connect(func() -> void: get_tree().quit())
 

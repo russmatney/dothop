@@ -218,6 +218,7 @@ func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
 	var cells: Array = []
 	var cursor: Vector2 = coord + dir
 	var last_cursor: Variant = null
+	# TODO crashing from puzzle editor?
 	while coord_in_grid(cursor) and last_cursor != cursor:
 		var c: Variant = cell_at_coord(cursor)
 		if c != null:

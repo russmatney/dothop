@@ -1,16 +1,18 @@
 [gd_scene load_steps=6 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/GameScene.gd" id="1_ak4mv"]
-[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleSet.gd" id="2_ou1ve"]
+[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_ou1ve"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
 [ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/core/DotHopCam.tscn" id="6_76inj"]
 
-[sub_resource type="Resource" id="Resource_ou1ve"]
+[sub_resource type="Resource" id="Resource_ruto3"]
 script = ExtResource("2_ou1ve")
-_id = "16"
+_id = "73.0"
 
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
+world = SubResource("Resource_ruto3")
+puzzle_num = 2
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 
