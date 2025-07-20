@@ -61,7 +61,8 @@ signal rebuilt_nodes
 
 # fallbacks
 @export var fallback_puzzle_set_data: PuzzleSetData
-@export var fallback_puzzle_def: int = 0
+@export var fallback_puzzle_num: int = 0
+@export var fallback_world: PuzzleWorld
 
 ## enter_tree ##############################################################
 
@@ -75,7 +76,8 @@ func _init() -> void:
 func _ready() -> void:
 	if puzzle_def == null:
 		# TODO fetch from the PuzzleStore? do we even need a fallback?
-		puzzle_def = fallback_puzzle_set_data.puzzle_defs[0]
+		fallback_puzzle_set_data.setup()
+		puzzle_def = fallback_puzzle_set_data.puzzle_defs[fallback_puzzle_num]
 		Log.warn("No puzzle_def set, using fallback", puzzle_def)
 
 	if puzzle_def == null:
@@ -86,7 +88,11 @@ func _ready() -> void:
 	# maybe Log.gd's direction is toward a godot-devlog-companion
 	# e.g. Log.ensure(theme_data, "Puzzle Scene running with no theme data!")
 	if theme_data == null:
-		Log.warn("Puzzle Scene running with no theme data!")
+		if fallback_world:
+			Log.warn("No theme_data set, using fallback")
+			theme_data = fallback_world.get_theme_data()
+		else:
+			Log.warn("Puzzle Scene running with no theme data!")
 
 	if randomize_layout:
 		puzzle_def.shuffle_puzzle_layout()
