@@ -2,6 +2,7 @@ extends Camera2D
 class_name DotHopCam
 
 static var dhcam_scene: String = "res://src/core/DotHopCam.tscn"
+
 static func ensure_camera(node: Node) -> DotHopCam:
 	var dhcam: DotHopCam
 	dhcam = node.get_node_or_null("DotHopCam")
@@ -17,6 +18,22 @@ var zoom_min: float = 0.5
 var zoom_max: float = 5.0
 var base_margin: float = 64
 
+var puzzle_node: DotHopPuzzle
+
+func _ready() -> void:
+	if puzzle_node == null:
+		for n: Variant in get_parent().get_children():
+			if n is DotHopPuzzle:
+				puzzle_node = n
+				break
+
+	if puzzle_node:
+		set_puzzle_node(puzzle_node)
+
+func set_puzzle_node(puzz: DotHopPuzzle) -> void:
+	puzzle_node = puzz
+	center_on_rect(puzz.puzzle_rect())
+
 func center_on_rect(rect: Rect2) -> void:
 	rect = rect.grow(base_margin)
 
@@ -27,4 +44,3 @@ func center_on_rect(rect: Rect2) -> void:
 		zoom = clamp(screen_size.y / rect.size.y, zoom_min, zoom_max) * Vector2.ONE
 
 	global_position = rect.get_center()
-

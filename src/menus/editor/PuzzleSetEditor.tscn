@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=8 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_gk83m"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_ify5j"]
+[ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/core/DotHopCam.tscn" id="5_nthii"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ergn3"]
 
@@ -60,7 +61,7 @@ size_flags_horizontal = 3
 theme = ExtResource("3_ify5j")
 bbcode_enabled = true
 text = "w: 7, h: 3
-dots: [color=dark_blue]5[/color] paths: [color=forest_green]1 win[/color]/[color=crimson]0 stuck_dot[/color]/[color=crimson]0 stuck_goal[/color]/[color=peru]1 all[/color]"
+dots: [color=dark_blue]4[/color] paths: [color=forest_green]1 win[/color]/[color=crimson]0 stuck_dot[/color]/[color=crimson]0 stuck_goal[/color]/[color=peru]1 all[/color]"
 fit_content = true
 scroll_active = false
 
@@ -99,7 +100,7 @@ layout_mode = 2
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
-size = Vector2i(640, 420)
+size = Vector2i(740, 500)
 render_target_update_mode = 4
 
 [node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
@@ -107,6 +108,13 @@ unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_right = -740.0
+offset_bottom = -500.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_khnrg")
+
+[node name="DotHopCam" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer" instance=ExtResource("5_nthii")]
+zoom = Vector2(2, 2)
