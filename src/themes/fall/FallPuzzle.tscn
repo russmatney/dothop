@@ -1,17 +1,12 @@
-[gd_scene load_steps=17 format=3 uid="uid://y6dvlkypc634"]
+[gd_scene load_steps=15 format=3 uid="uid://y6dvlkypc634"]
 
 [ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/dothop/DotHopPuzzle.gd" id="1_4ql4j"]
-[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_yfday"]
 [ext_resource type="Texture2D" uid="uid://beggnuu07g1dk" path="res://src/themes/fall/assets/fallbg-2_sheet.png" id="3_fs7ti"]
 [ext_resource type="Texture2D" uid="uid://dsxalpbwb66hy" path="res://src/themes/fall/assets/particles1.png" id="4_p1vw6"]
 [ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_rdtii"]
 [ext_resource type="Texture2D" uid="uid://chesk26tar4qt" path="res://src/themes/fall/assets/particles2.png" id="6_rdtii"]
 [ext_resource type="Texture2D" uid="uid://qtfxqsaajknl" path="res://src/themes/fall/assets/particles3.png" id="7_i437u"]
 [ext_resource type="Texture2D" uid="uid://cmk0gbdh2f22x" path="res://src/themes/fall/assets/particles4.png" id="8_i437u"]
-
-[sub_resource type="Resource" id="Resource_ceino"]
-script = ExtResource("2_yfday")
-_id = "15"
 
 [sub_resource type="Curve" id="Curve_q4ujl"]
 _data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -47,7 +42,6 @@ turbulence_enabled = true
 
 [node name="FallPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_4ql4j")
-theme = SubResource("Resource_ceino")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

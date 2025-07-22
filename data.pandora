@@ -371,7 +371,7 @@
 					},
 					"theme_data": {
 						"type": "resource",
-						"value": "res://src/themes/spring/SpringThemeData.tres"
+						"value": "res://src/themes/fall/FallThemeData.tres"
 					},
 					"worldmap_island_texture": {
 						"type": "resource",

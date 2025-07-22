@@ -94,27 +94,30 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+[node name="PuzzleContainerPanel" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+visible = false
+z_index = -1
+z_as_relative = false
 layout_mode = 2
-
-[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer"]
-disable_3d = true
-handle_input_locally = false
-size = Vector2i(740, 500)
-render_target_update_mode = 4
-
-[node name="PuzzleContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
-unique_name_in_owner = true
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -740.0
-offset_bottom = -500.0
-grow_horizontal = 2
-grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_khnrg")
 
+[node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+clip_contents = true
+custom_minimum_size = Vector2(700, 512)
+layout_mode = 2
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer"]
+disable_3d = true
+handle_input_locally = false
+size = Vector2i(700, 512)
+render_target_update_mode = 4
+
+[node name="PuzzleContainer" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+
 [node name="DotHopCam" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer" instance=ExtResource("5_nthii")]
-zoom = Vector2(2, 2)
+zoom = Vector2(3, 3)

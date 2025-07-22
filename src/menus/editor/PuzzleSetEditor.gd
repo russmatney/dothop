@@ -9,7 +9,7 @@ extends CanvasLayer
 @onready var puzzles_grid: GridContainer = $%PuzzlesGrid
 @onready var current_puzzle_label: RichTextLabel = $%CurrentPuzzleLabel
 @onready var current_puzzle_analysis_label: RichTextLabel = $%CurrentPuzzleAnalysisLabel
-@onready var puzzle_container: PanelContainer = $%PuzzleContainer
+@onready var puzzle_container: Node2D = $%PuzzleContainer
 var puzzle_node: DotHopPuzzle
 
 ## ready ######################################################

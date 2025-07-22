@@ -20,6 +20,14 @@ var base_margin: float = 64
 
 var puzzle_node: DotHopPuzzle
 
+func _enter_tree() -> void:
+	if not Engine.is_editor_hint():
+		get_tree().node_added.connect(on_node_added)
+
+func on_node_added(node: Node) -> void:
+	if node is DotHopPuzzle:
+		set_puzzle_node(node as DotHopPuzzle)
+
 func _ready() -> void:
 	if puzzle_node == null:
 		for n: Variant in get_parent().get_children():
@@ -32,12 +40,22 @@ func _ready() -> void:
 
 func set_puzzle_node(puzz: DotHopPuzzle) -> void:
 	puzzle_node = puzz
-	center_on_rect(puzz.puzzle_rect())
+	puzzle_node.rebuilt_nodes.connect(recenter_cam, CONNECT_DEFERRED)
+	recenter_cam()
+
+func recenter_cam() -> void:
+	if puzzle_node == null:
+		return
+
+	var rect := puzzle_node.puzzle_rect()
+	if rect != Rect2():
+		center_on_rect(rect)
 
 func center_on_rect(rect: Rect2) -> void:
 	rect = rect.grow(base_margin)
 
-	var screen_size: Vector2 = get_viewport_rect().size
+	var viewport_rect: Rect2 = get_viewport_rect()
+	var screen_size: Vector2 = viewport_rect.size
 	if rect.size.x > rect.size.y * screen_size.aspect():
 		zoom = clamp(screen_size.x / rect.size.x, zoom_min, zoom_max) * Vector2.ONE
 	else:

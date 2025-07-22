@@ -429,6 +429,7 @@ func clear_nodes() -> void:
 func all_dot_nodes() -> Array[DotHopDot]:
 	var dots: Array[DotHopDot] = []
 	dots.assign(U.get_children_in_group(self, "dot", true))
+	# Log.pr("all dot nodes", dots)
 	return dots
 
 func puzzle_rect() -> Rect2:
@@ -436,7 +437,6 @@ func puzzle_rect() -> Rect2:
 	dots = dots.filter(func(node: DotHopDot) -> bool:
 			return node.type in [DHData.dotType.Dot, DHData.dotType.Goal])
 	if len(dots) == 0:
-		Log.error("No puzzle dots found, cannot calc puzzle Rect!")
 		return Rect2()
 
 	var rect: Rect2 = Rect2(dots[0].current_position(), Vector2.ZERO)

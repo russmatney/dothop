@@ -1,15 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://cggxk31fgnci7"]
+[gd_scene load_steps=13 format=3 uid="uid://cggxk31fgnci7"]
 
 [ext_resource type="Script" uid="uid://idxaeas1jbnr" path="res://src/themes/space/SpacePuzzle.gd" id="1_biqou"]
 [ext_resource type="Texture2D" uid="uid://bw2a0y4cvdx80" path="res://src/themes/space/assets/spacebg1_sheet.png" id="2_bjihu"]
-[ext_resource type="Script" uid="uid://bo5a16rkw4qpg" path="res://src/themes/PuzzleTheme.gd" id="2_fp1xt"]
 [ext_resource type="Texture2D" uid="uid://c78di2lriey8c" path="res://src/themes/space/assets/particles1.png" id="4_wn1gr"]
 [ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_yo76b"]
 [ext_resource type="Texture2D" uid="uid://bmor7ustjxts3" path="res://src/themes/space/assets/particles2.png" id="6_mivl3"]
-
-[sub_resource type="Resource" id="Resource_gytqd"]
-script = ExtResource("2_fp1xt")
-_id = "14"
 
 [sub_resource type="Curve" id="Curve_7cbcx"]
 _data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -45,7 +40,6 @@ turbulence_enabled = true
 
 [node name="SpacePuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_biqou")
-theme = SubResource("Resource_gytqd")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 

@@ -40,7 +40,9 @@ turbulence_enabled = true
 [node name="DotsPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_g1ytu")
 
-[node name="Bg" type="ColorRect" parent="."]
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+
+[node name="Bg" type="ColorRect" parent="ParallaxBackground"]
 offset_left = -1314.0
 offset_top = -767.0
 offset_right = 1906.0
