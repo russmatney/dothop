@@ -146,6 +146,9 @@ static var COLORS_TERMINAL_SAFE: Dictionary = {
 	"]": ["orange", "blue", "green", "pink"],
 	"{": ["orange", "blue", "green", "pink"],
 	"}": ["orange", "blue", "green", "pink"],
+	"<": ["orange", "blue", "green", "pink"],
+	">": ["orange", "blue", "green", "pink"],
+	"|": ["orange", "blue", "green", "pink"],
 	"&": "orange",
 	"^": "orange",
 	"dict_key": "magenta",
@@ -203,6 +206,9 @@ static var COLORS_PRETTY_DARK_V1: Dictionary = {
 	"]": ["crimson", "cornflower_blue", "dark_green", "peru"],
 	"{": ["crimson", "cornflower_blue", "dark_green", "peru"],
 	"}": ["crimson", "cornflower_blue", "dark_green", "peru"],
+	"<": ["crimson", "cornflower_blue", "dark_green", "peru"],
+	">": ["crimson", "cornflower_blue", "dark_green", "peru"],
+	"|": ["crimson", "cornflower_blue", "dark_green", "peru"],
 	"&": "coral",
 	"^": "coral",
 	"dict_key": "cadet_blue",
@@ -260,6 +266,9 @@ static var COLORS_PRETTY_LIGHT_V1: Dictionary = {
 	"]": ["crimson", "cornflower_blue", "dark_green", "coral"],
 	"{": ["crimson", "cornflower_blue", "dark_green", "coral"],
 	"}": ["crimson", "cornflower_blue", "dark_green", "coral"],
+	"<": ["crimson", "cornflower_blue", "dark_green", "coral"],
+	">": ["crimson", "cornflower_blue", "dark_green", "coral"],
+	"|": ["crimson", "cornflower_blue", "dark_green", "coral"],
 	"&": "coral",
 	"^": "coral",
 	"dict_key": "dark_slate_blue",
@@ -467,7 +476,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 				msg_array.append("...")
 
 		# shouldn't we be incrementing index_level here?
-		var tmp: String = Log.color_wrap("[ ", opts)
+		var tmp: String = str(Log.color_wrap("(", opts), Log.color_wrap("|", opts), " ")
 		opts["delimiter_index"] += 1
 		var last: int = len(msg) - 1
 		for i: int in range(len(msg)):
@@ -480,7 +489,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 			if i != last:
 				tmp += Log.color_wrap(", ", opts)
 		opts["delimiter_index"] -= 1
-		tmp += Log.color_wrap(" ]", opts)
+		tmp += str(" ", Log.color_wrap("|", opts), Log.color_wrap(")", opts))
 		return tmp
 
 	# dictionary
