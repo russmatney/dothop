@@ -30,7 +30,7 @@ layout_mode = 2
 [node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 unique_name_in_owner = true
 layout_mode = 2
-columns = 6
+columns = 4
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 0)

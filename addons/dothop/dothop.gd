@@ -36,7 +36,7 @@ func export_puzzle_data_in_background() -> void:
 	data_export_thread = StatLogger.export_puzzle_data_in_background()
 	print("-------------------------------------------------")
 
-func _process(_delta) -> void:
+func _process(_delta: float) -> void:
 	if data_export_thread != null \
 		# has started
 		and data_export_thread.is_started() \

@@ -78,11 +78,18 @@ func analyze_puzzles() -> PuzzleSetData:
 	var puzzle_count: int = len(psd.puzzle_defs)
 	for i: int in puzzle_count:
 		if psd.puzzle_defs[i].analysis == null:
+			Log.info("analyzing puzzle", get_display_name(), i)
 			var puzz_state := PuzzleState.new(psd.puzzle_defs[i])
 			psd.puzzle_defs[i].analysis = PuzzleAnalysis.new({state=puzz_state}).analyze()
+			Log.info("analyzed puzzle", get_display_name(), i)
 		else:
 			pass # using cached analysis
 	return psd
+
+func analyze_puzzles_in_bg() -> Thread:
+	var th: Thread = Thread.new()
+	th.start(analyze_puzzles)
+	return th
 
 func attach_gameplay_data() -> PuzzleSetData:
 	var psd := get_puzzle_set_data()

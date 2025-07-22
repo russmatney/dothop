@@ -39,6 +39,21 @@ func render() -> void:
 		button.pressed.connect(on_world_button_pressed.bind(world))
 		world_grid.add_child(button)
 
+## process ###################################################
+
+var analysis_threads: Array[Thread] = []
+
+func _process(_delta: float) -> void:
+	for th: Thread in analysis_threads:
+		if th != null \
+			# has started
+			and th.is_started() \
+			# and has finished
+			and not th.is_alive():
+			# join thread to prevent it leaking
+			th.wait_to_finish()
+			analysis_threads.erase(th)
+
 ## on ######################################################
 
 func on_world_button_pressed(world: PuzzleWorld) -> void:
@@ -52,7 +67,8 @@ func on_puzzle_button_pressed(world: PuzzleWorld, p: PuzzleDef) -> void:
 
 func select_world(world: PuzzleWorld) -> void:
 	# TODO run in the background
-	world.analyze_puzzles() # trigger solver analysis for whole puzzle set
+	var th: Thread = world.analyze_puzzles_in_bg() # trigger solver analysis for whole puzzle set
+	analysis_threads.append(th)
 
 	U.remove_children(puzzles_grid)
 	var first: Variant = null
