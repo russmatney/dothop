@@ -218,15 +218,24 @@ func test_world_complete_and_unlock_dupe_events_increment_count() -> void:
 	assert_that(len(Store.events)).is_equal(0)
 
 	var sets := Store.get_worlds()
-	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
+	var world: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
-	Store.complete_world(puz_set)
-	Store.complete_world(puz_set)
-	Store.complete_world(puz_set)
+	Store.complete_world(world)
+	Store.complete_world(world)
+	Store.complete_world(world)
 
-	assert_that(len(Store.events)).is_equal(2)
+	assert_that(len(Store.events)).is_equal(1)
 	var ev := Store.events[0]
 	@warning_ignore("unsafe_method_access")
-	assert_that(ev.get_world().get_entity_id()).is_equal(puz_set.get_entity_id())
+	assert_that(ev.get_world().get_entity_id()).is_equal(world.get_entity_id())
 	assert_that(ev.get_count()).is_equal(3)
 
+	var unlocked_wrd: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
+	Store.unlock_world(unlocked_wrd)
+	Store.unlock_world(unlocked_wrd)
+
+	assert_that(len(Store.events)).is_equal(2)
+	ev = Store.events[1]
+	@warning_ignore("unsafe_method_access")
+	assert_that(ev.get_world().get_entity_id()).is_equal(unlocked_wrd.get_entity_id())
+	assert_that(ev.get_count()).is_equal(2)

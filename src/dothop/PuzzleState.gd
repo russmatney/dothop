@@ -164,7 +164,10 @@ func _init(puzz_def: PuzzleDef) -> void:
 func get_grid_row_objs(row: int) -> Array:
 	var row_objs: Array = []
 	for x in range(grid_width):
-		var cell: Cell = cells_by_coord[Vector2(x, row)]
+		var cell: Cell = cells_by_coord.get(Vector2(x, row))
+		if cell == null:
+			Log.warn("get_grid_row_objs: coord not in grid", Vector2(x, row))
+			continue
 		row_objs.append(cell.objs)
 	return row_objs
 
@@ -211,16 +214,15 @@ func cell_at_coord(coord: Vector2) -> Cell:
 	return cells_by_coord.get(coord)
 
 # returns a list of cells from the passed position in the passed direction
-# the cells are dicts with a coord, a list of objs (string names), and a list of nodes
-func cells_in_direction(coord: Vector2, dir: Vector2) -> Array:
+func cells_in_direction(coord: Vector2, dir: Vector2) -> Array[Cell]:
 	if dir == Vector2.ZERO:
 		return []
-	var cells: Array = []
+	var cells: Array[Cell] = []
 	var cursor: Vector2 = coord + dir
 	var last_cursor: Variant = null
 	# TODO crashing from puzzle editor?
 	while coord_in_grid(cursor) and last_cursor != cursor:
-		var c: Variant = cell_at_coord(cursor)
+		var c: Cell = cell_at_coord(cursor)
 		if c != null:
 			cells.append(c)
 		last_cursor = cursor
@@ -265,7 +267,7 @@ func check_move(move_dir: Vector2) -> Array[Move]:
 		var mv: Move = Move.new(move_dir, p)
 
 		# grab cells in that direction
-		var cells: Array = cells_in_direction(p.coord, move_dir)
+		var cells: Array[Cell] = cells_in_direction(p.coord, move_dir)
 		# drop empty cells
 		cells = cells.filter(func(c: Cell) -> bool: return len(c.objs) > 0)
 		if len(cells) == 0:
@@ -513,7 +515,7 @@ func move(move_dir: Vector2) -> MoveResult:
 		return MoveResult.zero
 
 	var moves_to_make := check_move(move_dir)
-	# Log.prn("moves to make", moves_to_make)
+	# Log.info("moves to make", moves_to_make)
 	var res := apply_moves(moves_to_make)
 
 	# resets and updates new possible cells

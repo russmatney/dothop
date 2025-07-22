@@ -34,13 +34,14 @@ func move_to_coord(coord: Vector2) -> void:
 	position = current_position()
 	current_coord = coord
 
-	var t := 0.4
-	Anim.hop_to_coord(self, coord, t)
-
 	# do we need special handling for this getting interrupted?
 	# or will it move in lock-step?
-	get_tree().create_timer(t).timeout.connect(func() -> void:
-		move_finished.emit())
+	if (is_inside_tree()):
+		var t := 0.4
+		Anim.hop_to_coord(self, coord, t)
+
+		get_tree().create_timer(t).timeout.connect(func() -> void:
+			move_finished.emit())
 
 ## undo #########################################################
 

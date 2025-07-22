@@ -50,10 +50,12 @@ func state_cells() -> Array[PuzzleState.Cell]:
 	for coord in all_coords():
 		var obj_name: Variant = shape[coord.y][coord.x]
 		if obj_name == null:
+			cells.append(PuzzleState.Cell.new(coord, []))
 			continue # tho we prolly crashed on the array lookup already
 		# after much debate about where to bake in this legend data....
 		var objs: Array[DHData.Obj] = DHData.Legend.get_objs(obj_name as String)
 		if len(objs) == 0:
+			cells.append(PuzzleState.Cell.new(coord, []))
 			continue # nothing found in the legend for this
 		cells.append(PuzzleState.Cell.new(coord, objs))
 	return cells

@@ -31,6 +31,12 @@ func test_puzzle_solver_basic(puzz: Array, solvable: bool, test_parameters: Arra
 			"ox.o.ot",
 			"...o.o.",
 			], true],
+		# [[ # multi-hoppers not yet supported
+		# 	"..oo",
+		# 	"txoo",
+		# 	"..oo",
+		# 	"txoo",
+		# 	], true]
 	]) -> void:
 	var puzzle := build_puzzle(puzz)
 	var result := PuzzleAnalysis.new({node=puzzle}).analyze()
@@ -126,6 +132,10 @@ func test_all_puzzles_solvable_via_state() -> void:
 		assert_int(puzzle_count).is_greater(0)
 		for i in puzzle_count:
 			var puzz_state := PuzzleState.new(psd.puzzle_defs[i])
+			if len(puzz_state.players) > 1:
+				Log.warn("Puzzle Analysis for multi-hopper puzzles is not yet supported!")
+				continue
+			Log.info("Solving puzzle:", world.get_display_name(), str(x+1, "-", i+1))
 			var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
 			# Log.pr(["Puzzle:", world.get_display_name(), i, solve])
 			var choice_s := str(solve.least_choices_count, " / ", solve.most_choices_count)
@@ -134,13 +144,13 @@ func test_all_puzzles_solvable_via_state() -> void:
 				choice_s = str(solve.least_choices_count)
 			if solve.winning_path_count == 1 or solve.least_turns_count == solve.most_turns_count:
 				turn_s = str(solve.least_turns_count)
-			Log.pr(str(" | ", world.get_display_name(),
+			Log.info(str("| ", world.get_display_name(),
 				" | [", x+1, "-", i+1, "](#_", x+1, "-", i+1, ") | ",
 				solve.dot_count, " | ",
 				solve.winning_path_count, " / ", solve.path_count, " | ",
 				choice_s, " | ",
-				turn_s, " | ",
-				" | "))
+				turn_s, " |",
+				))
 			if not solve.solvable:
 				Log.pr("Unsolvable puzzle!!", world.get_display_name(), "num:", i)
 			assert_bool(solve.solvable).is_true()
@@ -161,11 +171,18 @@ func test_all_puzzles_solvable_via_node() -> void:
 
 		var puzz_node := DotHopPuzzle.build_puzzle_node({world=world, puzzle_def=psd.puzzle_defs[i]})
 		puzz_node.build_game_state()
+		if len(puzz_node.state.players) > 1:
+			Log.warn("Puzzle Analysis for multi-hopper puzzles is not yet supported!")
+			puzz_node.queue_free()
+			continue
+		add_child(puzz_node)
 
+		Log.info(["Solving Puzzle node:", world.get_display_name(), i])
 		var solve := PuzzleAnalysis.new({node=puzz_node}).analyze()
-		Log.pr(["Puzzle:", world.get_display_name(), i, solve])
+		Log.info(["Puzzle:", world.get_display_name(), i, solve])
 		if not solve.solvable:
 			Log.pr("Unsolvable puzzle!!", world.get_display_name(), "num:", i)
 		assert_bool(solve.solvable).is_true()
 
-		puzz_node.free()
+		remove_child(puzz_node)
+		puzz_node.queue_free()

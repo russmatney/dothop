@@ -87,6 +87,7 @@ func collect_move_tree(current_move_dict: Dictionary = {}, last_move: Variant = 
 
 	if any_moves:
 		# we made a move, return this move-tree
+		# TODO have we seen this move_tree before? two player puzzles can loop...
 		return current_move_dict
 	else:
 		if puzzle_state.win:
@@ -162,6 +163,13 @@ var least_turns_count: int = 0
 var most_turns_count: int = 0
 
 func analyze() -> PuzzleAnalysis:
+	width = puzzle_state.grid_width
+	height = puzzle_state.grid_height
+
+	if len(puzzle_state.players) > 1:
+		Log.warn("Puzzle Analysis for multi-hopper puzzles is not yet supported!")
+		return self
+
 	move_tree = collect_move_tree()
 	paths = collect_paths(move_tree)
 
@@ -191,9 +199,6 @@ func analyze() -> PuzzleAnalysis:
 			most_turns_count = turn_ct
 		if least_turns_count == 0 or turn_ct < least_turns_count:
 			least_turns_count = turn_ct
-
-	width = puzzle_state.grid_width
-	height = puzzle_state.grid_height
 
 	return self
 
