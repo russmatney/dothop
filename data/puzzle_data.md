@@ -70,3 +70,8 @@
  | [Get Outer Here](#Get Outer Here) | [6-10](#_6-10) | 20 | 10 / 660 | 5 / 7 | 11 / 17 | 
  | [Get Outer Here](#Get Outer Here) | [6-11](#_6-11) | 20 | 6 / 672 | 7 / 8 | 11 / 17 | 
  | [Get Outer Here](#Get Outer Here) | [6-12](#_6-12) | 23 | 3 / 4936 | 8 / 9 | 14 / 16 | 
+ | [Extra! Extra!](#Extra! Extra!) | [7-1](#_7-1) | 13 | 2 / 28 | 3 | 10 | 
+ | [Extra! Extra!](#Extra! Extra!) | [7-2](#_7-2) | 0 | 0 / 0 | 0 | 0 | 
+ | [Extra! Extra!](#Extra! Extra!) | [7-3](#_7-3) | 0 | 0 / 0 | 0 | 0 | 
+ | [Extra! Extra!](#Extra! Extra!) | [7-4](#_7-4) | 0 | 0 / 0 | 0 | 0 | 
+ | [Extra! Extra!](#Extra! Extra!) | [7-5](#_7-5) | 27 | 1 / 45978 | 11 | 16 | 

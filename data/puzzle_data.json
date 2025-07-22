@@ -5338,5 +5338,394 @@
     "winning_paths": 3,
     "world_i": 5,
     "world_name": "Get Outer Here"
+  },
+  {
+    "choice_sum": "3",
+    "dot_count": 13,
+    "height": 7,
+    "least_choices_count": 3,
+    "least_turns_count": 10,
+    "most_choices_count": 3,
+    "most_turns_count": 10,
+    "path_sum": "2 / 28",
+    "puzzle_i": 0,
+    "puzzle_id": "7-1",
+    "puzzle_lines": [
+      "..........",
+      ".o.o..o.o.",
+      "..oo..oo..",
+      ".o.o..o.o.",
+      "..........",
+      "..x....t..",
+      ".........."
+    ],
+    "raw_puzzle_lines": [
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        "o",
+        null,
+        "o",
+        null,
+        null,
+        "o",
+        null,
+        "o",
+        null
+      ],
+      [
+        null,
+        null,
+        "o",
+        "o",
+        null,
+        null,
+        "o",
+        "o",
+        null,
+        null
+      ],
+      [
+        null,
+        "o",
+        null,
+        "o",
+        null,
+        null,
+        "o",
+        null,
+        "o",
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        "x",
+        null,
+        null,
+        null,
+        null,
+        "t",
+        null,
+        null
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "total_paths": 28,
+    "turn_sum": "10",
+    "width": 10,
+    "winning_paths": 2,
+    "world_i": 6,
+    "world_name": "Extra! Extra!"
+  },
+  {
+    "choice_sum": "0",
+    "dot_count": 0,
+    "height": 4,
+    "least_choices_count": 0,
+    "least_turns_count": 0,
+    "most_choices_count": 0,
+    "most_turns_count": 0,
+    "path_sum": "0 / 0",
+    "puzzle_i": 1,
+    "puzzle_id": "7-2",
+    "puzzle_lines": [
+      "..oo",
+      "txoo",
+      "..oo",
+      "txoo"
+    ],
+    "raw_puzzle_lines": [
+      [
+        null,
+        null,
+        "o",
+        "o"
+      ],
+      [
+        "t",
+        "x",
+        "o",
+        "o"
+      ],
+      [
+        null,
+        null,
+        "o",
+        "o"
+      ],
+      [
+        "t",
+        "x",
+        "o",
+        "o"
+      ]
+    ],
+    "total_paths": 0,
+    "turn_sum": "0",
+    "width": 4,
+    "winning_paths": 0,
+    "world_i": 6,
+    "world_name": "Extra! Extra!"
+  },
+  {
+    "choice_sum": "0",
+    "dot_count": 0,
+    "height": 4,
+    "least_choices_count": 0,
+    "least_turns_count": 0,
+    "most_choices_count": 0,
+    "most_turns_count": 0,
+    "path_sum": "0 / 0",
+    "puzzle_i": 2,
+    "puzzle_id": "7-3",
+    "puzzle_lines": [
+      "....o.o",
+      "tx..o.o",
+      "oo.o.x.",
+      "t......"
+    ],
+    "raw_puzzle_lines": [
+      [
+        null,
+        null,
+        null,
+        null,
+        "o",
+        null,
+        "o"
+      ],
+      [
+        "t",
+        "x",
+        null,
+        null,
+        "o",
+        null,
+        "o"
+      ],
+      [
+        "o",
+        "o",
+        null,
+        "o",
+        null,
+        "x",
+        null
+      ],
+      [
+        "t",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ]
+    ],
+    "total_paths": 0,
+    "turn_sum": "0",
+    "width": 7,
+    "winning_paths": 0,
+    "world_i": 6,
+    "world_name": "Extra! Extra!"
+  },
+  {
+    "choice_sum": "0",
+    "dot_count": 0,
+    "height": 5,
+    "least_choices_count": 0,
+    "least_turns_count": 0,
+    "most_choices_count": 0,
+    "most_turns_count": 0,
+    "path_sum": "0 / 0",
+    "puzzle_i": 3,
+    "puzzle_id": "7-4",
+    "puzzle_lines": [
+      "....o.o",
+      "tx..o.o",
+      "......t",
+      "oo.o.x.",
+      "oo.o..o"
+    ],
+    "raw_puzzle_lines": [
+      [
+        null,
+        null,
+        null,
+        null,
+        "o",
+        null,
+        "o"
+      ],
+      [
+        "t",
+        "x",
+        null,
+        null,
+        "o",
+        null,
+        "o"
+      ],
+      [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        "t"
+      ],
+      [
+        "o",
+        "o",
+        null,
+        "o",
+        null,
+        "x",
+        null
+      ],
+      [
+        "o",
+        "o",
+        null,
+        "o",
+        null,
+        null,
+        "o"
+      ]
+    ],
+    "total_paths": 0,
+    "turn_sum": "0",
+    "width": 7,
+    "winning_paths": 0,
+    "world_i": 6,
+    "world_name": "Extra! Extra!"
+  },
+  {
+    "choice_sum": "11",
+    "dot_count": 27,
+    "height": 7,
+    "least_choices_count": 11,
+    "least_turns_count": 16,
+    "most_choices_count": 11,
+    "most_turns_count": 16,
+    "path_sum": "1 / 45978",
+    "puzzle_i": 4,
+    "puzzle_id": "7-5",
+    "puzzle_lines": [
+      ".o.oo..",
+      "oooooo.",
+      "..oto..",
+      "o..oo.o",
+      ".o.oxo.",
+      "oo..o.o",
+      ".o.o.oo"
+    ],
+    "raw_puzzle_lines": [
+      [
+        null,
+        "o",
+        null,
+        "o",
+        "o",
+        null,
+        null
+      ],
+      [
+        "o",
+        "o",
+        "o",
+        "o",
+        "o",
+        "o",
+        null
+      ],
+      [
+        null,
+        null,
+        "o",
+        "t",
+        "o",
+        null,
+        null
+      ],
+      [
+        "o",
+        null,
+        null,
+        "o",
+        "o",
+        null,
+        "o"
+      ],
+      [
+        null,
+        "o",
+        null,
+        "o",
+        "x",
+        "o",
+        null
+      ],
+      [
+        "o",
+        "o",
+        null,
+        null,
+        "o",
+        null,
+        "o"
+      ],
+      [
+        null,
+        "o",
+        null,
+        "o",
+        null,
+        "o",
+        "o"
+      ]
+    ],
+    "total_paths": 45978,
+    "turn_sum": "16",
+    "width": 7,
+    "winning_paths": 1,
+    "world_i": 6,
+    "world_name": "Extra! Extra!"
   }
 ]

@@ -21,8 +21,15 @@ class PuzzCtx:
 
 	func analyze() -> void:
 		Log.info(["Analyzing puzzle:", world.get_display_name(), puzzle_i])
-		solve = PuzzleAnalysis.new({state=state}).analyze()
+		solve = PuzzleAnalysis.new({state=state})
+		solve.analyze()
 		Log.info(["Finished analyzing puzzle:", world.get_display_name(), puzzle_i])
+
+	# TODO reuse if already run - maybe by attaching analysis to the state?
+	func analyze_in_background() -> Thread:
+		Log.info(["Analyzing puzzle in bg:", world.get_display_name(), puzzle_i])
+		solve = PuzzleAnalysis.new({state=state})
+		return solve.analyze_in_background()
 
 	func puzzle_id() -> String:
 		return str(world_i+1, "-", puzzle_i+1)
@@ -90,6 +97,15 @@ class PuzzCtx:
 static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 	var ctxs: Array[PuzzCtx] = []
 	var worlds := Store.get_worlds()
+	# worlds = worlds.duplicate()
+
+	# limit to first world
+	# worlds = worlds[0]
+	# limit to last world
+	# worlds = [worlds[-1]]
+	# drop last world
+	# worlds = worlds.duplicate()
+	# worlds.pop_back()
 
 	for world_i in range(len(worlds)):
 		var world: PuzzleWorld = worlds[world_i]
@@ -102,6 +118,22 @@ static func build_puzzle_ctxs() -> Array[PuzzCtx]:
 
 	return ctxs
 
+static func write_json(json_data: Array[Dictionary]) -> void:
+	var json_data_path := "res://data/puzzle_data.json"
+	Log.info("Writing Puzzle Data to", json_data_path)
+	var json_blob := JSON.stringify(json_data, "  ")
+	var json_file := FileAccess.open(json_data_path, FileAccess.WRITE)
+	json_file.store_string(json_blob)
+	Log.info("JSON Puzzle Data written to", json_data_path)
+
+static func write_md_table(md_table: Array[String]) -> void:
+	var md_table_path := "res://data/puzzle_data.md"
+	Log.info("Writing Puzzle Data to", md_table_path)
+	var md_file := FileAccess.open(md_table_path, FileAccess.WRITE)
+	md_file.store_string("\n".join(md_table))
+	Log.info("Markdown Puzzle Data written to", md_table_path)
+
+## export puzzle data
 
 static func export_puzzle_data() -> void:
 	Log.info("Exporting puzzle data!")
@@ -112,21 +144,39 @@ static func export_puzzle_data() -> void:
 	var md_table : Array[String] = []
 
 	for ctx in puzzle_ctxs:
-		# TODO parallelize/background the analysis
 		ctx.analyze()
 
 		md_table.append(ctx.table_line())
 		json_data.append(ctx.json_data())
 
-	var json_data_path := "res://data/puzzle_data.json"
-	Log.info("Writing Puzzle Data to", json_data_path)
-	var json_blob := JSON.stringify(json_data, "  ")
-	var json_file := FileAccess.open(json_data_path, FileAccess.WRITE)
-	json_file.store_string(json_blob)
-	Log.info("JSON Puzzle Data written to", json_data_path)
+	StatLogger.write_json(json_data)
+	StatLogger.write_md_table(md_table)
 
-	var md_table_path := "res://data/puzzle_data.md"
-	Log.info("Writing Puzzle Data to", md_table_path)
-	var md_file := FileAccess.open(md_table_path, FileAccess.WRITE)
-	md_file.store_string("\n".join(md_table))
-	Log.info("Markdown Puzzle Data written to", md_table_path)
+## export puzzle data in bg
+
+static func export_puzzle_data_in_background() -> Thread:
+	var t := Thread.new()
+
+	t.start(run_export_in_bg)
+
+	return t
+
+static func run_export_in_bg() -> void:
+	var puzzle_ctxs := build_puzzle_ctxs()
+
+	var json_data : Array[Dictionary] = []
+	var md_table : Array[String] = []
+
+	for ctx in puzzle_ctxs:
+		# TODO run in parallel groups
+		var pt := ctx.analyze_in_background()
+		# immediately wait to finish (joining this bg thread back)
+		pt.wait_to_finish()
+		Log.info("Finished analyzing:", ctx.puzzle_id())
+
+	for ctx in puzzle_ctxs:
+		md_table.append(ctx.table_line())
+		json_data.append(ctx.json_data())
+
+	StatLogger.write_json(json_data)
+	StatLogger.write_md_table(md_table)

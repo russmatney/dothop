@@ -214,3 +214,8 @@ func to_pretty() -> Variant:
 		"most_turns_count" = most_turns_count,
 		"least_turns_count" = least_turns_count,
 		}
+
+func analyze_in_background() -> Thread:
+	var t := Thread.new()
+	t.start(analyze)
+	return t
