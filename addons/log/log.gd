@@ -140,18 +140,18 @@ static var COLORS_TERMINAL_SAFE: Dictionary = {
 	"ADDONS": "red",
 	"TEST": "green",
 	",": "red",
-	"(": ["orange", "blue", "green", "pink"],
-	")": ["orange", "blue", "green", "pink"],
-	"[": ["orange", "blue", "green", "pink"],
-	"]": ["orange", "blue", "green", "pink"],
-	"{": ["orange", "blue", "green", "pink"],
-	"}": ["orange", "blue", "green", "pink"],
-	"<": ["orange", "blue", "green", "pink"],
-	">": ["orange", "blue", "green", "pink"],
-	"|": ["orange", "blue", "green", "pink"],
+	"(": ["red", "blue", "green", "pink", "orange"],
+	")": ["red", "blue", "green", "pink", "orange"],
+	"[": ["red", "blue", "green", "pink", "orange"],
+	"]": ["red", "blue", "green", "pink", "orange"],
+	"{": ["red", "blue", "green", "pink", "orange"],
+	"}": ["red", "blue", "green", "pink", "orange"],
+	"<": ["red", "blue", "green", "pink", "orange"],
+	">": ["red", "blue", "green", "pink", "orange"],
+	"|": ["red", "blue", "green", "pink", "orange"],
 	"&": "orange",
 	"^": "orange",
-	"dict_key": "magenta",
+	"dict_key": ["magenta", "orange", "cyan"],
 	"vector_value": "green",
 	"class_name": "magenta",
 	TYPE_NIL: "pink",
@@ -211,7 +211,7 @@ static var COLORS_PRETTY_DARK_V1: Dictionary = {
 	"|": ["crimson", "cornflower_blue", "dark_green", "peru"],
 	"&": "coral",
 	"^": "coral",
-	"dict_key": "cadet_blue",
+	"dict_key": ["cadet_blue", "dark_green", "peru"],
 	"vector_value": "cornflower_blue",
 	"class_name": "cadet_blue",
 	TYPE_NIL: "coral",
@@ -271,7 +271,7 @@ static var COLORS_PRETTY_LIGHT_V1: Dictionary = {
 	"|": ["crimson", "cornflower_blue", "dark_green", "coral"],
 	"&": "coral",
 	"^": "coral",
-	"dict_key": "dark_slate_blue",
+	"dict_key": ["dark_slate_blue", "cornflower_blue", "dark_green"],
 	"vector_value": "dark_orchid",
 	"class_name": "cadet_blue",
 	TYPE_NIL: "coral",
@@ -476,7 +476,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 				msg_array.append("...")
 
 		# shouldn't we be incrementing index_level here?
-		var tmp: String = str(Log.color_wrap("(", opts), Log.color_wrap("|", opts), " ")
+		var tmp: String = Log.color_wrap("[ ", opts)
 		opts["delimiter_index"] += 1
 		var last: int = len(msg) - 1
 		for i: int in range(len(msg)):
@@ -489,7 +489,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 			if i != last:
 				tmp += Log.color_wrap(", ", opts)
 		opts["delimiter_index"] -= 1
-		tmp += str(" ", Log.color_wrap("|", opts), Log.color_wrap(")", opts))
+		tmp += Log.color_wrap(" ]", opts)
 		return tmp
 
 	# dictionary
