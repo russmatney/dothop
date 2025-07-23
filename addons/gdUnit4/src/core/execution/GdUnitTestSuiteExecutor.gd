@@ -23,9 +23,10 @@ func execute(test_suite :GdUnitTestSuite) -> void:
 
 
 func run_and_wait(tests: Array[GdUnitTestCase]) -> void:
-	# first we group all tests by his parent suite
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitInit.new())
+	# first we group all tests by resource path
 	var grouped_by_suites := GdArrayTools.group_by(tests, func(test: GdUnitTestCase) -> String:
-		return test.source_file
+		return test.suite_resource_path
 	)
 	var scanner := GdUnitTestSuiteScanner.new()
 	for suite_path: String in grouped_by_suites.keys():
@@ -37,6 +38,7 @@ func run_and_wait(tests: Array[GdUnitTestCase]) -> void:
 			await execute(test_suite)
 		else:
 			await GdUnit4CSharpApiLoader.execute(suite_tests)
+	GdUnitSignals.instance().gdunit_event.emit(GdUnitStop.new())
 
 
 func fail_fast(enabled :bool) -> void:
