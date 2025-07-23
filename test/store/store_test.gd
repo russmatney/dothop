@@ -12,13 +12,13 @@ func test_initial_store_puzzle_data() -> void:
 	var puzzle_ents := Pandora.get_all_entities(Pandora.get_category(p_ent._category_id))
 	assert_int(len(puzzle_ents)).is_greater(2)
 
-	var sets := Store.get_worlds()
+	var worlds := Store.get_worlds()
 
-	# test that we get as many sets as entities
-	assert_that(len(sets)).is_equal(len(puzzle_ents))
+	# test that we get as many worlds as entities
+	assert_that(len(worlds)).is_equal(len(puzzle_ents))
 
 	# at least one unlocked puzzle set
-	var unlocked := sets.filter(func(ent: PuzzleWorld) -> bool: return ent.is_unlocked())
+	var unlocked := worlds.filter(func(ent: PuzzleWorld) -> bool: return ent.is_unlocked())
 	assert_int(len(unlocked)).is_greater(0)
 
 func test_initial_store_theme_data() -> void:
@@ -38,15 +38,15 @@ func test_initial_store_theme_data() -> void:
 	assert_int(len(unlocked)).is_greater(0)
 
 #########################################################################
-## completing and unlocking puzzle sets
+## completing and unlocking puzzle worlds
 
 func test_completing_world() -> void:
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
 	# get an unlocked puzzle and it's 'next' puzzle
-	var sets := Store.get_worlds()
-	var first: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
+	var worlds := Store.get_worlds()
+	var first: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 	Store.complete_world(first)
 
 	assert_bool(first.is_completed()).is_true()
@@ -62,8 +62,8 @@ func test_unlocking_world() -> void:
 	assert_that(len(Store.events)).is_equal(0)
 
 	# get an locked puzzle and it's 'next' puzzle
-	var sets := Store.get_worlds()
-	var first: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
+	var worlds := Store.get_worlds()
+	var first: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
 	var first_id := first.get_entity_id()
 
 	# ensure it's not unlocked already!
@@ -95,12 +95,13 @@ func test_unlocking_world() -> void:
 ## completing puzzles
 
 @warning_ignore("unused_parameter")
-func test_completing_a_puzzle(indexes: Array, test_parameters: Variant = [[[0]], [[0, 1]], [[0, 1, 2]]]) -> void:
+func test_completing_a_puzzle() -> void:
+	var indexes := [0, 1, 2]
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
-	var sets := Store.get_worlds()
-	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
+	var worlds := Store.get_worlds()
+	var puz_set: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	var idx: int = indexes[-1]
 
@@ -194,8 +195,8 @@ func test_complete_puzzle_idx_dupe_events_increment_count() -> void:
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
-	var sets := Store.get_worlds()
-	var puz_set: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
+	var worlds := Store.get_worlds()
+	var puz_set: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	Store.complete_puzzle_index(puz_set, 0)
 	Store.complete_puzzle_index(puz_set, 0)
@@ -217,8 +218,8 @@ func test_world_complete_and_unlock_dupe_events_increment_count() -> void:
 	Store.reset_game_data()
 	assert_that(len(Store.events)).is_equal(0)
 
-	var sets := Store.get_worlds()
-	var world: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
+	var worlds := Store.get_worlds()
+	var world: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_completed())[0]
 
 	Store.complete_world(world)
 	Store.complete_world(world)
@@ -230,7 +231,7 @@ func test_world_complete_and_unlock_dupe_events_increment_count() -> void:
 	assert_that(ev.get_world().get_entity_id()).is_equal(world.get_entity_id())
 	assert_that(ev.get_count()).is_equal(3)
 
-	var unlocked_wrd: PuzzleWorld = sets.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
+	var unlocked_wrd: PuzzleWorld = worlds.filter(func(e: PuzzleWorld) -> bool: return not e.is_unlocked())[0]
 	Store.unlock_world(unlocked_wrd)
 	Store.unlock_world(unlocked_wrd)
 
