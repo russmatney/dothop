@@ -172,6 +172,10 @@ shuffle={
 
 pointing/emulate_touch_from_mouse=true
 
+[log_gd]
+
+config/color_theme="PRETTY_V1"
+
 [rendering]
 
 textures/canvas_textures/default_texture_filter=0
