@@ -76,9 +76,11 @@ func _init() -> void:
 func _ready() -> void:
 	if puzzle_def == null:
 		# TODO fetch from the PuzzleStore? do we even need a fallback?
-		fallback_puzzle_set_data.setup()
-		puzzle_def = fallback_puzzle_set_data.puzzle_defs[fallback_puzzle_num]
-		Log.warn("No puzzle_def set, using fallback", puzzle_def)
+		if fallback_puzzle_set_data:
+			fallback_puzzle_set_data.setup()
+			puzzle_def = fallback_puzzle_set_data.puzzle_defs[fallback_puzzle_num]
+			Log.warn("No puzzle_def set, using fallback", puzzle_def)
+		Log.warn("No puzzle_def set!")
 
 	if puzzle_def == null:
 		Log.error("no puzzle_def!", name)
