@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=11 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/GameScene.gd" id="1_ak4mv"]
 [ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_ou1ve"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_us7bg"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_tesnb"]
 [ext_resource type="Script" uid="uid://b24vtxbj2v44h" path="res://src/dothop/GameSounds.gd" id="7_tesnb"]
+[ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="8_01u3a"]
 
 [sub_resource type="Resource" id="Resource_ou1ve"]
 script = ExtResource("2_ou1ve")
@@ -44,3 +45,6 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GameSounds" type="Node" parent="."]
 script = ExtResource("7_tesnb")
+
+[node name="GameMusic" type="Node" parent="."]
+script = ExtResource("8_01u3a")

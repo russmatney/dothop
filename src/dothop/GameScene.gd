@@ -1,4 +1,4 @@
-extends Node2D
+extends Node
 class_name DotHopGame
 
 ## vars #####################################################################
@@ -10,8 +10,6 @@ var puzzle_node: DotHopPuzzle
 var puzzle_theme_data: PuzzleThemeData
 
 var already_complete: bool = false
-
-var hud: HUD
 
 ## ready #####################################################################
 
@@ -26,21 +24,6 @@ func _ready() -> void:
 		Log.warn("no world, cannot start GameScene")
 
 	rebuild_puzzle()
-
-	hud = get_node_or_null("HUD")
-
-	# TODO add music controls and toasts
-	SoundManager.stop_music(1.0)
-	var songs: Array[AudioStream] = puzzle_theme_data.get_music_tracks()
-	if len(songs) > 0:
-		SoundManager.play_music(songs[0], 2.0)
-
-func _exit_tree() -> void:
-	var playing_songs: Array = SoundManager.get_currently_playing_music()
-	if len(playing_songs) == 1:
-		# if only one song is playing, stop it
-		# otherwise, assume the cross-fade is working
-		SoundManager.stop_music(2.0)
 
 func nav_to_world_map() -> void:
 	# TODO navigation via enum (string-less, path-less)
@@ -76,59 +59,16 @@ func rebuild_puzzle() -> void:
 	puzzle_node.win.connect(on_puzzle_win, CONNECT_ONE_SHOT)
 
 	connect_animations()
-	connect_hud_updates()
 
 	add_child.call_deferred(puzzle_node)
 
-## connect_hud #####################################################################
+## connect anims #####################################################################
 
 func connect_animations() -> void:
 	puzzle_node.rebuilt_nodes.connect(func() -> void:
 		Anim.puzzle_animate_intro_from_point(puzzle_node))
 	puzzle_node.ready.connect(func() -> void:
 		Anim.puzzle_animate_intro_from_point(puzzle_node))
-
-func connect_hud_updates() -> void:
-	if not hud:
-		return
-
-	puzzle_node.ready.connect(update_hud)
-
-	puzzle_node.player_moved.connect(func() -> void:
-		update_hud()
-		hud.restart_fade_in_controls_tween())
-	puzzle_node.player_undo.connect(func() -> void:
-		update_hud()
-		hud.animate_undo()
-		hud.restart_fade_in_controls_tween())
-	puzzle_node.move_rejected.connect(func() -> void:
-		update_hud()
-		hud.show_controls(true)
-		DotHop.notif("Move Rejected", {id="move_reaction"}))
-	puzzle_node.move_input_blocked.connect(func() -> void:
-		update_hud()
-		DotHop.notif("Move Blocked", {id="move_reaction"}))
-	puzzle_node.rebuilt_nodes.connect(func() -> void:
-		update_hud()
-		DotHop.notif("Puzzle Rebuilt", {id="puzzle_rebuilt"}))
-
-	puzzle_node.ready.connect(func() -> void:
-		hud.reset_pressed.connect(puzzle_node.reset_pressed)
-		hud.undo_pressed.connect(puzzle_node.undo_pressed)
-		hud.shuffle_pressed.connect(puzzle_node.shuffle_pressed))
-
-## update hud #####################################################################
-
-func update_hud() -> void:
-	if hud and puzzle_node:
-		var rem: int = len(world.get_puzzles().filter(func(p: PuzzleDef) -> bool: return not p.is_completed))
-		var data: Dictionary = {
-			puzzle_def=puzzle_node.puzzle_def,
-			puzzles_remaining=rem,
-			dots_total=puzzle_node.state.dot_count(),
-			dots_remaining=puzzle_node.state.dot_count(true),
-			}
-		hud.update_state(data)
 
 ## load theme #####################################################################
 
@@ -274,7 +214,8 @@ func show_progress_toast(next_puzzle_num: int) -> void:
 	panel.rendered.connect(func() -> void:
 		# wait for panel to finish resizing
 		Anim.toast(panel, {wait_frame=true, in_t=0.7, out_t=0.7, delay=1.0, margin=48}))
-	hud.add_child.call_deferred(panel)
+	# TODO restore this adding to hud
+	add_child.call_deferred(panel)
 
 
 ## all puzzles jumbo #####################################################################

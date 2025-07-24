@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=13 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_p0cuu"]
 [ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/dothop/DHPhantomCam.gd" id="6_p17ef"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_sc3ik"]
+[ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="9_sc3ik"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ergn3"]
 
@@ -169,3 +170,6 @@ tween_resource = SubResource("Resource_iuffk")
 auto_zoom = true
 auto_zoom_margin = Vector4(100, 100, 100, 100)
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="GameMusic" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer"]
+script = ExtResource("9_sc3ik")

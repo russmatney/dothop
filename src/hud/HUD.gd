@@ -25,10 +25,26 @@ signal reset_pressed
 signal shuffle_pressed
 
 var puzzle_def: PuzzleDef
+var puzzle_node: DotHopPuzzle
 
-## ready ########################################################
+## enter tree #####################################################################
+
+func _enter_tree() -> void:
+	if not Engine.is_editor_hint():
+		get_tree().node_added.connect(on_node_added)
+
+func on_node_added(node: Node) -> void:
+	if node is DotHopPuzzle:
+		setup_puzzle_node(node as DotHopPuzzle)
+
+## ready #####################################################################
 
 func _ready() -> void:
+	for n: Variant in get_parent().get_children():
+		if n is DotHopPuzzle:
+			setup_puzzle_node(n as DotHopPuzzle)
+			break
+
 	set_control_icons()
 	InputHelper.device_changed.connect(func(_device: String, _di: int) -> void: set_control_icons())
 	InputHelper.joypad_changed.connect(func(_di: int, _connected: bool) -> void: set_control_icons())
@@ -43,6 +59,49 @@ func _ready() -> void:
 func set_control_icons() -> void:
 	undo_input_icon.set_icon_for_action("ui_undo")
 	reset_input_icon.set_icon_for_action("restart")
+
+func setup_puzzle_node(node: DotHopPuzzle) -> void:
+	puzzle_node = node
+
+	puzzle_node.ready.connect(update_hud)
+
+	puzzle_node.player_moved.connect(func() -> void:
+		update_hud()
+		restart_fade_in_controls_tween())
+	puzzle_node.player_undo.connect(func() -> void:
+		update_hud()
+		animate_undo()
+		restart_fade_in_controls_tween())
+	puzzle_node.move_rejected.connect(func() -> void:
+		update_hud()
+		show_controls(true)
+		DotHop.notif("Move Rejected", {id="move_reaction"}))
+	puzzle_node.move_input_blocked.connect(func() -> void:
+		update_hud()
+		DotHop.notif("Move Blocked", {id="move_reaction"}))
+	puzzle_node.rebuilt_nodes.connect(func() -> void:
+		update_hud()
+		DotHop.notif("Puzzle Rebuilt", {id="puzzle_rebuilt"}))
+
+	puzzle_node.ready.connect(func() -> void:
+		reset_pressed.connect(puzzle_node.reset_pressed)
+		undo_pressed.connect(puzzle_node.undo_pressed)
+		shuffle_pressed.connect(puzzle_node.shuffle_pressed))
+
+## update hud #####################################################################
+
+func update_hud() -> void:
+	if puzzle_node:
+		var rem: int = len(puzzle_node.world.get_puzzles().filter(func(p: PuzzleDef) -> bool:
+			return not p.is_completed))
+		var data: Dictionary = {
+			puzzle_def=puzzle_node.puzzle_def,
+			puzzles_remaining=rem,
+			dots_total=puzzle_node.state.dot_count(),
+			dots_remaining=puzzle_node.state.dot_count(true),
+			}
+		update_state(data)
+
 
 ## unhandled_input ########################################################
 

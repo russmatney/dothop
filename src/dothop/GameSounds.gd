@@ -18,6 +18,7 @@ func on_node_added(node: Node) -> void:
 ## ready #####################################################################
 
 func _ready() -> void:
+	# TODO maybe want a broader search than this
 	for n: Variant in get_parent().get_children():
 		if n is DotHopPuzzle:
 			setup_puzzle_node(n as DotHopPuzzle)

@@ -17,16 +17,17 @@ static func test_puzzle_node(puzzle: Array) -> DotHopPuzzle:
 
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	var _puzzle_def: PuzzleDef = opts.get("puzzle_def")
-	var world: PuzzleWorld = opts.get("world")
+	var wrd: PuzzleWorld = opts.get("world")
 
 	if _puzzle_def == null or _puzzle_def.shape == null:
 		Log.error("Couldn't build puzzle node, no puzzle_def passed", opts)
 		return
 
-	var scene: PackedScene = world.get_puzzle_scene()
+	var scene: PackedScene = wrd.get_puzzle_scene()
 	var node: DotHopPuzzle = scene.instantiate()
 
-	node.theme_data = opts.get("theme_data", world.get_theme_data())
+	node.world = wrd
+	node.theme_data = opts.get("theme_data", wrd.get_theme_data())
 	node.puzzle_def = _puzzle_def
 	return node
 
@@ -43,6 +44,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 @export var debugging: bool = false
 @export var square_size: int = 32
 
+var world: PuzzleWorld
 var puzzle_def: PuzzleDef
 var theme_data: PuzzleThemeData
 
