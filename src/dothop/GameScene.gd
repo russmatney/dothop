@@ -77,7 +77,6 @@ func rebuild_puzzle() -> void:
 
 	connect_animations()
 	connect_hud_updates()
-	connect_sounds()
 
 	add_child.call_deferred(puzzle_node)
 
@@ -117,43 +116,6 @@ func connect_hud_updates() -> void:
 		hud.reset_pressed.connect(puzzle_node.reset_pressed)
 		hud.undo_pressed.connect(puzzle_node.undo_pressed)
 		hud.shuffle_pressed.connect(puzzle_node.shuffle_pressed))
-
-## connect_sounds #####################################################################
-
-# TODO consider move to DotHopSounds or something like it
-# i think these sounds need to know what the theme is?
-# they're at least 'world' dependent
-func connect_sounds() -> void:
-	puzzle_node.win.connect(sound_on_win)
-	puzzle_node.player_moved.connect(sound_on_player_moved)
-	puzzle_node.player_undo.connect(sound_on_player_undo)
-	puzzle_node.move_rejected.connect(sound_on_move_rejected)
-	puzzle_node.move_input_blocked.connect(sound_on_move_input_blocked)
-	puzzle_node.rebuilt_nodes.connect(sound_on_rebuilt_nodes)
-
-func sound_on_win() -> void:
-	Sounds.play(Sounds.S.complete)
-
-func sound_on_player_moved() -> void:
-	var total_dots: float = float(puzzle_node.state.dot_count() + 1)
-	var dotted: float = total_dots - float(puzzle_node.state.dot_count(true)) - 1
-	# ensure some minimum
-	dotted = clamp(dotted, total_dots/4, total_dots)
-	if puzzle_node.state.win:
-		dotted += 1
-	Sounds.play(Sounds.S.dot_collected, {scale_range=total_dots, scale_note=dotted, interrupt=true})
-
-func sound_on_player_undo() -> void:
-	Sounds.play(Sounds.S.minimize)
-
-func sound_on_move_rejected() -> void:
-	Sounds.play(Sounds.S.showjumbotron)
-
-func sound_on_move_input_blocked() -> void:
-	pass
-
-func sound_on_rebuilt_nodes() -> void:
-	Sounds.play(Sounds.S.maximize)
 
 ## update hud #####################################################################
 
