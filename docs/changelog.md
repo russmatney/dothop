@@ -4,6 +4,112 @@
 ## Untagged
 
 
+### 24 Jul 2025
+
+- ([`7cd76f9`](https://github.com/russmatney/dothop/commit/7cd76f9)) fix: prevent crash when assigning null to int - Russell Matney
+
+  > :eyeroll:
+
+- ([`f7c16af`](https://github.com/russmatney/dothop/commit/f7c16af)) fix: await puzzle transitions - Russell Matney
+
+  > The transitions were not running for several reasons - this refactors to
+  > support awaiting signals before removing the puzzle node from the
+  > container.
+
+- ([`bc9e2ae`](https://github.com/russmatney/dothop/commit/bc9e2ae)) refactor: intro PuzzleNodeExtender (name pending) - Russell Matney
+
+  > Refactors more of the GameScene into smaller PuzzleNodeExtender
+  > Components - these components are bits of logic around puzzle features
+  > and lifecycle. The DotHopPuzzle now features a rebuild_puzzle(opts)
+  > helper for creating and re-creating-with-minimal-input the puzzle node
+  > itself, which removes a bunch of responsibility from the puzzle node
+  > container/parent.
+
+- ([`d36dafc`](https://github.com/russmatney/dothop/commit/d36dafc)) refactor: pull GameMusic and HUD refs out of GameScene - Russell Matney
+
+  > Note this drops the puzzle-progress panel. (it's still there, just
+  > depends on a HUD reference at the moment)
+
+- ([`a9e2470`](https://github.com/russmatney/dothop/commit/a9e2470)) refactor: break sounds out of game scene - Russell Matney
+
+  > love this reusable, self-contained node pattern!
+
+- ([`e641666`](https://github.com/russmatney/dothop/commit/e641666)) wip: add return to main, clean up threads on nav - Russell Matney
+
+  > This thread clean up blocks navigation until analysis is done! but
+  > doesn't leak threads. TODO write a PuzzleAnalyzer autoload to own these
+  > threads so we don't block in exit_tree like this.
+
+- ([`79646a7`](https://github.com/russmatney/dothop/commit/79646a7)) feat: reasonable layout for puzzles in puzz-browser - Russell Matney
+
+  > Tweaks the phantom-camera group follow margins to keep even large puzzles fully
+  > in view
+
+- ([`9c7de49`](https://github.com/russmatney/dothop/commit/9c7de49)) feat: drop in phantom camera - Russell Matney
+
+  > Moving to a more fully-featured phantom camera - this'll at least let us
+  > drop our scrappy camera positioning/centering code, which doesn't seem
+  > to be working anyway.
+
+- ([`3c862cc`](https://github.com/russmatney/dothop/commit/3c862cc)) deps: add phantom camera - Russell Matney
+
+### 23 Jul 2025
+
+- ([`6ba03f8`](https://github.com/russmatney/dothop/commit/6ba03f8)) fix: drop parameterized test setup - Russell Matney
+
+  > This seems to have been crashing somewhere in gdunit, and we don't need
+  > it anyway.
+
+- ([`1e2df74`](https://github.com/russmatney/dothop/commit/1e2df74)) chore: better log.gd colors - Russell Matney
+- ([`e655fb2`](https://github.com/russmatney/dothop/commit/e655fb2)) chore: update all GdUnit uids after update - Russell Matney
+- ([`e521560`](https://github.com/russmatney/dothop/commit/e521560)) deps: update log.gd - Russell Matney
+- ([`dfe9522`](https://github.com/russmatney/dothop/commit/dfe9522)) deps: update pandora - Russell Matney
+- ([`6d44733`](https://github.com/russmatney/dothop/commit/6d44733)) deps: update input helper - Russell Matney
+- ([`c338ecd`](https://github.com/russmatney/dothop/commit/c338ecd)) deps: update gdunit (uid-re-adds coming later) - Russell Matney
+- ([`d82a483`](https://github.com/russmatney/dothop/commit/d82a483)) deps: update AsepriteWizard - Russell Matney
+
+### 22 Jul 2025
+
+- ([`4991402`](https://github.com/russmatney/dothop/commit/4991402)) fix: correct fall theme, fix camera zoom - Russell Matney
+
+  > Time to bring in phantom camera, i think
+
+- ([`8ebd1f6`](https://github.com/russmatney/dothop/commit/8ebd1f6)) feat: puzzle browser running analysis in the background - Russell Matney
+
+  > No more blocking-forever to see the puzzle shapes! yay!
+
+- ([`74f1d7b`](https://github.com/russmatney/dothop/commit/74f1d7b)) feat: run puzzle data export in background - Russell Matney
+
+  > Uses threads to prevent locking the editor while the puzzle data export
+  > runs.
+
+- ([`f2eb65a`](https://github.com/russmatney/dothop/commit/f2eb65a)) fix: restore tests! - Russell Matney
+
+  > - Skipping multi-hopper analysis (currently this loops forever)
+  > - adding test puzzle_nodes to the tree to prevent crashes
+  > - moving back to including a PuzzleState.Cell at every coord
+  > - restore a poorly ported store test
+
+- ([`5b21f55`](https://github.com/russmatney/dothop/commit/5b21f55)) fix: no more log.gd [/color] closing tags - Russell Matney
+
+  > Apparently it's unreasonable to print bbcode with nested square braces,
+  > which is unfortunate. Until i can dig in more, this swaps the array
+  > wrappers with paren-pipes: (| |). Not sure i like them, but at least
+  > rainbow delims are working.
+
+- ([`bf4015a`](https://github.com/russmatney/dothop/commit/bf4015a)) feat: naive (untested) log.gd rainbow delimiters - Russell Matney
+
+  > Quick feature that is great for readability! Will port this back to
+  > log.gd soon.
+
+
+### 21 Jul 2025
+
+- ([`831f30c`](https://github.com/russmatney/dothop/commit/831f30c)) chore: update changelog - Russell Matney
+
+  > Now with all included tags - I'd neglected to push the v1.1 tag before
+
+
 ### 20 Jul 2025
 
 - ([`2bf5f6a`](https://github.com/russmatney/dothop/commit/2bf5f6a)) rel: bump to v1.1.1 - Russell Matney
