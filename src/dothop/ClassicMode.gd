@@ -19,9 +19,7 @@ func _ready() -> void:
 
 ## setup puzzle node #####################################################################
 
-func setup_puzzle_node(puzz: DotHopPuzzle) -> void:
-	puzzle_node = puzz
-
+func setup_puzzle_node() -> void:
 	puzzle_node.win.connect(on_puzzle_win, CONNECT_ONE_SHOT)
 
 ## win #####################################################################

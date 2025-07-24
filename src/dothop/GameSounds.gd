@@ -3,11 +3,9 @@ class_name GameSounds
 
 ## ready #####################################################################
 
-func setup_puzzle_node(node: DotHopPuzzle) -> void:
+func setup_puzzle_node() -> void:
 	# note: do we want gameSounds supporting multiple puzzles at once?
 	# note: we'll want world- or theme- based sounds at some point
-	puzzle_node = node
-
 	puzzle_node.win.connect(sound_on_win)
 	puzzle_node.player_moved.connect(sound_on_player_moved)
 	puzzle_node.player_undo.connect(sound_on_player_undo)

@@ -14,10 +14,6 @@ var already_complete: bool = false
 func _ready() -> void:
 	super._ready()
 
-	if world == null:
-		Log.warn("No puzzle set, grabbing fallback from store")
-		world = Store.get_worlds()[0]
-
 	DotHopPuzzle.rebuild_puzzle({container=self, world=world, puzzle_num=puzzle_num})
 
 ## input ###################################################################

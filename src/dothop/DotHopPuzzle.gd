@@ -53,6 +53,11 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> void:
 		if container == null:
 			container = puzzle_node.get_parent()
 
+		for cb: Callable in puzzle_node.pre_remove_hooks:
+			var val: Variant = cb.call()
+			if val is Signal:
+				await val
+
 		container.remove_child(puzzle_node)
 		# ? puzzle_node.queue_free()
 	else:
@@ -90,6 +95,10 @@ var world: PuzzleWorld
 var puzzle_def: PuzzleDef
 var puzzle_num: int # can this live on PuzzleDef? should it? it's a puzzle-set thing?
 var theme_data: PuzzleThemeData
+
+var pre_remove_hooks: Array[Callable] = []
+func add_pre_remove_hook(cb: Callable) -> void:
+	pre_remove_hooks.append(cb)
 
 var state: PuzzleState
 # apparently used in Anim?

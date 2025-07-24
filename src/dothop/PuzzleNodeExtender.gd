@@ -34,15 +34,15 @@ func _ready() -> void:
 
 func _set_puzzle_node(node: DotHopPuzzle) -> void:
 	puzzle_node = node
-	puzzle_node.tree_exiting.connect(func() -> void: on_puzzle_node_exiting(puzzle_node))
+	puzzle_node.tree_exiting.connect(on_puzzle_node_exiting)
 
 	# public function
-	setup_puzzle_node(puzzle_node)
+	setup_puzzle_node()
 
 ## public overrides #####################################################################
 
-func setup_puzzle_node(_node: DotHopPuzzle) -> void:
+func setup_puzzle_node() -> void:
 	pass
 
-func on_puzzle_node_exiting(_node: DotHopPuzzle) -> void:
+func on_puzzle_node_exiting() -> void:
 	pass
