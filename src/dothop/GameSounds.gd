@@ -1,28 +1,5 @@
-extends Node
+extends PuzzleNodeExtender
 class_name GameSounds
-
-## vars #####################################################################
-
-var puzzle_node: DotHopPuzzle
-
-## enter tree #####################################################################
-
-func _enter_tree() -> void:
-	if not Engine.is_editor_hint():
-		get_tree().node_added.connect(on_node_added)
-
-func on_node_added(node: Node) -> void:
-	if node is DotHopPuzzle:
-		setup_puzzle_node(node as DotHopPuzzle)
-
-## ready #####################################################################
-
-func _ready() -> void:
-	# TODO maybe want a broader search than this
-	for n: Variant in get_parent().get_children():
-		if n is DotHopPuzzle:
-			setup_puzzle_node(n as DotHopPuzzle)
-			break
 
 ## ready #####################################################################
 

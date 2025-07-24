@@ -5,6 +5,8 @@ extends Node
 
 var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
 var main_menu_path: String = "res://src/menus/MainMenu.tscn"
+var world_map_menu_path: String = "res://src/menus/worldmap/WorldMapMenu.tscn"
+var credits_path: String = "res://src/menus/Credits.tscn"
 
 func _ready() -> void:
 	Navi.set_main_menu(main_menu_path)
@@ -14,6 +16,14 @@ func maybe_pause() -> void:
 	if not get_tree().paused:
 		Navi.pause()
 		get_viewport().set_input_as_handled()
+
+## navigation ##########################################################################
+
+func nav_to_world_map() -> void:
+	Navi.nav_to(world_map_menu_path)
+
+func nav_to_credits() -> void:
+	Navi.nav_to(credits_path)
 
 ## focus ##########################################################################
 

@@ -16,10 +16,11 @@ static func test_puzzle_node(puzzle: Array) -> DotHopPuzzle:
 	return node
 
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
-	var _puzzle_def: PuzzleDef = opts.get("puzzle_def")
+	var puzz_def: PuzzleDef = opts.get("puzzle_def")
+	var puzz_num: int = opts.get("puzzle_num")
 	var wrd: PuzzleWorld = opts.get("world")
 
-	if _puzzle_def == null or _puzzle_def.shape == null:
+	if puzz_def == null or puzz_def.shape == null:
 		Log.error("Couldn't build puzzle node, no puzzle_def passed", opts)
 		return
 
@@ -28,8 +29,49 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 	node.world = wrd
 	node.theme_data = opts.get("theme_data", wrd.get_theme_data())
-	node.puzzle_def = _puzzle_def
+	node.puzzle_def = puzz_def
+	node.puzzle_num = puzz_num
 	return node
+
+static func rebuild_puzzle(opts: Dictionary = {}) -> void:
+	var container: Node = opts.get("container")
+	var puzz_num: int = opts.get("puzzle_num", -1)
+	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
+	var wrld: PuzzleWorld = opts.get("world")
+	var theme_dt: PuzzleThemeData = opts.get("theme_data")
+
+	if container == null and puzzle_node == null:
+		Log.warn("Invalid opts passed to rebuild_puzzle, requires either container or an existing puzzle_node", opts)
+
+	if puzzle_node != null:
+		if wrld == null:
+			wrld = puzzle_node.world
+		if puzz_num == -1:
+			puzz_num = puzzle_node.puzzle_num
+		if theme_dt == null:
+			theme_dt = puzzle_node.theme_data
+		if container == null:
+			container = puzzle_node.get_parent()
+
+		container.remove_child(puzzle_node)
+		# ? puzzle_node.queue_free()
+	else:
+		# no puzzle_node, fix defaults
+		if puzz_num == -1:
+			puzz_num = 0
+		if theme_dt == null and wrld != null:
+			theme_dt = wrld.get_theme_data()
+
+	U.ensure_default(opts, "world", wrld)
+	U.ensure_default(opts, "puzzle_def", wrld.get_puzzles()[puzz_num])
+	U.ensure_default(opts, "puzzle_num", puzz_num)
+	U.ensure_default(opts, "theme_data", theme_dt)
+
+	# build puzzle node
+	puzzle_node = DotHopPuzzle.build_puzzle_node(opts)
+
+	# add to container
+	container.add_child.call_deferred(puzzle_node)
 
 ## vars ##############################################################
 
@@ -46,6 +88,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 
 var world: PuzzleWorld
 var puzzle_def: PuzzleDef
+var puzzle_num: int # can this live on PuzzleDef? should it? it's a puzzle-set thing?
 var theme_data: PuzzleThemeData
 
 var state: PuzzleState
