@@ -74,7 +74,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("3_ify5j")
 bbcode_enabled = true
-text = "w: 7, h: 3"
+text = "w: 7, h: 3
+dots: [color=dark_blue]4[/color] paths: [color=forest_green]1 win[/color]/[color=crimson]0 stuck_dot[/color]/[color=crimson]0 stuck_goal[/color]/[color=peru]1 all[/color]"
 fit_content = true
 scroll_active = false
 

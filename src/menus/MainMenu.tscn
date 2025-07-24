@@ -44,7 +44,7 @@ layout_mode = 2
 theme = ExtResource("3_wh0ly")
 theme_type_variation = &"MenuMetadata"
 bbcode_enabled = true
-text = "v1.1.1"
+text = "v1.1.2"
 fit_content = true
 scroll_active = false
 
@@ -148,8 +148,8 @@ layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]6[/color] / [color=dark_slate_blue]72[/color] puzzles complete
-[color=forest_green]49[/color] / [color=dark_slate_blue]1073[/color] dots hopped"
+text = "[center][color=forest_green]12[/color] / [color=dark_slate_blue]77[/color] puzzles complete
+[color=forest_green]144[/color] / [color=dark_slate_blue]1153[/color] dots hopped"
 fit_content = true
 scroll_active = false
 
