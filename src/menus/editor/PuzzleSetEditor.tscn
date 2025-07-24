@@ -1,14 +1,22 @@
-[gd_scene load_steps=8 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=11 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_gk83m"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_ify5j"]
-[ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/core/DotHopCam.tscn" id="5_nthii"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_p0cuu"]
+[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/dothop/DHPhantomCam.gd" id="6_p17ef"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_sc3ik"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ergn3"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_khnrg"]
+
+[sub_resource type="Resource" id="Resource_iuffk"]
+script = ExtResource("7_sc3ik")
+duration = 1.0
+transition = 0
+ease = 2
 
 [node name="PuzzleSetEditor" type="CanvasLayer"]
 script = ExtResource("1_02h6s")
@@ -95,7 +103,6 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="PuzzleContainerPanel" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
-visible = false
 z_index = -1
 z_as_relative = false
 layout_mode = 2
@@ -103,7 +110,35 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 theme_override_styles/panel = SubResource("StyleBoxEmpty_khnrg")
 
+[node name="PuzzleContainer" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PuzzleContainerPanel"]
+unique_name_in_owner = true
+scale = Vector2(2, 2)
+
+[node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PuzzleContainerPanel/PuzzleContainer"]
+position = Vector2(-357.927, -181.376)
+scale = Vector2(0.5, 0.5)
+zoom = Vector2(4.04525, 4.04525)
+
+[node name="PhantomCameraHost" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PuzzleContainerPanel/PuzzleContainer/Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_p0cuu")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/PuzzleContainerPanel/PuzzleContainer" node_paths=PackedStringArray("follow_targets")]
+top_level = true
+position = Vector2(192.145, 65.2481)
+script = ExtResource("6_p17ef")
+follow_mode = 3
+follow_targets = [null, null, null, null, null]
+zoom = Vector2(4.04525, 4.04525)
+tween_resource = SubResource("Resource_iuffk")
+auto_zoom = true
+auto_zoom_margin = Vector4(32, 32, 32, 32)
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
 [node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
+visible = false
 clip_contents = true
 custom_minimum_size = Vector2(700, 512)
 layout_mode = 2
@@ -113,11 +148,4 @@ stretch = true
 disable_3d = true
 handle_input_locally = false
 size = Vector2i(700, 512)
-render_target_update_mode = 4
-
-[node name="PuzzleContainer" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
-unique_name_in_owner = true
-scale = Vector2(2, 2)
-
-[node name="DotHopCam" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer" instance=ExtResource("5_nthii")]
-zoom = Vector2(3, 3)
+render_target_update_mode = 0

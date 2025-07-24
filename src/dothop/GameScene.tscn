@@ -1,13 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=9 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/GameScene.gd" id="1_ak4mv"]
 [ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_ou1ve"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
-[ext_resource type="PackedScene" uid="uid://djqd0irfxadlp" path="res://src/core/DotHopCam.tscn" id="6_76inj"]
+[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/dothop/DHPhantomCam.gd" id="5_em0aq"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_us7bg"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_tesnb"]
 
 [sub_resource type="Resource" id="Resource_ou1ve"]
 script = ExtResource("2_ou1ve")
 _id = "26"
+
+[sub_resource type="Resource" id="Resource_tesnb"]
+script = ExtResource("6_tesnb")
+duration = 1.0
+transition = 0
+ease = 2
 
 [node name="DotHopGame" type="Node2D"]
 script = ExtResource("1_ak4mv")
@@ -16,4 +24,19 @@ puzzle_num = 2
 
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 
-[node name="DotHopCam" parent="." instance=ExtResource("6_76inj")]
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_us7bg")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="PhantomCamera2D" type="Node2D" parent="."]
+top_level = true
+script = ExtResource("5_em0aq")
+follow_mode = 3
+tween_resource = SubResource("Resource_tesnb")
+auto_zoom = true
+auto_zoom_margin = Vector4(32, 32, 32, 32)
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

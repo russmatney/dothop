@@ -12,7 +12,6 @@ var puzzle_theme_data: PuzzleThemeData
 var already_complete: bool = false
 
 var hud: HUD
-var dhcam: DotHopCam
 
 ## ready #####################################################################
 
@@ -29,12 +28,6 @@ func _ready() -> void:
 	rebuild_puzzle()
 
 	hud = get_node_or_null("HUD")
-
-	if not Engine.is_editor_hint() and is_inside_tree():
-		dhcam = DotHopCam.ensure_camera(self)
-		puzzle_node.rebuilt_nodes.connect(func() -> void:
-			dhcam.center_on_rect(puzzle_node.puzzle_rect()),
-			CONNECT_DEFERRED)
 
 	# TODO add music controls and toasts
 	SoundManager.stop_music(1.0)

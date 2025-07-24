@@ -11,3 +11,4 @@ func _plugging() -> void:
 	plug("russmatney/bones", {include=[
 		"addons/bones", "assets/kenney-input-prompts"
 		]})
+	plug("ramokz/phantom-camera", {include=["addons/phantom_camera"]})

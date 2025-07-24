@@ -1,6 +1,8 @@
 extends Camera2D
 class_name DotHopCam
 
+## static #####################################################################
+
 static var dhcam_scene: String = "res://src/core/DotHopCam.tscn"
 
 static func ensure_camera(node: Node) -> DotHopCam:
@@ -14,11 +16,15 @@ static func ensure_camera(node: Node) -> DotHopCam:
 		node.add_child(dhcam)
 	return dhcam
 
+## vars #####################################################################
+
 var zoom_min: float = 0.5
 var zoom_max: float = 5.0
 var base_margin: float = 64
 
 var puzzle_node: DotHopPuzzle
+
+## enter tree #####################################################################
 
 func _enter_tree() -> void:
 	if not Engine.is_editor_hint():
@@ -27,6 +33,8 @@ func _enter_tree() -> void:
 func on_node_added(node: Node) -> void:
 	if node is DotHopPuzzle:
 		set_puzzle_node(node as DotHopPuzzle)
+
+## ready #####################################################################
 
 func _ready() -> void:
 	if puzzle_node == null:
@@ -37,6 +45,8 @@ func _ready() -> void:
 
 	if puzzle_node:
 		set_puzzle_node(puzzle_node)
+
+## puzzle node handling #####################################################################
 
 func set_puzzle_node(puzz: DotHopPuzzle) -> void:
 	puzzle_node = puzz

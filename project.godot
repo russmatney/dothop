@@ -25,6 +25,7 @@ InputHelper="*res://addons/input_helper/input_helper.gd"
 SoundManager="*res://addons/sound_manager/sound_manager.gd"
 Pandora="*res://addons/pandora/api.gd"
 Navi="*res://addons/bones/navi/Navi.gd"
+PhantomCameraManager="*res://addons/phantom_camera/scripts/managers/phantom_camera_manager.gd"
 DotHop="*res://src/core/DotHop.gd"
 DJ="*res://addons/bones/DJ.gd"
 Store="*res://src/core/Store.gd"
@@ -49,7 +50,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/bones/plugin.cfg", "res://addons/dothop/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/bones/plugin.cfg", "res://addons/dothop/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [file_customization]
 
