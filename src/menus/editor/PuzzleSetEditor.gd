@@ -12,6 +12,8 @@ extends CanvasLayer
 @onready var puzzle_container: Node2D = $%PuzzleContainer
 var puzzle_node: DotHopPuzzle
 
+@onready var button_to_main: Button = $%ButtonToMain
+
 ## ready ######################################################
 
 func _ready() -> void:
@@ -39,6 +41,8 @@ func render() -> void:
 		button.pressed.connect(on_world_button_pressed.bind(world))
 		world_grid.add_child(button)
 
+	button_to_main.pressed.connect(Navi.nav_to_main_menu)
+
 ## process ###################################################
 
 var analysis_threads: Array[Thread] = []
@@ -53,6 +57,14 @@ func _process(_delta: float) -> void:
 			# join thread to prevent it leaking
 			th.wait_to_finish()
 			analysis_threads.erase(th)
+
+func _exit_tree() -> void:
+	# TODO ok, time to move these calc threads to an autoload, they shouldn't be blocking navigation
+	for th: Thread in analysis_threads:
+		if th != null:
+			# join thread to prevent it leaking
+			Log.warn("waiting for thread to finish before navigating")
+			th.wait_to_finish()
 
 ## on ######################################################
 

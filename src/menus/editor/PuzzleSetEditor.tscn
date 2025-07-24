@@ -1,9 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=12 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_gk83m"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_ify5j"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="4_p17ef"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_p0cuu"]
 [ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/dothop/DHPhantomCam.gd" id="6_p17ef"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_sc3ik"]
@@ -33,6 +34,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ergn3")
 layout_mode = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
 [node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
@@ -71,6 +76,23 @@ bbcode_enabled = true
 text = "w: 7, h: 3"
 fit_content = true
 scroll_active = false
+
+[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+
+[node name="ButtonToMain" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_p17ef")
+text = "To Main"
+
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
