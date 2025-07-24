@@ -17,7 +17,7 @@ static func test_puzzle_node(puzzle: Array) -> DotHopPuzzle:
 
 static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	var puzz_def: PuzzleDef = opts.get("puzzle_def")
-	var puzz_num: int = opts.get("puzzle_num")
+	var puzz_num: int = opts.get("puzzle_num", -1)
 	var wrd: PuzzleWorld = opts.get("world")
 
 	if puzz_def == null or puzz_def.shape == null:
