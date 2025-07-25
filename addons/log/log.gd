@@ -80,6 +80,7 @@ static func get_dictionary_skip_keys() -> Array:
 static func get_disable_colors() -> bool:
 	return Log.config.get(KEY_DISABLE_COLORS, false)
 
+static var warned_about_missing_theme := false
 static func get_config_color_theme() -> Dictionary:
 	var theme_id: String = Log.config.get(KEY_COLOR_THEME, LOG_THEME_TERMSAFE)
 	match theme_id:
@@ -90,7 +91,9 @@ static func get_config_color_theme() -> Dictionary:
 		LOG_THEME_PRETTY_LIGHT_V1:
 			return Log.COLORS_PRETTY_LIGHT_V1
 		_:
-			print("Unknown LOG_THEME '%s', using fallback" % theme_id)
+			if not warned_about_missing_theme:
+				print("Unknown LOG_THEME '%s', using fallback: '%s'" % [theme_id, LOG_THEME_TERMSAFE])
+				warned_about_missing_theme = true
 			return Log.COLORS_TERMINAL_SAFE
 
 # config setters ###################################################################
@@ -350,6 +353,9 @@ static func get_color_theme(opts: Dictionary = {}) -> Dictionary:
 	return theme
 
 static func should_use_color(opts: Dictionary = {}) -> bool:
+	if OS.has_feature("ios") or OS.has_feature("web"):
+		# ios and web (and likely others) don't handle colors well
+		return false
 	if Log.get_disable_colors():
 		return false
 	# supports per-print color skipping
