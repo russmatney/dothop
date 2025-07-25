@@ -5,7 +5,7 @@ class_name PuzzleSetData
 @export var display_name: String
 @export var source_file: String
 
-var parsed_game: ParsedGame
+@export var parsed_game: ParsedGame
 var puzzle_defs: Array[PuzzleDef] = []
 
 ## to pretty
@@ -21,18 +21,15 @@ func setup() -> void:
 	if len(puzzle_defs) > 0:
 		Log.warn("Skipping PuzzleSetData setup, already have puzzle_defs", self)
 		return
-	Log.pr("Setting up PuzzleSetData", self)
 	if parsed_game == null:
-		var file := FileAccess.open(source_file, FileAccess.READ)
-		if file == null:
-			Log.error("FileAccess error while setting up puzzle set data", FileAccess.get_open_error(), source_file)
-			return
-
-		parsed_game = ParsedGame.parse(file.get_as_text())
+		Log.error("parsed_game is null! Has this .puzz been imported?", source_file)
+		return
 
 	display_name = parsed_game.prelude.get("title", "Unnamed")
 	puzzle_defs.assign(parsed_game.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
 		return PuzzleDef.new(puzzle)))
+
+	Log.info("Set up PuzzleSetData", self)
 
 ## create ##################################################################
 

@@ -43,6 +43,7 @@ follow_mode = 3
 tween_resource = SubResource("Resource_tesnb")
 auto_zoom = true
 auto_zoom_margin = Vector4(32, 32, 32, 32)
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GameSounds" type="Node" parent="."]

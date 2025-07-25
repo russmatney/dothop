@@ -1,10 +1,10 @@
 @tool
-extends Object
+extends Resource
 class_name ParsedGame
 
-var prelude: Dictionary
-var legend: Dictionary
-var puzzles: Array
+@export var prelude: Dictionary
+@export var legend: Dictionary
+@export var puzzles: Array
 
 static func parse(contents: String) -> ParsedGame:
 	var parsed: ParsedGame = ParsedGame.new()
