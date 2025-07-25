@@ -29,6 +29,7 @@ puzzle_num = 2
 [node name="HUD" parent="." instance=ExtResource("3_3vrse")]
 
 [node name="Camera2D" type="Camera2D" parent="."]
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera2D"]
 process_priority = 300
