@@ -12,10 +12,18 @@ func _ready() -> void:
 	Navi.set_main_menu(main_menu_path)
 	Navi.set_pause_menu(pause_menu_path)
 
+## global pause helper ##########################################################################
+
 func maybe_pause() -> void:
 	if not get_tree().paused:
 		Navi.pause()
 		get_viewport().set_input_as_handled()
+
+## mobile predicate ##########################################################################
+
+func is_mobile() -> bool:
+	# return OS.has_feature("android") or OS.has_feature("ios") or OS.has_feature("web_ios") or OS.has_feature("web_android")
+	return OS.has_feature("mobile") or OS.has_feature("web_ios") or OS.has_feature("web_android")
 
 ## navigation ##########################################################################
 

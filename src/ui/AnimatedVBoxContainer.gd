@@ -8,6 +8,7 @@ class_name AnimatedVBoxContainer
 @export var disable_animations: bool = false
 
 @export var margin: Vector2 = Vector2()
+@export var ignored_children: Array[Node] = []
 
 var og_size: Vector2
 var chs: Array = []
@@ -16,6 +17,8 @@ func _ready() -> void:
 	visibility_changed.connect(on_visibility_changed)
 	og_size = custom_minimum_size
 	chs = get_children()
+	for ch: CanvasItem in ignored_children:
+		chs.erase(ch)
 
 	if not disable_animations:
 		hide_and_animate_in()

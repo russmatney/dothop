@@ -30,7 +30,7 @@ signal shuffle_pressed
 var puzzle_def: PuzzleDef
 var puzzle_node: DotHopPuzzle
 
-## enter tree #####################################################################
+## enter tree ###################################################################
 
 func _enter_tree() -> void:
 	if not Engine.is_editor_hint():
@@ -58,6 +58,15 @@ func _ready() -> void:
 	undo_button.pressed.connect(func() -> void: undo_pressed.emit())
 	pause_button.pressed.connect(DotHop.maybe_pause)
 	shuffle_button.pressed.connect(func() -> void: shuffle_pressed.emit())
+
+	if DotHop.is_mobile():
+		# show the action button list
+		action_button_list.show()
+		key_input_hints.hide()
+	else:
+		# show the key input hints
+		key_input_hints.show()
+		action_button_list.hide()
 
 func set_control_icons() -> void:
 	undo_input_icon.set_icon_for_action("ui_undo")

@@ -123,6 +123,7 @@ layout_mode = 2
 
 [node name="DataResetConfirmationDialog" type="ConfirmationDialog" parent="."]
 unique_name_in_owner = true
+transparent_bg = true
 initial_position = 2
 size = Vector2i(700, 363)
 transparent = true

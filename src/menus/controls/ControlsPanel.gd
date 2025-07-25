@@ -7,6 +7,9 @@ extends PanelContainer
 @onready var action_rows: BoxContainer = $%EditActionRows
 @onready var reset_controls_button: Button = $%ResetControlsButton
 
+@onready var mobile_controls_message: RichTextLabel = $%MobileControlsMessage
+@onready var scroll_container: ScrollContainer = $%ScrollContainer
+
 var displayed_actions := [
 	"ui_accept", "ui_undo", "pause", "close", "restart",
 	# "ui_up", "ui_down", "ui_left", "ui_right",
@@ -15,7 +18,15 @@ var displayed_actions := [
 ## ready ###############################################3
 
 func _ready() -> void:
-	render_action_rows()
+	Log.info("is_mobile", DotHop.is_mobile())
+	if DotHop.is_mobile():
+		mobile_controls_message.show()
+		scroll_container.hide()
+	else:
+		mobile_controls_message.hide()
+		scroll_container.show()
+
+		render_action_rows()
 	reset_controls_button.pressed.connect(on_reset_controls_pressed)
 
 ## render ###############################################3
