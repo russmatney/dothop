@@ -55,20 +55,9 @@ func render() -> void:
 
 	var delay: float = 0.3
 	for node: CanvasItem in [header, icon, body]:
-		animate_fade_in(node, delay)
+		node.modulate.a = 0
+		Anim.fade_in(node, 1.0, delay)
 		delay += 0.9
-
-	animate_fade_in(dismiss_input_icon, delay + 2)
-	animate_fade_in(dismiss_button, delay + 2)
-
-func animate_fade_in(node: CanvasItem, delay: float = 0) -> void:
-	var t: Tween = create_tween()
-	var dur: float = 0.4
-
-	node.modulate.a = 0
-	t.tween_property(node, "modulate:a", 1.0, dur)\
-		.set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)\
-		.set_delay(delay)
 
 func animate_puzzle_icon() -> void:
 	var og_pos: Vector2 = icon.position

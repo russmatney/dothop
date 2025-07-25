@@ -130,9 +130,11 @@ static func hop_attempt_pull_back(node: CanvasItem, og_position: Vector2, target
 
 # fade
 
-static func fade_in(node: CanvasItem, t: float = 0.5) -> void:
+static func fade_in(node: CanvasItem, t: float = 0.5, delay: float = 0.0) -> void:
 	var tween: Tween = tween_on_node(node, "fade_tween")
-	tween.tween_property(node, "modulate:a", 1.0, t).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
+	tween.tween_property(node, "modulate:a", 1.0, t)\
+		.set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)\
+		.set_delay(delay)
 
 static func fade_out(node: CanvasItem, t: float = 0.5) -> void:
 	var tween: Tween = tween_on_node(node, "fade_tween")

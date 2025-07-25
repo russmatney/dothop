@@ -1,11 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://wbyqneb7x2vr"]
+[gd_scene load_steps=7 format=3 uid="uid://wbyqneb7x2vr"]
 
 [ext_resource type="Script" uid="uid://clga1lr6lwbj2" path="res://src/menus/jumbotrons/PuzzleComplete.gd" id="1_su8xp"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="2_ybq7j"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="3_7lcnl"]
-[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="4_5owgh"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="4_m6plc"]
-[ext_resource type="Texture2D" uid="uid://ckmg5y5k5sns1" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_hn0bi"]
 [ext_resource type="PackedScene" uid="uid://dlvpdwwuh8av8" path="res://src/ui/components/PuzzleProgressPanel.tscn" id="6_6i7hg"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eyat3"]
@@ -19,7 +16,8 @@ script = ExtResource("1_su8xp")
 header_text = "Some Header"
 body_text = "Some Body"
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="JumboPanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -27,25 +25,27 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_eyat3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="JumboPanelContainer"]
 layout_mode = 2
 
-[node name="PanelContainer2" type="PanelContainer" parent="PanelContainer/HBoxContainer"]
+[node name="PanelContainer2" type="PanelContainer" parent="JumboPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_7d4ji")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="JumboPanelContainer/HBoxContainer/PanelContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Header" type="RichTextLabel" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer"]
+[node name="Header" type="RichTextLabel" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("2_ybq7j")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -53,17 +53,18 @@ text = "[center]Some Header[/center]"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 
-[node name="Body" type="RichTextLabel" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer2"]
+[node name="Body" type="RichTextLabel" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer2"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(600, 0)
 layout_mode = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("3_7lcnl")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -71,38 +72,19 @@ text = "[center]Congratulations, nerd!"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="JumboPanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
 custom_minimum_size = Vector2(0, 50)
 layout_mode = 2
 
-[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissButton" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer4" instance=ExtResource("4_5owgh")]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Dismiss"
-
-[node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissInputIcon" parent="PanelContainer/HBoxContainer/PanelContainer2/VBoxContainer/CenterContainer3" instance=ExtResource("4_m6plc")]
-unique_name_in_owner = true
-visible = true
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-texture = ExtResource("5_hn0bi")
-input_text = "Space"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="JumboPanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="JumboPanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 3
 
-[node name="PuzzleProgressPanel" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer" instance=ExtResource("6_6i7hg")]
+[node name="PuzzleProgressPanel" parent="JumboPanelContainer/HBoxContainer/VBoxContainer/CenterContainer" instance=ExtResource("6_6i7hg")]
 unique_name_in_owner = true
 layout_mode = 2

@@ -1,10 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://dve6wwmspbde0"]
+[gd_scene load_steps=6 format=3 uid="uid://dve6wwmspbde0"]
 
 [ext_resource type="Script" uid="uid://dbm06064f5slq" path="res://src/ui/components/Jumbotron.gd" id="1_6gaau"]
 [ext_resource type="FontFile" uid="uid://b0w8s6hidvrrr" path="res://addons/bones/fonts/Born2bSportyV2.ttf" id="2_tehfu"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="3_1031q"]
-[ext_resource type="Texture2D" uid="uid://d4cakhtcjts1r" path="res://assets/kenney-input-prompts/Nintendo Switch/Default/switch_button_a.png" id="5_6afe2"]
-[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="5_ii3wl"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_7vafy"]
 bg_color = Color(0.0156863, 0.0470588, 0.00392157, 0.470588)
@@ -18,7 +15,8 @@ process_mode = 3
 layer = 5
 script = ExtResource("1_6gaau")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="JumboPanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -26,16 +24,17 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_7vafy")
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="JumboPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="JumboPanelContainer/CenterContainer"]
 layout_mode = 2
 
-[node name="Header" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="Header" type="RichTextLabel" parent="JumboPanelContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
 layout_mode = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("2_tehfu")
 theme_override_font_sizes/normal_font_size = 64
 bbcode_enabled = true
@@ -43,16 +42,18 @@ text = "[center]Some really really wide text that barely fits on the screen[/cen
 fit_content = true
 scroll_active = false
 
-[node name="VSeparator" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="JumboPanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/separator = SubResource("StyleBoxFlat_rp857")
 
-[node name="Body" type="RichTextLabel" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="Body" type="RichTextLabel" parent="JumboPanelContainer/CenterContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
 custom_minimum_size = Vector2(1080, 0)
 layout_mode = 2
+mouse_filter = 1
 theme_override_fonts/normal_font = ExtResource("2_tehfu")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
@@ -60,26 +61,8 @@ text = "[center]Try it on wooden blocks![/center]"
 fit_content = true
 scroll_active = false
 
-[node name="VSeparator2" type="VSeparator" parent="PanelContainer/CenterContainer/VBoxContainer"]
+[node name="VSeparator2" type="VSeparator" parent="JumboPanelContainer/CenterContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/separator = SubResource("StyleBoxFlat_yrs0h")
-
-[node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissButton" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer2" instance=ExtResource("5_ii3wl")]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Dismiss"
-
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/CenterContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissInputIcon" parent="PanelContainer/CenterContainer/VBoxContainer/CenterContainer" instance=ExtResource("3_1031q")]
-unique_name_in_owner = true
-visible = true
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-texture = ExtResource("5_6afe2")
-input_text = "A Button"

@@ -26,8 +26,7 @@ static func jumbo_notif(opts: Dictionary) -> Signal:
 		jumbotron.header_text = hd
 	if bd:
 		jumbotron.body_text = bd
-	jumbotron.set_control_icon()
-	jumbotron.set_dismiss_button()
+	jumbotron.handle_panel_click()
 
 	jumbotron.jumbo_closed.connect(func() -> void:
 		if on_close and on_close is Callable and is_instance_valid((on_close as Callable).get_object()):
@@ -51,8 +50,7 @@ signal jumbo_closed
 
 var header: RichTextLabel
 var body: RichTextLabel
-var dismiss_input_icon: ActionInputIcon
-var dismiss_button: Button
+var panel_container: PanelContainer
 
 @export var header_text: String :
 	set(v):
@@ -84,25 +82,20 @@ func _ready() -> void:
 	U.set_optional_nodes(self, {
 			header="%Header",
 			body="%Body",
-			dismiss_input_icon="%DismissInputIcon",
-			dismiss_button="%DismissButton",
+			panel_container="%JumboPanelContainer",
 			})
-	set_control_icon()
-	set_dismiss_button()
-	if not Engine.is_editor_hint():
-		InputHelper.device_changed.connect(func(device: String, _idx: int) -> void:
-			Log.pr("jumbotron detected device change")
-			set_control_icon(device))
+	handle_panel_click()
 
-func set_control_icon(device: String = "") -> void:
-	if dismiss_input_icon:
-		dismiss_input_icon.set_icon_for_action("ui_accept", device)
-
-func set_dismiss_button() -> void:
-	if dismiss_button:
-		U._connect(dismiss_button.pressed, fade_out)
-	else:
-		Log.warn("no dismiss button found")
+func handle_panel_click() -> void:
+	if panel_container:
+		panel_container.gui_input.connect(func(event: InputEvent) -> void:
+			if event is InputEventScreenTouch and (event as InputEventScreenTouch).pressed:
+				fade_out()
+				return
+			if event is InputEventMouseButton and (event as InputEventMouseButton).pressed:
+				fade_out()
+				return
+			)
 
 # TODO restore or clean this up?
 func on_navigate() -> void:
@@ -119,13 +112,13 @@ func _unhandled_input(event: InputEvent) -> void:
 ## fade ##########################################################################
 
 func fade_in() -> void:
-	($PanelContainer as Control).modulate.a = 0
+	panel_container.modulate.a = 0
 	set_visible(true)
 	var t: Tween = create_tween()
-	t.tween_property($PanelContainer, "modulate:a", 1, 0.4)
+	t.tween_property(panel_container, "modulate:a", 1, 0.4)
 
 func fade_out() -> void:
 	var t: Tween = create_tween()
-	t.tween_property($PanelContainer, "modulate:a", 0, 0.4)
+	t.tween_property(panel_container, "modulate:a", 0, 0.4)
 	t.tween_callback(set_visible.bind(false))
 	t.tween_callback(func() -> void: jumbo_closed.emit())

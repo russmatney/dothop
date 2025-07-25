@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://bfc3jr7ui6wjt"]
+[gd_scene load_steps=9 format=3 uid="uid://bfc3jr7ui6wjt"]
 
 [ext_resource type="Script" uid="uid://dq4bv46xtaar" path="res://src/menus/jumbotrons/WorldUnlocked.gd" id="1_g7qf8"]
 [ext_resource type="Texture2D" uid="uid://wxbj5t4skm3w" path="res://assets/ui/sunburst_bg1.png" id="2_4mpuk"]
@@ -6,9 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://8xiuvg6w0gr2" path="res://src/themes/dots/dots_player.png" id="4_ghwcu"]
 [ext_resource type="Theme" uid="uid://biwc2va0xo5y6" path="res://src/ui/SunburstHeaderText.tres" id="4_kr6yf"]
 [ext_resource type="Theme" uid="uid://csu2vx7hyhrig" path="res://src/ui/SunburstBodyText.tres" id="5_8b3k6"]
-[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="9_2nlfd"]
-[ext_resource type="PackedScene" uid="uid://ol3g16f6jyld" path="res://src/ui/components/MenuButton.tscn" id="9_3tan6"]
-[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="9_yeoqi"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nvqjg"]
 
@@ -22,31 +19,34 @@ frame_1/duration = 1.0
 layer = 5
 script = ExtResource("1_g7qf8")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="JumboPanelContainer" type="PanelContainer" parent="."]
+unique_name_in_owner = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer"]
+[node name="CenterContainer" type="CenterContainer" parent="JumboPanelContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/CenterContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="JumboPanelContainer/CenterContainer"]
 custom_minimum_size = Vector2(1000, 720)
 layout_mode = 2
+mouse_filter = 1
 theme_override_styles/panel = SubResource("StyleBoxEmpty_nvqjg")
 
-[node name="BackgroundTexture" type="TextureRect" parent="PanelContainer/CenterContainer/PanelContainer"]
+[node name="BackgroundTexture" type="TextureRect" parent="JumboPanelContainer/CenterContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 texture = SubResource("AnimatedTexture_qdvcd")
 
-[node name="IconContainer" type="Control" parent="PanelContainer/CenterContainer/PanelContainer"]
+[node name="IconContainer" type="Control" parent="JumboPanelContainer/CenterContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 1
 
-[node name="NextPuzzleIcon" type="TextureRect" parent="PanelContainer/CenterContainer/PanelContainer/IconContainer"]
+[node name="NextPuzzleIcon" type="TextureRect" parent="JumboPanelContainer/CenterContainer/PanelContainer/IconContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 offset_left = 788.0
@@ -57,42 +57,44 @@ rotation = 0.174533
 pivot_offset = Vector2(128, 128)
 texture = ExtResource("4_ghwcu")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(800, 720)
 layout_mode = 2
 alignment = 1
 
-[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer5" type="MarginContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Header" type="RichTextLabel" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="Header" type="RichTextLabel" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
 custom_minimum_size = Vector2(0, 200)
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("4_kr6yf")
 bbcode_enabled = true
 text = "[center]Dang, that was the [color=crimson]last puzzle[/color]!"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
-[node name="Body" type="RichTextLabel" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="Body" type="RichTextLabel" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 unique_name_in_owner = true
 clip_contents = false
 custom_minimum_size = Vector2(0, 160)
 layout_mode = 2
+mouse_filter = 1
 theme = ExtResource("5_8b3k6")
 bbcode_enabled = true
 text = "[center]Congrations,
@@ -100,34 +102,11 @@ and thanks for playing!"
 fit_content = true
 scroll_active = false
 
-[node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
+[node name="MarginContainer3" type="MarginContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="CenterContainer4" type="CenterContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissButton" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer/CenterContainer4" instance=ExtResource("9_3tan6")]
-unique_name_in_owner = true
-layout_mode = 2
-text = "Dismiss"
-
-[node name="CenterContainer3" type="CenterContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="DismissInputIcon" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer/CenterContainer3" instance=ExtResource("9_2nlfd")]
-unique_name_in_owner = true
-visible = true
-custom_minimum_size = Vector2(150, 150)
-layout_mode = 2
-texture = ExtResource("9_yeoqi")
-input_text = "Ctrl+Z"
-
-[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 20)
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="JumboPanelContainer/CenterContainer/PanelContainer/HBoxContainer"]
 custom_minimum_size = Vector2(256, 0)
 layout_mode = 2
 size_flags_horizontal = 3
