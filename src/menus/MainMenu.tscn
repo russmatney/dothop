@@ -178,7 +178,7 @@ offset_bottom = 606.0
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme = ExtResource("4_mlk80")
-text = "Danger Russ Games"
+text = "DangerRussGames.com"
 
 [node name="FadeIn" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("8_14kqq")
