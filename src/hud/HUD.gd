@@ -20,6 +20,9 @@ class_name HUD
 @onready var pause_button: Button = $%PauseButton
 @onready var shuffle_button: Button = $%ShuffleButton
 
+@onready var action_button_list: VBoxContainer = $%ActionButtonList
+@onready var key_input_hints: VBoxContainer = $%KeyInputHints
+
 signal undo_pressed
 signal reset_pressed
 signal shuffle_pressed
