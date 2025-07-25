@@ -25,34 +25,6 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_a04u7")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(20, 20)
-layout_mode = 2
-
-[node name="VersionLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer"]
-unique_name_in_owner = true
-clip_contents = false
-custom_minimum_size = Vector2(150, 0)
-layout_mode = 2
-theme = ExtResource("3_wh0ly")
-theme_type_variation = &"MenuMetadata"
-bbcode_enabled = true
-text = "v1.1.2"
-fit_content = true
-scroll_active = false
-
-[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(10, 10)
-layout_mode = 2
-
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 alignment = 1
@@ -155,6 +127,40 @@ scroll_active = false
 
 [node name="MarginContainer9" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 30)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+mouse_filter = 2
+alignment = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(20, 20)
+layout_mode = 2
+
+[node name="VersionLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(150, 0)
+layout_mode = 2
+theme = ExtResource("3_wh0ly")
+theme_type_variation = &"MenuMetadata"
+bbcode_enabled = true
+text = "v1.1.2"
+fit_content = true
+scroll_active = false
+
+[node name="ChangelogButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_mlk80")
+text = "Changelog"
+
+[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
 
 [node name="FadeIn" type="Node" parent="." node_paths=PackedStringArray("nodes")]

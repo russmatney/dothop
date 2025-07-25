@@ -15,8 +15,8 @@ func to_pretty() -> Variant:
 
 ## setup ##################################################################
 
-# we aren't yet serializing puzzle_defs and parsed_games (tho we could!)
-# this would be a performance boost and we'd skip calling 'setup()' in places
+# we aren't yet serializing puzzle_defs yet, so here we create and assign them
+# TODO drop the need for this setup situation
 func setup() -> void:
 	if len(puzzle_defs) > 0:
 		Log.warn("Skipping PuzzleSetData setup, already have puzzle_defs", self)

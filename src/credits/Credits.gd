@@ -36,7 +36,7 @@ func _ready() -> void:
 				first_line = l
 				break
 
-		var line_label: Label
+		var line_label: Variant
 		if first_line.begins_with("# "):
 			line_label = credit_header_scene.instantiate()
 		else:
@@ -49,7 +49,7 @@ func _ready() -> void:
 			line_label.text += line + "\n"
 		line_label.text += "[/center]"
 		added_lines.append(line_label)
-		credits_lines_container.add_child(line_label)
+		credits_lines_container.add_child(line_label as Node)
 
 ## input ############################################################
 

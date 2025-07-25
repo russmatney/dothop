@@ -5,6 +5,7 @@ extends CanvasLayer
 @onready var options_button: Button = $%OptionsButton
 @onready var puzzle_browser_button: Button = $%PuzzleBrowserButton
 @onready var credits_button: Button = $%CreditsButton
+@onready var changelog_button: Button = $%ChangelogButton
 @onready var quit_button: Button = $%QuitButton
 @onready var puzzle_stats_label: RichTextLabel = $%PuzzleStatsLabel
 @onready var version_label: RichTextLabel = $%VersionLabel
@@ -25,7 +26,8 @@ func _ready() -> void:
 	start_button.pressed.connect(func() -> void: Navi.nav_to(world_map))
 	options_button.pressed.connect(func() -> void: Navi.nav_to(options_menu))
 	puzzle_browser_button.pressed.connect(func() -> void: Navi.nav_to(puzzle_browser_menu))
-	credits_button.pressed.connect(func() -> void: Navi.nav_to(credits_menu))
+	credits_button.pressed.connect(func() -> void: DotHop.nav_to_credits())
+	changelog_button.pressed.connect(func() -> void: DotHop.open_changelog_url())
 	quit_button.pressed.connect(func() -> void: get_tree().quit())
 
 	render_puzzle_stats()

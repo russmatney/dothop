@@ -7,6 +7,7 @@ var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
 var main_menu_path: String = "res://src/menus/MainMenu.tscn"
 var world_map_menu_path: String = "res://src/menus/worldmap/WorldMapMenu.tscn"
 var credits_path: String = "res://src/menus/Credits.tscn"
+var changelog_url: String = "https://russmatney.github.io/dothop/#/changelog"
 
 func _ready() -> void:
 	Navi.set_main_menu(main_menu_path)
@@ -32,6 +33,9 @@ func nav_to_world_map() -> void:
 
 func nav_to_credits() -> void:
 	Navi.nav_to(credits_path)
+
+func open_changelog_url() -> void:
+	OS.shell_open(changelog_url)
 
 ## focus ##########################################################################
 

@@ -63,10 +63,10 @@ static func is_move_released(event: InputEvent) -> bool:
 		is_released(event, "ui_up") or is_released(event, "ui_down")
 
 static func is_move_up(event: InputEvent) -> bool:
-	return is_event(event, "move_up")
+	return is_event(event, "ui_up")
 
 static func is_move_down(event: InputEvent) -> bool:
-	return is_event(event, "move_down")
+	return is_event(event, "ui_down")
 
 static func is_restart(event):
 	return is_event(event, "restart")
