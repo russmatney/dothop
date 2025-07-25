@@ -159,9 +159,26 @@ layout_mode = 2
 theme = ExtResource("4_mlk80")
 text = "Changelog"
 
+[node name="PlaytesterButton" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_mlk80")
+text = "Playtester Page"
+
 [node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
 custom_minimum_size = Vector2(10, 10)
 layout_mode = 2
+
+[node name="DangerRussGamesButton" type="Button" parent="."]
+unique_name_in_owner = true
+offset_left = 157.0
+offset_top = 542.0
+offset_right = 423.0
+offset_bottom = 606.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme = ExtResource("4_mlk80")
+text = "Danger Russ Games"
 
 [node name="FadeIn" type="Node" parent="." node_paths=PackedStringArray("nodes")]
 script = ExtResource("8_14kqq")

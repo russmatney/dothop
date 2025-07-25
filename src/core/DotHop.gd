@@ -7,7 +7,10 @@ var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
 var main_menu_path: String = "res://src/menus/MainMenu.tscn"
 var world_map_menu_path: String = "res://src/menus/worldmap/WorldMapMenu.tscn"
 var credits_path: String = "res://src/menus/Credits.tscn"
+
 var changelog_url: String = "https://russmatney.github.io/dothop/#/changelog"
+var playtester_url: String = "https://dangerrussgames.com/#playtester"
+var dangerrussgames_url: String = "https://dangerrussgames.com"
 
 func _ready() -> void:
 	Navi.set_main_menu(main_menu_path)
@@ -36,6 +39,12 @@ func nav_to_credits() -> void:
 
 func open_changelog_url() -> void:
 	OS.shell_open(changelog_url)
+
+func open_playtester_url() -> void:
+	OS.shell_open(playtester_url)
+
+func open_dangerrussgames_url() -> void:
+	OS.shell_open(dangerrussgames_url)
 
 ## focus ##########################################################################
 
