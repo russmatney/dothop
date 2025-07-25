@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://djqd0irfxadlp"]
-
-[ext_resource type="Script" uid="uid://ci6shspn0rtkh" path="res://src/core/DotHopCam.gd" id="1_nyqvw"]
-
-[node name="DotHopCam" type="Camera2D"]
-position_smoothing_enabled = true
-script = ExtResource("1_nyqvw")

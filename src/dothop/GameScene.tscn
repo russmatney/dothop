@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/GameScene.gd" id="1_ak4mv"]
 [ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_ou1ve"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_3vrse"]
-[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/dothop/DHPhantomCam.gd" id="5_em0aq"]
+[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/core/DHPhantomCam.gd" id="5_em0aq"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_us7bg"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_tesnb"]
 [ext_resource type="Script" uid="uid://b24vtxbj2v44h" path="res://src/dothop/GameSounds.gd" id="7_tesnb"]

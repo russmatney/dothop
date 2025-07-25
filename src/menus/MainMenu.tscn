@@ -77,7 +77,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
@@ -148,13 +148,13 @@ layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]12[/color] / [color=dark_slate_blue]77[/color] puzzles complete
-[color=forest_green]144[/color] / [color=dark_slate_blue]1153[/color] dots hopped"
+text = "[center][color=forest_green]1[/color] / [color=dark_slate_blue]77[/color] puzzles complete
+[color=forest_green]5[/color] / [color=dark_slate_blue]1153[/color] dots hopped"
 fit_content = true
 scroll_active = false
 
 [node name="MarginContainer9" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
 [node name="FadeIn" type="Node" parent="." node_paths=PackedStringArray("nodes")]
