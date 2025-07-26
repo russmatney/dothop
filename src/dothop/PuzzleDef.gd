@@ -51,10 +51,13 @@ func get_id() -> String:
 	if meta and "id" in meta:
 		return meta.id
 	else:
-		return get_og_shape_str()
+		return get_fen()
 
 # could this be deterministic? a 'proper' orientation of a xxx/..t/ooo?
-func get_og_shape_str() -> String:
+# yes - we could sort by a hash/checksum and just use the 'first' in that list
+## FEN is borrowed from chess board state and notation
+func get_fen() -> String:
+	# TODO find a deterministic id based on the shape to get 'transpositions'
 	return "/".join(og_shape.map(func(row: Array) -> String:
 		return "".join(row.map(func(cell: Variant) -> String:
 			return str(cell) if cell != null else "."
