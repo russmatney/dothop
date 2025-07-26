@@ -1,0 +1,11 @@
+[gd_scene load_steps=6 format=3 uid="uid://dcjcl3fvr78ck"]
+
+[ext_resource type="Script" uid="uid://csdhypod4hp0x" path="res://src/stats/PuzzleStore.gd" id="1_l8vha"]
+[ext_resource type="Script" uid="uid://da6smb2xg6x4f" path="res://src/puzzles/PuzzleSetData.gd" id="2_74bfy"]
+[ext_resource type="Resource" uid="uid://pe84x7eikk01" path="res://src/puzzles/dothop-spring.puzz" id="3_poc71"]
+[ext_resource type="Resource" uid="uid://cmo1rrcv4a4wx" path="res://src/puzzles/dothop-tutorial.puzz" id="4_47lt3"]
+[ext_resource type="Resource" uid="uid://day5so78n1hui" path="res://src/puzzles/dothop-summer.puzz" id="5_x3jpx"]
+
+[node name="PuzzleStore" type="Node"]
+script = ExtResource("1_l8vha")
+puzzle_sets = Array[ExtResource("2_74bfy")]([ExtResource("3_poc71"), ExtResource("4_47lt3"), ExtResource("5_x3jpx")])

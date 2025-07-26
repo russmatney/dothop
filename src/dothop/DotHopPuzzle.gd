@@ -34,11 +34,12 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	return node
 
 static func rebuild_puzzle(opts: Dictionary = {}) -> void:
-	var container: Node = opts.get("container")
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
+	var container: Node = opts.get("container", puzzle_node.get_parent() if puzzle_node else null)
 	var wrld: PuzzleWorld = opts.get("world")
 	var theme_dt: PuzzleThemeData = opts.get("theme_data")
+	var puzz_def: PuzzleDef = opts.get("puzzle_def", wrld.get_puzzles()[puzz_num])
 
 	if container == null and puzzle_node == null:
 		Log.warn("Invalid opts passed to rebuild_puzzle, requires either container or an existing puzzle_node", opts)
@@ -47,7 +48,7 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> void:
 		if wrld == null:
 			wrld = puzzle_node.world
 		if puzz_num == -1:
-			puzz_num = puzzle_node.puzzle_num
+			puzz_num = puzzle_node.puzzle_num # or puzz_def.idx
 		if theme_dt == null:
 			theme_dt = puzzle_node.theme_data
 		if container == null:
@@ -68,7 +69,7 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> void:
 			theme_dt = wrld.get_theme_data()
 
 	U.ensure_default(opts, "world", wrld)
-	U.ensure_default(opts, "puzzle_def", wrld.get_puzzles()[puzz_num])
+	U.ensure_default(opts, "puzzle_def", puzz_def)
 	U.ensure_default(opts, "puzzle_num", puzz_num)
 	U.ensure_default(opts, "theme_data", theme_dt)
 

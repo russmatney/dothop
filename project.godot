@@ -34,6 +34,9 @@ Sounds="*res://src/audio/Sounds.gd"
 GodotSteam="*res://src/GodotSteam.gd"
 Debug="*res://addons/bones/Debug.gd"
 Juice="*res://addons/bones/Juice.gd"
+PuzzleStore="*res://src/stats/PuzzleStore.tscn"
+PuzzleAnalyzer="*res://src/stats/PuzzleAnalyzer.gd"
+Events="*res://src/Events.gd"
 
 [debug]
 

@@ -153,6 +153,7 @@ position = Vector2(908, 428)
 [node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer"]
 position = Vector2(-715.855, -362.752)
 zoom = Vector2(4.04525, 4.04525)
+editor_draw_limits = true
 
 [node name="PhantomCameraHost" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer/Camera2D"]
 process_priority = 300
@@ -170,6 +171,7 @@ zoom = Vector2(4.04525, 4.04525)
 tween_resource = SubResource("Resource_iuffk")
 auto_zoom = true
 auto_zoom_margin = Vector4(100, 100, 100, 100)
+draw_limits = true
 metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="GameMusic" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer"]

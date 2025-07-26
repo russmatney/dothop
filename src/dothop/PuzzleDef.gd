@@ -8,6 +8,7 @@ static func parse(lines: Array) -> PuzzleDef:
 
 ## vars ########################################3333
 
+var og_shape: Array
 var shape: Array
 var width: int
 var height: int
@@ -20,11 +21,22 @@ var analysis: PuzzleAnalysis
 var is_completed: bool
 var is_skipped: bool
 
+
+func to_pretty() -> Variant:
+	return {id=get_id(), idx=idx,
+		# shape=shape,
+		# width=width, height=height,
+		# meta=meta,
+		message=message,
+		# is_completed=is_completed, is_skipped=is_skipped,
+		}
+
 ## init ########################################3333
 
 func _init(raw: Dictionary) -> void:
 	if raw.shape:
 		shape = raw.shape
+		og_shape = (raw.shape as Array).duplicate() # critical
 	width = raw.width
 	height = raw.height
 	meta = raw.meta
@@ -32,6 +44,22 @@ func _init(raw: Dictionary) -> void:
 		message = raw.message
 	if "idx" in raw:
 		idx = raw.idx
+
+## get_id ################################################
+
+func get_id() -> String:
+	if meta and "id" in meta:
+		return meta.id
+	else:
+		return get_og_shape_str()
+
+# could this be deterministic? a 'proper' orientation of a xxx/..t/ooo?
+func get_og_shape_str() -> String:
+	return "/".join(og_shape.map(func(row: Array) -> String:
+		return "".join(row.map(func(cell: Variant) -> String:
+			return str(cell) if cell != null else "."
+		)))
+	)
 
 ## all_coords ####################################################
 

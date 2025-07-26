@@ -43,28 +43,6 @@ func render() -> void:
 
 	button_to_main.pressed.connect(Navi.nav_to_main_menu)
 
-## process ###################################################
-
-var analysis_threads: Array[Thread] = []
-
-func _process(_delta: float) -> void:
-	for th: Thread in analysis_threads:
-		if th != null \
-			# has started
-			and th.is_started() \
-			# and has finished
-			and not th.is_alive():
-			# join thread to prevent it leaking
-			th.wait_to_finish()
-			analysis_threads.erase(th)
-
-func _exit_tree() -> void:
-	# TODO ok, time to move these calc threads to an autoload, they shouldn't be blocking navigation
-	for th: Thread in analysis_threads:
-		if th != null:
-			# join thread to prevent it leaking
-			Log.warn("waiting for thread to finish before navigating")
-			th.wait_to_finish()
 
 ## on ######################################################
 
@@ -78,40 +56,72 @@ func on_puzzle_button_pressed(world: PuzzleWorld, p: PuzzleDef) -> void:
 ## select ######################################################
 
 func select_world(world: PuzzleWorld) -> void:
-	# TODO run in the background
-	var th: Thread = world.analyze_puzzles_in_bg() # trigger solver analysis for whole puzzle set
-	analysis_threads.append(th)
-
 	U.remove_children(puzzles_grid)
 	var first: Variant = null
 	for puzzle_def in world.get_puzzles():
 		if not first:
 			first = puzzle_def
 
-		# var bg_music = world.get_theme_data().background_music
+		var icon: TextureButton = build_puzzle_icon(world, puzzle_def)
 
-		var texture := TextureButton.new()
-		texture.custom_minimum_size = Vector2(96, 96)
-		texture.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
+		# connections
+		icon.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))
+		Events.stats.analysis_complete.connect(func(evt: Events.Evt) -> void:
+			if evt.puzzle_def == null:
+				Log.warn("missing event puzzle def", evt)
+				return
 
-		var td := world.get_theme_data()
-		texture.set_texture_hover(td.player_icon)
-		texture.set_texture_normal(td.dot_icon)
-		texture.set_texture_disabled(td.dotted_icon)
+			# only handle the event for THIS icon
+			if evt.puzzle_def.get_id() == puzzle_def.get_id():
+				Anim.scale_up_down_up(icon, 0.8)
+				if puzzle_node:
+					if evt.puzzle_def.get_id() == puzzle_node.puzzle_def.get_id():
+						update_puzzle_detail(world, evt.puzzle_def))
 
-		texture.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))
+		# add child
+		puzzles_grid.add_child(icon)
 
-		puzzles_grid.add_child(texture)
 	if first:
 		select_puzzle(world, first as PuzzleDef)
 
+# careful, called for every icon!
+func build_puzzle_icon(world: PuzzleWorld, puzzle_def: PuzzleDef) -> TextureButton:
+	# var bg_music = world.get_theme_data().background_music
+
+	var texture_b := TextureButton.new()
+	texture_b.custom_minimum_size = Vector2(96, 96)
+	texture_b.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
+
+	var td := world.get_theme_data()
+	texture_b.set_texture_hover(td.player_icon)
+	texture_b.set_texture_normal(td.dot_icon)
+	texture_b.set_texture_disabled(td.dotted_icon)
+
+	var label := Label.new()
+	label.text = str("#", puzzle_def.idx)
+
+	texture_b.add_child(label)
+
+	return texture_b
+
+
 func select_puzzle(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	Log.pr("Puzzle selected", puzzle_def)
+
+	if PuzzleAnalyzer.get_analysis(puzzle_def) == null:
+		PuzzleAnalyzer.analyze_puzzle(puzzle_def)
+
+	update_puzzle_detail(world, puzzle_def)
+	DotHopPuzzle.rebuild_puzzle({container=puzzle_container, puzzle_def=puzzle_def, world=world})
+
+func update_puzzle_detail(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	var w := puzzle_def.width
 	var h := puzzle_def.height
 	var msg := puzzle_def.message
 	var idx := puzzle_def.idx # not necessarily the order, which puzzle-sets can overwrite
-	var analysis := puzzle_def.analysis
+	var analysis := PuzzleAnalyzer.get_analysis(puzzle_def)
+	# or this?
+	# var analysis := puzzle_def.analysis
 
 	current_puzzle_label.text = "[center]%s # %s" % [world.get_display_name(), idx + 1]
 	var detail := "w: %s, h: %s" % [w, h]
@@ -128,15 +138,3 @@ func select_puzzle(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 			]
 
 	current_puzzle_analysis_label.text = detail
-
-	if puzzle_node != null:
-		var outro_complete := Anim.puzzle_animate_outro_to_point(puzzle_node)
-		await outro_complete
-		puzzle_node.queue_free()
-
-	puzzle_node = DotHopPuzzle.build_puzzle_node({
-		world=world, puzzle_def=puzzle_def,
-		})
-	puzzle_node.ready.connect(func() -> void: Anim.puzzle_animate_intro_from_point(puzzle_node))
-
-	puzzle_container.add_child(puzzle_node)
