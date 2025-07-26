@@ -2,13 +2,13 @@ extends Node
 # autoload PuzzleAnalyzer
 
 
-var analysis_threads: Array[Thread] = []
+var threads: Array[Thread] = []
 
 var puzzle_def_id_to_analysis: Dictionary[String, PuzzleAnalysis] = {}
 var inflight: Array[String] = []
 
 func to_pretty() -> Variant:
-	return {thread_count=len(analysis_threads), inflight_count=len(inflight), cached_analysis_count=puzzle_def_id_to_analysis.size()}
+	return {thread_count=len(threads), inflight_count=len(inflight), cached_analysis_count=puzzle_def_id_to_analysis.size()}
 
 ## ready ################################################
 
@@ -36,7 +36,7 @@ func analyze_all_puzzles() -> void:
 # as if an autoload would ever leave the tree...
 # jk godot warns about this after close, it's probably quite bad
 func _exiting_tree() -> void:
-	for th: Thread in analysis_threads:
+	for th: Thread in threads:
 		if th != null:
 			# join thread to prevent it leaking
 			Log.warn("waiting for puzzle analyzer thread to finish before exiting")
@@ -44,23 +44,34 @@ func _exiting_tree() -> void:
 
 ## process ################################################
 
+var last_log := 0.0
+var last_log_t := 5.0
+
 ## check in on any threads that are ready for deletion
-func _process(_delta: float) -> void:
-	for th: Thread in analysis_threads:
+func _process(delta: float) -> void:
+	for th: Thread in threads:
 		if th != null and th.is_started() and not th.is_alive():
 			# join thread (to prevent leaking)
 			th.wait_to_finish()
 
 			# erase from local data
-			analysis_threads.erase(th)
+			threads.erase(th)
 			inflight.erase(th.get_meta("puzzle_def_id"))
 			Log.info("Thread finished + erased", self)
+
+	if last_log < 0.0:
+		if len(threads) > 0:
+			Log.info("Puzzle Analyzer Update:", self)
+		last_log = last_log_t
+	else:
+		last_log -= delta
+
 
 ## analyze puzzle ################################################
 
 func analyze_puzzle(puzzle_def: PuzzleDef) -> void:
 	var td: Thread = Thread.new()
-	analysis_threads.append(td)
+	threads.append(td)
 
 	if puzzle_def.get_id() in inflight:
 		# ignore inflight requests, it's coming back soon
@@ -94,7 +105,6 @@ func get_analysis(puzzle_def: PuzzleDef) -> PuzzleAnalysis:
 
 	var id: String = puzzle_def.get_id()
 	if not puzzle_def_id_to_analysis.has(id):
-		Log.warn("No analysis found for puzzle:", id)
 		return null
 
 	return puzzle_def_id_to_analysis[id]
