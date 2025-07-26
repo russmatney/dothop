@@ -1,4 +1,4 @@
-extends PuzzleNodeExtender
+extends Node
 class_name ClassicMode
 
 ## vars ###################################################################
@@ -11,16 +11,22 @@ var already_complete: bool = false
 ## ready #####################################################################
 
 func _ready() -> void:
-	super._ready()
+	var puzzle_nodes: Array = get_tree().get_nodes_in_group(DHData.puzzle_group)
+	for pnode: DotHopPuzzle in puzzle_nodes:
+		setup_puzzle_node(pnode)
+
+	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
+		setup_puzzle_node(evt.puzzle_node))
 
 	if world == null:
 		Log.warn("No puzzle set, grabbing fallback from store")
 		world = Store.get_worlds()[0]
 
+
 ## setup puzzle node #####################################################################
 
-func setup_puzzle_node() -> void:
-	puzzle_node.win.connect(on_puzzle_win, CONNECT_ONE_SHOT)
+func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
+	puzzle_node.win.connect(on_puzzle_win.bind(puzzle_node), CONNECT_ONE_SHOT)
 
 ## win #####################################################################
 
@@ -28,7 +34,7 @@ var PuzzleCompleteScene: PackedScene = preload("res://src/menus/jumbotrons/Puzzl
 var WorldUnlockedScene: PackedScene = preload("res://src/menus/jumbotrons/WorldUnlocked.tscn")
 var ProgressPanelScene: PackedScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
-func on_puzzle_win() -> void:
+func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 	Log.info("Puzzle complete!", world.get_display_name(), "-", puzzle_num)
 	Store.complete_puzzle_index(world, puzzle_num)
 
@@ -153,6 +159,7 @@ func show_no_more_puzzles_jumbo() -> Signal:
 
 ## achievements ################################################################333
 
+# TODO break into PuzzleAchievements node
 func update_achievements(opts: Dictionary = {}) -> void:
 	var complete_world: PuzzleWorld = opts.get("complete_world")
 

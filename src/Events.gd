@@ -9,15 +9,10 @@ class Evt:
 		puzzle_def = opts.get("puzzle_def")
 		puzzle_node = opts.get("puzzle_node")
 		theme_data = opts.get("theme_data")
-		# thought this'd just-work?
-		# for k: String in opts.keys():
-		# 	if k in Evt:
-		# 		set(k, opts.get(k))
-
-		Log.info("new event", self)
+		# Log.info("new event", self)
 
 	func to_pretty() -> Variant:
-		return [puzzle_def, puzzle_node]
+		return [puzzle_def, puzzle_node, theme_data]
 
 	var puzzle_def: PuzzleDef
 	var puzzle_node: DotHopPuzzle
