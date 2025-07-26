@@ -8,7 +8,7 @@ var puzzle_def_id_to_analysis: Dictionary[String, PuzzleAnalysis] = {}
 var inflight: Array[String] = []
 
 func to_pretty() -> Variant:
-	return {thread_count=len(analysis_threads), analysis_count=puzzle_def_id_to_analysis.size()}
+	return {thread_count=len(analysis_threads), inflight_count=len(inflight), cached_analysis_count=puzzle_def_id_to_analysis.size()}
 
 ## ready ################################################
 
@@ -33,17 +33,17 @@ func _exiting_tree() -> void:
 
 ## process ################################################
 
+## check in on any threads that are ready for deletion
 func _process(_delta: float) -> void:
 	for th: Thread in analysis_threads:
-		if th != null \
-			# has started
-			and th.is_started() \
-			# and has finished
-			and not th.is_alive():
-			# join thread to prevent it leaking
+		if th != null and th.is_started() and not th.is_alive():
+			# join thread (to prevent leaking)
 			th.wait_to_finish()
-			Log.pr("thread finished, erasing", th)
+
+			# erase from local data
 			analysis_threads.erase(th)
+			inflight.erase(th.get_meta("puzzle_def_id"))
+			Log.info("Thread finished + erased", self)
 
 ## analyze puzzle ################################################
 
@@ -54,6 +54,8 @@ func analyze_puzzle(puzzle_def: PuzzleDef) -> void:
 	if puzzle_def.get_id() in inflight:
 		# ignore inflight requests, it's coming back soon
 		return
+	inflight.append(puzzle_def.get_id())
+	td.set_meta("puzzle_def_id", puzzle_def.get_id())
 
 	# start the thread to analyze the puzzle
 	td.start(_analyze_puzzle_thread.bind(puzzle_def))
