@@ -19,7 +19,8 @@ func to_pretty() -> Variant:
 # TODO drop the need for this setup situation
 func setup() -> void:
 	if len(puzzle_defs) > 0:
-		Log.warn("Skipping PuzzleSetData setup, already have puzzle_defs", self)
+		# TODO remove (probably this whole func will go, but for now this helps us trace that)
+		Log.info("Skipping PuzzleSetData setup, already have puzzle_defs", self)
 		return
 	if parsed_game == null:
 		Log.error("parsed_game is null! Has this .puzz been imported?", source_file)

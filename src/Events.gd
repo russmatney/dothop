@@ -31,6 +31,15 @@ class Stats:
 
 class PuzzleNode:
 	signal ready(evt: Evt)
+	signal exiting(evt: Evt)
+	# signal pre_remove_hook(evt: Evt)
 
 	func fire_puzzle_node_ready(puzzle_node: DotHopPuzzle) -> void:
 		ready.emit(Evt.new({puzzle_node=puzzle_node}))
+
+	func fire_puzzle_node_exiting(puzzle_node: DotHopPuzzle) -> void:
+		exiting.emit(Evt.new({puzzle_node=puzzle_node}))
+
+	# is it possible to await a signal like this?
+	# func fire_puzzle_node_pre_remove_hook(puzzle_node: DotHopPuzzle) -> void:
+	# 	pre_remove_hook.emit(Evt.new({puzzle_node=puzzle_node}))

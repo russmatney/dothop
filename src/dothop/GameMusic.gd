@@ -1,15 +1,24 @@
-extends PuzzleNodeExtender
+extends Node
 class_name GameMusic
 
 ## ready #####################################################################
 
 func _ready() -> void:
-	super._ready()
+	var puzzle_nodes: Array = get_tree().get_nodes_in_group(DHData.puzzle_group)
+	for pnode: DotHopPuzzle in puzzle_nodes:
+		setup_puzzle_node(pnode)
+
+	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
+		setup_puzzle_node(evt.puzzle_node))
+
+	Events.puzzle_node.exiting.connect(func(_evt: Events.Evt) -> void:
+		on_puzzle_node_exiting())
+
 	SoundManager.stop_music(1.0)
 
 ## setup puzzle node #####################################################################
 
-func setup_puzzle_node() -> void:
+func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
 	SoundManager.stop_music(1.0)
 	# TODO add music controls and toasts
 	var songs: Array[AudioStream] = puzzle_node.theme_data.get_music_tracks()

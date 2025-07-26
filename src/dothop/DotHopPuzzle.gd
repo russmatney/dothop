@@ -166,6 +166,7 @@ func _ready() -> void:
 	state.emit_possible_cells.call_deferred()
 
 	Events.puzzle_node.fire_puzzle_node_ready.call_deferred(self)
+	tree_exiting.connect(Events.puzzle_node.fire_puzzle_node_exiting.bind(self))
 
 ## input ##############################################################
 
