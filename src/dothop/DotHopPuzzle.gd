@@ -167,6 +167,12 @@ func _ready() -> void:
 
 	Events.puzzle_node.fire_puzzle_node_ready.call_deferred(self)
 	tree_exiting.connect(Events.puzzle_node.fire_puzzle_node_exiting.bind(self))
+	Events.puzzle_node.change_theme.connect(func(evt: Events.Evt) -> void:
+		on_change_theme(evt.theme_data), CONNECT_ONE_SHOT)
+
+func on_change_theme(theme: PuzzleThemeData) -> void:
+	# TODO consider swapping out theme things without shuffle/full node restart
+	DotHopPuzzle.rebuild_puzzle({puzzle_node=self, theme_data=theme})
 
 ## input ##############################################################
 

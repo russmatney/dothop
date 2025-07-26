@@ -8,6 +8,7 @@ class Evt:
 	func _init(opts: Dictionary) -> void:
 		puzzle_def = opts.get("puzzle_def")
 		puzzle_node = opts.get("puzzle_node")
+		theme_data = opts.get("theme_data")
 		# thought this'd just-work?
 		# for k: String in opts.keys():
 		# 	if k in Evt:
@@ -20,6 +21,7 @@ class Evt:
 
 	var puzzle_def: PuzzleDef
 	var puzzle_node: DotHopPuzzle
+	var theme_data: PuzzleThemeData
 
 
 class Stats:
@@ -33,6 +35,7 @@ class PuzzleNode:
 	signal ready(evt: Evt)
 	signal exiting(evt: Evt)
 	# signal pre_remove_hook(evt: Evt)
+	signal change_theme(evt: Evt)
 
 	func fire_puzzle_node_ready(puzzle_node: DotHopPuzzle) -> void:
 		ready.emit(Evt.new({puzzle_node=puzzle_node}))
@@ -43,3 +46,6 @@ class PuzzleNode:
 	# is it possible to await a signal like this?
 	# func fire_puzzle_node_pre_remove_hook(puzzle_node: DotHopPuzzle) -> void:
 	# 	pre_remove_hook.emit(Evt.new({puzzle_node=puzzle_node}))
+
+	func fire_change_theme(theme: PuzzleThemeData) -> void:
+		change_theme.emit(Evt.new({theme_data=theme}))
