@@ -78,7 +78,7 @@ func select_world(world: PuzzleWorld) -> void:
 				Anim.scale_up_down_up(icon, 0.8)
 				if puzzle_node:
 					if evt.puzzle_def.get_id() == puzzle_node.puzzle_def.get_id():
-						update_puzzle_detail(world, evt.puzzle_def))
+						update_puzzle_detail(world, evt.puzzle_def), CONNECT_DEFERRED)
 
 		# add child
 		puzzles_grid.add_child(icon)
