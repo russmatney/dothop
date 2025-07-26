@@ -1,5 +1,5 @@
 extends Node
-class_name PlayerInputHandler
+class_name PuzzleInputHandler
 
 # for now, only supports one node at a time
 var puzzle_node: DotHopPuzzle
