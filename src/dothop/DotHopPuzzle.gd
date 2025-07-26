@@ -165,6 +165,8 @@ func _ready() -> void:
 	# prolly a race-case here
 	state.emit_possible_cells.call_deferred()
 
+	Events.puzzle_node.fire_puzzle_node_ready.call_deferred(self)
+
 ## input ##############################################################
 
 var just_logged_blocked_input: bool = false

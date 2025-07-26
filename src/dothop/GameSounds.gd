@@ -1,13 +1,23 @@
-extends PuzzleNodeExtender
+extends Node
 class_name GameSounds
 
 ## ready #####################################################################
 
-func setup_puzzle_node() -> void:
+func _ready() -> void:
+	var puzzle_nodes: Array = get_tree().get_nodes_in_group(DHData.puzzle_group)
+	for pnode: DotHopPuzzle in puzzle_nodes:
+		setup_puzzle_node(pnode)
+	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
+		setup_puzzle_node(evt.puzzle_node))
+
+func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
+	if puzzle_node == null:
+		Log.error("null puzzle_node passed?")
+		return
 	# note: do we want gameSounds supporting multiple puzzles at once?
 	# note: we'll want world- or theme- based sounds at some point
 	puzzle_node.win.connect(sound_on_win)
-	puzzle_node.player_moved.connect(sound_on_player_moved)
+	puzzle_node.player_moved.connect(sound_on_player_moved.bind(puzzle_node))
 	puzzle_node.player_undo.connect(sound_on_player_undo)
 	puzzle_node.move_rejected.connect(sound_on_move_rejected)
 	puzzle_node.move_input_blocked.connect(sound_on_move_input_blocked)
@@ -16,7 +26,7 @@ func setup_puzzle_node() -> void:
 func sound_on_win() -> void:
 	Sounds.play(Sounds.S.complete)
 
-func sound_on_player_moved() -> void:
+func sound_on_player_moved(puzzle_node: DotHopPuzzle) -> void:
 	var total_dots: float = float(puzzle_node.state.dot_count() + 1)
 	var dotted: float = total_dots - float(puzzle_node.state.dot_count(true)) - 1
 	# ensure some minimum
