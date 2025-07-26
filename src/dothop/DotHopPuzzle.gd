@@ -110,7 +110,6 @@ var player_nodes: Array = []
 
 signal win
 
-# hud updates
 signal player_moved
 signal player_undo
 signal move_rejected
@@ -177,15 +176,18 @@ func on_change_theme(theme: PuzzleThemeData) -> void:
 ## actions ##############################################################
 
 func shuffle_pressed() -> void:
+	Log.info("[PuzzleAction]", "SHUFFLE")
 	puzzle_def.shuffle_puzzle_layout()
 	build_game_state()
 
 func reset_pressed() -> void:
 	# TODO signal (for e.g. subtracting lives)
+	Log.info("[PuzzleAction]", "RESET")
 	build_game_state()
 
 func undo_pressed() -> void:
 	# TODO signal (for e.g. for subtracting health)
+	Log.info("[PuzzleAction]", "UNDO")
 	if state == null:
 		Log.warn("No state, ignoring undo input")
 		return

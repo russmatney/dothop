@@ -6,6 +6,8 @@ var puzzle_node: DotHopPuzzle
 
 var reset_tween: Tween
 
+var enabled: bool = true
+
 ## ready ##############################################################
 
 func _ready() -> void:
@@ -19,11 +21,17 @@ func _ready() -> void:
 func setup_puzzle_node(pnode: DotHopPuzzle) -> void:
 	puzzle_node = pnode
 
+func disable() -> void:
+	enabled = false
+
+func enable() -> void:
+	enabled = true
+
 ## input ##############################################################
 
 var just_logged_blocked_input: bool = false
 func _unhandled_input(event: InputEvent) -> void:
-	if puzzle_node == null:
+	if not enabled or puzzle_node == null:
 		return
 
 	if puzzle_node.state != null and puzzle_node.state.win:

@@ -17,32 +17,36 @@ var puzzle_node: DotHopPuzzle
 ## ready ######################################################
 
 func _ready() -> void:
-	render()
+	render_world_list()
+
 	if len(worlds) > 0:
 		select_world(worlds[0])
 
-## render ######################################################
+	button_to_main.pressed.connect(Navi.nav_to_main_menu)
 
-func render() -> void:
+## render_world_list ######################################################
+
+func render_world_list() -> void:
 	U.remove_children(world_grid)
 	for world in worlds:
 		Log.pr("rendering puzzle set", world.get_display_name())
 
-		var button := TextureButton.new()
-		button.custom_minimum_size = Vector2(64, 64)
-		button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
+		var icon: TextureButton = build_world_icon(world)
+		icon.pressed.connect(on_world_button_pressed.bind(world))
+		world_grid.add_child(icon)
 
-		var td := world.get_theme_data()
-		button.set_texture_normal(td.player_icon)
-		button.set_texture_hover(td.dot_icon)
-		button.set_texture_disabled(td.dotted_icon)
+func build_world_icon(world: PuzzleWorld) -> TextureButton:
+	var button := TextureButton.new()
+	button.custom_minimum_size = Vector2(64, 64)
+	button.stretch_mode = TextureButton.STRETCH_KEEP_ASPECT
 
-		# button.text = world.get_display_name()
-		button.pressed.connect(on_world_button_pressed.bind(world))
-		world_grid.add_child(button)
+	var td := world.get_theme_data()
+	button.set_texture_normal(td.player_icon)
+	button.set_texture_hover(td.dot_icon)
+	button.set_texture_disabled(td.dotted_icon)
 
-	button_to_main.pressed.connect(Navi.nav_to_main_menu)
-
+	# button.text = world.get_display_name()
+	return button
 
 ## on ######################################################
 
@@ -57,6 +61,7 @@ func on_puzzle_button_pressed(world: PuzzleWorld, p: PuzzleDef) -> void:
 
 func select_world(world: PuzzleWorld) -> void:
 	U.remove_children(puzzles_grid)
+
 	var first: Variant = null
 	for puzzle_def in world.get_puzzles():
 		if not first:
@@ -66,11 +71,8 @@ func select_world(world: PuzzleWorld) -> void:
 
 		# connections
 		icon.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))
-		Events.stats.analysis_complete.connect(func(evt: Events.Evt) -> void:
-			if evt.puzzle_def == null:
-				Log.warn("missing event puzzle def", evt)
-				return
 
+		Events.stats.analysis_complete.connect(func(evt: Events.Evt) -> void:
 			# only handle the event for THIS icon
 			if evt.puzzle_def.get_id() == puzzle_def.get_id():
 				Anim.scale_up_down_up(icon, 0.8)
