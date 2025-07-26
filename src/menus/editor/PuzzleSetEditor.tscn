@@ -34,6 +34,10 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_ergn3")
 [node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
 layout_mode = 2
 
+[node name="MarginContainer6" type="MarginContainer" parent="PanelContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
 [node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 
@@ -148,10 +152,9 @@ render_target_update_mode = 4
 
 [node name="PuzzleContainer" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
 unique_name_in_owner = true
-position = Vector2(908, 428)
 
 [node name="Camera2D" type="Camera2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer"]
-position = Vector2(-715.855, -362.752)
+position = Vector2(192.145, 65.2481)
 zoom = Vector2(4.04525, 4.04525)
 editor_draw_limits = true
 
