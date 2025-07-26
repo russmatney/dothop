@@ -136,6 +136,8 @@ func dot_count() -> int:
 ## shuffle the internal puzzle shape ########################################3333
 
 func shuffle_puzzle_layout(opts: Dictionary = {}) -> void:
+	# drop any hangers-on - leads to consistent puzzle ids (tho this doesn't cover transpositions)
+	shape = shape.duplicate()
 	var reverse_ys: bool = opts.get("reverse_ys", U.rand_of([true, false]))
 	var reverse_xs: bool = opts.get("reverse_xs", U.rand_of([true, false]))
 	var rotate_shape: bool = opts.get("rotate_shape", U.rand_of([true, false, false, false]))

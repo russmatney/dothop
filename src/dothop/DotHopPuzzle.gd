@@ -174,50 +174,6 @@ func on_change_theme(theme: PuzzleThemeData) -> void:
 	# TODO consider swapping out theme things without shuffle/full node restart
 	DotHopPuzzle.rebuild_puzzle({puzzle_node=self, theme_data=theme})
 
-## input ##############################################################
-
-var just_logged_blocked_input: bool = false
-func _unhandled_input(event: InputEvent) -> void:
-	if state != null and state.win:
-		if not just_logged_blocked_input:
-			Log.info("Blocking input events b/c we're in a win state")
-			just_logged_blocked_input = true
-		return
-	just_logged_blocked_input = false
-
-	if Trolls.is_move(event):
-		if state == null:
-			Log.warn("No state, ignoring move input")
-			return
-		var move_dir: Vector2 = Trolls.grid_move_vector(event)
-		attempt_move(move_dir)
-	elif Trolls.is_undo(event) and not block_move_input:
-		if state == null:
-			Log.warn("No state, ignoring undo input")
-			return
-		undo_last_move()
-		restart_block_move_timer(0.1)
-
-	elif Trolls.is_restart_held(event):
-		hold_to_reset_puzzle()
-	elif Trolls.is_restart_released(event):
-		cancel_reset_puzzle()
-	elif Trolls.is_shuffle(event):
-		shuffle_pressed()
-
-var reset_tween: Tween
-func hold_to_reset_puzzle() -> void:
-	if reset_tween != null and reset_tween.is_running():
-		# already holding
-		return
-	reset_tween = create_tween()
-	reset_tween.tween_callback(build_game_state).set_delay(DHData.reset_hold_t)
-
-func cancel_reset_puzzle() -> void:
-	if reset_tween == null:
-		return
-	reset_tween.kill()
-
 ## actions ##############################################################
 
 func shuffle_pressed() -> void:
@@ -225,9 +181,11 @@ func shuffle_pressed() -> void:
 	build_game_state()
 
 func reset_pressed() -> void:
+	# TODO signal (for e.g. subtracting lives)
 	build_game_state()
 
 func undo_pressed() -> void:
+	# TODO signal (for e.g. for subtracting health)
 	if state == null:
 		Log.warn("No state, ignoring undo input")
 		return
