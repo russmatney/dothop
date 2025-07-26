@@ -13,12 +13,23 @@ func to_pretty() -> Variant:
 ## ready ################################################
 
 func _ready() -> void:
-	var puzs := PuzzleStore.get_puzzles()
-
-	for puz in puzs:
-		analyze_puzzle(puz)
-
 	Log.info({ready=self})
+
+# a maybe useful helper
+func analyze_all_puzzles() -> void:
+	Log.info("Analyzing all PuzzleStore puzzles")
+	if PuzzleStore == null:
+		Log.error("PuzzleStore is null, cannot analyze puzzles.")
+		return
+
+	for puzzle_def: PuzzleDef in PuzzleStore.get_puzzles():
+		if puzzle_def == null:
+			Log.warn("PuzzleDef is null, skipping analysis.")
+			continue
+		analyze_puzzle(puzzle_def)
+
+	Log.info("All puzzles have been queued for analysis", self)
+
 
 ## exit tree ################################################
 
