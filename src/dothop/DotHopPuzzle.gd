@@ -425,16 +425,22 @@ func connect_dot_signals(dot: DotHopDot, cell: PuzzleState.Cell, _obj: DHData.Ob
 	cell.show_possible_undo.connect(func() -> void: dot.show_possible_undo())
 	cell.remove_possible_next_move.connect(func() -> void: dot.remove_possible_next_move())
 
+var inflight_player_moves := 0
 func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -> void:
 	# setup state player signals
-	p_state.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.move_to_coord(cell.coord))
+	p_state.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void:
+		inflight_player_moves += 1
+		p_node.move_to_coord(cell.coord))
 	p_state.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.undo_to_coord(cell.coord))
 	p_state.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: p_node.undo_to_same_coord())
 	p_state.move_attempt_stuck.connect(func(dir: Vector2) -> void: p_node.move_attempt_stuck(dir))
 
 	# connect to move finished signal
 	# we might want to track out-standing moves here, rather than just checking on one
-	p_node.move_finished.connect(func() -> void: player_move_finished())
+	p_node.move_finished.connect(func() -> void:
+		inflight_player_moves -= 1
+		if inflight_player_moves == 0:
+			player_move_finished())
 
 ## obj -> node setup helpers
 ## implies world/theme integration
