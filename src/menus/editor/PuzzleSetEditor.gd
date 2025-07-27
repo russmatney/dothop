@@ -32,6 +32,7 @@ func render_world_list() -> void:
 		Log.pr("rendering puzzle set", world.get_display_name())
 
 		var icon: TextureButton = build_world_icon(world)
+		icon.focus_entered.connect(func() -> void: Anim.scale_up_down_up(icon, 0.4))
 		icon.pressed.connect(on_world_button_pressed.bind(world))
 		world_grid.add_child(icon)
 
@@ -46,6 +47,7 @@ func build_world_icon(world: PuzzleWorld) -> TextureButton:
 	button.set_texture_disabled(td.dotted_icon)
 
 	# button.text = world.get_display_name()
+
 	return button
 
 ## on ######################################################
@@ -68,6 +70,8 @@ func select_world(world: PuzzleWorld) -> void:
 			first = puzzle_def
 
 		var icon: TextureButton = build_puzzle_icon(world, puzzle_def)
+
+		icon.focus_entered.connect(func() -> void: Anim.scale_up_down_up(icon, 0.4))
 
 		# connections
 		icon.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))

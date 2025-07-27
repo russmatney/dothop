@@ -3,7 +3,6 @@ class_name ClassicMode
 
 ## vars ###################################################################
 
-@export var world: PuzzleWorld
 @export var puzzle_num: int = 0
 
 var already_complete: bool = false
@@ -11,22 +10,8 @@ var already_complete: bool = false
 ## ready #####################################################################
 
 func _ready() -> void:
-	var puzzle_nodes: Array = get_tree().get_nodes_in_group(DHData.puzzle_group)
-	for pnode: DotHopPuzzle in puzzle_nodes:
-		setup_puzzle_node(pnode)
-
-	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
-		setup_puzzle_node(evt.puzzle_node))
-
-	if world == null:
-		Log.warn("No puzzle set, grabbing fallback from store")
-		world = Store.get_worlds()[0]
-
-
-## setup puzzle node #####################################################################
-
-func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
-	puzzle_node.win.connect(on_puzzle_win.bind(puzzle_node), CONNECT_ONE_SHOT)
+	Events.puzzle_node.win.connect(func(evt: Events.Evt) -> void:
+		on_puzzle_win(evt.puzzle_node))
 
 ## win #####################################################################
 
@@ -35,6 +20,8 @@ var WorldUnlockedScene: PackedScene = preload("res://src/menus/jumbotrons/WorldU
 var ProgressPanelScene: PackedScene = preload("res://src/ui/components/PuzzleProgressPanel.tscn")
 
 func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
+	var world := puzzle_node.world
+
 	Log.info("Puzzle complete!", world.get_display_name(), "-", puzzle_num)
 	Store.complete_puzzle_index(world, puzzle_num)
 
@@ -67,11 +54,11 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 		var end_of_world: bool = puzzle_num + 1 >= len(world.get_puzzles())
 		if end_of_world:
 			DotHop.notif("All puzzles complete!")
-			await show_world_complete_jumbo()
+			await show_world_complete_jumbo(world)
 			DotHop.nav_to_world_map()
 		else:
 			var next_puzzle_num: int = puzzle_num + 1
-			show_progress_toast(next_puzzle_num)
+			show_progress_toast(next_puzzle_num, world)
 			puzzle_num = next_puzzle_num
 			DotHopPuzzle.rebuild_puzzle({
 				puzzle_node=puzzle_node,
@@ -83,7 +70,7 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 		DotHop.nav_to_credits()
 	elif completed_world:
 		DotHop.notif("Completed puzzle set!")
-		await show_world_complete_jumbo()
+		await show_world_complete_jumbo(world)
 		DotHop.nav_to_world_map()
 	else:
 		var puzzles: Array[PuzzleDef] = world.get_puzzles()
@@ -95,7 +82,7 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 				next_puzzle_num = i
 				break
 
-		show_progress_toast(next_puzzle_num)
+		show_progress_toast(next_puzzle_num, world)
 		puzzle_num = next_puzzle_num
 		DotHopPuzzle.rebuild_puzzle({
 			puzzle_node=puzzle_node,
@@ -104,7 +91,7 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 
 ## progress toast #####################################################################
 
-func show_progress_toast(next_puzzle_num: int) -> void:
+func show_progress_toast(next_puzzle_num: int, world: PuzzleWorld) -> void:
 	var panel: PuzzleProgressPanel = ProgressPanelScene.instantiate()
 	panel.icon_size = 48.0
 	panel.grid_columns = 6
@@ -125,7 +112,7 @@ func show_progress_toast(next_puzzle_num: int) -> void:
 
 ## all puzzles jumbo #####################################################################
 
-func show_world_complete_jumbo() -> Signal:
+func show_world_complete_jumbo(world: PuzzleWorld) -> Signal:
 	var header: String = "[color=crimson]%s[/color] Complete!" % world.get_display_name()
 	# var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var body: String = U.rand_of([
@@ -145,9 +132,9 @@ func show_world_complete_jumbo() -> Signal:
 
 ## unlock jumbo #####################################################################
 
-func show_unlock_jumbo(w: PuzzleWorld) -> Signal:
+func show_unlock_jumbo(world: PuzzleWorld) -> Signal:
 	var instance: PuzzleUnlocked = WorldUnlockedScene.instantiate()
-	instance.world = w
+	instance.world = world
 	return Jumbotron.jumbo_notif({pause=false, instance=instance})
 
 ## no more puzzles jumbo #####################################################################

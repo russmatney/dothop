@@ -31,6 +31,7 @@ class PuzzleNode:
 	signal exiting(evt: Evt)
 	# signal pre_remove_hook(evt: Evt)
 	signal change_theme(evt: Evt)
+	signal win(evt: Evt)
 
 	func fire_puzzle_node_ready(puzzle_node: DotHopPuzzle) -> void:
 		ready.emit(Evt.new({puzzle_node=puzzle_node}))
@@ -44,3 +45,6 @@ class PuzzleNode:
 
 	func fire_change_theme(theme: PuzzleThemeData) -> void:
 		change_theme.emit(Evt.new({theme_data=theme}))
+
+	func fire_win(puzzle_node: DotHopPuzzle) -> void:
+		win.emit(Evt.new({puzzle_node=puzzle_node}))

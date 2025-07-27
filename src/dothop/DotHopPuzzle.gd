@@ -108,8 +108,6 @@ var state: PuzzleState
 # apparently used in Anim?
 var player_nodes: Array = []
 
-signal win
-
 signal player_moved
 signal player_undo
 signal move_rejected
@@ -235,8 +233,7 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 # NOTE this does NOT fire on undos or stucks
 func player_move_finished() -> void:
 	if state.win:
-		# TODO fires too early rn if you move quickly
-		win.emit()
+		Events.puzzle_node.fire_win(self)
 
 # TODO could dry up to use apply_moves and the response here
 # but if we subscribe to signals, maybe those will just get emitted,
