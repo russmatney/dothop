@@ -70,13 +70,13 @@ func _process(delta: float) -> void:
 ## analyze puzzle ################################################
 
 func analyze_puzzle(puzzle_def: PuzzleDef) -> void:
-	var td: Thread = Thread.new()
-	threads.append(td)
-
 	if puzzle_def.get_id() in inflight:
 		# ignore inflight requests, it's coming back soon
 		return
 	inflight.append(puzzle_def.get_id())
+
+	var td: Thread = Thread.new()
+	threads.append(td)
 	td.set_meta("puzzle_def_id", puzzle_def.get_id())
 
 	# start the thread to analyze the puzzle
@@ -87,13 +87,14 @@ func _analyze_puzzle_thread(puzzle_def: PuzzleDef) -> void:
 
 	var puzz_state := PuzzleState.new(puzzle_def)
 	var solve := PuzzleAnalysis.new({state=puzz_state}).analyze()
+	puzzle_def.analysis = solve
 
 	Log.info("Analysis complete for puzzle:", solve)
 	# cache this thing
 	puzzle_def_id_to_analysis[puzzle_def.get_id()] = solve
 
 	Log.info("[Analyzer] NEW SOLVE STORED", self)
-	Events.stats.fire_analysis_complete(puzzle_def)
+	Events.stats.fire_analysis_complete.call_deferred(puzzle_def)
 
 
 ## get_analysis ################################################

@@ -79,19 +79,27 @@ func select_world(world: PuzzleWorld) -> void:
 		# connections
 		icon.pressed.connect(on_puzzle_button_pressed.bind(world, puzzle_def))
 
-		Events.stats.analysis_complete.connect(func(evt: Events.Evt) -> void:
-			# only handle the event for THIS icon
-			if evt.puzzle_def.get_id() == puzzle_def.get_id():
-				Anim.scale_up_down_up(icon, 0.8)
-				if puzzle_node:
-					if evt.puzzle_def.get_id() == puzzle_node.puzzle_def.get_id():
-						update_puzzle_detail(world, evt.puzzle_def), CONNECT_DEFERRED)
+		# note we need to disconnect these when the icons are removed
+		# maybe a single signal would be better?
+		var cb := func(evt: Events.Evt) -> void: on_analysis_complete(evt, puzzle_def, icon, world)
+		Events.stats.analysis_complete.connect(cb)
+		icon.tree_exiting.connect(func() -> void:
+			Events.stats.analysis_complete.disconnect(cb))
 
 		# add child
 		puzzles_grid.add_child(icon)
 
 	if first:
 		select_puzzle(world, first as PuzzleDef)
+
+func on_analysis_complete(evt: Events.Evt, puzzle_def: PuzzleDef, icon: TextureButton, world: PuzzleWorld) -> void:
+	# only handle the event for THIS icon
+	if evt.puzzle_def.get_id() == puzzle_def.get_id():
+		if icon:
+			Anim.scale_up_down_up(icon, 0.8)
+		if puzzle_node:
+			if evt.puzzle_def.get_id() == puzzle_node.puzzle_def.get_id():
+				update_puzzle_detail(world, puzzle_def)
 
 # careful, called for every icon!
 func build_puzzle_icon(world: PuzzleWorld, puzzle_def: PuzzleDef) -> TextureButton:
