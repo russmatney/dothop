@@ -115,8 +115,6 @@ signal move_input_blocked
 signal rebuilt_nodes
 
 # fallbacks
-@export var fallback_puzzle_set_data: PuzzleSetData
-@export var fallback_puzzle_num: int = 0
 @export var fallback_world: PuzzleWorld
 
 ## enter_tree ##############################################################
@@ -131,15 +129,13 @@ func _init() -> void:
 func _ready() -> void:
 	if puzzle_def == null:
 		# TODO fetch from the PuzzleStore? do we even need a fallback?
-		if fallback_puzzle_set_data:
-			fallback_puzzle_set_data.setup()
-			puzzle_def = fallback_puzzle_set_data.puzzle_defs[fallback_puzzle_num]
-			Log.warn("No puzzle_def set, using fallback", puzzle_def)
-		Log.warn("No puzzle_def set!")
-
-	if puzzle_def == null:
-		Log.error("no puzzle_def!", name)
-		return
+		var pzs: Array[PuzzleDef] = PuzzleStore.get_puzzles()
+		if len(pzs) > 0:
+			puzzle_def = pzs[0]
+			Log.info("No puzzle_def set, using fallback", puzzle_def)
+		else:
+			Log.error("No puzzle_def set!", name)
+			return
 
 	# a Log-based validation warning would be nice
 	# maybe Log.gd's direction is toward a godot-devlog-companion

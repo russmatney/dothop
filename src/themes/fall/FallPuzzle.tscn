@@ -1,12 +1,14 @@
-[gd_scene load_steps=15 format=3 uid="uid://y6dvlkypc634"]
+[gd_scene load_steps=14 format=3 uid="uid://y6dvlkypc634"]
 
 [ext_resource type="Script" uid="uid://cps5y8f2vaaub" path="res://src/dothop/DotHopPuzzle.gd" id="1_4ql4j"]
+[ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_84a65"]
 [ext_resource type="Texture2D" uid="uid://beggnuu07g1dk" path="res://src/themes/fall/assets/fallbg-2_sheet.png" id="3_fs7ti"]
 [ext_resource type="Texture2D" uid="uid://dsxalpbwb66hy" path="res://src/themes/fall/assets/particles1.png" id="4_p1vw6"]
 [ext_resource type="Script" uid="uid://bckueh83o7t1y" path="res://src/vfx/FullScreenParticles.gd" id="5_rdtii"]
-[ext_resource type="Texture2D" uid="uid://chesk26tar4qt" path="res://src/themes/fall/assets/particles2.png" id="6_rdtii"]
-[ext_resource type="Texture2D" uid="uid://qtfxqsaajknl" path="res://src/themes/fall/assets/particles3.png" id="7_i437u"]
-[ext_resource type="Texture2D" uid="uid://cmk0gbdh2f22x" path="res://src/themes/fall/assets/particles4.png" id="8_i437u"]
+
+[sub_resource type="Resource" id="Resource_p1vw6"]
+script = ExtResource("2_84a65")
+_id = "18"
 
 [sub_resource type="Curve" id="Curve_q4ujl"]
 _data = [Vector2(0, 0.0480266), 0.0, 0.0, 0, 0, Vector2(0.253114, 1), 0.0, 0.0, 0, 0, Vector2(0.496602, 0.728008), 0.0, 0.0, 0, 0, Vector2(0.757078, 0.486923), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -24,7 +26,7 @@ point_count = 5
 curve = SubResource("Curve_7cqax")
 
 [sub_resource type="Curve" id="Curve_7wv4e"]
-_data = [Vector2(1e-05, 1), 0.0, 0.0, 0, 0, Vector2(0.0988113, 0.816012), 0.0, 0.0, 0, 0, Vector2(0.174591, 0.914871), 0.0, 0.0, 0, 0, Vector2(0.2474, 0.626531), 0.0, 0.0, 0, 0, Vector2(0.636701, 0.772074), 0.0, 0.0, 0, 0, Vector2(0.751114, 0.555133), 0.0, 0.0, 0, 0, Vector2(0.856612, 0.931348), 0.0, 0.0, 0, 0, Vector2(1, 0.0774689), 0.0, 0.0, 0, 0]
+_data = [Vector2(0, 0.532951), 0.0, 0.0, 0, 0, Vector2(0.144495, 0.300808), 0.0, 0.0, 0, 0, Vector2(0.228593, 0.193027), 0.0, 0.0, 0, 0, Vector2(0.347859, 0.137755), 0.0, 0.0, 0, 0, Vector2(0.610856, 0.56335), 0.0, 0.0, 0, 0, Vector2(0.803517, 0.204082), 0.0, 0.0, 0, 0, Vector2(0.924312, 0.231718), 0.0, 0.0, 0, 0, Vector2(0.997706, 0.190264), 0.0, 0.0, 0, 0]
 point_count = 8
 
 [sub_resource type="CurveTexture" id="CurveTexture_rg2jg"]
@@ -42,6 +44,7 @@ turbulence_enabled = true
 
 [node name="FallPuzzle" type="Node2D" groups=["dothop_puzzle"]]
 script = ExtResource("1_4ql4j")
+fallback_world = SubResource("Resource_p1vw6")
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="."]
 
@@ -58,35 +61,9 @@ stretch_mode = 6
 layer = 3
 
 [node name="GPUParticles2D" type="GPUParticles2D" parent="ForegroundParticles"]
-amount = 20
+scale = Vector2(0.5, 0.5)
+amount = 100
 texture = ExtResource("4_p1vw6")
-lifetime = 25.51
-preprocess = 5.46
-randomness = 0.84
-process_material = SubResource("ParticleProcessMaterial_6q5pn")
-script = ExtResource("5_rdtii")
-
-[node name="GPUParticles2D2" type="GPUParticles2D" parent="ForegroundParticles"]
-amount = 20
-texture = ExtResource("6_rdtii")
-lifetime = 25.51
-preprocess = 5.46
-randomness = 0.84
-process_material = SubResource("ParticleProcessMaterial_6q5pn")
-script = ExtResource("5_rdtii")
-
-[node name="GPUParticles2D3" type="GPUParticles2D" parent="ForegroundParticles"]
-amount = 20
-texture = ExtResource("7_i437u")
-lifetime = 25.51
-preprocess = 5.46
-randomness = 0.84
-process_material = SubResource("ParticleProcessMaterial_6q5pn")
-script = ExtResource("5_rdtii")
-
-[node name="GPUParticles2D4" type="GPUParticles2D" parent="ForegroundParticles"]
-amount = 20
-texture = ExtResource("8_i437u")
 lifetime = 25.51
 preprocess = 5.46
 randomness = 0.84

@@ -1,5 +1,6 @@
 @tool
 extends PhantomCamera2D
+class_name DHPhantomCam
 
 ## enter tree #####################################################################
 

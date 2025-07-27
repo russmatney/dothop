@@ -1,9 +1,10 @@
-[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=9 format=3 uid="uid://x85lhb72ywee"]
+[gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=10 format=3 uid="uid://x85lhb72ywee"]
 
 [ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_84qne"]
 [ext_resource type="PackedScene" uid="uid://dpn7mqij5du3n" path="res://src/themes/fall/Player.tscn" id="1_mi5di"]
 [ext_resource type="PackedScene" uid="uid://di85piestdv0m" path="res://src/themes/fall/Leaf.tscn" id="1_tiex6"]
 [ext_resource type="Texture2D" uid="uid://drfuuoebb136e" path="res://src/themes/fall/assets/leaf_greenred.png" id="1_tjkvp"]
+[ext_resource type="PackedScene" uid="uid://tr7u31n263mg" path="res://src/themes/pumpkins/PumpkinDot.tscn" id="2_8n56c"]
 [ext_resource type="PackedScene" uid="uid://y6dvlkypc634" path="res://src/themes/fall/FallPuzzle.tscn" id="3_1uegu"]
 [ext_resource type="Texture2D" uid="uid://b8grp2mo18s36" path="res://src/themes/fall/assets/leaf_greenred_dotted.png" id="3_8idr2"]
 [ext_resource type="Texture2D" uid="uid://dmjb7kipkji7p" path="res://src/themes/fall/assets/leaf_goal.png" id="4_7isw4"]
@@ -14,11 +15,10 @@ script = ExtResource("1_84qne")
 display_name = "Fall"
 puzzle_scene = ExtResource("3_1uegu")
 player_scenes = Array[PackedScene]([ExtResource("1_mi5di")])
-dot_scenes = Array[PackedScene]([ExtResource("1_tiex6")])
+dot_scenes = Array[PackedScene]([ExtResource("2_8n56c")])
 goal_scenes = Array[PackedScene]([ExtResource("1_tiex6")])
 player_icon = ExtResource("5_c0nf3")
 dot_icon = ExtResource("1_tjkvp")
 dotted_icon = ExtResource("3_8idr2")
 goal_icon = ExtResource("4_7isw4")
 music_tracks = Array[String](["res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"])
-is_unlocked = false

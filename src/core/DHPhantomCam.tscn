@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://drnyldnb38rvg"]
+
+[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/core/DHPhantomCam.gd" id="1_rhvi0"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="2_lq3aj"]
+
+[sub_resource type="Resource" id="Resource_tesnb"]
+script = ExtResource("2_lq3aj")
+duration = 1.0
+transition = 0
+ease = 2
+
+[node name="DHPhantomCam" type="Node2D"]
+top_level = true
+script = ExtResource("1_rhvi0")
+follow_mode = 3
+tween_resource = SubResource("Resource_tesnb")
+auto_zoom = true
+auto_zoom_margin = Vector4(32, 32, 32, 32)
+draw_limits = true
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"

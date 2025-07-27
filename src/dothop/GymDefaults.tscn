@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bbnwevsngb8tx"]
+
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="1_ckiwv"]
+[ext_resource type="PackedScene" uid="uid://drnyldnb38rvg" path="res://src/core/DHPhantomCam.tscn" id="2_c2yv6"]
+
+[node name="GymDefaults" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera2D"]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("1_ckiwv")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
+[node name="DHPhantomCam" parent="." instance=ExtResource("2_c2yv6")]

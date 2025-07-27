@@ -1,11 +1,10 @@
-[gd_scene load_steps=14 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=12 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/WorldScene.gd" id="1_6tdb7"]
 [ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_sdetx"]
 [ext_resource type="PackedScene" uid="uid://cmj60xakurhk0" path="res://src/hud/HUD.tscn" id="3_pcrl2"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="4_ns18a"]
-[ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/core/DHPhantomCam.gd" id="5_ikghp"]
-[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="6_3nncr"]
+[ext_resource type="PackedScene" uid="uid://drnyldnb38rvg" path="res://src/core/DHPhantomCam.tscn" id="5_yvn33"]
 [ext_resource type="Script" uid="uid://b24vtxbj2v44h" path="res://src/dothop/GameSounds.gd" id="7_q2cj5"]
 [ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="8_7iue3"]
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_d2yb4"]
@@ -15,12 +14,6 @@
 [sub_resource type="Resource" id="Resource_cmk2c"]
 script = ExtResource("2_sdetx")
 _id = "25"
-
-[sub_resource type="Resource" id="Resource_tesnb"]
-script = ExtResource("6_3nncr")
-duration = 1.0
-transition = 0
-ease = 2
 
 [node name="WorldScene" type="Node2D"]
 script = ExtResource("1_6tdb7")
@@ -38,15 +31,7 @@ process_physics_priority = 300
 script = ExtResource("4_ns18a")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
-[node name="PhantomCamera2D" type="Node2D" parent="."]
-top_level = true
-script = ExtResource("5_ikghp")
-follow_mode = 3
-tween_resource = SubResource("Resource_tesnb")
-auto_zoom = true
-auto_zoom_margin = Vector4(32, 32, 32, 32)
-draw_limits = true
-metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+[node name="PhantomCamera2D" parent="." instance=ExtResource("5_yvn33")]
 
 [node name="GameSounds" type="Node" parent="."]
 script = ExtResource("7_q2cj5")
