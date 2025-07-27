@@ -4,8 +4,13 @@
 ## Untagged
 
 
+## v1.1.3
+
+
 ### 27 Jul 2025
 
+- ([`d1bf6732`](https://github.com/russmatney/dothop/commit/d1bf6732)) chore: update version number - Russell Matney
+- ([`c36c892a`](https://github.com/russmatney/dothop/commit/c36c892a)) docs: changelog update - Russell Matney
 - ([`53ef157b`](https://github.com/russmatney/dothop/commit/53ef157b)) fix: disconnect stats-update signals from icons - Russell Matney
 
   > Prevents a noisey error message x 12
