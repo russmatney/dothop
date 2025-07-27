@@ -1,8 +1,9 @@
-extends Object
+extends Resource
 class_name PuzzleAnalysis
 
 
 class MovePath:
+	extends Resource
 	enum Result {INCOMPLETE = 0,WIN = 1, STUCK_GOAL = 2, STUCK_DOT = 3}
 
 	var moves: Array[Vector2]
@@ -25,7 +26,7 @@ class MovePath:
 	func mark_result(res: Result) -> void:
 		result = res
 
-	func duplicate() -> MovePath:
+	func create_branch() -> MovePath:
 		# ermagerd don't forget to dupe the array
 		var new_mp := MovePath.new(moves.duplicate())
 		new_mp.result = result
@@ -121,7 +122,7 @@ func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: A
 		current_path.add_choice()
 
 	for dir: Vector2 in (_move_tree as Dictionary).keys():
-		var new_path: MovePath = current_path.duplicate() # new path for each move
+		var new_path: MovePath = current_path.create_branch() # new path for each move
 		new_path.add_step(dir)
 
 		# this is either the move tree or a MovePath.Result
@@ -139,28 +140,28 @@ func collect_paths(_move_tree: Variant, current_path: MovePath = null, _paths: A
 ## analyze ####################################
 
 var move_tree: Variant #: Dictionary | String
-var paths: Array[MovePath]
+@export var paths: Array[MovePath]
 
-var winning_paths: Array
-var stuck_dot_paths: Array
-var stuck_goal_paths: Array
+@export var winning_paths: Array
+@export var stuck_dot_paths: Array
+@export var stuck_goal_paths: Array
 
-var solvable: bool
-var width: int = 0
-var height: int = 0
+@export var solvable: bool
+@export var width: int = 0
+@export var height: int = 0
 
-var dot_count: int = 0
+@export var dot_count: int = 0
 
-var path_count : int
-var winning_path_count : int
-var stuck_path_count : int
-var stuck_dot_path_count : int
-var stuck_goal_path_count : int
+@export var path_count : int
+@export var winning_path_count : int
+@export var stuck_path_count : int
+@export var stuck_dot_path_count : int
+@export var stuck_goal_path_count : int
 
-var least_choices_count: int = 0
-var most_choices_count: int = 0
-var least_turns_count: int = 0
-var most_turns_count: int = 0
+@export var least_choices_count: int = 0
+@export var most_choices_count: int = 0
+@export var least_turns_count: int = 0
+@export var most_turns_count: int = 0
 
 func analyze() -> PuzzleAnalysis:
 	width = puzzle_state.grid_width

@@ -1,5 +1,5 @@
 @tool
-extends Object
+extends Resource
 class_name PuzzleDef
 
 # helpful for supporting some tests
@@ -8,15 +8,14 @@ static func parse(lines: Array) -> PuzzleDef:
 
 ## vars ########################################3333
 
-var og_shape: Array
-var shape: Array
-var width: int
-var height: int
-var idx: int
-var meta: Dictionary
-var message: String
+@export var shape: Array
+@export var width: int
+@export var height: int
+@export var idx: int
+@export var meta: Dictionary
+@export var message: String
 
-var analysis: PuzzleAnalysis
+@export var analysis: PuzzleAnalysis
 
 var is_completed: bool
 var is_skipped: bool
@@ -33,10 +32,11 @@ func to_pretty() -> Variant:
 
 ## init ########################################3333
 
-func _init(raw: Dictionary) -> void:
+func _init(raw: Dictionary={}) -> void:
+	if len(raw) == 0:
+		return
 	if raw.shape:
 		shape = raw.shape
-		og_shape = (raw.shape as Array).duplicate() # critical
 	width = raw.width
 	height = raw.height
 	meta = raw.meta
@@ -58,7 +58,7 @@ func get_id() -> String:
 ## FEN is borrowed from chess board state and notation
 func get_fen() -> String:
 	# TODO find a deterministic id based on the shape to get 'transpositions'
-	return "/".join(og_shape.map(func(row: Array) -> String:
+	return "/".join(shape.map(func(row: Array) -> String:
 		return "".join(row.map(func(cell: Variant) -> String:
 			return str(cell) if cell != null else "."
 		)))

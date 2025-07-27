@@ -4,9 +4,10 @@ class_name PuzzleSetData
 
 @export var display_name: String
 @export var source_file: String
+@export var theme_data: PuzzleThemeData
 
 @export var parsed_game: ParsedGame
-var puzzle_defs: Array[PuzzleDef] = []
+@export var puzzle_defs: Array[PuzzleDef] = []
 
 ## to pretty
 
@@ -47,6 +48,7 @@ static func from_path(path: String) -> PuzzleSetData:
 	var parsed := ParsedGame.parse(file.get_as_text())
 	var psd := PuzzleSetData.from_parsed_game(parsed)
 	psd.source_file = path
+
 	return psd
 
 static func from_parsed_game(parsed: ParsedGame = null) -> PuzzleSetData:
