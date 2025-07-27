@@ -34,7 +34,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	return node
 
 # i need 7 unit tests for this mofo
-static func rebuild_puzzle(opts: Dictionary = {}) -> void:
+static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
 	var container: Node = opts.get("container", puzzle_node.get_parent() if puzzle_node else null)
@@ -81,6 +81,8 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> void:
 
 	# add to container
 	container.add_child.call_deferred(puzzle_node)
+
+	return puzzle_node
 
 ## vars ##############################################################
 

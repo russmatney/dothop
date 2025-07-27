@@ -24,6 +24,9 @@ func _ready() -> void:
 
 	button_to_main.pressed.connect(Navi.nav_to_main_menu)
 
+	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
+		puzzle_node = evt.puzzle_node)
+
 ## render_world_list ######################################################
 
 func render_world_list() -> void:
@@ -118,7 +121,12 @@ func select_puzzle(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 		PuzzleAnalyzer.analyze_puzzle(puzzle_def)
 
 	update_puzzle_detail(world, puzzle_def)
-	DotHopPuzzle.rebuild_puzzle({container=puzzle_container, puzzle_def=puzzle_def, world=world})
+	DotHopPuzzle.rebuild_puzzle({
+		puzzle_node=puzzle_node,
+		container=puzzle_container,
+		puzzle_def=puzzle_def,
+		world=world,
+		})
 
 func update_puzzle_detail(world: PuzzleWorld, puzzle_def: PuzzleDef) -> void:
 	var w := puzzle_def.width
