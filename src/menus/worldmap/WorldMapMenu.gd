@@ -121,18 +121,19 @@ func previous_world_exists() -> bool:
 		return false
 	return true
 
-@onready var game_scene: PackedScene = preload("res://src/dothop/GameScene.tscn")
+@onready var world_scene: PackedScene = preload("res://src/dothop/WorldScene.tscn")
 
 func start_selected_puzzle() -> void:
 	var ps: PuzzleWorld = current_world
 	var idx: int = current_puzzle_index
-	# var already_complete: bool = current_world.is_completed()
-	Navi.nav_to(game_scene, {setup=func(g: DotHopGame) -> void:
-		g.world = ps
-		g.puzzle_num = idx
-		# TODO restore/reconsider whatever this feature does
-		# g.already_complete = already_complete
+	Navi.nav_to(world_scene, {setup=func(scene: WorldScene) -> void:
+		scene.world = ps
+		scene.puzzle_num = idx
 		})
+
+	# TODO restore/reconsider whatever this feature does
+	# var already_complete: bool = current_world.is_completed()
+		# scene.already_complete = already_complete
 
 ## input ###################################################################
 

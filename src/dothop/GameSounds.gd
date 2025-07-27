@@ -10,13 +10,17 @@ func _ready() -> void:
 	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
 		setup_puzzle_node(evt.puzzle_node))
 
+	# Should this differentiate which puzzle_node won? probably?
+	Events.puzzle_node.win.connect(func(_evt: Events.Evt) -> void:
+		# sound_on_win(evt.puzzle_node)
+		sound_on_win())
+
 func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
 	if puzzle_node == null:
 		Log.error("null puzzle_node passed?")
 		return
 	# note: do we want gameSounds supporting multiple puzzles at once?
 	# note: we'll want world- or theme- based sounds at some point
-	puzzle_node.win.connect(sound_on_win)
 	puzzle_node.player_moved.connect(sound_on_player_moved.bind(puzzle_node))
 	puzzle_node.player_undo.connect(sound_on_player_undo)
 	puzzle_node.move_rejected.connect(sound_on_move_rejected)

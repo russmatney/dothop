@@ -9,7 +9,7 @@
 [ext_resource type="Script" uid="uid://dj7ss38l7q7xs" path="res://src/core/DHPhantomCam.gd" id="6_p17ef"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="7_sc3ik"]
 [ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="9_sc3ik"]
-[ext_resource type="Script" uid="uid://ctadfanugtrbv" path="res://src/dothop/TreadmillMode.gd" id="10_5gb2o"]
+[ext_resource type="Script" uid="uid://ctadfanugtrbv" path="res://src/modes/TreadmillMode.gd" id="10_5gb2o"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="11_5gb2o"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ergn3"]
@@ -51,9 +51,6 @@ layout_mode = 2
 unique_name_in_owner = true
 layout_mode = 2
 columns = 4
-
-[node name="TextureButton" type="TextureButton" parent="PanelContainer/VBoxContainer/HBoxContainer2/PuzzleSetGrid"]
-layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 0)

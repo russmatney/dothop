@@ -34,6 +34,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not enabled or puzzle_node == null:
 		return
 
+	if not Engine.is_editor_hint() and Trolls.is_pause(event):
+		DotHop.maybe_pause()
+
 	if puzzle_node.state != null and puzzle_node.state.win:
 		if not just_logged_blocked_input:
 			Log.info("Blocking input events b/c we're in a win state")
