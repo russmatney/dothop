@@ -22,6 +22,8 @@ func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
 	# is it possible to await an event instead?
 	puzzle_node.add_pre_remove_hook(animate_exit.bind(puzzle_node))
 
-func animate_exit(puzzle_node: DotHopPuzzle) -> Signal:
-	var outro_complete: Signal = Anim.puzzle_animate_outro_to_point(puzzle_node)
-	return outro_complete
+func animate_exit(puzzle_node: DotHopPuzzle) -> Variant:
+	if puzzle_node and puzzle_node.is_inside_tree():
+		var outro_complete: Signal = Anim.puzzle_animate_outro_to_point(puzzle_node)
+		return outro_complete
+	return

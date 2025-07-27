@@ -60,12 +60,15 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 			container = puzzle_node.get_parent()
 
 		for cb: Callable in puzzle_node.pre_remove_hooks:
+			if cb.is_null() or not cb.is_valid():
+				continue
 			var val: Variant = cb.call()
 			if val is Signal:
 				await val
 
-		container.remove_child(puzzle_node)
-		# ? puzzle_node.queue_free()
+		if container:
+			container.remove_child(puzzle_node)
+		puzzle_node.queue_free()
 	else:
 		# no puzzle_node, fix defaults
 		if puzz_num == -1:
@@ -166,6 +169,7 @@ func _ready() -> void:
 
 	Events.puzzle_node.fire_puzzle_node_ready.call_deferred(self)
 	tree_exiting.connect(Events.puzzle_node.fire_puzzle_node_exiting.bind(self))
+
 	Events.puzzle_node.change_theme.connect(func(evt: Events.Evt) -> void:
 		on_change_theme(evt.theme_data), CONNECT_ONE_SHOT)
 
