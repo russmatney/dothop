@@ -11,14 +11,14 @@
 [ext_resource type="Script" uid="uid://ca2yhamyxhkko" path="res://src/modes/ClassicMode.gd" id="10_hw8gj"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="11_jvqxy"]
 
-[sub_resource type="Resource" id="Resource_cmk2c"]
+[sub_resource type="Resource" id="Resource_yvn33"]
 script = ExtResource("2_sdetx")
-_id = "25"
+_id = "73.0"
 
 [node name="WorldScene" type="Node2D"]
 script = ExtResource("1_6tdb7")
-world = SubResource("Resource_cmk2c")
-puzzle_num = 2
+world = SubResource("Resource_yvn33")
+puzzle_num = 1
 
 [node name="HUD" parent="." instance=ExtResource("3_pcrl2")]
 

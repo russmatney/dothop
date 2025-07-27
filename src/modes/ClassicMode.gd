@@ -3,8 +3,6 @@ class_name ClassicMode
 
 ## vars ###################################################################
 
-@export var puzzle_num: int = 0
-
 var already_complete: bool = false
 
 ## ready #####################################################################
@@ -21,6 +19,8 @@ var ProgressPanelScene: PackedScene = preload("res://src/ui/components/PuzzlePro
 
 func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 	var world := puzzle_node.world
+	var def := puzzle_node.puzzle_def
+	var puzzle_num := def.idx
 
 	Log.info("Puzzle complete!", world.get_display_name(), "-", puzzle_num)
 	Store.complete_puzzle_index(world, puzzle_num)
@@ -54,11 +54,11 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 		var end_of_world: bool = puzzle_num + 1 >= len(world.get_puzzles())
 		if end_of_world:
 			DotHop.notif("All puzzles complete!")
-			await show_world_complete_jumbo(world)
+			await show_world_complete_jumbo(world, puzzle_num)
 			DotHop.nav_to_world_map()
 		else:
 			var next_puzzle_num: int = puzzle_num + 1
-			show_progress_toast(next_puzzle_num, world)
+			show_progress_toast(puzzle_num, next_puzzle_num, world)
 			puzzle_num = next_puzzle_num
 			DotHopPuzzle.rebuild_puzzle({
 				puzzle_node=puzzle_node,
@@ -70,7 +70,7 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 		DotHop.nav_to_credits()
 	elif completed_world:
 		DotHop.notif("Completed puzzle set!")
-		await show_world_complete_jumbo(world)
+		await show_world_complete_jumbo(world, puzzle_num)
 		DotHop.nav_to_world_map()
 	else:
 		var puzzles: Array[PuzzleDef] = world.get_puzzles()
@@ -82,7 +82,7 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 				next_puzzle_num = i
 				break
 
-		show_progress_toast(next_puzzle_num, world)
+		show_progress_toast(puzzle_num, next_puzzle_num, world)
 		puzzle_num = next_puzzle_num
 		DotHopPuzzle.rebuild_puzzle({
 			puzzle_node=puzzle_node,
@@ -91,16 +91,15 @@ func on_puzzle_win(puzzle_node: DotHopPuzzle) -> void:
 
 ## progress toast #####################################################################
 
-func show_progress_toast(next_puzzle_num: int, world: PuzzleWorld) -> void:
+func show_progress_toast(curr_puzzle_num: int, next_puzzle_num: int, world: PuzzleWorld) -> void:
 	var panel: PuzzleProgressPanel = ProgressPanelScene.instantiate()
 	panel.icon_size = 48.0
 	panel.grid_columns = 6
 	panel.disable_resize_animation()
-	var lock_puzz_num: int = puzzle_num
 	panel.ready.connect(func() -> void:
 		panel.render({
 			world=world,
-			start_puzzle_num=lock_puzz_num,
+			start_puzzle_num=curr_puzzle_num,
 			end_puzzle_num=next_puzzle_num
 			}))
 	panel.rendered.connect(func() -> void:
@@ -112,7 +111,7 @@ func show_progress_toast(next_puzzle_num: int, world: PuzzleWorld) -> void:
 
 ## all puzzles jumbo #####################################################################
 
-func show_world_complete_jumbo(world: PuzzleWorld) -> Signal:
+func show_world_complete_jumbo(world: PuzzleWorld, puzzle_num: int) -> Signal:
 	var header: String = "[color=crimson]%s[/color] Complete!" % world.get_display_name()
 	# var body = U.rand_of(["....but how?", "Seriously impressive.", "Wowie zowie!"])
 	var body: String = U.rand_of([

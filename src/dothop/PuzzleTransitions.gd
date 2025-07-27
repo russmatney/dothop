@@ -15,7 +15,9 @@ func on_puzzle_node_ready(puzzle_node: DotHopPuzzle) -> void:
 
 func setup_puzzle_node(puzzle_node: DotHopPuzzle) -> void:
 	puzzle_node.rebuilt_nodes.connect(func() -> void:
-		Anim.puzzle_animate_intro_from_point(puzzle_node))
+		if puzzle_node.is_inside_tree():
+			# have seen a crash here, difficult to reproduce...
+			Anim.puzzle_animate_intro_from_point(puzzle_node))
 
 	# is it possible to await an event instead?
 	puzzle_node.add_pre_remove_hook(animate_exit.bind(puzzle_node))
