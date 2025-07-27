@@ -33,7 +33,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	node.puzzle_num = puzz_num
 	return node
 
-# i need 7 unit tests for this mofo
+# i need 17 unit tests for this mofo
 static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
@@ -51,7 +51,11 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 		if puzz_num == -1:
 			puzz_num = puzzle_node.puzzle_num # or puzz_def.idx?
 		if theme_dt == null:
-			theme_dt = puzzle_node.theme_data
+			if wrld != null:
+				# prefer to get theme data from the passed world
+				theme_dt = wrld.get_theme_data()
+			else:
+				theme_dt = puzzle_node.theme_data
 		if container == null:
 			container = puzzle_node.get_parent()
 
