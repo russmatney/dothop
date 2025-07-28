@@ -34,11 +34,19 @@ class PuzzleNode:
 	signal change_theme(evt: Evt)
 	signal win(evt: Evt)
 
+	# ummmmmmm this thing should not have any state!
+	var current: DotHopPuzzle
+	func get_current() -> DotHopPuzzle:
+		return current
+
 	func fire_puzzle_node_ready(puzzle_node: DotHopPuzzle) -> void:
+		current = puzzle_node
 		ready.emit(Evt.new({puzzle_node=puzzle_node}))
 
 	func fire_puzzle_node_exiting(puzzle_node: DotHopPuzzle) -> void:
 		exiting.emit(Evt.new({puzzle_node=puzzle_node}))
+		# eh?
+		current = null
 
 	# is it possible to await a signal like this?
 	# func fire_puzzle_node_pre_remove_hook(puzzle_node: DotHopPuzzle) -> void:

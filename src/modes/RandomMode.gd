@@ -5,11 +5,17 @@ class_name RandomMode
 
 @export var enabled: bool = true
 
+@onready var new_puzzle_button: Button = $%NewPuzzleButton
+
 ## ready #####################################################################
 
 func _ready() -> void:
 	Events.puzzle_node.win.connect(func(evt: Events.Evt) -> void:
 		build_random_puzzle(evt.puzzle_node))
+
+	if new_puzzle_button:
+		new_puzzle_button.pressed.connect(func() -> void:
+			build_random_puzzle(Events.puzzle_node.get_current()))
 
 ## reset #####################################################################
 
