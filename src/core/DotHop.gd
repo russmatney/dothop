@@ -31,6 +31,9 @@ func is_mobile() -> bool:
 
 ## navigation ##########################################################################
 
+func nav_to_main_menu() -> void:
+	Navi.nav_to(main_menu_path)
+
 func nav_to_world_map() -> void:
 	Navi.nav_to(world_map_menu_path)
 

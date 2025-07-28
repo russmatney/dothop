@@ -13,6 +13,8 @@ extends CanvasLayer
 @onready var next_world_button: Button = $%NextPuzzleSetButton
 @onready var previous_world_button: Button = $%PreviousPuzzleSetButton
 
+@onready var back_to_main_button: Button = $%BackToMain
+
 var current_world: PuzzleWorld
 var current_world_idx: int = 0
 var current_puzzle_index: int = 0
@@ -79,6 +81,8 @@ func _ready() -> void:
 
 	next_world_button.mouse_exited.connect(refocus_puzzles)
 	previous_world_button.mouse_exited.connect(refocus_puzzles)
+
+	back_to_main_button.pressed.connect(DotHop.nav_to_main_menu)
 
 func unfocus_puzzles() -> void:
 	hide_puzzle_cursor()

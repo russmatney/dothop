@@ -28,7 +28,7 @@ color = Color(0.101961, 0.109804, 0.188235, 1)
 unique_name_in_owner = true
 position = Vector2(925, 449)
 scale = Vector2(5, 5)
-current_marker = NodePath("@Marker2D@32945")
+current_marker = NodePath("@Marker2D@23131")
 zoom_scale_min = 5.0
 zoom_scale_max = 10.0
 
@@ -47,10 +47,16 @@ layout_mode = 2
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 
-[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/CenterContainer"]
+[node name="RichTextLabel" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer2/CenterContainer"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme = ExtResource("3_7do1c")
@@ -58,6 +64,17 @@ bbcode_enabled = true
 text = "[center]Puzzles[/center]"
 fit_content = true
 scroll_active = false
+
+[node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(50, 30)
+layout_mode = 2
+
+[node name="BackToMain" type="Button" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_vertical = 4
+theme = ExtResource("11_hm0xn")
+text = "Back To Main"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -89,7 +106,7 @@ custom_minimum_size = Vector2(240, 0)
 layout_mode = 2
 theme = ExtResource("14_vrel8")
 bbcode_enabled = true
-text = "[center]A Spring in your Hop (0/12)"
+text = "[center]A Spring in your Hop (6/12)"
 fit_content = true
 scroll_active = false
 
@@ -152,7 +169,7 @@ custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 focus_mode = 0
 theme = ExtResource("11_hm0xn")
-text = "Start Puzzle 1"
+text = "Start Puzzle 7"
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(30, 0)
