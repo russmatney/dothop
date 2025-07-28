@@ -63,12 +63,7 @@ func setup_puzzle_node(node: DotHopPuzzle) -> void:
 		animate_undo()
 		restart_fade_in_controls_tween())
 	puzzle_node.move_rejected.connect(func() -> void:
-		show_controls(true)
-		DotHop.notif("Move Rejected", {id="move_reaction"}))
-	puzzle_node.move_input_blocked.connect(func() -> void:
-		DotHop.notif("Move Blocked", {id="move_reaction"}))
-	puzzle_node.rebuilt_nodes.connect(func() -> void:
-		DotHop.notif("Puzzle Rebuilt", {id="puzzle_rebuilt"}))
+		show_controls(true))
 
 	puzzle_node.ready.connect(func() -> void:
 		reset_pressed.connect(puzzle_node.reset_pressed)
