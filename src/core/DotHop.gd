@@ -5,7 +5,7 @@ extends Node
 
 var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
 var main_menu_path: String = "res://src/menus/MainMenu.tscn"
-var world_map_menu_path: String = "res://src/menus/worldmap/WorldMapMenu.tscn"
+var world_map_menu_path: String = "res://src/classic/worldmap/WorldMapMenu.tscn"
 var credits_path: String = "res://src/menus/Credits.tscn"
 
 var changelog_url: String = "https://russmatney.github.io/dothop/#/changelog"

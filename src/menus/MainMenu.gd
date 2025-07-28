@@ -14,7 +14,7 @@ extends CanvasLayer
 @onready var puzzle_stats_label: RichTextLabel = $%PuzzleStatsLabel
 @onready var version_label: RichTextLabel = $%VersionLabel
 
-@onready var world_map: PackedScene = preload("res://src/menus/worldmap/WorldMapMenu.tscn")
+@onready var world_map: PackedScene = preload("res://src/classic/worldmap/WorldMapMenu.tscn")
 @onready var options_menu: PackedScene = preload("res://src/menus/OptionsPanel.tscn")
 @onready var puzzle_browser_menu: PackedScene = preload("res://src/menus/editor/PuzzleSetEditor.tscn")
 @onready var credits_menu: PackedScene = preload("res://src/menus/Credits.tscn")

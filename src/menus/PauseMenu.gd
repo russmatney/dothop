@@ -19,7 +19,7 @@ extends CanvasLayer
 
 @onready var all_panels := [controls_panel, theme_panel, sound_panel, puzzle_progress_panel]
 
-@onready var worldmap := preload("res://src/menus/worldmap/WorldMapMenu.tscn")
+@onready var worldmap := preload("res://src/classic/worldmap/WorldMapMenu.tscn")
 
 ## ready ###############################################3
 

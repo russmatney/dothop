@@ -19,16 +19,28 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	var puzz_def: PuzzleDef = opts.get("puzzle_def")
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var wrd: PuzzleWorld = opts.get("world")
+	var theme_dt: PuzzleThemeData = opts.get("theme_data")
+	if theme_dt == null and wrd:
+		theme_dt = wrd.get_theme_data()
 
 	if puzz_def == null or puzz_def.shape == null:
 		Log.error("Couldn't build puzzle node, no puzzle_def passed", opts)
 		return
 
-	var scene: PackedScene = wrd.get_puzzle_scene()
-	var node: DotHopPuzzle = scene.instantiate()
+	var scene: PackedScene
+	if wrd:
+		scene = wrd.get_puzzle_scene()
+	elif theme_dt:
+		scene = theme_dt.puzzle_scene
+
+	var node: DotHopPuzzle
+	if scene:
+		node = scene.instantiate()
+	else:
+		node = DotHopPuzzle.new()
 
 	node.world = wrd
-	node.theme_data = opts.get("theme_data", wrd.get_theme_data())
+	node.theme_data = theme_dt
 	node.puzzle_def = puzz_def
 	node.puzzle_num = puzz_num
 	return node
@@ -175,6 +187,7 @@ func _ready() -> void:
 
 func on_change_theme(theme: PuzzleThemeData) -> void:
 	# TODO consider swapping out theme things without shuffle/full node restart
+	# TODO pass/track the user-set theme somewhere
 	DotHopPuzzle.rebuild_puzzle({puzzle_node=self, theme_data=theme})
 
 ## actions ##############################################################

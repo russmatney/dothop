@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://b24vtxbj2v44h" path="res://src/dothop/GameSounds.gd" id="7_q2cj5"]
 [ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="8_7iue3"]
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_d2yb4"]
-[ext_resource type="Script" uid="uid://ca2yhamyxhkko" path="res://src/modes/ClassicMode.gd" id="10_hw8gj"]
+[ext_resource type="Script" uid="uid://ca2yhamyxhkko" path="res://src/classic/ClassicMode.gd" id="10_hw8gj"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="11_jvqxy"]
 
 [sub_resource type="Resource" id="Resource_yvn33"]

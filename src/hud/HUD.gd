@@ -103,7 +103,7 @@ func setup_puzzle_node(node: DotHopPuzzle) -> void:
 ## update hud #####################################################################
 
 func update_hud() -> void:
-	if puzzle_node:
+	if puzzle_node and puzzle_node.world:
 		var rem: int = len(puzzle_node.world.get_puzzles().filter(func(p: PuzzleDef) -> bool:
 			return not p.is_completed))
 		var data: Dictionary = {
