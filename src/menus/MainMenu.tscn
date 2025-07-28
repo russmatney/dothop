@@ -34,6 +34,7 @@ layout_mode = 2
 size_flags_vertical = 3
 
 [node name="TextureRect" type="TextureRect" parent="PanelContainer/HBoxContainer/CenterContainer"]
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(600, 600)
 layout_mode = 2
 texture = ExtResource("2_1jwlh")
@@ -49,7 +50,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 
 [node name="MarginContainer7" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 30)
+visible = false
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CenterContainer2" type="CenterContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
@@ -82,11 +84,17 @@ layout_mode = 2
 theme = ExtResource("4_mlk80")
 text = "Options"
 
-[node name="PuzzleBrowserButton" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+[node name="PuzzlesButton" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("4_mlk80")
 text = "Puzzles"
+
+[node name="GymButton" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("4_mlk80")
+text = "Gym"
 
 [node name="CreditsButton" type="Button" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer2/HBoxContainer/PanelContainer/VBoxContainer"]
 unique_name_in_owner = true
@@ -106,7 +114,7 @@ custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 
 [node name="MarginContainer8" type="MarginContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 50)
+custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="PanelContainer/HBoxContainer/VBoxContainer"]
@@ -115,13 +123,14 @@ size_flags_vertical = 3
 
 [node name="PuzzleStatsLabel" type="RichTextLabel" parent="PanelContainer/HBoxContainer/VBoxContainer/CenterContainer"]
 unique_name_in_owner = true
+modulate = Color(1, 1, 1, 0)
 custom_minimum_size = Vector2(500, 70)
 layout_mode = 2
 theme = ExtResource("8_nrx06")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
-text = "[center][color=forest_green]10[/color] / [color=dark_slate_blue]77[/color] puzzles complete
-[color=forest_green]110[/color] / [color=dark_slate_blue]1153[/color] dots hopped"
+text = "[center][color=forest_green]23[/color] / [color=dark_slate_blue]77[/color] puzzles complete
+[color=forest_green]251[/color] / [color=dark_slate_blue]1153[/color] dots hopped"
 fit_content = true
 scroll_active = false
 

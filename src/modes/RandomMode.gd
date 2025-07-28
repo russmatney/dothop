@@ -1,5 +1,5 @@
 extends Node
-class_name TreadmillMode
+class_name RandomMode
 
 ## vars #####################################################################
 
@@ -9,16 +9,22 @@ class_name TreadmillMode
 
 func _ready() -> void:
 	Events.puzzle_node.win.connect(func(evt: Events.Evt) -> void:
-		reset_puzzle(evt.puzzle_node))
+		build_random_puzzle(evt.puzzle_node))
 
 ## reset #####################################################################
 
-func reset_puzzle(puzzle_node: DotHopPuzzle) -> void:
+func build_random_puzzle(puzzle_node: DotHopPuzzle) -> void:
 	if enabled:
-		Log.info("Resetting puzzle in Treadmill mode.")
-		DotHopPuzzle.rebuild_puzzle({puzzle_node=puzzle_node})
+		Log.info("Resetting puzzle in Random mode.")
+
+		var puzzle_def := PuzzleStore.get_random_puzzle()
+
+		DotHopPuzzle.rebuild_puzzle({
+			puzzle_node=puzzle_node,
+			puzzle_def=puzzle_def,
+			})
 	else:
-		Log.info("Treadmill is disabled, not resetting puzzle.")
+		Log.info("Random Mode is disabled, not resetting puzzle.")
 
 ## toggle #####################################################################
 

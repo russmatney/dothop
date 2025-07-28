@@ -7,6 +7,7 @@ var pause_menu_path: String = "res://src/menus/PauseMenu.tscn"
 var main_menu_path: String = "res://src/menus/MainMenu.tscn"
 var world_map_menu_path: String = "res://src/classic/worldmap/WorldMapMenu.tscn"
 var credits_path: String = "res://src/menus/Credits.tscn"
+var puzzle_gym_path: String = "res://src/modes/PuzzleGym.tscn"
 
 var changelog_url: String = "https://russmatney.github.io/dothop/#/changelog"
 var playtester_url: String = "https://dangerrussgames.com/#playtester"
@@ -36,6 +37,9 @@ func nav_to_main_menu() -> void:
 
 func nav_to_world_map() -> void:
 	Navi.nav_to(world_map_menu_path)
+
+func nav_to_puzzle_gym() -> void:
+	Navi.nav_to(puzzle_gym_path)
 
 func nav_to_credits() -> void:
 	Navi.nav_to(credits_path)

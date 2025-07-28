@@ -1,0 +1,160 @@
+[gd_scene load_steps=10 format=3 uid="uid://cqrifv67kll20"]
+
+[ext_resource type="Script" uid="uid://chefghbppp32d" path="res://src/ui/components/InputHints.gd" id="1_o2tn8"]
+[ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="1_vxacg"]
+[ext_resource type="Theme" uid="uid://cul4fuxbykddp" path="res://src/ui/BlueButtonTheme.tres" id="2_o2tn8"]
+[ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="3_22tqc"]
+[ext_resource type="PackedScene" uid="uid://dq1rff2gu3q68" path="res://addons/bones/actions/ActionInputIcon.tscn" id="4_b6nc5"]
+[ext_resource type="Texture2D" uid="uid://biuatxkdfw123" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_f.png" id="5_0wmta"]
+[ext_resource type="FontFile" uid="uid://b1c3fty8httvk" path="res://addons/bones/fonts/at01.ttf" id="6_sd2ox"]
+[ext_resource type="Texture2D" uid="uid://o2pra12ik1cg" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_z.png" id="7_4op26"]
+[ext_resource type="Texture2D" uid="uid://cthfejrkt0eh7" path="res://assets/kenney-input-prompts/Keyboard & Mouse/Default/keyboard_r.png" id="8_ewwcb"]
+
+[node name="InputHints" type="HBoxContainer"]
+script = ExtResource("1_o2tn8")
+
+[node name="ActionButtonList" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(140, 0)
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="ActionButtonList"]
+layout_mode = 2
+
+[node name="PauseButton" type="Button" parent="ActionButtonList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+theme = ExtResource("1_vxacg")
+text = "Menu"
+
+[node name="ShuffleButton" type="Button" parent="ActionButtonList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+theme = ExtResource("1_vxacg")
+text = "Shuffle"
+
+[node name="UndoButton" type="Button" parent="ActionButtonList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+focus_mode = 1
+theme = ExtResource("2_o2tn8")
+text = "Undo"
+
+[node name="ResetButton" type="Button" parent="ActionButtonList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+theme = ExtResource("3_22tqc")
+text = "Reset"
+
+[node name="MarginContainer" type="MarginContainer" parent="ActionButtonList"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2
+
+[node name="KeyInputHints" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="KeyInputHints"]
+visible = false
+layout_mode = 2
+
+[node name="ShuffleControlHint" type="HBoxContainer" parent="KeyInputHints"]
+layout_mode = 2
+
+[node name="ShuffleInputIcon" parent="KeyInputHints/ShuffleControlHint" instance=ExtResource("4_b6nc5")]
+unique_name_in_owner = true
+visible = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_0wmta")
+input_text = "F"
+
+[node name="CenterContainer" type="CenterContainer" parent="KeyInputHints/ShuffleControlHint"]
+layout_mode = 2
+
+[node name="ShuffleLabel" type="RichTextLabel" parent="KeyInputHints/ShuffleControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("6_sd2ox")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Shuffle"
+fit_content = true
+scroll_active = false
+
+[node name="UndoControlHint" type="HBoxContainer" parent="KeyInputHints"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="UndoInputIcon" parent="KeyInputHints/UndoControlHint" instance=ExtResource("4_b6nc5")]
+unique_name_in_owner = true
+visible = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("7_4op26")
+input_text = "Z"
+
+[node name="CenterContainer" type="CenterContainer" parent="KeyInputHints/UndoControlHint"]
+layout_mode = 2
+
+[node name="UndoLabel" type="RichTextLabel" parent="KeyInputHints/UndoControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("6_sd2ox")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Undo"
+fit_content = true
+scroll_active = false
+
+[node name="ResetControlHint" type="HBoxContainer" parent="KeyInputHints"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="ResetInputIcon" parent="KeyInputHints/ResetControlHint" instance=ExtResource("4_b6nc5")]
+unique_name_in_owner = true
+visible = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+texture = ExtResource("8_ewwcb")
+input_text = "R"
+
+[node name="CenterContainer" type="CenterContainer" parent="KeyInputHints/ResetControlHint"]
+layout_mode = 2
+
+[node name="ResetLabel" type="RichTextLabel" parent="KeyInputHints/ResetControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("6_sd2ox")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Reset"
+fit_content = true
+scroll_active = false
+
+[node name="MarginContainer" type="MarginContainer" parent="KeyInputHints"]
+custom_minimum_size = Vector2(0, 20)
+layout_mode = 2

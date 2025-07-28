@@ -3,7 +3,8 @@ extends CanvasLayer
 
 @onready var start_button: Button = $%StartButton
 @onready var options_button: Button = $%OptionsButton
-@onready var puzzle_browser_button: Button = $%PuzzleBrowserButton
+@onready var puzzles_button: Button = $%PuzzlesButton
+@onready var gym_button: Button = $%GymButton
 @onready var credits_button: Button = $%CreditsButton
 
 @onready var changelog_button: Button = $%ChangelogButton
@@ -16,7 +17,7 @@ extends CanvasLayer
 
 @onready var world_map: PackedScene = preload("res://src/classic/worldmap/WorldMapMenu.tscn")
 @onready var options_menu: PackedScene = preload("res://src/menus/OptionsPanel.tscn")
-@onready var puzzle_browser_menu: PackedScene = preload("res://src/menus/editor/PuzzleSetEditor.tscn")
+@onready var puzzles_menu: PackedScene = preload("res://src/menus/editor/PuzzleSetEditor.tscn")
 @onready var credits_menu: PackedScene = preload("res://src/menus/Credits.tscn")
 
 func _ready() -> void:
@@ -29,7 +30,8 @@ func _ready() -> void:
 
 	start_button.pressed.connect(func() -> void: Navi.nav_to(world_map))
 	options_button.pressed.connect(func() -> void: Navi.nav_to(options_menu))
-	puzzle_browser_button.pressed.connect(func() -> void: Navi.nav_to(puzzle_browser_menu))
+	puzzles_button.pressed.connect(func() -> void: Navi.nav_to(puzzles_menu))
+	gym_button.pressed.connect(func() -> void: DotHop.nav_to_puzzle_gym())
 	credits_button.pressed.connect(func() -> void: DotHop.nav_to_credits())
 	changelog_button.pressed.connect(func() -> void: DotHop.open_changelog_url())
 	playtester_button.pressed.connect(func() -> void: DotHop.open_playtester_url())

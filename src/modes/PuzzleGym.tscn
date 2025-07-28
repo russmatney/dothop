@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgf1a3l0al54x"]
+[gd_scene load_steps=16 format=3 uid="uid://cgf1a3l0al54x"]
 
 [ext_resource type="Script" uid="uid://c2y1rc7klafdr" path="res://src/modes/PuzzleGym.gd" id="1_bixs5"]
 [ext_resource type="Resource" uid="uid://p14qpyi7ofxg" path="res://src/puzzles/dothop-fall.puzz" id="2_fsopy"]
@@ -11,6 +11,9 @@
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_h63e6"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="10_3vi1e"]
 [ext_resource type="Script" uid="uid://ctadfanugtrbv" path="res://src/modes/TreadmillMode.gd" id="11_bkt3y"]
+[ext_resource type="Script" uid="uid://c8a6pcr2i2s06" path="res://src/modes/RandomMode.gd" id="12_uigyt"]
+[ext_resource type="PackedScene" uid="uid://cqrifv67kll20" path="res://src/ui/components/InputHints.tscn" id="13_gev17"]
+[ext_resource type="Theme" uid="uid://crneit8sf87tj" path="res://src/ui/DotHopTheme.tres" id="13_xhuo2"]
 
 [sub_resource type="Resource" id="Resource_p54j6"]
 script = ExtResource("3_epfhh")
@@ -29,6 +32,7 @@ puzzle_set_data = ExtResource("2_fsopy")
 puzzle_def = SubResource("Resource_p54j6")
 
 [node name="HUD" parent="." instance=ExtResource("4_gepo5")]
+visible = false
 
 [node name="Camera2D" type="Camera2D" parent="."]
 editor_draw_limits = true
@@ -56,4 +60,27 @@ script = ExtResource("10_3vi1e")
 
 [node name="TreadmillMode" type="Node" parent="."]
 script = ExtResource("11_bkt3y")
+enabled = false
 metadata/_custom_type_script = "uid://ctadfanugtrbv"
+
+[node name="RandomMode" type="Node" parent="."]
+script = ExtResource("12_uigyt")
+
+[node name="UI" type="CanvasLayer" parent="."]
+layer = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_xhuo2")
+theme_type_variation = &"ClearPanel"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="InputHints" parent="UI/PanelContainer/VBoxContainer" instance=ExtResource("13_gev17")]
+layout_mode = 2

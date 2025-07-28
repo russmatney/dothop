@@ -22,3 +22,6 @@ func _ready() -> void:
 
 func get_puzzles() -> Array[PuzzleDef]:
 	return puzzles
+
+func get_random_puzzle() -> PuzzleDef:
+	return U.rand_of(puzzles)
