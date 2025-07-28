@@ -21,7 +21,7 @@ func to_pretty() -> Variant:
 func setup() -> void:
 	if len(puzzle_defs) > 0:
 		# TODO remove (probably this whole func will go, but for now this helps us trace that)
-		Log.info("Skipping PuzzleSetData setup, already have puzzle_defs", self)
+		# Log.info("Skipping PuzzleSetData setup, already have puzzle_defs", self)
 		return
 	if parsed_game == null:
 		Log.error("parsed_game is null! Has this .puzz been imported?", source_file)
@@ -31,7 +31,7 @@ func setup() -> void:
 	puzzle_defs.assign(parsed_game.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
 		return PuzzleDef.new(puzzle)))
 
-	Log.info("Set up PuzzleSetData", self)
+	# Log.info("Set up PuzzleSetData", self)
 
 ## create ##################################################################
 

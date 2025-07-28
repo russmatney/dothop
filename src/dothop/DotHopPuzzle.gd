@@ -52,7 +52,7 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 	var container: Node = opts.get("container", puzzle_node.get_parent() if puzzle_node else null)
 	var wrld: PuzzleWorld = opts.get("world")
 	var theme_dt: PuzzleThemeData = opts.get("theme_data")
-	var puzz_def: PuzzleDef = opts.get("puzzle_def", wrld.get_puzzles()[puzz_num] if wrld else null)
+	var puzz_def: PuzzleDef = opts.get("puzzle_def")
 
 	if container == null and puzzle_node == null:
 		Log.warn("Invalid opts passed to rebuild_puzzle, requires either container or an existing puzzle_node", opts)
@@ -89,6 +89,8 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 			theme_dt = wrld.get_theme_data()
 	if puzz_def == null and wrld != null and puzz_num != -1:
 		puzz_def = wrld.get_puzzles()[puzz_num]
+	if puzz_def == null and puzzle_node:
+		puzz_def = puzzle_node.puzzle_def
 
 	U.ensure_default(opts, "world", wrld)
 	U.ensure_default(opts, "puzzle_def", puzz_def)
@@ -415,8 +417,9 @@ func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -
 	# we might want to track out-standing moves here, rather than just checking on one
 	p_node.move_finished.connect(func() -> void:
 		inflight_player_moves -= 1
-		if inflight_player_moves == 0:
-			player_move_finished())
+		if inflight_player_moves <= 0:
+			# defer b/c move_finished is emitted before state.win is set?!
+			player_move_finished.call_deferred())
 
 ## obj -> node setup helpers
 ## implies world/theme integration

@@ -184,7 +184,6 @@ func fade_controls() -> void:
 
 var show_controls_tween: Tween
 func show_controls(force: bool = false) -> void:
-	Log.pr("showing controls (force: ", force, ")")
 	if show_controls_tween != null and show_controls_tween.is_running():
 		show_controls_tween.kill()
 		if not force:

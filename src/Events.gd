@@ -48,4 +48,5 @@ class PuzzleNode:
 		change_theme.emit(Evt.new({theme_data=theme}))
 
 	func fire_win(puzzle_node: DotHopPuzzle) -> void:
+		Log.info("[Event] PuzzleNode win!")
 		win.emit(Evt.new({puzzle_node=puzzle_node}))

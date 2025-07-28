@@ -16,7 +16,7 @@ func _ready() -> void:
 	for psd in puzzle_sets:
 		puzzles.append_array(psd.puzzle_defs)
 
-	Log.info({puzzle_store_ready=self})
+	# Log.info({puzzle_store_ready=self})
 
 ## get_puzzles #############################
 

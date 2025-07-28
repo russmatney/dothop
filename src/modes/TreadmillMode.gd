@@ -5,4 +5,7 @@ class_name TreadmillMode
 
 func _ready() -> void:
 	Events.puzzle_node.win.connect(func(evt: Events.Evt) -> void:
-		DotHopPuzzle.rebuild_puzzle({puzzle_node=evt.puzzle_node}))
+		Log.info("Treadmill detected a win! rebooting....")
+		DotHopPuzzle.rebuild_puzzle({
+			puzzle_node=evt.puzzle_node,
+			}))

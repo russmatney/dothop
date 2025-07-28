@@ -18,7 +18,6 @@ var displayed_actions := [
 ## ready ###############################################3
 
 func _ready() -> void:
-	Log.info("is_mobile", DotHop.is_mobile())
 	if DotHop.is_mobile():
 		mobile_controls_message.show()
 		scroll_container.hide()
