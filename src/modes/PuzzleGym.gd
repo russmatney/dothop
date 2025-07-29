@@ -18,19 +18,41 @@ enum Mode {Treadmill, Random}
 @onready var treadmill_mode: TreadmillMode = $%TreadmillMode
 @onready var random_mode: RandomMode = $%RandomMode
 
+@onready var new_puzzle_button: Button = $%NewPuzzleButton
+
+@onready var puzzle_def_label: RichTextLabel = $%PuzzleDefLabel
+@onready var puzzle_def_difficulty: RichTextLabel = $%PuzzleDefDifficulty
+
 ## ready #####################################################################
 
 func _ready() -> void:
 	Events.puzzle_node.ready.connect(func(evt: Events.Evt) -> void:
-		puzzle_node = evt.puzzle_node)
+		puzzle_node = evt.puzzle_node
+		puzzle_def = puzzle_node.puzzle_def
+
+		puzzle_def_label.text = "[center]%s" % puzzle_def.get_label()
+		if puzzle_def.idx <= 4:
+			puzzle_def_difficulty.text = "[center]easy"
+		elif puzzle_def.idx <= 8:
+			puzzle_def_difficulty.text = "[center]med"
+		else:
+			puzzle_def_difficulty.text = "[center]hard"
+		)
 
 	if puzzle_def == null:
-		puzzle_def = PuzzleStore.get_puzzles()[0]
+		puzzle_def = PuzzleStore.get_random_puzzle()
 
 	DotHopPuzzle.rebuild_puzzle({container=self, puzzle_def=puzzle_def, theme_data=theme_data})
 
 	treadmill_mode_button.pressed.connect(enable_treadmill_mode)
 	random_mode_button.pressed.connect(enable_random_mode)
+
+	new_puzzle_button.pressed.connect(func() -> void:
+		puzzle_def = PuzzleStore.get_random_puzzle()
+		DotHopPuzzle.rebuild_puzzle({
+			puzzle_node=puzzle_node,
+			puzzle_def=puzzle_def,
+			}))
 
 	# force an initial mode
 	enable_random_mode()

@@ -12,6 +12,7 @@ static func parse(lines: Array) -> PuzzleDef:
 @export var width: int
 @export var height: int
 @export var idx: int
+@export var world_short_name: String
 @export var meta: Dictionary
 @export var message: String
 
@@ -44,8 +45,13 @@ func _init(raw: Dictionary={}) -> void:
 		message = raw.message
 	if "idx" in raw:
 		idx = raw.idx
+	if "short_name" in meta:
+		world_short_name = meta.short_name
 
 ## get_id ################################################
+
+func get_label() -> String:
+	return "%s-%s" % [world_short_name, idx]
 
 func get_id() -> String:
 	if meta and "id" in meta:
