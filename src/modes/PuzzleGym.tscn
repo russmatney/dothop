@@ -1,7 +1,6 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgf1a3l0al54x"]
+[gd_scene load_steps=13 format=3 uid="uid://cgf1a3l0al54x"]
 
 [ext_resource type="Script" uid="uid://c2y1rc7klafdr" path="res://src/modes/PuzzleGym.gd" id="1_bixs5"]
-[ext_resource type="Script" uid="uid://cpnc0r6nsfa0t" path="res://src/dothop/PuzzleDef.gd" id="3_epfhh"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_bkt3y"]
 [ext_resource type="PackedScene" uid="uid://drnyldnb38rvg" path="res://src/core/DHPhantomCam.tscn" id="6_uigyt"]
 [ext_resource type="Script" uid="uid://b24vtxbj2v44h" path="res://src/dothop/GameSounds.gd" id="7_gev17"]
@@ -14,22 +13,8 @@
 [ext_resource type="Theme" uid="uid://crneit8sf87tj" path="res://src/ui/DotHopTheme.tres" id="13_xhuo2"]
 [ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="14_xhuo2"]
 
-[sub_resource type="Resource" id="Resource_gev17"]
-script = ExtResource("3_epfhh")
-shape = [[null, "o", null, "o", "o", null, null], ["o", "o", "o", "o", "o", "o", null], [null, null, "o", "t", "o", null, null], ["o", null, null, "o", "o", null, "o"], [null, "o", null, "o", "x", "o", null], ["o", "o", null, null, "o", null, "o"], [null, "o", null, "o", null, "o", "o"]]
-width = 7
-height = 7
-idx = 4
-world_short_name = "EXTRA"
-meta = {
-"message": "\"Extremely difficult puzzle!!\"",
-"stat_line": "\"27 dots | 1/45978 wins/paths | 14 choices  | 16 turns\""
-}
-message = ""
-
 [node name="PuzzleGym" type="Node"]
 script = ExtResource("1_bixs5")
-puzzle_def = SubResource("Resource_gev17")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 editor_draw_limits = true

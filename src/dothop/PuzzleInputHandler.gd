@@ -30,7 +30,7 @@ func enable() -> void:
 ## input ##############################################################
 
 var just_logged_blocked_input: bool = false
-func _unhandled_input(event: InputEvent) -> void:
+func _input(event: InputEvent) -> void:
 	if not enabled or puzzle_node == null:
 		return
 
