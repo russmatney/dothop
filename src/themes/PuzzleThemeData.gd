@@ -14,6 +14,8 @@ class_name PuzzleThemeData
 @export var dotted_icon: Texture2D
 @export var goal_icon: Texture2D
 
+@export var square_size: int = 32
+
 # TODO assign AudioStreams directly?
 @export var music_tracks: Array[String]
 

@@ -108,9 +108,6 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 
 ## vars ##############################################################
 
-# square size feels like it's part of the theme (dots/player/goals)?
-@export var square_size: int = 32
-
 var world: PuzzleWorld
 var puzzle_def: PuzzleDef
 var puzzle_num: int # can this live on PuzzleDef? should it? it's a puzzle-set thing?
@@ -368,9 +365,11 @@ func rebuild_nodes() -> void:
 	for cell: PuzzleState.Cell in state.all_cells():
 		for obj: DHData.Obj in cell.objs:
 			if obj in [DHData.Obj.Dot, DHData.Obj.Goal, DHData.Obj.Dotted]:
-				# TODO setup_dot_at_coord
-				var dot: DotHopDot = setup_node_at_coord(obj, cell.coord)
-				connect_dot_signals(dot, cell, obj)
+				var dot := DotHopDot.setup_dot(obj, cell, state.players, theme_data)
+				# connect dot interaction inputs
+				dot.add_to_group("generated", true)
+				dot.dot_pressed.connect(dot_pressed.bind(dot))
+				dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
 				add_child(dot)
 			else:
 				if not obj in [DHData.Obj.Player, DHData.Obj.Undo]:
@@ -387,19 +386,6 @@ func rebuild_nodes() -> void:
 	# trigger HUD, camera, etc updates
 	rebuilt_nodes.emit()
 
-## state connection helpers
-# i suspect alot of this setup/connect can move to a Dot.gd node _ready() impl
-# but it implies at least assigning a 'cell'/'obj'/'p_state' to the node before ready can run
-
-func connect_dot_signals(dot: DotHopDot, cell: PuzzleState.Cell, _obj: DHData.Obj) -> void:
-	dot.dot_pressed.connect(dot_pressed.bind(dot))
-	dot.mouse_dragged.connect(on_dot_mouse_dragged.bind(dot))
-
-	cell.mark_dotted.connect(func() -> void: dot.mark_dotted())
-	cell.mark_undotted.connect(func() -> void: dot.mark_undotted())
-	cell.show_possible_next_move.connect(func() -> void: dot.show_possible_next_move())
-	cell.show_possible_undo.connect(func() -> void: dot.show_possible_undo())
-	cell.remove_possible_next_move.connect(func() -> void: dot.remove_possible_next_move())
 
 var inflight_player_moves := 0
 func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -> void:
@@ -425,13 +411,12 @@ func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -
 func setup_node_at_coord(obj_type: DHData.Obj, coord: Vector2) -> Node:
 	var node: Node2D = node_for_object_name(obj_type)
 	node.add_to_group("generated", true)
-	if node is DotHopDot:
-		var dot: DotHopDot = node
-		dot.square_size = square_size
-		dot.set_initial_coord(coord)
-	elif node is DotHopPlayer:
+	if node is DotHopPlayer:
 		var p: DotHopPlayer = node
-		p.square_size = square_size
+		if theme_data:
+			p.square_size = theme_data.square_size
+		else:
+			p.square_size = 32
 		p.set_initial_coord(coord)
 	return node
 
@@ -441,10 +426,6 @@ func node_for_object_name(obj_type: DHData.Obj) -> Node2D:
 		Log.err("No scene found for object name", obj_type)
 		return
 	var node: Node2D = scene.instantiate()
-	if node is DotHopDot:
-		var dot: DotHopDot = node
-		dot.display_name = DHData.Legend.reverse_obj_map[obj_type]
-		dot.type = to_dot_type.get(obj_type)
 	if node is DotHopPlayer:
 		var p: DotHopPlayer = node
 		p.display_name = DHData.Legend.reverse_obj_map[obj_type]

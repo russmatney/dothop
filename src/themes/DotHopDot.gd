@@ -2,6 +2,33 @@
 extends Node2D
 class_name DotHopDot
 
+## static
+
+static func get_scene_for(obj_name: DHData.Obj, theme_data: PuzzleThemeData) -> PackedScene:
+	match obj_name:
+		DHData.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
+		DHData.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
+		DHData.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
+		DHData.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
+		_: return
+
+static func setup_dot(obj: DHData.Obj, cel: PuzzleState.Cell, ps: Array[PuzzleState.Player], theme_data: PuzzleThemeData) -> DotHopDot:
+	var scene: PackedScene = get_scene_for(obj, theme_data)
+	var dot: DotHopDot = scene.instantiate()
+	dot.cell = cel
+	dot.players = ps
+
+	dot.type = DHData.obj_to_dot_type.get(obj)
+	dot.display_name = DHData.Legend.reverse_obj_map[obj]
+	if theme_data:
+		dot.square_size = theme_data.square_size
+	else:
+		dot.square_size = 32
+	dot.set_initial_coord(dot.cell.coord)
+
+	return dot
+
+
 ## vars #########################################################
 
 @export var type: DHData.dotType
@@ -21,6 +48,9 @@ var color_rect: ColorRect
 var area: Area2D
 var current_coord: Vector2
 
+var cell: PuzzleState.Cell
+var players: Array[PuzzleState.Player]
+
 var anim: AnimatedSprite2D
 
 signal dot_pressed
@@ -38,6 +68,15 @@ func _enter_tree() -> void:
 	add_to_group("dot", true)
 
 func _ready() -> void:
+	if cell != null:
+		cell.mark_dotted.connect(func() -> void: mark_dotted())
+		cell.mark_undotted.connect(func() -> void: mark_undotted())
+		cell.show_possible_next_move.connect(func() -> void: show_possible_next_move())
+		cell.show_possible_undo.connect(func() -> void: show_possible_undo())
+		cell.remove_possible_next_move.connect(func() -> void: remove_possible_next_move())
+	else:
+		Log.warn("Dot ready without assigned PuzzleState.Cell!")
+
 	U.set_optional_nodes(self, {
 		label="ObjectLabel", color_rect="ColorRect",
 		area="Area2D",

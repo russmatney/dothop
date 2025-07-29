@@ -15,6 +15,13 @@ enum Obj {
 	Undo=4,
 	}
 
+static var obj_to_dot_type: Dictionary = {
+	DHData.Obj.Dot: DHData.dotType.Dot,
+	DHData.Obj.Dotted: DHData.dotType.Dotted,
+	DHData.Obj.Goal: DHData.dotType.Goal,
+	}
+
+
 static var puzzle_group: StringName = "dothop_puzzle"
 static var reset_hold_t: float = 0.4
 
