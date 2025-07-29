@@ -21,11 +21,7 @@ static func setup_player(p_state: PuzzleState.Player, theme_data: PuzzleThemeDat
 
 ## vars #########################################################
 
-@export var square_size: int = 32 :
-	set(v):
-		square_size = v
-		render()
-
+var square_size: int = 32
 var display_name: String = "Player"
 
 var label : RichTextLabel
@@ -48,6 +44,14 @@ func _enter_tree() -> void:
 ## ready #########################################################
 
 func _ready() -> void:
+	if state != null:
+		state.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void: move_to_coord(cell.coord))
+		state.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: undo_to_coord(cell.coord))
+		state.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: undo_to_same_coord())
+		state.move_attempt_stuck.connect(func(dir: Vector2) -> void: move_attempt_stuck(dir))
+	else:
+		Log.warn("Player ready without assigned PuzzleState.Player!")
+
 	U.set_optional_nodes(self, {label="ObjectLabel", color_rect="ColorRect"})
 	render()
 

@@ -6,7 +6,6 @@ class_name DotHopDot
 
 static func get_scene_for(obj_name: DHData.Obj, theme_data: PuzzleThemeData) -> PackedScene:
 	match obj_name:
-		DHData.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
 		DHData.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
 		DHData.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
 		DHData.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
@@ -69,7 +68,9 @@ func _enter_tree() -> void:
 
 func _ready() -> void:
 	if cell != null:
-		cell.mark_dotted.connect(func() -> void: mark_dotted())
+		cell.mark_dotted.connect(func() -> void:
+			# TODO wait for player-move-finished?
+			mark_dotted())
 		cell.mark_undotted.connect(func() -> void: mark_undotted())
 		cell.show_possible_next_move.connect(func() -> void: show_possible_next_move())
 		cell.show_possible_undo.connect(func() -> void: show_possible_undo())

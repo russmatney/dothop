@@ -387,16 +387,11 @@ func rebuild_nodes() -> void:
 	# trigger HUD, camera, etc updates
 	rebuilt_nodes.emit()
 
-
 var inflight_player_moves := 0
 func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -> void:
 	# setup state player signals
-	p_state.move_to_cell.connect(func(cell: PuzzleState.Cell) -> void:
-		inflight_player_moves += 1
-		p_node.move_to_coord(cell.coord))
-	p_state.undo_to_cell.connect(func(cell: PuzzleState.Cell) -> void: p_node.undo_to_coord(cell.coord))
-	p_state.undo_to_same_cell.connect(func(_cell: PuzzleState.Cell) -> void: p_node.undo_to_same_coord())
-	p_state.move_attempt_stuck.connect(func(dir: Vector2) -> void: p_node.move_attempt_stuck(dir))
+	p_state.move_to_cell.connect(func(_cell: PuzzleState.Cell) -> void:
+		inflight_player_moves += 1)
 
 	# connect to move finished signal
 	# we might want to track out-standing moves here, rather than just checking on one
