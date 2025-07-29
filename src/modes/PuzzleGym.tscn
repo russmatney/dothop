@@ -17,7 +17,7 @@
 
 [sub_resource type="Resource" id="Resource_p54j6"]
 script = ExtResource("3_epfhh")
-shape = [["o", "o", null], ["o", "x", "t"]]
+shape = [["o", "x", "t"], ["o", "o", null]]
 width = 3
 height = 2
 idx = 0
@@ -56,12 +56,42 @@ metadata/_custom_type_script = "uid://cod5r6xsw0v7r"
 script = ExtResource("10_3vi1e")
 
 [node name="TreadmillMode" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("11_bkt3y")
 enabled = false
 metadata/_custom_type_script = "uid://ctadfanugtrbv"
 
 [node name="RandomMode" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("12_uigyt")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="RandomMode"]
+layer = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="RandomMode/CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("13_xhuo2")
+theme_type_variation = &"ClearPanel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="RandomMode/CanvasLayer/PanelContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="RandomMode/CanvasLayer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="RandomMode/CanvasLayer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="NewPuzzleButton" type="Button" parent="RandomMode/CanvasLayer/PanelContainer2/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("14_xhuo2")
+text = "New Puzzle"
 
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 5
@@ -80,21 +110,29 @@ layout_mode = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
 layout_mode = 2
-alignment = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TreadmillModeButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("14_xhuo2")
+text = "Treadmill Mode"
+
+[node name="RandomModeButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme = ExtResource("14_xhuo2")
+text = "Random Mode"
+
+[node name="MarginContainer2" type="MarginContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="InputHints" parent="UI/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("13_gev17")]
 layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/PanelContainer/HBoxContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="NewPuzzleButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer2"]
-unique_name_in_owner = true
-layout_mode = 2
-theme = ExtResource("14_xhuo2")
-text = "New Puzzle"

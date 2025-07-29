@@ -35,8 +35,21 @@ func build_random_puzzle(puzzle_node: DotHopPuzzle) -> void:
 ## toggle #####################################################################
 
 func enable() -> void:
-	# TODO reset any 'win' puzzle nodes
 	enabled = true
+	enable_children()
+	Log.info("RandomMode enabled.")
 
 func disable() -> void:
 	enabled = false
+	disable_children()
+	Log.info("RandomMode disabled.")
+
+func enable_children() -> void:
+	for ch: Node in get_children():
+		if ch is CanvasLayer:
+			(ch as CanvasLayer).set_visible(true)
+
+func disable_children() -> void:
+	for ch: Node in get_children():
+		if ch is CanvasLayer:
+			(ch as CanvasLayer).set_visible(false)

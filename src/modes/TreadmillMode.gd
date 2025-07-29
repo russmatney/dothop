@@ -23,8 +23,9 @@ func reset_puzzle(puzzle_node: DotHopPuzzle) -> void:
 ## toggle #####################################################################
 
 func enable() -> void:
-	# TODO reset any 'win' puzzle nodes
 	enabled = true
+	Log.info("Treadmill enabled.")
 
 func disable() -> void:
 	enabled = false
+	Log.info("Treadmill disabled.")
