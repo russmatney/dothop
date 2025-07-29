@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dqgb3xge06vam"]
 
-[ext_resource type="Script" uid="uid://c4lkx5ii4qm4r" path="res://src/themes/winter/Dot.gd" id="1_jnnoi"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_r0kfr"]
 [ext_resource type="Texture2D" uid="uid://c57yeq8gp33wl" path="res://src/themes/winter/snowman.png" id="2_xjbb3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ernca"]
@@ -58,10 +58,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="Dot" type="Node2D"]
+[node name="Dot" type="Node2D" groups=["dot"]]
 z_index = 1
 y_sort_enabled = true
-script = ExtResource("1_jnnoi")
+script = ExtResource("1_r0kfr")
+metadata/_custom_type_script = "uid://bv7s5be3wb0kr"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
@@ -79,4 +80,14 @@ metadata/_aseprite_wizard_config_ = {
 "only_visible": false,
 "op_exp": false,
 "source": "res://src/themes/winter/assets/snowman.aseprite"
+}
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"embed_tex": false,
+"layers": [],
+"scale": "1.0",
+"should_round_fps": true,
+"slice": "",
+"source_uid": 777594367651452174
+}
 }

@@ -189,9 +189,12 @@ func _ready() -> void:
 		on_change_theme(evt.theme_data), CONNECT_ONE_SHOT)
 
 func on_change_theme(theme: PuzzleThemeData) -> void:
-	# TODO consider swapping out theme things without shuffle/full node restart
-	# TODO pass/track the user-set theme somewhere
+	# full node recreation?
 	DotHopPuzzle.rebuild_puzzle({puzzle_node=self, theme_data=theme})
+
+	# or swap in-place? Doesn't work yet! Nearly tho.
+	# theme_data = theme
+	# rebuild_nodes()
 
 ## actions ##############################################################
 
@@ -373,6 +376,7 @@ func rebuild_nodes() -> void:
 	for cell: PuzzleState.Cell in state.all_cells():
 		for obj: DHData.Obj in cell.objs:
 			if obj in [DHData.Obj.Dot, DHData.Obj.Goal, DHData.Obj.Dotted]:
+				# TODO setup_dot_at_coord
 				var dot: DotHopDot = setup_node_at_coord(obj, cell.coord)
 				connect_dot_signals(dot, cell, obj)
 				add_child(dot)
@@ -382,6 +386,7 @@ func rebuild_nodes() -> void:
 
 	player_nodes = []
 	for p: PuzzleState.Player in state.players:
+		# TODO setup_player_at_coord
 		var p_node: DotHopPlayer = setup_node_at_coord(DHData.Obj.Player, p.coord)
 		connect_player_signals(p_node, p)
 		add_child(p_node) # add players after dots for z-indexing

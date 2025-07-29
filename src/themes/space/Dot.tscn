@@ -249,14 +249,14 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="Dot" type="Node2D"]
+[node name="Dot" type="Node2D" groups=["dot"]]
 script = ExtResource("1_bmb34")
 
 [node name="Asteroid1" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_rpbni")
 animation = &"dot"
-frame_progress = 0.880811
+frame_progress = 0.0391159
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",

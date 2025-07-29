@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=3 uid="uid://tr7u31n263mg"]
 
-[ext_resource type="Script" uid="uid://bw6svooi8iapj" path="res://src/themes/pumpkins/PumpkinDot.gd" id="1_lqdj3"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_7ibl4"]
 [ext_resource type="Texture2D" uid="uid://dlp2c8r3rkg73" path="res://src/themes/pumpkins/pumpkin.png" id="2_mwdep"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_umglb"]
@@ -30,13 +30,16 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="PumpkinDot" type="Node2D"]
-script = ExtResource("1_lqdj3")
+[node name="PumpkinDot" type="Node2D" groups=["dot"]]
+z_index = 1
+position = Vector2(-0.241342, 1.43202)
+script = ExtResource("1_7ibl4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_n8cnn")
 animation = &"dot"
+frame_progress = 0.72075
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
@@ -47,3 +50,12 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://src/themes/pumpkins/assets/pumpkin.aseprite"
 }
 metadata/_aseprite_wizard_source_file_hash_ = "e6ca95123638d95d556972f19c65eb07"
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"embed_tex": false,
+"layers": [],
+"scale": "1.0",
+"should_round_fps": true,
+"source_uid": 7086695427528949575
+}
+}

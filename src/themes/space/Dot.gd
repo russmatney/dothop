@@ -1,5 +1,5 @@
 @tool
-extends DotsDot
+extends DotHopDot
 
 @onready var asteroid1: Node2D = $Asteroid1
 @onready var asteroid2: Node2D = $Asteroid2

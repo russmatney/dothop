@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://m8pypw3n8v1d"]
 
-[ext_resource type="Script" uid="uid://cw1j0ye1xsp8p" path="res://src/themes/spring/Goal.gd" id="1_wbkvj"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_j48ma"]
 [ext_resource type="Texture2D" uid="uid://cl13dx20d40gr" path="res://src/themes/spring/goal.png" id="2_f4hur"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3n84u"]
@@ -20,8 +20,7 @@ animations = [{
 
 [node name="Goal" type="Node2D" groups=["dot"]]
 position = Vector2(2.47252, -0.260228)
-script = ExtResource("1_wbkvj")
-type = 2
+script = ExtResource("1_j48ma")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

@@ -1,5 +1,5 @@
 @tool
-extends DotsDot
+extends DotHopDot
 
 ## vars ###########################################################
 

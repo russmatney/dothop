@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctnxrvyjmg6a"]
 
-[ext_resource type="Script" uid="uid://bxcrqxb6i02s" path="res://src/themes/summer/Dot.gd" id="1_uf5y2"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_uf5y2"]
 [ext_resource type="Texture2D" uid="uid://bejpom40io2dg" path="res://src/themes/summer/dot.png" id="2_tffho"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_86o2j"]
@@ -44,7 +44,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="SummerDot" type="Node2D"]
+[node name="SummerDot" type="Node2D" groups=["dot"]]
+z_index = 1
+position = Vector2(-0.043389, 0.591109)
 script = ExtResource("1_uf5y2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -52,6 +54,7 @@ texture_filter = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_moa1i")
 animation = &"dot"
+frame_progress = 0.272349
 metadata/_aseprite_wizard_config_ = {
 "layer": "",
 "o_ex_p": "",
