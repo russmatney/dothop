@@ -2,6 +2,23 @@
 extends Node2D
 class_name DotHopPlayer
 
+## static
+
+static func setup_player(p_state: PuzzleState.Player, theme_data: PuzzleThemeData) -> DotHopPlayer:
+	var scene: PackedScene = PuzzleThemeData.get_player_scene(theme_data)
+	var play: DotHopPlayer = scene.instantiate()
+	play.state = p_state
+
+	play.display_name = DHData.Legend.reverse_obj_map[DHData.Obj.Player]
+
+	if theme_data:
+		play.square_size = theme_data.square_size
+	else:
+		play.square_size = 32
+	play.set_initial_coord(play.state.coord)
+
+	return play
+
 ## vars #########################################################
 
 @export var square_size: int = 32 :
@@ -14,6 +31,7 @@ var display_name: String = "Player"
 var label : RichTextLabel
 var color_rect : ColorRect
 var current_coord: Vector2
+var state: PuzzleState.Player
 
 signal move_finished
 

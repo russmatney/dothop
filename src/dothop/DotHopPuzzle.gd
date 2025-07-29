@@ -378,7 +378,8 @@ func rebuild_nodes() -> void:
 	player_nodes = []
 	for p: PuzzleState.Player in state.players:
 		# TODO setup_player_at_coord
-		var p_node: DotHopPlayer = setup_node_at_coord(DHData.Obj.Player, p.coord)
+		var p_node := DotHopPlayer.setup_player(p, theme_data)
+		p_node.add_to_group("generated", true)
 		connect_player_signals(p_node, p)
 		add_child(p_node) # add players after dots for z-indexing
 		player_nodes.append(p_node)
@@ -404,46 +405,6 @@ func connect_player_signals(p_node: DotHopPlayer, p_state: PuzzleState.Player) -
 		if inflight_player_moves <= 0:
 			# defer b/c move_finished is emitted before state.win is set?!
 			player_move_finished.call_deferred())
-
-## obj -> node setup helpers
-## implies world/theme integration
-
-func setup_node_at_coord(obj_type: DHData.Obj, coord: Vector2) -> Node:
-	var node: Node2D = node_for_object_name(obj_type)
-	node.add_to_group("generated", true)
-	if node is DotHopPlayer:
-		var p: DotHopPlayer = node
-		if theme_data:
-			p.square_size = theme_data.square_size
-		else:
-			p.square_size = 32
-		p.set_initial_coord(coord)
-	return node
-
-func node_for_object_name(obj_type: DHData.Obj) -> Node2D:
-	var scene: PackedScene = get_scene_for(obj_type)
-	if not scene:
-		Log.err("No scene found for object name", obj_type)
-		return
-	var node: Node2D = scene.instantiate()
-	if node is DotHopPlayer:
-		var p: DotHopPlayer = node
-		p.display_name = DHData.Legend.reverse_obj_map[obj_type]
-	return node
-
-var to_dot_type: Dictionary = {
-	DHData.Obj.Dot: DHData.dotType.Dot,
-	DHData.Obj.Dotted: DHData.dotType.Dotted,
-	DHData.Obj.Goal: DHData.dotType.Goal,
-	}
-
-func get_scene_for(obj_name: DHData.Obj) -> PackedScene:
-	match obj_name:
-		DHData.Obj.Player: return PuzzleThemeData.get_player_scene(theme_data)
-		DHData.Obj.Dot: return PuzzleThemeData.get_dot_scene(theme_data)
-		DHData.Obj.Dotted: return PuzzleThemeData.get_dotted_scene(theme_data)
-		DHData.Obj.Goal: return PuzzleThemeData.get_goal_scene(theme_data)
-		_: return
 
 ## misc utils ##############################################################
 
