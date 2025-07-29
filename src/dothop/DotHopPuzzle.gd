@@ -206,6 +206,9 @@ func undo_pressed() -> void:
 	undo_last_move()
 
 func dot_pressed(node: DotHopDot) -> void:
+	# TODO support multiple players properly
+	# smthg like check_moves() for all possible player move directions
+
 	# calc move_vec for tapped dot with first player
 	var first_player_coord: Variant
 	for p: PuzzleState.Player in state.players:
@@ -231,6 +234,8 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 	if not move_dir in ALLOWED_MOVES:
 		return PuzzleState.MoveResult.move_not_allowed
 
+	# emits a bunch of signals on state.players and state.cells
+	# (which player/dot nodes attach to)
 	var move_result := state.move(move_dir)
 
 	match move_result:
@@ -243,7 +248,7 @@ func move(move_dir: Vector2) -> PuzzleState.MoveResult:
 
 	return move_result
 
-# Fires when the player move_to_coord animation finishes
+# Fired when the player move_to_coord animation finishes
 # NOTE this does NOT fire on undos or stucks
 func player_move_finished() -> void:
 	if state.win:
@@ -416,7 +421,6 @@ func clear_nodes() -> void:
 func all_dot_nodes() -> Array[DotHopDot]:
 	var dots: Array[DotHopDot] = []
 	dots.assign(U.get_children_in_group(self, "dot", true))
-	# Log.pr("all dot nodes", dots)
 	return dots
 
 func puzzle_rect() -> Rect2:
