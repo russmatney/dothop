@@ -6,9 +6,7 @@ class_name PuzzleGym
 
 enum Mode {Treadmill, Random}
 
-@export var puzzle_set_data: PuzzleSetData
-@export var puzzle_def: PuzzleDef
-@export var theme_data: PuzzleThemeData
+var puzzle_def: PuzzleDef
 
 @onready var puzzle_node: DotHopPuzzle
 
@@ -39,10 +37,8 @@ func _ready() -> void:
 			puzzle_def_difficulty.text = "[center]hard"
 		)
 
-	if puzzle_def == null:
-		puzzle_def = PuzzleStore.get_random_puzzle()
-
-	DotHopPuzzle.rebuild_puzzle({container=self, puzzle_def=puzzle_def, theme_data=theme_data})
+	puzzle_def = PuzzleStore.get_random_puzzle()
+	DotHopPuzzle.rebuild_puzzle({container=self, puzzle_def=puzzle_def})
 
 	treadmill_mode_button.pressed.connect(enable_treadmill_mode)
 	random_mode_button.pressed.connect(enable_random_mode)
