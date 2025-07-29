@@ -1,3 +1,4 @@
+@tool
 extends Node
 # autoload PuzzleStore
 

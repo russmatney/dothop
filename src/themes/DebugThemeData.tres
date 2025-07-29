@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="PuzzleThemeData" load_steps=4 format=3 uid="uid://vc64ajdhnluf"]
 
+[ext_resource type="PackedScene" uid="uid://bhwmpvb57mv06" path="res://src/themes/DotHopDot.tscn" id="1_8dgpe"]
 [ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="1_567u7"]
-[ext_resource type="PackedScene" uid="uid://cl82y6gylisqo" path="res://src/themes/dots/Dot.tscn" id="1_dh4cr"]
-[ext_resource type="PackedScene" uid="uid://cifvwoalwila" path="res://src/themes/dots/Player.tscn" id="2_pr7yb"]
+[ext_resource type="PackedScene" uid="uid://b6wwc8int7l4p" path="res://src/themes/DotHopPlayer.tscn" id="2_dh4cr"]
 
 [resource]
 script = ExtResource("1_567u7")
 display_name = "Debug"
-player_scenes = Array[PackedScene]([ExtResource("2_pr7yb")])
-dot_scenes = Array[PackedScene]([ExtResource("1_dh4cr")])
-goal_scenes = Array[PackedScene]([ExtResource("1_dh4cr")])
+player_scenes = Array[PackedScene]([ExtResource("2_dh4cr")])
+dot_scenes = Array[PackedScene]([ExtResource("1_8dgpe")])
+goal_scenes = Array[PackedScene]([ExtResource("1_8dgpe")])
 music_tracks = Array[String]([])

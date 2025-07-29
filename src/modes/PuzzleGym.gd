@@ -29,9 +29,9 @@ func _ready() -> void:
 		puzzle_def = puzzle_node.puzzle_def
 
 		puzzle_def_label.text = "[center]%s" % puzzle_def.get_label()
-		if puzzle_def.idx <= 4:
+		if puzzle_def.idx <= 3:
 			puzzle_def_difficulty.text = "[center]easy"
-		elif puzzle_def.idx <= 8:
+		elif puzzle_def.idx <= 7:
 			puzzle_def_difficulty.text = "[center]med"
 		else:
 			puzzle_def_difficulty.text = "[center]hard"

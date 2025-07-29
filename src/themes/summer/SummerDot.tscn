@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://ctnxrvyjmg6a"]
 
-[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_uf5y2"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/DotHopDot.gd" id="1_uf5y2"]
 [ext_resource type="Texture2D" uid="uid://bejpom40io2dg" path="res://src/themes/summer/dot.png" id="2_tffho"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_86o2j"]

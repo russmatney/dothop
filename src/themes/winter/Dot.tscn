@@ -1,6 +1,6 @@
 [gd_scene load_steps=10 format=3 uid="uid://dqgb3xge06vam"]
 
-[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_r0kfr"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/DotHopDot.gd" id="1_r0kfr"]
 [ext_resource type="Texture2D" uid="uid://c57yeq8gp33wl" path="res://src/themes/winter/snowman.png" id="2_xjbb3"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ernca"]

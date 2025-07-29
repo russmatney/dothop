@@ -26,18 +26,20 @@ func hide_anims() -> void:
 
 ## render ###########################################################
 
-func render() -> void:
-	if anim != null:
-		match type:
-			DHData.dotType.Dot:
-				anim.set_visible(true)
-				anim.play("twist")
-				U.set_random_frame(anim)
-				Anim.slide_in(self)
-			DHData.dotType.Dotted:
-				anim.set_visible(true)
-				anim.play("dotted")
-				U.set_random_frame(anim)
-			DHData.dotType.Goal:
-				hide_anims()
-				anim_goal.set_visible(true)
+func mark_goal() -> void:
+	super.mark_goal()
+	hide_anims()
+	anim_goal.set_visible(true)
+
+func mark_dotted() -> void:
+	super.mark_dotted()
+	anim.set_visible(true)
+	anim.play("dotted")
+	U.set_random_frame(anim)
+
+func mark_undotted() -> void:
+	super.mark_undotted()
+	anim.set_visible(true)
+	anim.play("twist")
+	U.set_random_frame(anim)
+	Anim.slide_in(self)

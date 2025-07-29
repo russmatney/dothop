@@ -21,4 +21,3 @@ dot_icon = ExtResource("1_xxqf0")
 dotted_icon = ExtResource("1_xxqf0")
 goal_icon = ExtResource("3_biel8")
 music_tracks = Array[String](["res://assets/songs/sulosounds/chill-electric-background.wav"])
-is_unlocked = true

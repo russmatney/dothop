@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://crnheepcaf2wn"]
 
-[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/Dot.gd" id="1_p0jt7"]
+[ext_resource type="Script" uid="uid://bv7s5be3wb0kr" path="res://src/themes/DotHopDot.gd" id="1_p0jt7"]
 [ext_resource type="Texture2D" uid="uid://3tnvvc6scdqj" path="res://src/themes/winter/goal.png" id="2_t8468"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vpjte"]
