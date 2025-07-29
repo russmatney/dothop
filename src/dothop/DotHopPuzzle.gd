@@ -108,15 +108,7 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 
 ## vars ##############################################################
 
-@export_tool_button("Clear") var clear_action: Callable = clear_nodes
-@export_tool_button("Play Intro") var trigger_intro: Callable =\
-	Anim.puzzle_animate_intro_from_point.bind(self, min_t, max_t)
-@export_tool_button("Play Outro") var trigger_outro: Callable =\
-	Anim.puzzle_animate_outro_to_point.bind(self)
-
-@export var min_t : float = 0.1
-@export var max_t : float = 1.0
-@export var debugging: bool = false
+# square size feels like it's part of the theme (dots/player/goals)?
 @export var square_size: int = 32
 
 var world: PuzzleWorld
@@ -441,8 +433,6 @@ func setup_node_at_coord(obj_type: DHData.Obj, coord: Vector2) -> Node:
 		var p: DotHopPlayer = node
 		p.square_size = square_size
 		p.set_initial_coord(coord)
-	if debugging or not Engine.is_editor_hint():
-		node.ready.connect(node.set_owner.bind(self))
 	return node
 
 func node_for_object_name(obj_type: DHData.Obj) -> Node2D:

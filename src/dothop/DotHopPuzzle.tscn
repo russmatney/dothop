@@ -9,6 +9,4 @@ _id = "73.0"
 
 [node name="DotHopPuzzle" type="Node2D" groups=["dothop_puzzle", "hotel_singletons"]]
 script = ExtResource("1_6qax4")
-min_t = 0.01
-max_t = 1.9
 fallback_world = SubResource("Resource_ruto3")
