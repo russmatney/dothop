@@ -1,0 +1,17 @@
+[gd_scene load_steps=12 format=3 uid="uid://tco5c74sak2b"]
+
+[ext_resource type="Script" uid="uid://uvrp58d2ao6j" path="res://src/stats/ThemeStore.gd" id="1_sn24o"]
+[ext_resource type="Script" uid="uid://b7u3qu0yb2b2" path="res://src/themes/PuzzleThemeData.gd" id="2_a1ya1"]
+[ext_resource type="Resource" uid="uid://vc64ajdhnluf" path="res://src/themes/DebugThemeData.tres" id="3_l7xuc"]
+[ext_resource type="Resource" uid="uid://cdm1ggomrtp8e" path="res://src/themes/AllTheDots.tres" id="4_82thd"]
+[ext_resource type="Resource" uid="uid://cghw22rd7rqis" path="res://src/themes/winter/WinterThemeData.tres" id="5_d1215"]
+[ext_resource type="Resource" uid="uid://3ojwqfn7ar0v" path="res://src/themes/summer/SummerThemeData.tres" id="6_cfkop"]
+[ext_resource type="Resource" uid="uid://cl2l1ysdmee75" path="res://src/themes/spring/SpringThemeData.tres" id="7_vkk8p"]
+[ext_resource type="Resource" uid="uid://cjl7cgvtofdcc" path="res://src/themes/space/SpaceThemeData.tres" id="8_asjsv"]
+[ext_resource type="Resource" uid="uid://b25h3h6ofryxi" path="res://src/themes/pumpkins/PumpkinsThemeData.tres" id="9_f5pra"]
+[ext_resource type="Resource" uid="uid://x85lhb72ywee" path="res://src/themes/fall/FallThemeData.tres" id="10_sle33"]
+[ext_resource type="Resource" uid="uid://dttbuv6lqqjdq" path="res://src/themes/dots/DotsThemeData.tres" id="11_1la0h"]
+
+[node name="ThemeStore" type="Node"]
+script = ExtResource("1_sn24o")
+themes = Array[ExtResource("2_a1ya1")]([ExtResource("3_l7xuc"), ExtResource("4_82thd"), ExtResource("5_d1215"), ExtResource("6_cfkop"), ExtResource("7_vkk8p"), ExtResource("8_asjsv"), ExtResource("9_f5pra"), ExtResource("10_sle33"), ExtResource("11_1la0h")])

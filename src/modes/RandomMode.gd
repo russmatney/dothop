@@ -18,13 +18,13 @@ func build_random_puzzle(puzzle_node: DotHopPuzzle) -> void:
 		Log.info("Resetting puzzle in Random mode.")
 
 		var puzzle_def := PuzzleStore.get_random_puzzle()
-		# var theme_data := ThemeStore.get_random_theme()
+		var theme_data := ThemeStore.get_random_theme()
 
 		# TODO avoid repeating the current puzz/theme
 		DotHopPuzzle.rebuild_puzzle({
 			puzzle_node=puzzle_node,
 			puzzle_def=puzzle_def,
-			# theme_data=theme_data,
+			theme_data=theme_data,
 			})
 	else:
 		Log.info("Random Mode is disabled, not resetting puzzle.")

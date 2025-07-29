@@ -37,6 +37,7 @@ Juice="*res://addons/bones/Juice.gd"
 PuzzleStore="*res://src/stats/PuzzleStore.tscn"
 PuzzleAnalyzer="*res://src/stats/PuzzleAnalyzer.gd"
 Events="*res://src/Events.gd"
+ThemeStore="*res://src/stats/ThemeStore.tscn"
 
 [debug]
 
