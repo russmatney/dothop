@@ -3,7 +3,7 @@ extends Node
 # autoload Events
 
 var stats := Stats.new()
-var puzzle_node := PuzzleNode.new()
+var puzzle_node := PuzzNode.new()
 
 class Evt:
 	func _init(opts: Dictionary) -> void:
@@ -27,7 +27,7 @@ class Stats:
 		Log.info("[Event]", "analysis complete", puzzle_def)
 		analysis_complete.emit(Evt.new({puzzle_def=puzzle_def}))
 
-class PuzzleNode:
+class PuzzNode:
 	signal ready(evt: Evt)
 	signal exiting(evt: Evt)
 	# signal pre_remove_hook(evt: Evt)
