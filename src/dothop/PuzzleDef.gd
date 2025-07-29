@@ -50,18 +50,18 @@ func _init(raw: Dictionary={}, parsed_game: ParsedGame = null) -> void:
 
 ## get_id ################################################
 
-func get_label() -> String:
-	return "%s-%s" % [world_short_name, idx]
-
 func get_id() -> String:
 	if meta and "id" in meta:
 		return meta.id
 	else:
-		return get_fen()
+		return get_label()
+
+func get_label() -> String:
+	return "%s-%s" % [world_short_name, idx + 1]
 
 # could this be deterministic? a 'proper' orientation of a xxx/..t/ooo?
 # yes - we could sort by a hash/checksum and just use the 'first' in that list
-## FEN is borrowed from chess board state and notation
+## the term 'FEN' is borrowed from chess
 func get_fen() -> String:
 	# TODO find a deterministic id based on the shape to get 'transpositions'
 	return "/".join(shape.map(func(row: Array) -> String:

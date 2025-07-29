@@ -45,7 +45,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	node.puzzle_num = puzz_num
 	return node
 
-# i need 17 unit tests for this mofo
+# i need 27 unit tests for this mofo
 static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
@@ -58,16 +58,17 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 		Log.warn("Invalid opts passed to rebuild_puzzle, requires either container or an existing puzzle_node", opts)
 
 	if puzzle_node != null:
+		if theme_dt == null:
+			if wrld != null:
+				# prefer to get theme data from the passed world
+				theme_dt = wrld.get_theme_data()
 		if wrld == null:
 			wrld = puzzle_node.world
 		if puzz_num == -1:
 			puzz_num = puzzle_node.puzzle_num # or puzz_def.idx?
 		if theme_dt == null:
-			if wrld != null:
-				# prefer to get theme data from the passed world
-				theme_dt = wrld.get_theme_data()
-			else:
-				theme_dt = puzzle_node.theme_data
+			# still no theme? use the existing puzzle_node
+			theme_dt = puzzle_node.theme_data
 		if container == null:
 			container = puzzle_node.get_parent()
 
