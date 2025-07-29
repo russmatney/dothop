@@ -33,7 +33,7 @@ func to_pretty() -> Variant:
 
 ## init ########################################3333
 
-func _init(raw: Dictionary={}) -> void:
+func _init(raw: Dictionary={}, parsed_game: ParsedGame = null) -> void:
 	if len(raw) == 0:
 		return
 	if raw.shape:
@@ -45,8 +45,8 @@ func _init(raw: Dictionary={}) -> void:
 		message = raw.message
 	if "idx" in raw:
 		idx = raw.idx
-	if "short_name" in meta:
-		world_short_name = meta.short_name
+	if parsed_game and "short_name" in parsed_game.prelude:
+		world_short_name = parsed_game.prelude.get("short_name", "unknown")
 
 ## get_id ################################################
 

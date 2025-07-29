@@ -29,7 +29,7 @@ func setup() -> void:
 
 	display_name = parsed_game.prelude.get("title", "Unnamed")
 	puzzle_defs.assign(parsed_game.puzzles.map(func(puzzle: Dictionary) -> PuzzleDef:
-		return PuzzleDef.new(puzzle)))
+		return PuzzleDef.new(puzzle, parsed_game)))
 
 	# Log.info("Set up PuzzleSetData", self)
 
