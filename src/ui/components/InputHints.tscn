@@ -19,9 +19,6 @@ custom_minimum_size = Vector2(140, 0)
 layout_mode = 2
 alignment = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="ActionButtonList"]
-layout_mode = 2
-
 [node name="PauseButton" type="Button" parent="ActionButtonList"]
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 50)
@@ -30,13 +27,9 @@ focus_mode = 1
 theme = ExtResource("1_vxacg")
 text = "Menu"
 
-[node name="ShuffleButton" type="Button" parent="ActionButtonList"]
-unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 50)
+[node name="MarginContainer2" type="MarginContainer" parent="ActionButtonList"]
+custom_minimum_size = Vector2(0, 10)
 layout_mode = 2
-focus_mode = 1
-theme = ExtResource("1_vxacg")
-text = "Shuffle"
 
 [node name="UndoButton" type="Button" parent="ActionButtonList"]
 unique_name_in_owner = true
@@ -55,6 +48,14 @@ focus_mode = 1
 theme = ExtResource("3_22tqc")
 text = "Reset"
 
+[node name="ShuffleButton" type="Button" parent="ActionButtonList"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 50)
+layout_mode = 2
+focus_mode = 1
+theme = ExtResource("1_vxacg")
+text = "Shuffle"
+
 [node name="MarginContainer" type="MarginContainer" parent="ActionButtonList"]
 custom_minimum_size = Vector2(0, 20)
 layout_mode = 2
@@ -67,35 +68,6 @@ alignment = 2
 [node name="MarginContainer2" type="MarginContainer" parent="KeyInputHints"]
 visible = false
 layout_mode = 2
-
-[node name="ShuffleControlHint" type="HBoxContainer" parent="KeyInputHints"]
-layout_mode = 2
-
-[node name="ShuffleInputIcon" parent="KeyInputHints/ShuffleControlHint" instance=ExtResource("4_b6nc5")]
-unique_name_in_owner = true
-visible = true
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-texture = ExtResource("5_0wmta")
-input_text = "F"
-
-[node name="CenterContainer" type="CenterContainer" parent="KeyInputHints/ShuffleControlHint"]
-layout_mode = 2
-
-[node name="ShuffleLabel" type="RichTextLabel" parent="KeyInputHints/ShuffleControlHint/CenterContainer"]
-unique_name_in_owner = true
-clip_contents = false
-custom_minimum_size = Vector2(100, 0)
-layout_mode = 2
-size_flags_vertical = 8
-theme_override_fonts/normal_font = ExtResource("6_sd2ox")
-theme_override_font_sizes/normal_font_size = 48
-bbcode_enabled = true
-text = "Shuffle"
-fit_content = true
-scroll_active = false
 
 [node name="UndoControlHint" type="HBoxContainer" parent="KeyInputHints"]
 unique_name_in_owner = true
@@ -152,6 +124,35 @@ theme_override_fonts/normal_font = ExtResource("6_sd2ox")
 theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "Reset"
+fit_content = true
+scroll_active = false
+
+[node name="ShuffleControlHint" type="HBoxContainer" parent="KeyInputHints"]
+layout_mode = 2
+
+[node name="ShuffleInputIcon" parent="KeyInputHints/ShuffleControlHint" instance=ExtResource("4_b6nc5")]
+unique_name_in_owner = true
+visible = true
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("5_0wmta")
+input_text = "F"
+
+[node name="CenterContainer" type="CenterContainer" parent="KeyInputHints/ShuffleControlHint"]
+layout_mode = 2
+
+[node name="ShuffleLabel" type="RichTextLabel" parent="KeyInputHints/ShuffleControlHint/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_vertical = 8
+theme_override_fonts/normal_font = ExtResource("6_sd2ox")
+theme_override_font_sizes/normal_font_size = 48
+bbcode_enabled = true
+text = "Shuffle"
 fit_content = true
 scroll_active = false
 

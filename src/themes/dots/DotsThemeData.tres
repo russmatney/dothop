@@ -20,4 +20,5 @@ player_icon = ExtResource("5_rglfg")
 dot_icon = ExtResource("1_wotl1")
 dotted_icon = ExtResource("3_e6kct")
 goal_icon = ExtResource("4_l73ry")
+square_size = 32
 music_tracks = Array[String](["res://assets/songs/sulosounds/chill-electric-background.wav"])

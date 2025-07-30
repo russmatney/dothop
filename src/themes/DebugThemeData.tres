@@ -10,4 +10,5 @@ display_name = "Debug"
 player_scenes = Array[PackedScene]([ExtResource("2_dh4cr")])
 dot_scenes = Array[PackedScene]([ExtResource("1_8dgpe")])
 goal_scenes = Array[PackedScene]([ExtResource("1_8dgpe")])
+square_size = 32
 music_tracks = Array[String]([])

@@ -9,6 +9,7 @@ extends HBoxContainer
 
 @onready var undo_input_icon: ActionInputIcon = $%UndoInputIcon
 @onready var reset_input_icon: ActionInputIcon = $%ResetInputIcon
+@onready var shuffle_input_icon: ActionInputIcon = $%ShuffleInputIcon
 
 @onready var undo_button: Button = $%UndoButton
 @onready var reset_button: Button = $%ResetButton
@@ -53,6 +54,7 @@ func _ready() -> void:
 func set_control_icons() -> void:
 	undo_input_icon.set_icon_for_action("ui_undo")
 	reset_input_icon.set_icon_for_action("restart")
+	shuffle_input_icon.set_icon_for_action("shuffle")
 
 func setup_puzzle_node(node: DotHopPuzzle) -> void:
 	puzzle_node = node

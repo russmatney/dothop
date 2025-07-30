@@ -21,4 +21,5 @@ player_icon = ExtResource("5_c0nf3")
 dot_icon = ExtResource("1_tjkvp")
 dotted_icon = ExtResource("3_8idr2")
 goal_icon = ExtResource("4_7isw4")
+square_size = 32
 music_tracks = Array[String](["res://assets/songs/benburnes/Abstraction - Is this Mood LOOP.ogg"])
