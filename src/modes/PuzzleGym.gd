@@ -67,8 +67,10 @@ func enable_treadmill_mode() -> void:
 	stop_all_modes()
 	treadmill_mode.enable()
 	treadmill_mode_button.set_disabled(true)
+	DotHop.notif("[Treadmill Mode]")
 
 func enable_random_mode() -> void:
 	stop_all_modes()
 	random_mode.enable()
 	random_mode_button.set_disabled(true)
+	DotHop.notif("[Random Mode]")

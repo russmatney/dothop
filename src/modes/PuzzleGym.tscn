@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://cgf1a3l0al54x"]
+[gd_scene load_steps=14 format=3 uid="uid://cgf1a3l0al54x"]
 
 [ext_resource type="Script" uid="uid://c2y1rc7klafdr" path="res://src/modes/PuzzleGym.gd" id="1_bixs5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_bkt3y"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_h63e6"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="10_3vi1e"]
 [ext_resource type="Script" uid="uid://ctadfanugtrbv" path="res://src/modes/TreadmillMode.gd" id="11_bkt3y"]
+[ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://src/ui/notifications/Notifications.tscn" id="11_gev17"]
 [ext_resource type="Script" uid="uid://c8a6pcr2i2s06" path="res://src/modes/RandomMode.gd" id="12_uigyt"]
 [ext_resource type="PackedScene" uid="uid://cqrifv67kll20" path="res://src/ui/components/InputHints.tscn" id="13_gev17"]
 [ext_resource type="Theme" uid="uid://crneit8sf87tj" path="res://src/ui/DotHopTheme.tres" id="13_xhuo2"]
@@ -26,6 +27,7 @@ script = ExtResource("5_bkt3y")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera2D" parent="." instance=ExtResource("6_uigyt")]
+auto_zoom_margin = Vector4(64, 64, 64, 64)
 
 [node name="GameSounds" type="Node" parent="."]
 script = ExtResource("7_gev17")
@@ -94,7 +96,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]SNOW-4"
+text = "[center]BEACH-11"
 fit_content = true
 scroll_active = false
 
@@ -105,7 +107,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]easy"
+text = "[center]hard"
 fit_content = true
 scroll_active = false
 
@@ -147,6 +149,23 @@ bbcode_enabled = true
 text = "[center]Puzzle Gym [color=peru][experimental][/color]"
 fit_content = true
 scroll_active = false
+
+[node name="PanelContainer5" type="PanelContainer" parent="UI"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme = ExtResource("13_xhuo2")
+theme_type_variation = &"ClearPanel"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer5"]
+layout_mode = 2
+alignment = 2
+
+[node name="Notifications" parent="UI/PanelContainer5/HBoxContainer" instance=ExtResource("11_gev17")]
+layout_mode = 2
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 anchors_preset = 15
