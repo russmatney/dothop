@@ -81,7 +81,6 @@ static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 
 		if container:
 			container.remove_child(puzzle_node)
-		puzzle_node.queue_free()
 	else:
 		# no puzzle_node, fix defaults
 		if puzz_num == -1:
