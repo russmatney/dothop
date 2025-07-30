@@ -1,8 +1,9 @@
-[gd_scene load_steps=15 format=3 uid="uid://cvhnovcheippa"]
+[gd_scene load_steps=16 format=3 uid="uid://cvhnovcheippa"]
 
 [ext_resource type="Script" uid="uid://bp6okuxmf7p1c" path="res://src/menus/editor/PuzzleSetEditor.gd" id="1_02h6s"]
 [ext_resource type="Theme" uid="uid://rv7rm10d10gc" path="res://src/ui/BlueWoodPanelTheme.tres" id="2_4l1l2"]
 [ext_resource type="Theme" uid="uid://nnr7pyxv7mve" path="res://src/ui/PaperHeroLabelTheme.tres" id="2_gk83m"]
+[ext_resource type="Theme" uid="uid://crneit8sf87tj" path="res://src/ui/DotHopTheme.tres" id="2_qukly"]
 [ext_resource type="Theme" uid="uid://o436126qschu" path="res://src/ui/PaperLabelTheme.tres" id="3_ify5j"]
 [ext_resource type="Theme" uid="uid://d36tu8qosbiom" path="res://src/ui/RedButtonTheme.tres" id="4_p17ef"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_p0cuu"]
@@ -47,10 +48,26 @@ layout_mode = 2
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
-unique_name_in_owner = true
+[node name="Panel" type="Panel" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
 layout_mode = 2
-columns = 4
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2/Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="CurrentPuzzleLabel2" type="RichTextLabel" parent="PanelContainer/VBoxContainer/HBoxContainer2/Panel/CenterContainer"]
+unique_name_in_owner = true
+clip_contents = false
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+theme = ExtResource("2_qukly")
+theme_override_font_sizes/normal_font_size = 32
+bbcode_enabled = true
+text = "[center]Puzzle Viewer [color=peru][experimental][/color]"
+fit_content = true
+scroll_active = false
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer2"]
 custom_minimum_size = Vector2(50, 0)
@@ -110,18 +127,34 @@ size_flags_vertical = 3
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer"]
+[node name="MarginContainer5" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+
+[node name="PuzzleSetGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+columns = 7
+
+[node name="MarginContainer4" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(50, 20)
+layout_mode = 2
+
+[node name="CenterContainer" type="CenterContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/CenterContainer"]
 layout_mode = 2
 theme = ExtResource("2_4l1l2")
 
-[node name="PuzzlesGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer/PanelContainer"]
+[node name="PuzzlesGrid" type="GridContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/VBoxContainer/CenterContainer/PanelContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("2_4l1l2")
-columns = 3
+columns = 4
 
 [node name="MarginContainer3" type="MarginContainer" parent="PanelContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(50, 0)
@@ -142,14 +175,14 @@ theme_override_styles/panel = SubResource("StyleBoxEmpty_khnrg")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2"]
 clip_contents = true
-custom_minimum_size = Vector2(700, 512)
+custom_minimum_size = Vector2(630, 512)
 layout_mode = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer"]
 disable_3d = true
 handle_input_locally = false
-size = Vector2i(700, 512)
+size = Vector2i(630, 512)
 render_target_update_mode = 4
 
 [node name="PuzzleContainer" type="Node2D" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport"]
