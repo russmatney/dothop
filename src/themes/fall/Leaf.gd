@@ -21,25 +21,31 @@ func _ready() -> void:
 	super._ready()
 
 func hide_anims() -> void:
-	all_anims().map(func(a: Node2D) -> void: a.set_visible(false))
-	anim_goal.set_visible(false)
+	all_anims()\
+		.filter(func(a: Node2D) -> bool: return a != null)\
+		.map(func(a: Node2D) -> void: a.set_visible(false))
+	if anim_goal:
+		anim_goal.set_visible(false)
 
 ## render ###########################################################
 
 func mark_goal() -> void:
 	super.mark_goal()
 	hide_anims()
-	anim_goal.set_visible(true)
+	if anim_goal:
+		anim_goal.set_visible(true)
 
 func mark_dotted() -> void:
 	super.mark_dotted()
-	anim.set_visible(true)
-	anim.play("dotted")
-	U.set_random_frame(anim)
+	if anim:
+		anim.set_visible(true)
+		anim.play("dotted")
+		U.set_random_frame(anim)
 
 func mark_undotted() -> void:
 	super.mark_undotted()
-	anim.set_visible(true)
-	anim.play("twist")
-	U.set_random_frame(anim)
+	if anim:
+		anim.set_visible(true)
+		anim.play("twist")
+		U.set_random_frame(anim)
 	Anim.slide_in(self)

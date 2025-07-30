@@ -24,11 +24,12 @@
 script = ExtResource("16_qkh5o")
 display_name = "All The Dots"
 puzzle_scene = ExtResource("15_4wbo7")
-player_scenes = Array[PackedScene]([ExtResource("12_didct"), ExtResource("14_ncqom"), ExtResource("9_25bjw"), ExtResource("11_7vmxk"), ExtResource("13_umpoa"), ExtResource("10_e8nnw")])
-dot_scenes = Array[PackedScene]([ExtResource("6_66ahd"), ExtResource("1_k6mfg"), ExtResource("5_dtkrw"), ExtResource("2_gusb1"), ExtResource("3_ksp1v"), ExtResource("7_c0q60"), ExtResource("4_258ij")])
-goal_scenes = Array[PackedScene]([ExtResource("8_3ymae"), ExtResource("1_k6mfg"), ExtResource("2_gusb1")])
+player_scenes = Array[PackedScene]([ExtResource("12_didct"), ExtResource("11_7vmxk"), ExtResource("9_25bjw"), ExtResource("13_umpoa"), ExtResource("10_e8nnw"), ExtResource("14_ncqom")])
+dot_scenes = Array[PackedScene]([ExtResource("6_66ahd"), ExtResource("5_dtkrw"), ExtResource("3_ksp1v"), ExtResource("4_258ij"), ExtResource("7_c0q60"), ExtResource("1_k6mfg")])
+goal_scenes = Array[PackedScene]([ExtResource("1_k6mfg"), ExtResource("2_gusb1"), ExtResource("8_3ymae")])
 player_icon = ExtResource("12_3ymae")
 dot_icon = ExtResource("1_dtkrw")
 goal_icon = ExtResource("10_c0q60")
+square_size = 32
 music_tracks = Array[String]([])
 metadata/_custom_type_script = "uid://b7u3qu0yb2b2"

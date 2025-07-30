@@ -59,12 +59,19 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("13_xhuo2")
 theme_type_variation = &"ClearPanel"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer3"]
 layout_mode = 2
-alignment = 2
+alignment = 1
+
+[node name="MarginContainer5" type="MarginContainer" parent="UI/PanelContainer3/HBoxContainer"]
+custom_minimum_size = Vector2(10, 20)
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 
 [node name="Panel" type="Panel" parent="UI/PanelContainer3/HBoxContainer"]
 custom_minimum_size = Vector2(280, 150)
@@ -87,7 +94,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]TUT-7"
+text = "[center]SNOW-4"
 fit_content = true
 scroll_active = false
 
@@ -98,29 +105,48 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]med"
+text = "[center]easy"
 fit_content = true
 scroll_active = false
 
-[node name="PanelContainer2" type="PanelContainer" parent="UI"]
+[node name="PanelContainer4" type="PanelContainer" parent="UI"]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme = ExtResource("13_xhuo2")
 theme_type_variation = &"ClearPanel"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer4"]
 layout_mode = 2
+alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="UI/PanelContainer2/HBoxContainer"]
+[node name="Panel2" type="Panel" parent="UI/PanelContainer4/HBoxContainer"]
+custom_minimum_size = Vector2(400, 150)
 layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 4
+size_flags_vertical = 0
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="UI/PanelContainer2/HBoxContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer4/HBoxContainer/Panel2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="PuzzleGymHeader" type="RichTextLabel" parent="UI/PanelContainer4/HBoxContainer/Panel2/VBoxContainer"]
 layout_mode = 2
-alignment = 2
+theme = ExtResource("13_xhuo2")
+theme_type_variation = &"MenuMetadata"
+theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
+bbcode_enabled = true
+text = "[center]Puzzle Gym [color=peru][experimental][/color]"
+fit_content = true
+scroll_active = false
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
 anchors_preset = 15
