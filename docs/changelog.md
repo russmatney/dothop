@@ -4,6 +4,162 @@
 ## Untagged
 
 
+## v1.2.0
+
+
+### 30 Jul 2025
+
+- ([`0c51e48e`](https://github.com/russmatney/dothop/commit/0c51e48e)) chore: misc tscn/tres cruft - Russell Matney
+- ([`6bf8f9a3`](https://github.com/russmatney/dothop/commit/6bf8f9a3)) build: bump android sdk version to 35 - Russell Matney
+
+  > Some warnings - after digging it looks like this will be included in
+  > godot 4.5
+
+- ([`8c4d655c`](https://github.com/russmatney/dothop/commit/8c4d655c)) fix: can't wait on 'ready', which will never get called - Russell Matney
+
+  > The context of this setup_puzzle_node is already in the ready call -
+  > connecting to it won't do anything if it's deferred. No need to wait on
+  > ready to connect here, silly.
+
+- ([`70d4c29c`](https://github.com/russmatney/dothop/commit/70d4c29c)) fix: drop manual queue-free - Russell Matney
+
+  > Saw a crash on android between puzzles traced to here... difficult to
+  > reproduce, but this was an unncessary add anyway. i suspect the node
+  > could get freed between these lines... hmmm nope should be impossible.
+
+- ([`308b931f`](https://github.com/russmatney/dothop/commit/308b931f)) chore: update windows steam template paths - Russell Matney
+- ([`1eca179c`](https://github.com/russmatney/dothop/commit/1eca179c)) build: move steam builds to *-steam dirs - Russell Matney
+- ([`fcc5f41c`](https://github.com/russmatney/dothop/commit/fcc5f41c)) chore: break out macos steam export config - Russell Matney
+- ([`264559f6`](https://github.com/russmatney/dothop/commit/264559f6)) fix: update linux steam export - Russell Matney
+- ([`7239eb40`](https://github.com/russmatney/dothop/commit/7239eb40)) chore: break out windows steam export config - Russell Matney
+- ([`f42749f0`](https://github.com/russmatney/dothop/commit/f42749f0)) chore: update project version to 1.2.0 - Russell Matney
+
+  > Here we go!
+
+- ([`5762a0dc`](https://github.com/russmatney/dothop/commit/5762a0dc)) fix: set proper 'f' to shuffle input map - Russell Matney
+- ([`2e40b20a`](https://github.com/russmatney/dothop/commit/2e40b20a)) feat: add notifications to the puzzle gym - Russell Matney
+- ([`0c127dbf`](https://github.com/russmatney/dothop/commit/0c127dbf)) fix: pull themes from ThemeStore - Russell Matney
+- ([`3cece655`](https://github.com/russmatney/dothop/commit/3cece655)) fix: disable puzzle input in viewer - Russell Matney
+- ([`b8eaae4d`](https://github.com/russmatney/dothop/commit/b8eaae4d)) refactor: rearrange puzzle viewer a bit - Russell Matney
+- ([`28bac32c`](https://github.com/russmatney/dothop/commit/28bac32c)) fix: move to using blue buttons for web links - Russell Matney
+
+  > Could be more clear, but it's a step.
+
+- ([`793cd4ae`](https://github.com/russmatney/dothop/commit/793cd4ae)) fix: leaf.gd was crashing - drop it for now - Russell Matney
+
+  > Until these are more readable, we're not using them anyway
+
+- ([`5bffea08`](https://github.com/russmatney/dothop/commit/5bffea08)) feat: unpause on change-theme - Russell Matney
+- ([`f359fabc`](https://github.com/russmatney/dothop/commit/f359fabc)) fix: update shuffle input on keyboard/controller switch - Russell Matney
+
+### 29 Jul 2025
+
+- ([`0873d6df`](https://github.com/russmatney/dothop/commit/0873d6df)) note: (some) multi-hopper puzzles probably impossible on mobile - Russell Matney
+- ([`bc13648c`](https://github.com/russmatney/dothop/commit/bc13648c)) refactor: move player connect setup to player class - Russell Matney
+
+  > Shrinking down the DotHopPuzzle - making it more clear what it's doing,
+  > and moving toward minimizing more.
+
+- ([`7d407e70`](https://github.com/russmatney/dothop/commit/7d407e70)) wip: rip (most of) player setup out of DotHopPuzzle - Russell Matney
+- ([`9a0d2f07`](https://github.com/russmatney/dothop/commit/9a0d2f07)) wip: rip dot setup code out of puzzle node - Russell Matney
+- ([`492c8f01`](https://github.com/russmatney/dothop/commit/492c8f01)) chore: drop some old var names - Russell Matney
+- ([`8aab3857`](https://github.com/russmatney/dothop/commit/8aab3857)) refactor: rename Dot, Player to DotHopDot, DotHopPlayer - Russell Matney
+
+  > Better base dot/player classes and scenes. Plus a fix for the invisible
+  > fall theme goal.
+
+- ([`f2ed9803`](https://github.com/russmatney/dothop/commit/f2ed9803)) refactor: drop empty DotsDot extenders - Russell Matney
+
+  > This moves the DotsDot animation logic into the base DotHopDot class, to
+  > simplify the inheritance structure. it also deletes a bunch of empty
+  > Dot.gd and Goal.gd - those scenes now point to the root Dot.gd. The fall
+  > and space dots get some special treatment, but could probably be
+  > simplified.
+  > 
+  > Still working out how to decouple themes / simply dot/player node
+  > creation.
+
+- ([`f38844e0`](https://github.com/russmatney/dothop/commit/f38844e0)) fix: keep theme changes in world mode - Russell Matney
+
+  > Also adds the rest of the puzzles to the puzzle store.
+
+- ([`71c82cfc`](https://github.com/russmatney/dothop/commit/71c82cfc)) feat: random mode sets random theme! - Russell Matney
+
+  > Now setting a random theme when moving to the next random puzzle - a
+  > nice way to mix it up.
+
+- ([`fd2511c2`](https://github.com/russmatney/dothop/commit/fd2511c2)) fix: move input to _input (from _unhandled_input) - Russell Matney
+
+  > _unhandled_input allows for buttons to be focused first, which leads to
+  > weird control stuttering while focus moves among the buttons until it
+  > reaches an edge.
+  > 
+  > moving to _input for now cuts off the button focusing - we'll need to
+  > enable/disable this input to allow controllers/keyboards to jump to
+  > on-screen buttons again - maybe via some pop-out panels that own
+  > controls while they're visible, something like that.
+
+- ([`44fbff37`](https://github.com/russmatney/dothop/commit/44fbff37)) fix: drop hard-coded/exported initial gym puzzle def - Russell Matney
+- ([`32bc0ed3`](https://github.com/russmatney/dothop/commit/32bc0ed3)) feat: puzzle_def setting world-short-name - Russell Matney
+
+  > Passing a bit more context down to the puzzle defs. Should probably
+  > rename ParsedGame to ParsedPuzzleSet or somthg
+
+- ([`600fa26e`](https://github.com/russmatney/dothop/commit/600fa26e)) feat: display puzz-def name/diff on puzzle gym - Russell Matney
+
+  > Exposing some metadata for the current puzzle. Nearly there, just needs
+  > a fix to support parsing the world short name.
+
+- ([`a4004c18`](https://github.com/russmatney/dothop/commit/a4004c18)) feat: toggle between modes via ui buttons - Russell Matney
+
+  > not the most scalable impl yet - i toyed with events but didn't like the
+  > spaghetti. Probably we want a PuzzleMode state machine of some kind,
+  > and a PuzzleMode class might be reasonable. Tho, no need to reach for
+  > inheritance yet.
+
+- ([`a93cd387`](https://github.com/russmatney/dothop/commit/a93cd387)) fix: smol rename - Russell Matney
+
+  > Avoiding PuzzleNode as a class in case we head back towards it
+
+
+### 28 Jul 2025
+
+- ([`6ad2eba8`](https://github.com/russmatney/dothop/commit/6ad2eba8)) feat: new-puzzle button supported from RandomMode - Russell Matney
+
+  > An interesting pattern here - the Events.PuzzleNode holding state seems
+  > problematic, but it's just so convenient right now. maybe it needs a
+  > list of nodes? but i thought the whole point was to avoid needing these
+  > references completely? i'll need to think on it more.
+
+
+### 27 Jul 2025
+
+- ([`c4f0843e`](https://github.com/russmatney/dothop/commit/c4f0843e)) chore: drop some extra notifs - Russell Matney
+- ([`a7f5f0a8`](https://github.com/russmatney/dothop/commit/a7f5f0a8)) feat: intro 'Random' mode, split out and reuse classic hud controls - Russell Matney
+
+  > Random Mode is like Treadmill, but it pulls a random puzzle_def instead
+  > of repeating.
+  > 
+  > The HUD had all the UI in it - this breaks out the control buttons/hints
+  > into a reusable comp. The HUD is tied to classic mode's semantics, and
+  > we'll want some other toggles in the Gym to toggle things on/off.
+
+- ([`c27f3fcf`](https://github.com/russmatney/dothop/commit/c27f3fcf)) feat: working TreadmillMode in the PuzzleGym! - Russell Matney
+- ([`4bab1df7`](https://github.com/russmatney/dothop/commit/4bab1df7)) feat: introduce Puzzle Gym, start classic dir for worldmap and mode - Russell Matney
+
+  > Creates a PuzzleGym, which could support prototyping new mechanics.
+  > For now it's made clear the puzzle_node's world and theme dependencies.
+  > 
+  > Pulling the 'classic' mode stuff together - feels like maybe it'll eat
+  > the 'hud' too.
+
+- ([`2c747e2b`](https://github.com/russmatney/dothop/commit/2c747e2b)) feat: add back-to-main button on world map - Russell Matney
+- ([`bc98c97e`](https://github.com/russmatney/dothop/commit/bc98c97e)) fix: safety checks in rebuild_puzzle() - Russell Matney
+
+  > Handful of cases to cover crashes from aggressive theme-changing.
+
+- ([`881a5df6`](https://github.com/russmatney/dothop/commit/881a5df6)) docs: update changelog - Russell Matney
+
 ## v1.1.3
 
 
