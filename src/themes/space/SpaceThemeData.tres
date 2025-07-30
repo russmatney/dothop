@@ -20,4 +20,5 @@ player_icon = ExtResource("5_esxj5")
 dot_icon = ExtResource("1_8vw2e")
 dotted_icon = ExtResource("3_blsb1")
 goal_icon = ExtResource("4_g62d0")
+square_size = 32
 music_tracks = Array[String](["res://assets/songs/benburnes/Abstraction - Giving Up LOOP.ogg"])
