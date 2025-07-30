@@ -19,9 +19,16 @@ func _ready() -> void:
 
 ## global pause helper ##########################################################################
 
+## Pause if we're not already paused.
 func maybe_pause() -> void:
 	if not get_tree().paused:
 		Navi.pause()
+		get_viewport().set_input_as_handled()
+
+## Unpause if we're paused.
+func maybe_unpause() -> void:
+	if get_tree().paused:
+		Navi.resume()
 		get_viewport().set_input_as_handled()
 
 ## mobile predicate ##########################################################################

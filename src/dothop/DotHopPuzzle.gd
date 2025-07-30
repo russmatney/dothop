@@ -185,6 +185,8 @@ func on_change_theme(theme: PuzzleThemeData) -> void:
 	# theme_data = theme
 	# rebuild_nodes()
 
+	DotHop.maybe_unpause()
+
 ## actions ##############################################################
 
 func shuffle_pressed() -> void:
