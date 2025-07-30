@@ -135,8 +135,6 @@ unique_name_in_owner = true
 visible = true
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
 texture = ExtResource("5_0wmta")
 input_text = "F"
 
