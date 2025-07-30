@@ -3,7 +3,7 @@
 	"AppID" "2779710" // your AppID
 	"Desc" "Basic Dot Hop build for Linux" // internal description for this build
 
-	"ContentRoot" "../dist/dothop-linux/" // root content folder, relative to location of this file
+	"ContentRoot" "../dist/dothop-linux-steam/" // root content folder, relative to location of this file
 	"BuildOutput" "./build-output/" // build output folder for build logs and build cache files
     "SetLive" "latest"
 
