@@ -67,10 +67,9 @@ func setup_puzzle_node(node: DotHopPuzzle) -> void:
 	puzzle_node.move_rejected.connect(func() -> void:
 		show_controls(true))
 
-	puzzle_node.ready.connect(func() -> void:
-		reset_pressed.connect(puzzle_node.reset_pressed)
-		undo_pressed.connect(puzzle_node.undo_pressed)
-		shuffle_pressed.connect(puzzle_node.shuffle_pressed))
+	reset_pressed.connect(puzzle_node.reset_pressed)
+	undo_pressed.connect(puzzle_node.undo_pressed)
+	shuffle_pressed.connect(puzzle_node.shuffle_pressed)
 
 ## unhandled_input ########################################################
 
