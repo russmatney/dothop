@@ -6,7 +6,7 @@ var puzzle_node: DotHopPuzzle
 
 var reset_tween: Tween
 
-var enabled: bool = true
+@export var enabled: bool = true
 
 ## ready ##############################################################
 

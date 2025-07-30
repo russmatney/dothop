@@ -220,3 +220,4 @@ script = ExtResource("10_5gb2o")
 
 [node name="PuzzleInputHandler" type="Node" parent="PanelContainer/VBoxContainer/HBoxContainer/CenterContainer2/SubViewportContainer/SubViewport/PuzzleContainer"]
 script = ExtResource("11_5gb2o")
+enabled = false
