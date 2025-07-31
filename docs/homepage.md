@@ -13,6 +13,8 @@ Itch, and Github - then hopefully releasing on Flathub today or tomorrow.
 There've been a few Dot Hop devlogs on my blog this summer, and a full 1.0
 playthrough on twitch.
 
+* [Steam 1.0 -> 1.2 Release Notes](https://store.steampowered.com/news/app/2779710/view/539986853961400427)
+* [Itch 1.0 -> 1.2 Release Notes](https://russmatney.itch.io/dot-hop/devlog/998752/dot-hop-12-now-available)
 * [Dot Hop Rearchitecting Devlog](https://russmatney.com/#/devlogs/2025-07-26-dothopping-rearchitecting)
 * [Dot Hop Speedrun/Spoilers/Stats Devlog](https://russmatney.com/#/devlogs/2025-06-10-dothop-speedrun)
 * [Full Speedrun of Dot Hop 1.0 on Twitch](https://www.twitch.tv/collections/0tCOXvfGRxhZiA)
@@ -21,7 +23,7 @@ A fun bug I hit led to this craziness:
 
 <video controls width="80%" height="400px">
     <source
-    src="/assets/devlog_dothop_puzzle_stacking_bug_5x.mp4"
+    src="assets/devlog_dothop_puzzle_stacking_bug_5x.mp4"
     type="video/mp4"
     />
 </video>
@@ -30,7 +32,7 @@ An early clip of the Puzzle Gym and Random Mode:
 
 <video controls width="80%" height="400px">
     <source
-    src="/assets/puzzle_gym_and_random_mode.mp4"
+    src="assets/puzzle_gym_and_random_mode.mp4"
     type="video/mp4"
     />
 </video>
@@ -39,7 +41,7 @@ An early bit of next-move emphasis:
 
 <video controls width="80%" height="400px">
     <source
-    src="/assets/showing_possible_moves.mp4"
+    src="assets/showing_possible_moves.mp4"
     type="video/mp4"
     />
 </video>
