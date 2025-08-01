@@ -54,7 +54,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/bones/plugin.cfg", "res://addons/dothop/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/bones/plugin.cfg", "res://addons/dothop/plugin.cfg", "res://addons/gdUnit4/plugin.cfg", "res://addons/gdfxr/plugin.cfg", "res://addons/input_helper/plugin.cfg", "res://addons/log/plugin.cfg", "res://addons/pandora/plugin.cfg", "res://addons/phantom_camera/plugin.cfg", "res://addons/sound_manager/plugin.cfg")
 
 [file_customization]
 
@@ -185,7 +185,7 @@ pointing/emulate_touch_from_mouse=true
 
 [log_gd]
 
-config/color_theme="PRETTY_V1"
+config/color_resource_path="uid://7j1olg4oj5pe"
 
 [rendering]
 
