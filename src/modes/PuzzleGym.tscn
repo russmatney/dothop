@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://cgf1a3l0al54x"]
+[gd_scene load_steps=15 format=3 uid="uid://cgf1a3l0al54x"]
 
 [ext_resource type="Script" uid="uid://c2y1rc7klafdr" path="res://src/modes/PuzzleGym.gd" id="1_bixs5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_bkt3y"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="8_xhuo2"]
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_h63e6"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="10_3vi1e"]
+[ext_resource type="Script" uid="uid://yuyyluclivtg" path="res://src/modes/SomeDotsMode.gd" id="10_xhuo2"]
 [ext_resource type="Script" uid="uid://ctadfanugtrbv" path="res://src/modes/TreadmillMode.gd" id="11_bkt3y"]
 [ext_resource type="PackedScene" uid="uid://drbmqe5fgckq2" path="res://src/ui/notifications/Notifications.tscn" id="11_gev17"]
 [ext_resource type="Script" uid="uid://c8a6pcr2i2s06" path="res://src/modes/RandomMode.gd" id="12_uigyt"]
@@ -52,6 +53,10 @@ metadata/_custom_type_script = "uid://ctadfanugtrbv"
 unique_name_in_owner = true
 script = ExtResource("12_uigyt")
 
+[node name="SomeDotsMode" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("10_xhuo2")
+
 [node name="UI" type="CanvasLayer" parent="."]
 layer = 5
 
@@ -96,7 +101,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]LEAF-4"
+text = "[center]SNOW-8"
 fit_content = true
 scroll_active = false
 
@@ -107,7 +112,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]easy"
+text = "[center]med"
 fit_content = true
 scroll_active = false
 
@@ -212,6 +217,12 @@ unique_name_in_owner = true
 layout_mode = 2
 theme = ExtResource("14_xhuo2")
 text = "Random Mode"
+
+[node name="SomeDotsModeButton" type="Button" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme = ExtResource("14_xhuo2")
+text = "Some Dots Mode"
 
 [node name="MarginContainer3" type="MarginContainer" parent="UI/PanelContainer/HBoxContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0, 20)

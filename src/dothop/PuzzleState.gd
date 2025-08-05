@@ -189,10 +189,31 @@ func dot_count(only_undotted: bool = false) -> int:
 			return true
 		return false))
 
-## predicates
+## win condition
+
+var _require_all_dotted := true
+var _require_all_players_at_goal := true
+
+func set_require_all_dots(required: bool) -> void:
+	_require_all_dotted = required
+func set_require_all_players_at_goal(required: bool) -> void:
+	_require_all_players_at_goal = required
 
 func check_win() -> bool:
-	return all_dotted() and all_players_at_goal()
+	# require all players at goal
+	if _require_all_players_at_goal:
+		if not all_players_at_goal():
+			return false
+	else:
+		if not any_players_at_goal():
+			return false
+
+	if _require_all_dotted:
+		if not all_dotted():
+			return false
+
+	# all passed! must be in a win state
+	return true
 
 # Returns true if there are no "dot" objects in the state grid
 func all_dotted() -> bool:
@@ -202,6 +223,11 @@ func all_players_at_goal() -> bool:
 	return all_cells()\
 		.filter(func(c: Cell) -> bool: return c.has_goal())\
 		.all(func(c: Cell) -> bool: return c.has_player())
+
+func any_players_at_goal() -> bool:
+	return all_cells()\
+		.filter(func(c: Cell) -> bool: return c.has_goal())\
+		.any(func(c: Cell) -> bool: return c.has_player())
 
 ## grid helpers
 

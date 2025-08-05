@@ -12,9 +12,11 @@ var puzzle_def: PuzzleDef
 
 @onready var treadmill_mode_button: Button = $%TreadmillModeButton
 @onready var random_mode_button: Button = $%RandomModeButton
+@onready var some_dots_mode_button: Button = $%SomeDotsModeButton
 
 @onready var treadmill_mode: TreadmillMode = $%TreadmillMode
 @onready var random_mode: RandomMode = $%RandomMode
+@onready var some_dots_mode: SomeDotsMode = $%SomeDotsMode
 
 @onready var new_puzzle_button: Button = $%NewPuzzleButton
 
@@ -42,6 +44,7 @@ func _ready() -> void:
 
 	treadmill_mode_button.pressed.connect(enable_treadmill_mode)
 	random_mode_button.pressed.connect(enable_random_mode)
+	some_dots_mode_button.pressed.connect(toggle_some_dots_mode)
 
 	new_puzzle_button.pressed.connect(func() -> void:
 		puzzle_def = PuzzleStore.get_random_puzzle()
@@ -52,6 +55,8 @@ func _ready() -> void:
 
 	# force an initial mode
 	enable_random_mode()
+
+	toggle_some_dots_mode()
 
 ## mode toggles #####################################################################
 
@@ -74,3 +79,11 @@ func enable_random_mode() -> void:
 	random_mode.enable()
 	random_mode_button.set_disabled(true)
 	DotHop.notif("[Random Mode]")
+
+func toggle_some_dots_mode() -> void:
+	some_dots_mode.toggle()
+
+	if some_dots_mode.enabled:
+		some_dots_mode_button.text = "All Dots Mode"
+	else:
+		some_dots_mode_button.text = "Some Dots Mode"

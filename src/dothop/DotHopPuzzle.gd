@@ -357,12 +357,19 @@ func reattempt_blocked_move() -> void:
 	if processing_move_queue:
 		process_move_queue(true)
 
-## state/grid ##############################################################
+## state/win ##############################################################
 
 # sets up the state grid and some initial data based on the assigned puzzle_def
 func build_game_state() -> void:
 	state = PuzzleState.new(puzzle_def)
 	rebuild_nodes()
+
+func set_require_all_dots(required: bool) -> void:
+	state.set_require_all_dots(required)
+func set_require_all_players_at_goal(required: bool) -> void:
+	state.set_require_all_players_at_goal(required)
+
+## rebuild nodes ##############################################################
 
 # (Re)Creates dot and player nodes, attaches state signals
 func rebuild_nodes() -> void:
