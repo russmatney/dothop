@@ -16,18 +16,6 @@ func test_tutorial_puzzles() -> void:
 func test_expected_puzzle_count() -> void:
 	var psd: PuzzleSetData = PuzzleSetData.from_contents("
 title DotHop
-author Russell Matney
-
-=======
-LEGEND
-=======
-
-. = Background
-a = Player
-o = Dot
-t = Goal
-
-x = Player and Dotted
 
 =======
 PUZZLES
@@ -50,18 +38,6 @@ ox.o.ot
 func test_puzzle_def_metadata() -> void:
 	var psd: PuzzleSetData = PuzzleSetData.from_contents("
 title DotHop
-author Russell Matney
-
-=======
-LEGEND
-=======
-
-. = Background
-a = Player
-o = Dot
-t = Goal
-
-x = Player and Dotted
 
 =======
 PUZZLES

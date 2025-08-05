@@ -2,21 +2,6 @@ title No Season like Snow Season
 short_name SNOW
 
 =======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
-
-=======
 PUZZLES
 =======
 
@@ -28,15 +13,21 @@ message "it be like BRRRRRR"
 .o.
 .t.
 
+message "it be like BRRRRRR"
+
 .o.o...
 ..xo.o.
 .o...o.
 ...t...
 
+message "it be like BRRRRRR"
+
 xo......
 .oo.....
 ..oo....
 ...oooot
+
+message "it be like BRRRRRR"
 
 .o.o.oo
 .o...o.
@@ -50,11 +41,15 @@ oo..o.o
 .....oo
 t.oo...
 
+message "Better bundle up!"
+
 ...o..o
 .o.oooo
 o.o..t.
 x...o.o
 .oo.o.o
+
+message "Better bundle up!"
 
 ....o.o...
 ..o.o....o
@@ -63,12 +58,16 @@ oo...oo...
 ox.....o.o
 ..o.o.....
 
+message "Better bundle up!"
+
 .oo.o.o
 ..o.ooo
 .o.t.o.
 oo...xo
 .....oo
 oo.....
+
+message "Better bundle up!"
 
 .oo.o.t
 ..o.ooo
@@ -86,12 +85,16 @@ message "Now, the deep freeze!"
 ox......o.o
 oo.o...o...
 
+message "Now, the deep freeze!"
+
 o.o........
 ..x........
 o..o.o..o..
 .too....o.o
 ooo.....o.o
 .o......o..
+
+message "Now, the deep freeze!"
 
 ...o......o...
 ......t.o..o..

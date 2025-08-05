@@ -1,21 +1,5 @@
 title Leaf Me Alone
-author Russell Matney
 short_name LEAF
-
-=======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
 
 =======
 PUZZLES
@@ -57,6 +41,8 @@ o..ooo
 t.o.o.
 ..xo..
 ..oo.o
+
+message "More paths? Or Fewer?"
 
 .o...oo.
 o..o..o.
@@ -104,6 +90,8 @@ ootoo...o
 .o.oo.o..
 ...ooxo..
 oo.o..o.o
+
+message "You can't get there from here!"
 
 .o...oo
 o..o..o

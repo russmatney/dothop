@@ -1,21 +1,5 @@
 title That's Just Beachy
-author Russell Matney
 short_name BEACH
-
-=======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
 
 =======
 PUZZLES
@@ -27,10 +11,14 @@ message "Fun in the sun!"
 o.x.o.t.
 o......o
 
+message "Fun in the sun!"
+
 .o...o.
 .o.o.o.
 .x.....
 .o.o.t.
+
+message "Fun in the sun!"
 
 o..ooo.
 o...o.t
@@ -45,16 +33,22 @@ o.....o
 ...o.o.
 ot..o.o
 
+message "Don't forget the sunscreen!"
+
 ..oo....o
 .o..o....
 ...x....o
 .oo.o..t.
+
+message "Don't forget the sunscreen!"
 
 .o..o....
 ..oo....o
 .....oo..
 ...x.oo.o
 .oo.o..t.
+
+message "Don't forget the sunscreen!"
 
 .....ooo.
 ..oo....o
@@ -70,6 +64,8 @@ message "Life is a beach!"
 ...o..o....
 ..o..o.....
 ......oo...
+
+message "Life is a beach!"
 
 ......oo...
 ..o..o.....
@@ -87,11 +83,15 @@ message "Hope you brought your shades!"
 oxo........o
 oo..........
 
+message "Hope you brought your shades!"
+
 ....oo..o.
 o....o..o.
 .oo.oo.to.
 oox....o.o
 o.o.....oo
+
+message "This one has burned me too many times"
 
 oo....o.o.
 .o.o..oo..

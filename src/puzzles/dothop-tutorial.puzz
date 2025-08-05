@@ -3,21 +3,6 @@ author Russell Matney
 short_name TUT
 
 =======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
-
-=======
 PUZZLES
 =======
 

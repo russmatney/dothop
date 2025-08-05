@@ -2,21 +2,6 @@ title Misc other puzzles
 short_name EXTRA
 
 =======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
-
-=======
 PUZZLES
 =======
 
@@ -37,10 +22,14 @@ txoo
 ..oo
 txoo
 
+message "two hoppers!"
+
 ....o.o
 tx..o.o
 oo.o.x.
 t......
+
+message "two hoppers!"
 
 ....o.o
 tx..o.o

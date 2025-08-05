@@ -19,7 +19,7 @@ func _ready() -> void:
 func setup_puzzle_node(node: DotHopPuzzle) -> void:
 	puzzle_node = node
 
-	puzzle_node.ready.connect(update_hud)
+	update_hud()
 	puzzle_node.player_moved.connect(update_hud)
 	puzzle_node.player_undo.connect(update_hud)
 	puzzle_node.move_rejected.connect(update_hud)

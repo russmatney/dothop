@@ -1,21 +1,5 @@
 title Spring Forward
-author Russell Matney
 short_name SPRING
-
-=======
-LEGEND
-=======
-
-. = Background
-a = PlayerA
-b = PlayerB
-o = Dot
-t = Goal
-
-Player = a or b
-pt = Dot or Goal
-x = PlayerA and Dotted
-y = PlayerB and Dotted
 
 =======
 PUZZLES
@@ -26,9 +10,13 @@ message "April Showers!"
 ooo
 oxt
 
+message "April Showers!"
+
 oo....o
 o.o.o..
 .x..o.t
+
+message "April Showers!"
 
 .ot.o.o
 x..o...
@@ -43,15 +31,21 @@ x.o....
 o.....o
 .o...o.
 
+message "You're almost done! (April fools.)"
+
 o..o..
 .oo.ot
 xooo..
 o...o.
 
+message "You're almost done! (April fools.)"
+
 .o.o..o
 .o.o.t.
 xooo..o
 o.....o
+
+message "You're almost done! (April fools.)"
 
 ..o.o..o
 o.oo..t.
@@ -64,6 +58,8 @@ message "May flowers?"
 o.o.o.o.
 oxt.o..o
 oo....oo
+
+message "May flowers?"
 
 o.....oo
 oo.o.ooo
@@ -80,12 +76,16 @@ o....o..oo.
 ox.oo......
 oo.o.......
 
+message "June Bug!"
+
 ...o..o...
 oo.o.oo.to
 o.....o..o
 .o..o.....
 ox.oo.....
 oo.o......
+
+message "June Bug!"
 
 ...o..o.oo
 oo.o.oo.xo
