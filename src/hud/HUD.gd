@@ -64,12 +64,13 @@ func update_state(data: Dictionary) -> void:
 func update_puzzle_number(entry: Dictionary) -> void:
 	if "puzzles_remaining" in entry:
 		var rem: int = entry.puzzles_remaining
+		var puzzle_label := puzzle_def.get_label()
 		if rem == 0:
-			puzzle_num_label.text = "[center]Puzzle set complete![/center]"
+			puzzle_num_label.text = "[center]%s\nPuzzle set complete![/center]" % puzzle_label
 		elif rem == 1:
-			puzzle_num_label.text = "[center]Last puzzle![/center]"
+			puzzle_num_label.text = "[center]%s\nLast puzzle![/center]" % puzzle_label
 		else:
-			puzzle_num_label.text = "[center]%s puzzles left[/center]" % entry.puzzles_remaining
+			puzzle_num_label.text = "[center]%s\n%s puzzles left[/center]" % [puzzle_label, entry.puzzles_remaining]
 
 ## message ########################################################
 

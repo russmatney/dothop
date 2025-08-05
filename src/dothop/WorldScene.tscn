@@ -18,7 +18,7 @@ _id = "26"
 [node name="WorldScene" type="Node2D"]
 script = ExtResource("1_6tdb7")
 world = SubResource("Resource_yvn33")
-puzzle_num = 1
+puzzle_num = 6
 
 [node name="HUD" parent="." instance=ExtResource("3_pcrl2")]
 
@@ -32,6 +32,7 @@ script = ExtResource("4_ns18a")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="PhantomCamera2D" parent="." instance=ExtResource("5_yvn33")]
+auto_zoom_margin = Vector4(48, 48, 48, 48)
 
 [node name="GameSounds" type="Node" parent="."]
 script = ExtResource("7_q2cj5")
