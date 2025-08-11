@@ -19,6 +19,7 @@ func _ready() -> void:
 
 ## toggle #####################################################################
 
+# consider a mode/rules change event
 func enable() -> void:
 	enabled = true
 	update_require_all_dots()

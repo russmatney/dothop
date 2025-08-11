@@ -53,9 +53,10 @@ func _ready() -> void:
 			puzzle_def=puzzle_def,
 			}))
 
+	if Engine.is_editor_hint():
+		return
 	# force an initial mode
 	enable_random_mode()
-
 	toggle_some_dots_mode()
 
 ## mode toggles #####################################################################
@@ -81,6 +82,8 @@ func enable_random_mode() -> void:
 	DotHop.notif("[Random Mode]")
 
 func toggle_some_dots_mode() -> void:
+	# consider firing a mode/rules change event
+	# instead of this secret reference situation
 	some_dots_mode.toggle()
 
 	if some_dots_mode.enabled:
