@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ce3lkje27mc27"]
+[gd_scene load_steps=13 format=3 uid="uid://ce3lkje27mc27"]
 
 [ext_resource type="Script" uid="uid://cpsjrq4nga7ca" path="res://src/dothop/WorldScene.gd" id="1_6tdb7"]
 [ext_resource type="Script" uid="uid://fnaitnfsqiwn" path="res://src/puzzles/PuzzleWorld.gd" id="2_sdetx"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" uid="uid://dcuk3w0lr0qth" path="res://src/dothop/GameMusic.gd" id="8_7iue3"]
 [ext_resource type="Script" uid="uid://cod5r6xsw0v7r" path="res://src/dothop/PuzzleTransitions.gd" id="9_d2yb4"]
 [ext_resource type="Script" uid="uid://ca2yhamyxhkko" path="res://src/classic/ClassicMode.gd" id="10_hw8gj"]
+[ext_resource type="Script" uid="uid://yuyyluclivtg" path="res://src/modes/SomeDotsMode.gd" id="11_6tdb7"]
 [ext_resource type="Script" uid="uid://bdptumf84yi2o" path="res://src/dothop/PuzzleInputHandler.gd" id="11_jvqxy"]
 
 [sub_resource type="Resource" id="Resource_yvn33"]
@@ -50,3 +51,7 @@ metadata/_custom_type_script = "uid://ca2yhamyxhkko"
 
 [node name="PuzzleInputHandler" type="Node" parent="."]
 script = ExtResource("11_jvqxy")
+
+[node name="SomeDotsMode" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("11_6tdb7")
