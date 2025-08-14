@@ -8,9 +8,11 @@ static func parse(lines: Array) -> PuzzleDef:
 
 ## vars ########################################3333
 
+@export var og_shape: Array
 @export var shape: Array
 @export var width: int
 @export var height: int
+@export var og_height: int
 @export var idx: int
 @export var world_short_name: String
 @export var meta: Dictionary
@@ -24,9 +26,9 @@ var is_skipped: bool
 
 func to_pretty() -> Variant:
 	return {id=get_id(), idx=idx,
-		# shape=shape,
-		# width=width, height=height,
-		# meta=meta,
+		shape=shape,
+		width=width, height=height,
+		meta=meta,
 		message=message,
 		# is_completed=is_completed, is_skipped=is_skipped,
 		}
@@ -38,8 +40,10 @@ func _init(raw: Dictionary={}, parsed_game: ParsedGame = null) -> void:
 		return
 	if raw.shape:
 		shape = raw.shape
+		og_shape = shape.duplicate()
 	width = raw.width
 	height = raw.height
+	og_height = raw.height
 	meta = raw.meta
 	if "message" in raw:
 		message = raw.message
@@ -75,7 +79,7 @@ func get_fen() -> String:
 func all_coords() -> Array[Vector2]:
 	var coords: Array[Vector2] = []
 	for y in range(len(shape)):
-		for x in range(len(shape[0])):
+		for x in range(len(shape[y])):
 			coords.append(Vector2(x, y))
 	return coords
 
@@ -142,14 +146,40 @@ func dot_count() -> int:
 ## shuffle the internal puzzle shape ########################################3333
 
 func shuffle_puzzle_layout(opts: Dictionary = {}) -> void:
-	# drop any hangers-on - leads to consistent puzzle ids (tho this doesn't cover transpositions)
-	shape = shape.duplicate()
+	# drop any hangers-on to more easily support consistent puzzle ids/hashes
+	# (tho this doesn't cover hand-written transpositions)
+	shape = og_shape.duplicate()
+	height = og_height
 	var reverse_ys: bool = opts.get("reverse_ys", U.rand_of([true, false]))
 	var reverse_xs: bool = opts.get("reverse_xs", U.rand_of([true, false]))
 	var rotate_shape: bool = opts.get("rotate_shape", U.rand_of([true, false, false, false]))
 
+	var should_add_row: Callable = func() -> bool: return U.rand_of([true, false])
+
+	# adding empty rows
+	var new_shape := []
+	for row_i: int in len(shape):
+		new_shape.append(shape[row_i])
+		if should_add_row.call():
+			# insert empty row at i
+			# TODO do empty rows need to be full width?
+			new_shape.append([])
+			height += 1
+			Log.debug("Adding a random row!")
+	# TODO impl for columns via rotate/add_empty_row again?
+	# TODO rotate to make this easier
+	# new_shape.rotate()
+	# for row_i: int in len(shape):
+	# 	new_shape.append(shape[row_i])
+	# 	if should_add_row.call():
+	# 		# insert empty row at i
+	# 		# TODO do empty rows need to be full width?
+	# 		new_shape.append([])
+	shape = new_shape
+
 	if reverse_ys:
 		shape.reverse()
+
 	if reverse_xs:
 		for row: Array in shape:
 			row.reverse()

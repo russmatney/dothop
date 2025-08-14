@@ -149,8 +149,11 @@ func to_pretty() -> Variant:
 func _init(puzz_def: PuzzleDef) -> void:
 	puzzle_def = puzz_def
 
-	grid_width = len(puzzle_def.shape[0])
-	grid_height = len(puzzle_def.shape)
+	grid_height = puzzle_def.height
+	grid_width = puzzle_def.width
+	if grid_height <= 0:
+		Log.warn("zero-heighted puzzle?", puzzle_def)
+		Log.error("could not set grid_height! probably an empty world rn")
 
 	for cell: Cell in puzzle_def.state_cells():
 		cells_by_coord[cell.coord] = cell
