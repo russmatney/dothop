@@ -237,13 +237,24 @@ static func clear_type_overwrites() -> void:
 ##
 static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 	var newlines: bool = opts.get("newlines", false)
+	var depth: int = opts.get("depth", 0)
 	var indent_level: int = opts.get("indent_level", 0)
+
+	# TODO document
+	var newline_max_depth: int = opts.get("newline_max_depth", 1)
+	if depth >= newline_max_depth:
+		newlines = false
+
 	var delimiter_index: int = opts.get("delimiter_index", 0)
+
 	if not "indent_level" in opts:
 		opts["indent_level"] = indent_level
 
 	if not "delimiter_index" in opts:
 		opts["delimiter_index"] = delimiter_index
+
+	if not "depth" in opts:
+		opts["depth"] = depth
 
 	if not is_instance_valid(msg) and typeof(msg) == TYPE_OBJECT:
 		return str("invalid instance: ", msg)
@@ -280,6 +291,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 		# shouldn't we be incrementing index_level here?
 		var tmp: String = Log.color_wrap("[ ", opts)
 		opts["delimiter_index"] += 1
+		opts["depth"] += 1
 		var last: int = len(msg) - 1
 		for i: int in range(len(msg)):
 			if newlines and last > 1:
@@ -291,6 +303,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 			if i != last:
 				tmp += Log.color_wrap(", ", opts)
 		opts["delimiter_index"] -= 1
+		opts["depth"] -= 1
 		tmp += Log.color_wrap(" ]", opts)
 		return tmp
 
@@ -298,6 +311,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 	elif msg is Dictionary:
 		var tmp: String = Log.color_wrap("{ ", opts)
 		opts["delimiter_index"] += 1
+		opts["depth"] += 1
 		var ct: int = len(msg)
 		var last: Variant
 		if len(msg) > 0:
@@ -322,6 +336,7 @@ static func to_pretty(msg: Variant, opts: Dictionary = {}) -> String:
 			if last and str(k) != str(last):
 				tmp += Log.color_wrap(", ", opts)
 		opts["delimiter_index"] -= 1
+		opts["depth"] -= 1
 		tmp += Log.color_wrap(" }", opts)
 		opts["indent_level"] -= 1 # ugh! updating the dict in-place
 		return tmp
@@ -496,7 +511,19 @@ static func log(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF"
 static func prn(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF") -> void:
 	var msgs: Array = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
-	var m: String = Log.to_printable(msgs, {stack=get_stack(), newlines=true})
+	var m: String = Log.to_printable(msgs, {stack=get_stack(), newlines=true, newline_max_depth=1})
+	print_rich(m)
+
+static func prnn(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF") -> void:
+	var msgs: Array = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
+	msgs = msgs.filter(Log.is_not_default)
+	var m: String = Log.to_printable(msgs, {stack=get_stack(), newlines=true, newline_max_depth=2})
+	print_rich(m)
+
+static func prnnn(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF") -> void:
+	var msgs: Array = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
+	msgs = msgs.filter(Log.is_not_default)
+	var m: String = Log.to_printable(msgs, {stack=get_stack(), newlines=true, newline_max_depth=3})
 	print_rich(m)
 
 ## Like [code]Log.prn()[/code], but also calls push_warning() with the pretty string.
