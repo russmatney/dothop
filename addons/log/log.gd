@@ -472,6 +472,13 @@ static func pr(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF",
 	print_rich(m)
 
 ## Pretty-print the passed arguments in a single line.
+static func debug(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF") -> void:
+	var msgs: Array = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
+	msgs = msgs.filter(Log.is_not_default)
+	var m: String = Log.to_printable(msgs, {stack=get_stack()})
+	print_rich(m)
+
+## Pretty-print the passed arguments in a single line.
 static func info(msg: Variant, msg2: Variant = "ZZZDEF", msg3: Variant = "ZZZDEF", msg4: Variant = "ZZZDEF", msg5: Variant = "ZZZDEF", msg6: Variant = "ZZZDEF", msg7: Variant = "ZZZDEF") -> void:
 	var msgs: Array = [msg, msg2, msg3, msg4, msg5, msg6, msg7]
 	msgs = msgs.filter(Log.is_not_default)
