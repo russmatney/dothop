@@ -12,7 +12,6 @@ static func parse(lines: Array) -> PuzzleDef:
 @export var shape: Array
 @export var width: int
 @export var height: int
-@export var og_height: int
 @export var idx: int
 @export var world_short_name: String
 @export var meta: Dictionary
@@ -35,15 +34,16 @@ func to_pretty() -> Variant:
 
 ## init ########################################3333
 
+# HEY! this init only runs at IMPORT time, not game-play or load time
 func _init(raw: Dictionary={}, parsed_game: ParsedGame = null) -> void:
 	if len(raw) == 0:
 		return
 	if raw.shape:
 		shape = raw.shape
+		remove_empty_rows()
+		remove_empty_columns()
 		og_shape = shape.duplicate()
-	width = raw.width
-	height = raw.height
-	og_height = raw.height
+	recalc_dimensions()
 	meta = raw.meta
 	if "message" in raw:
 		message = raw.message
@@ -51,6 +51,10 @@ func _init(raw: Dictionary={}, parsed_game: ParsedGame = null) -> void:
 		idx = raw.idx
 	if parsed_game and "short_name" in parsed_game.prelude:
 		world_short_name = parsed_game.prelude.get("short_name", "unknown")
+
+func recalc_dimensions() -> void:
+	height = len(shape)
+	width = len(shape[0] if height > 0 else [])
 
 ## get_id ################################################
 
@@ -101,21 +105,6 @@ func state_cells() -> Array[PuzzleState.Cell]:
 		cells.append(PuzzleState.Cell.new(coord, objs))
 	return cells
 
-## rotate ####################################################
-
-func rotate() -> void:
-	var new_shape: Array = []
-	for row: Array in shape:
-		for i: int in len(row):
-			if i > len(new_shape) - 1:
-				new_shape.append([])
-			(new_shape[i] as Array).append(row[i])
-	shape = new_shape
-	var w: int = width
-	var h: int = height
-	width = h
-	height = w
-
 ## log.data() ########################################3333
 
 func data() -> Variant:
@@ -149,33 +138,16 @@ func shuffle_puzzle_layout(opts: Dictionary = {}) -> void:
 	# drop any hangers-on to more easily support consistent puzzle ids/hashes
 	# (tho this doesn't cover hand-written transpositions)
 	shape = og_shape.duplicate()
-	height = og_height
+	recalc_dimensions()
+
 	var reverse_ys: bool = opts.get("reverse_ys", U.rand_of([true, false]))
 	var reverse_xs: bool = opts.get("reverse_xs", U.rand_of([true, false]))
 	var rotate_shape: bool = opts.get("rotate_shape", U.rand_of([true, false, false, false]))
-
 	var should_add_row: Callable = func() -> bool: return U.rand_of([true, false])
 
-	# adding empty rows
-	var new_shape := []
-	for row_i: int in len(shape):
-		new_shape.append(shape[row_i])
-		if should_add_row.call():
-			# insert empty row at i
-			# TODO do empty rows need to be full width?
-			new_shape.append([])
-			height += 1
-			Log.debug("Adding a random row!")
-	# TODO impl for columns via rotate/add_empty_row again?
-	# TODO rotate to make this easier
-	# new_shape.rotate()
-	# for row_i: int in len(shape):
-	# 	new_shape.append(shape[row_i])
-	# 	if should_add_row.call():
-	# 		# insert empty row at i
-	# 		# TODO do empty rows need to be full width?
-	# 		new_shape.append([])
-	shape = new_shape
+	add_empty_rows({should=should_add_row,})
+	add_empty_columns({should=should_add_row,})
+	Log.prn("final shape", shape)
 
 	if reverse_ys:
 		shape.reverse()
@@ -187,3 +159,101 @@ func shuffle_puzzle_layout(opts: Dictionary = {}) -> void:
 		# don't rotate very wide puzzles
 		if width <= 6:
 			rotate()
+
+## rotate ####################################################
+
+func rotate() -> void:
+	var new_shape: Array = []
+	for row: Array in shape:
+		for col_i: int in len(row):
+			if col_i > len(new_shape) - 1:
+				new_shape.append([])
+			(new_shape[col_i] as Array).append(row[col_i])
+	shape = new_shape
+	recalc_dimensions()
+
+## remove empty rows ####################################################
+
+func is_empty_row(row: Array) -> bool:
+	if len(row) == 0:
+		return true
+	else:
+		for v: Variant in row:
+			if not v == null:
+				# TODO handle arrays here
+				# if v is Array and not v.is_empty()
+				# 	return false
+				# else:
+				return false
+	return true
+
+func remove_empty_rows() -> void:
+	for i: int in range(len(shape) - 1, -1, -1):
+		var row: Array = shape[i]
+		if is_empty_row(row):
+			shape.remove_at(i) # or erase(row)
+			Log.debug("Removing empty row at index %s" % i)
+	recalc_dimensions()
+
+func remove_empty_columns() -> void:
+	pass
+
+	# TODO impl walk each col_i in each row and check for ALL empty
+	for col_i: int in range(width - 1):
+		var is_empty: bool = true
+
+		for row: Array in shape:
+			if len(row) == 0:
+				continue
+			if col_i >= len(row):
+				continue # skip if the row is shorter than the column index
+			var cell: Variant = row[col_i]
+			# TODO could this be an empty array?
+			# if cell is Array and len(cell) > 0:
+			# 	is_empty = false
+			# 	break
+			if cell != null:
+				is_empty = false
+				break
+
+		if is_empty:
+			Log.debug("Removing empty column at index %s" % col_i)
+			for row: Array in shape:
+				row.remove_at(col_i) # or erase(row[col_i])
+
+func add_empty_rows(opts: Dictionary) -> void:
+	var should: Callable = opts.get("should", func() -> bool: return false)
+	# adding empty rows
+	var new_shape := []
+	for row_i: int in len(shape):
+		new_shape.append(shape[row_i])
+		if should.call():
+			# insert empty row at i
+			# TODO do empty rows need to be full width?
+			new_shape.append([])
+			Log.debug("Adding a random row")
+	shape = new_shape
+	recalc_dimensions()
+
+func add_empty_columns(opts: Dictionary) -> void:
+	# called once per column
+	var should: Callable = opts.get("should", func() -> bool: return false)
+
+	# select columns to add from first row
+	var cols_to_add: Array = []
+	for col_i: int in range(len(shape[0])):
+		if should.call():
+			cols_to_add.append(col_i)
+
+	# insert a null at each column
+	var new_shape := []
+	for row: Array in shape:
+		var new_row := row.duplicate()
+		if len(row) > 0: # only add if the row has columns
+			for col_i: int in cols_to_add:
+				new_row.insert(col_i, null) # inserting null as a spacer
+		new_shape.append(new_row)
+	Log.debug("Added random columns", cols_to_add)
+
+	shape = new_shape
+	recalc_dimensions()
