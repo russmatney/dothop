@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://cgf1a3l0al54x"]
+[gd_scene load_steps=16 format=3 uid="uid://cgf1a3l0al54x"]
 
 [ext_resource type="Script" uid="uid://c2y1rc7klafdr" path="res://src/modes/PuzzleGym.gd" id="1_bixs5"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_bkt3y"]
@@ -14,6 +14,7 @@
 [ext_resource type="PackedScene" uid="uid://cqrifv67kll20" path="res://src/ui/components/InputHints.tscn" id="13_gev17"]
 [ext_resource type="Theme" uid="uid://crneit8sf87tj" path="res://src/ui/DotHopTheme.tres" id="13_xhuo2"]
 [ext_resource type="Theme" uid="uid://beg0yvicrirg0" path="res://src/ui/GreenButtonTheme.tres" id="14_xhuo2"]
+[ext_resource type="Script" uid="uid://t2clxx1r7k5i" path="res://src/modes/ChoiceWarpMode.gd" id="15_h63e6"]
 
 [node name="PuzzleGym" type="Node"]
 script = ExtResource("1_bixs5")
@@ -101,7 +102,7 @@ theme = ExtResource("13_xhuo2")
 theme_type_variation = &"MenuMetadata"
 theme_override_colors/default_color = Color(0.960784, 0.960784, 0.960784, 0.811765)
 bbcode_enabled = true
-text = "[center]SNOW-8"
+text = "[center]LEAF-7"
 fit_content = true
 scroll_active = false
 
@@ -243,3 +244,7 @@ size_flags_vertical = 3
 
 [node name="InputHints" parent="UI/PanelContainer/HBoxContainer/VBoxContainer" instance=ExtResource("13_gev17")]
 layout_mode = 2
+
+[node name="ChoiceWarpMode" type="Node" parent="."]
+script = ExtResource("15_h63e6")
+delay = null
