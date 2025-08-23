@@ -16,14 +16,21 @@ class Line:
 var lines: Array[Line] = []
 var current_line: Line
 
+var camera: Camera2D
+
 func to_pretty() -> Variant:
 	return [lines]
 
-func _unhandled_input(event: InputEvent) -> void:
+func _ready() -> void:
+	camera = get_viewport().get_camera_2d()
+
+func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		var mbe: InputEventMouseButton = event as InputEventMouseButton
 		if mbe.button_index == MOUSE_BUTTON_RIGHT and mbe.pressed:
-			current_line = Line.new(mbe.position)
+			var pos := camera.get_global_mouse_position()
+			current_line = Line.new(pos)
+			Log.pr("started a line", current_line)
 
 	if event is InputEventMouseButton:
 		var mbe: InputEventMouseButton = event as InputEventMouseButton
@@ -31,7 +38,9 @@ func _unhandled_input(event: InputEvent) -> void:
 			# finished drawing
 			if current_line == null:
 				return
-			current_line.finish(mbe.position)
+			var pos := camera.get_global_mouse_position()
+			current_line.finish(pos)
+			Log.pr("added a line", current_line)
 			lines.append(current_line)
 			queue_redraw()
 
@@ -41,4 +50,5 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _draw() -> void:
 	for l in lines:
-		draw_line(l.start, l.end, Color.PERU, 8)
+		Log.pr("drew a line", l)
+		draw_line(l.start, l.end, Color.AQUAMARINE, 8)

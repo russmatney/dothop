@@ -25,6 +25,7 @@ layout_mode = 2
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
 custom_minimum_size = Vector2(0, 120)
 layout_mode = 2
+mouse_filter = 2
 alignment = 1
 
 [node name="MarginContainer4" type="MarginContainer" parent="VBoxContainer/HBoxContainer2"]
