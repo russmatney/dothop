@@ -1,12 +1,18 @@
+## LogColorTheme - Bring Your Own Color Theme to Log.gd!
+## [br][br]
+## Create a new resource of this type, and assign this via the Project Settings.
+## [br][br]
+## Be sure to enable Log.gd via Project > Plugins to see this type in the editor!
+##
 @tool
 extends Resource
 class_name LogColorTheme
 
-## prefixes ########################################
+## cycles ########################################
 
-@export var color_src_prefix: Color = "aquamarine"
-@export var color_addons_prefix: Color = "peru"
-@export var color_test_prefix: Color = "green_yellow"
+@export var bg_colors: Array[Color] = []
+
+@export var colors_rainbow_delims: Array[Color] = ["crimson", "cornflower_blue", "coral", "pink", "peru"]
 
 ## delimiters ########################################
 
@@ -15,9 +21,13 @@ class_name LogColorTheme
 @export var color_pipe: Color = "coral"
 @export var color_carrot: Color = "coral"
 
-@export var colors_rainbow_delims: Array[Color] = ["crimson", "cornflower_blue", "coral", "pink", "peru"]
-
 # @export var colors_dict_keys: Array[Color] = ["coral", "cadet_blue", "pink", "peru"]
+
+## prefixes ########################################
+
+@export var color_src_prefix: Color = "aquamarine"
+@export var color_addons_prefix: Color = "peru"
+@export var color_test_prefix: Color = "green_yellow"
 
 ## types ############################################
 
@@ -126,6 +136,15 @@ func to_color_dict() -> Dictionary:
 
 	return color_dict
 
+## bg color
+
+func has_bg() -> bool:
+	if bg_colors == null:
+		return false
+	return len(bg_colors) > 0
+
+func get_bg_color(i: int = 0) -> Color:
+	return bg_colors[i % len(bg_colors)]
 
 ### static term safe helpers
 
