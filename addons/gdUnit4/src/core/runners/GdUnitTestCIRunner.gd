@@ -23,15 +23,12 @@ extends "res://addons/gdUnit4/src/core/runners/GdUnitTestSessionRunner.gd"
 const GdUnitTools := preload("res://addons/gdUnit4/src/core/GdUnitTools.gd")
 
 var _console := GdUnitCSIMessageWriter.new()
-var _console_reporter: GdUnitTestReporter
-var _report_dir: String
-var _report_max: int = DEFAULT_REPORT_COUNT
+var _console_reporter: GdUnitConsoleTestReporter
 var _headless_mode_ignore := false
 var _runner_config_file := ""
 var _debug_cmd_args := PackedStringArray()
 var _included_tests := PackedStringArray()
 var _excluded_tests := PackedStringArray()
-var _current_test_session: GdUnitTestSession
 
 ## Command line options configuration
 var _cmd_options := CmdOptions.new([
@@ -80,7 +77,7 @@ var _cmd_options := CmdOptions.new([
 		CmdOption.new(
 			"-rc, --report-count",
 			"-rc <count>",
-			"Specifies how many reports are saved before they are deleted. The default is %s." % str(DEFAULT_REPORT_COUNT),
+			"Specifies how many reports are saved before they are deleted. The default is %s." % str(GdUnitConstants.DEFAULT_REPORT_HISTORY_COUNT),
 			TYPE_INT,
 			true
 		),
@@ -108,7 +105,6 @@ func _init() -> void:
 
 func _ready() -> void:
 	super()
-	_report_dir = GdUnitFileAccess.current_dir() + "reports"
 	# stop checked first test failure to fail fast
 	_executor.fail_fast(true)
 	_console_reporter = GdUnitConsoleTestReporter.new(_console, true)
@@ -135,8 +131,7 @@ func get_exit_code() -> int:
 ## [br]
 ## [param code] The exit code to return.
 func quit(code: int) -> void:
-	if code != RETURN_SUCCESS:
-		_state = EXIT
+	_state = EXIT
 	GdUnitTools.dispose_all()
 	await GdUnitMemoryObserver.gc_on_guarded_instances()
 	await super(code)
@@ -168,9 +163,9 @@ func console_warning(message: String) -> void:
 ## [br]
 ## [param path] The path where reports should be written.
 func set_report_dir(path: String) -> void:
-	_report_dir = ProjectSettings.globalize_path(GdUnitFileAccess.make_qualified_path(path))
+	report_base_path  = ProjectSettings.globalize_path(GdUnitFileAccess.make_qualified_path(path))
 	console_info(
-		"Set write reports to %s" % _report_dir,
+		"Set write reports to %s" % report_base_path,
 		Color.DEEP_SKY_BLUE
 	)
 
@@ -183,15 +178,15 @@ func set_report_count(count: String) -> void:
 	if report_count < 1:
 		console_error(
 			"Invalid report history count '%s' set back to default %d"
-			% [count, DEFAULT_REPORT_COUNT]
+			% [count, GdUnitConstants.DEFAULT_REPORT_HISTORY_COUNT]
 		)
-		_report_max = DEFAULT_REPORT_COUNT
+		max_report_history = GdUnitConstants.DEFAULT_REPORT_HISTORY_COUNT
 	else:
 		console_info(
 			"Set report history count to %s" % count,
 			Color.DEEP_SKY_BLUE
 		)
-		_report_max = report_count
+		max_report_history = report_count
 
 
 ## Disables fail-fast mode to run all tests.[br]
@@ -388,22 +383,13 @@ func init_gd_unit() -> void:
 			quit(RETURN_ERROR_HEADLESS_NOT_SUPPORTED)
 			return
 
-	configure_system_hooks()
 	_test_cases = discover_tests()
 	if _test_cases.is_empty():
 		console_info("No test cases found, abort test run!", Color.YELLOW)
 		console_info("Exit code: %d" % RETURN_SUCCESS, Color.DARK_SALMON)
 		quit(RETURN_SUCCESS)
+		return
 	_state = RUN
-
-
-func configure_system_hooks() -> void:
-	_hooks.enigne_hooks.all(func(hook: GdUnitTestSessionHook) -> void:
-		if hook is GdUnitHtmlReporterTestSessionHook:
-			var report_hook: GdUnitHtmlReporterTestSessionHook = hook
-			report_hook.report_max = _report_max
-			report_hook.report_dir = _report_dir
-	)
 
 
 func discover_tests() -> Array[GdUnitTestCase]:
@@ -446,13 +432,14 @@ func is_skipped(test: GdUnitTestCase) -> bool:
 		# is suite skipped by full path or suite name
 		if skipped_info == test.suite_name or test.source_file.contains(skipped_info):
 			return true
+		var skip_file := skipped_info.replace("res://", "")
 
 		# check for skipped single test
-		if not skipped_info.contains(":"):
+		if not skip_file.contains(":"):
 			continue
-		var parts: PackedStringArray = skipped_info.rsplit(":")
-		var skipped_suite :=  parts[0] + ":" + parts[1] if parts[0] == "res" else parts[0]
-		var skipped_test := parts[2] if parts[0] == "res" else parts[1]
+		var parts: PackedStringArray = skip_file.rsplit(":")
+		var skipped_suite :=  parts[0]
+		var skipped_test := parts[1]
 		# is suite skipped by full path or suite name
 		if (skipped_suite == test.suite_name or test.source_file.contains(skipped_suite)) and skipped_test == test.test_name:
 			return true
@@ -467,10 +454,9 @@ func _on_send_message(message: String) -> void:
 func _on_gdunit_event(event: GdUnitEvent) -> void:
 	match event.type():
 		GdUnitEvent.SESSION_START:
-			_current_test_session = GdUnitTestSession.new(_test_cases)
+			_console_reporter.test_session = _test_session
 		GdUnitEvent.SESSION_CLOSE:
-			_current_test_session = null
-	_console_reporter.on_gdunit_event(event, _current_test_session)
+			_console_reporter.test_session = null
 
 
 func report_exit_code() -> int:

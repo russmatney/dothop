@@ -14,9 +14,11 @@ var _save_settings: bool = false
 
 static func instance() -> GdUnitTestSessionHookService:
 	return GdUnitSingleton.instance("GdUnitTestSessionHookService", func()->GdUnitTestSessionHookService:
+		GdUnitSignals.instance().gdunit_message.emit("Installing GdUnit4 session system hooks.")
 		var service := GdUnitTestSessionHookService.new()
 		# Register default system hooks here
 		service.register(GdUnitHtmlReporterTestSessionHook.new(), true)
+		service.register(GdUnitXMLReporterTestSessionHook.new(), true)
 		service._save_settings = false
 		service.load_hook_settings()
 		service._save_settings = true
@@ -136,8 +138,9 @@ func save_hock_setttings() -> void:
 
 
 func load_hook_settings() -> void:
-	GdUnitSignals.instance().gdunit_message.emit("Install GdUnit4 session hooks.")
 	var hooks_resource_paths := GdUnitSettings.get_session_hooks()
+	if not hooks_resource_paths.is_empty():
+		GdUnitSignals.instance().gdunit_message.emit("Installing GdUnit4 session hooks.")
 	for hock_path in hooks_resource_paths:
 		var result := load_hook(hock_path)
 		if result.is_error():
