@@ -45,7 +45,7 @@ static func build_puzzle_node(opts: Dictionary) -> DotHopPuzzle:
 	node.puzzle_num = puzz_num
 	return node
 
-# i need 27 unit tests for this mofo
+# i need 307 unit tests for this mofo
 static func rebuild_puzzle(opts: Dictionary = {}) -> DotHopPuzzle:
 	var puzz_num: int = opts.get("puzzle_num", -1)
 	var puzzle_node: DotHopPuzzle = opts.get("puzzle_node")
