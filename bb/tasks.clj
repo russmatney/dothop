@@ -7,8 +7,17 @@
    [clojure.string :as string]))
 
 (require '[babashka.pods :as pods])
-(pods/load-pod 'org.babashka/filewatcher "0.0.1")
-(require '[pod.babashka.filewatcher :as fw])
+
+(defn- load-filewatcher!
+  "Loads the filewatcher pod on demand and returns its `watch` fn.
+
+  Kept lazy so unrelated tasks (e.g. `bb tasks`) don't force-load the pod.
+  The pod ships a generic dynamically-linked binary that fails to exec on
+  hosts without a standard dynamic loader (e.g. NixOS without nix-ld), so
+  `watch` prefers `watchexec` when it is available."
+  []
+  (pods/load-pod 'org.babashka/filewatcher "0.0.1")
+  (requiring-resolve 'pod.babashka.filewatcher/watch))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; helpers
@@ -156,22 +165,67 @@
   (process-aseprite-files args)
   (println "--finished (all)--"))
 
+(defn- aseprite-change? [path]
+  (and (ext-match? path "aseprite")
+       (not (re-seq #"_sheet" path))))
+
+(defn watchexec-changed-paths
+  "Reconstructs the absolute paths watchexec reported via its environment-mode
+  event vars. Each `WATCHEXEC_*_PATH` var holds newline-separated entries that
+  share the prefix in `WATCHEXEC_COMMON_PATH`."
+  []
+  (let [common (or (System/getenv "WATCHEXEC_COMMON_PATH") "")]
+    (->> ["WATCHEXEC_CREATED_PATH"
+          "WATCHEXEC_WRITTEN_PATH"
+          "WATCHEXEC_RENAMED_PATH"
+          "WATCHEXEC_META_CHANGED_PATH"]
+         (keep #(System/getenv %))
+         (mapcat #(string/split % #"\n"))
+         (remove string/blank?)
+         (map #(str common %))
+         distinct)))
+
 #_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
-(defn watch
-  "Defaults to watching the current working directory."
-  [& _args]
+(defn export-changed
+  "watchexec entry point: re-exports just the `.aseprite` files that changed."
+  [& _]
+  (doseq [path (watchexec-changed-paths)]
+    (if (aseprite-change? path)
+      (do (println "Change event for" path "[bb] Processing.")
+          (export-pixels-sheet path))
+      (println "Change event for" path "[bb] Ignoring."))))
+
+(defn- watch-via-watchexec []
+  (println "Watching .aseprite files via watchexec…")
+  (bb.tasks/shell
+    "watchexec --exts aseprite --emit-events-to=environment -- bb -x tasks/export-changed"))
+
+(defn- watch-via-pod []
+  (println "Watching .aseprite files via filewatcher pod…")
   (-> (Runtime/getRuntime)
       (.addShutdownHook (Thread. #(println "\nShut down watcher."))))
-  (fw/watch (cwd) (fn [event]
-                    (let [ext (-> event :path fs/extension)]
-                      (when (#{"aseprite"} ext)
-                        (if (re-seq #"_sheet" (:path event))
-                          (println "Change event for" (:path event) "[bb] Ignoring.")
-                          (do
-                            (println "Change event for" (:path event) "[bb] Processing.")
-                            (export-pixels-sheet (:path event)))))))
-            {:delay-ms 100})
+  ((load-filewatcher!)
+   (cwd)
+   (fn [event]
+     (let [path (:path event)]
+       (if (aseprite-change? path)
+         (do (println "Change event for" path "[bb] Processing.")
+             (export-pixels-sheet path))
+         (println "Change event for" path "[bb] Ignoring."))))
+   {:delay-ms 100})
   @(promise))
+
+#_{:clj-kondo/ignore [:clojure-lsp/unused-public-var]}
+(defn watch
+  "Watches `.aseprite` files and re-exports sprite sheets on change.
+
+  Uses `watchexec` when it is on PATH (the flake dev shell provides it, which
+  propagates through lorri/direnv), and otherwise falls back to the babashka
+  filewatcher pod."
+  [& _args]
+  (if (fs/which "watchexec")
+    (watch-via-watchexec)
+    (watch-via-pod)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Build
